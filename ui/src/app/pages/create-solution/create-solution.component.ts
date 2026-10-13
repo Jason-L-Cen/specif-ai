@@ -35,6 +35,10 @@ import { CustomAccordionComponent } from '../../components/custom-accordion/cust
 import { McpIntegrationConfiguratorComponent } from '../../components/mcp-integration-configurator/mcp-integration-configurator.component';
 import { WorkflowProgressService } from '../../services/workflow-progress/workflow-progress.service';
 import { ProjectCreationService } from '../../services/project-creation/project-creation.service';
+import { AppSelectComponent } from '../../components/core/app-select/app-select.component';
+import {
+  TechnicalStack, TECHNICAL_STACK_FIELDS, getTechnicalStackOptions, describeTechnicalStack,
+} from '../../constants/technical-stack.constants';
 
 @Component({
   selector: 'app-create-solution',
@@ -52,12 +56,22 @@ import { ProjectCreationService } from '../../services/project-creation/project-
     ToggleComponent,
     AppSliderComponent,
     CustomAccordionComponent,
-    McpIntegrationConfiguratorComponent
+    McpIntegrationConfiguratorComponent,
+    AppSelectComponent,
   ],
   viewProviders: [provideIcons({ heroChevronDown })],
 })
 export class CreateSolutionComponent implements OnInit {
   solutionForm!: FormGroup;
+  technicalDetailsMode: 'guided' | 'custom' = 'guided';
+  private customTechnicalDetails = '';
+  readonly technicalStackForm = new FormGroup({
+    architecture: new FormControl('', { nonNullable: true, validators: Validators.required }),
+    language: new FormControl('', { nonNullable: true, validators: Validators.required }),
+    framework: new FormControl('', { nonNullable: true, validators: Validators.required }),
+    frontend: new FormControl('', { nonNullable: true, validators: Validators.required }),
+    database: new FormControl('', { nonNullable: true, validators: Validators.required }),
+  });
   loading: boolean = false;
   addOrUpdate: boolean = false;
   
@@ -73,6 +87,8 @@ export class CreateSolutionComponent implements OnInit {
 
   ngOnInit() {
     this.solutionForm = this.createSolutionForm();
+    this.technicalStackForm.valueChanges.subscribe(() => this.syncTechnicalDetails());
+    this.syncTechnicalDetails();
     this.store.dispatch(
       new AddBreadcrumbs([
         {
@@ -85,6 +101,40 @@ export class CreateSolutionComponent implements OnInit {
 
   showGenerationPreferencesTab(): boolean {
     return !this.solutionForm.get('cleanSolution')?.value;
+  }
+
+  getTechnicalOptions(field: keyof TechnicalStack) {
+    return getTechnicalStackOptions(field, this.technicalStackForm.getRawValue());
+  }
+
+  setTechnicalDetailsMode(mode: 'guided' | 'custom') {
+    if (mode === this.technicalDetailsMode) return;
+    const details = this.solutionForm.get('technicalDetails')!;
+    if (this.technicalDetailsMode === 'custom') this.customTechnicalDetails = details.value;
+    this.technicalDetailsMode = mode;
+    if (mode === 'custom') details.setValue(this.customTechnicalDetails);
+    else this.syncTechnicalDetails();
+    details.markAsDirty();
+    details.markAsUntouched();
+  }
+
+  private syncTechnicalDetails() {
+    for (const field of TECHNICAL_STACK_FIELDS) {
+      const control = this.technicalStackForm.controls[field];
+      const options = this.getTechnicalOptions(field);
+      if (!options.some(option => option.value === control.value)) {
+        control.setValue(options.length === 1 ? options[0].value : '', { emitEvent: false });
+      }
+      if (options.length) control.enable({ emitEvent: false });
+      else control.disable({ emitEvent: false });
+    }
+    if (this.technicalDetailsMode !== 'guided') return;
+    const stack = this.technicalStackForm.getRawValue();
+    const complete = TECHNICAL_STACK_FIELDS.every(field => !!stack[field]);
+    const details = this.solutionForm.get('technicalDetails')!;
+    details.setValue(complete ? describeTechnicalStack(stack) : '', { emitEvent: false });
+    if (this.technicalStackForm.dirty) details.markAsDirty();
+    if (this.technicalStackForm.touched) details.markAsTouched();
   }
 
   private initRequirementGroup(enabled: boolean = true, minCount: number = REQUIREMENT_COUNT.DEFAULT) {
@@ -214,7 +264,7 @@ export class CreateSolutionComponent implements OnInit {
   }
 
   get isTechnicalDetailsRequiredError(): boolean {
-    return 'required' in this.solutionForm?.get('technicalDetails')?.errors!;
+    return this.solutionForm?.get('technicalDetails')?.hasError('required') ?? false;
   }
 
   canDeactivate(): boolean {

@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/app/pages/create-solution/technical-stack.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}

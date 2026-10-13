@@ -16,24 +16,27 @@
         [placeholder]="placeholder"
         [disabled]="disabled"
         [required]="required"
+        [attr.aria-label]="label || placeholder"
         class="h-10 block w-full px-3 pr-10 border border-secondary-300 text-secondary-900 text-sm rounded-lg focus-visible:ring-1 focus-visible:ring-primary-500 focus-visible:border-primary-500 disabled:bg-secondary-100 focus-visible:outline-none cursor-text"
         autocomplete="off"
       />
     </ng-container>
 
     <ng-template #regularSelect>
-      <div
-        (click)="toggleDropdown()"
-        class="h-10 flex items-center w-full px-3 pr-10 border border-secondary-300 text-secondary-900 text-sm rounded-lg focus-visible:ring-1 focus-visible:ring-primary-500 focus-visible:border-primary-500 disabled:bg-secondary-100 focus-visible:outline-none cursor-pointer"
-        [class.bg-secondary-100]="disabled"
-        [class.cursor-not-allowed]="disabled"
+      <select
+        (change)="onSelectChange($event)"
+        (blur)="onBlur()"
+        [disabled]="disabled" [required]="required" [attr.aria-label]="label || placeholder"
+        class="h-10 block w-full appearance-none px-3 pr-10 border border-secondary-300 text-secondary-900 text-sm rounded-lg focus-visible:ring-1 focus-visible:ring-primary-500 focus-visible:border-primary-500 disabled:bg-secondary-100 disabled:cursor-not-allowed focus-visible:outline-none cursor-pointer"
       >
-        {{ selectedOption?.label || placeholder }}
-      </div>
+        <option value="" disabled [selected]="!selectedOption">{{ placeholder }}</option>
+        <option *ngFor="let option of options" [value]="option.value" [selected]="selectedOption?.value === option.value">{{ option.label }}</option>
+      </select>
     </ng-template>
 
     <!-- Cross Button -->
     <button
+      type="button" aria-label="清除选择"
       *ngIf="clearable && selectedOption"
       (click)="clear($event)"
       class="pointer-events-auto absolute inset-y-0 right-8 flex items-center pr-2 cursor-pointer"
@@ -61,7 +64,7 @@
 
   <!-- Dropdown Options -->
   <div
-    *ngIf="showDropdown && filteredOptions.length > 0"
+    *ngIf="searchable && showDropdown && filteredOptions.length > 0"
     class="absolute z-50 w-full mt-1 bg-white border border-secondary-200 rounded-lg shadow-lg max-h-60 overflow-auto"
     [class]="dropdownClass"
   >

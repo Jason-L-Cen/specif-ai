@@ -1,8 +1,20 @@
 # Specifai 中文版与 DeepSeek
 
-本分支基于上游发布标签 `v2.8.2`，本地版本为 `2.8.2-zh.1`。
+本分支基于上游发布标签 `v2.8.2`，本地版本为 `2.8.2-zh.2`。
 界面、桌面菜单、提示、表单、导出字段、工作流进度与默认 AI 自然语言输出使用简体中文。
 模型 ID、协议字段、状态值、品牌名称和既有用户内容保持原格式。
+
+## 技术栈填写
+
+创建解决方案时，“技术细节”提供两个单选模式：
+
+- **选择技术栈**：按应用架构、开发语言、应用框架、前端/界面和数据库联动选择，自动生成技术说明。提供 B/S Web、C/S 桌面、移动 App 和后端/API 四类；上级变更时清除不适用的下级选择。
+- **自定义输入**：保留原有文本输入框，可填写其他技术组合。两种模式切换时保留自定义草稿与选择状态。
+
+桌面/移动框架自动采用其界面组件，API 服务自动采用“无前端”，数据库可选择“不使用数据库”。
+技术说明继续保存到原有 `technicalDetails` 字符串，供后续需求、任务和测试用例生成使用。
+表单测试：`cd ui && npm run test:tech-stack`（需要 Chrome）。
+下拉选项列出常见技术组合，可参考 [Spring Boot Web](https://docs.spring.io/spring-boot/reference/web/index.html)、[Qt for Python](https://doc.qt.io/qtforpython-6/index.html)、[Flutter](https://docs.flutter.dev/reference/supported-platforms) 与 [Electron](https://www.electronjs.org/docs/latest)。
 
 ## DeepSeek
 

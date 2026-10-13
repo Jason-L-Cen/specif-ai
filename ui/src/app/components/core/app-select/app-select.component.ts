@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, HostListener, OnChanges } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -23,7 +23,7 @@ export interface SelectOption {
     }
   ]
 })
-export class AppSelectComponent implements ControlValueAccessor {
+export class AppSelectComponent implements ControlValueAccessor, OnChanges {
   @Input() options: SelectOption[] = [];
   @Input() placeholder: string = '请选择';
   @Input() required: boolean = false;
@@ -43,6 +43,7 @@ export class AppSelectComponent implements ControlValueAccessor {
   selectedOption: SelectOption | null = null;
   searchText: string = '';
   touched: boolean = false;
+  private value: any = null;
 
   private onChange: any = () => {};
   private onTouched: any = () => {};
@@ -59,10 +60,15 @@ export class AppSelectComponent implements ControlValueAccessor {
     this.filteredOptions = this.options;
   }
 
+  ngOnChanges(): void {
+    this.writeValue(this.value);
+  }
+
   writeValue(value: any): void {
+    this.value = value;
     if (value) {
       this.selectedOption = this.options.find(opt => opt.value === value) || null;
-      this.searchText = this.selectedOption?.label || '';
+      this.searchText = this.selectedOption?.label || (this.searchable && typeof value === 'string' ? value : '');
     } else {
       this.selectedOption = null;
       this.searchText = '';
@@ -98,6 +104,7 @@ export class AppSelectComponent implements ControlValueAccessor {
   onInputChange(event: Event): void {
     const input = (event.target as HTMLInputElement).value;
     this.searchText = input;
+    this.value = input;
     this.filterOptions();
     this.showDropdown = true;
     
@@ -111,16 +118,33 @@ export class AppSelectComponent implements ControlValueAccessor {
   }
 
   selectOption(option: SelectOption): void {
+    this.value = option.value;
     this.selectedOption = option;
     this.searchText = option.label;
     this.showDropdown = false;
     this.onChange(option.value);
     this.selectionChange.emit(option.value);
+    if (!this.touched) {
+      this.touched = true;
+      this.onTouched();
+    }
+  }
+
+  onSelectChange(event: Event): void {
+    const value = (event.target as HTMLSelectElement).value;
+    const option = this.options.find(item => item.value === value);
+    if (option) this.selectOption(option);
+  }
+
+  onBlur(): void {
+    this.touched = true;
+    this.onTouched();
   }
 
   clear(event: Event): void {
     event.stopPropagation();
     this.selectedOption = null;
+    this.value = null;
     this.searchText = '';
     this.onChange(null);
     this.selectionChange.emit(null);
