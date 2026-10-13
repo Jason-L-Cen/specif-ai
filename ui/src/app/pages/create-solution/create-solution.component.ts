@@ -14,7 +14,8 @@ import { DialogService } from '../../services/dialog/dialog.service';
 import { AppSystemService } from '../../services/app-system/app-system.service';
 import { ElectronService } from '../../electron-bridge/electron.service';
 import { ToasterService } from '../../services/toaster/toaster.service';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
+import { MatMenuModule } from '@angular/material/menu';
 import { NgxLoadingModule } from 'ngx-loading';
 import { AppSliderComponent } from '../../components/core/slider/slider.component';
 import { ButtonComponent } from '../../components/core/button/button.component';
@@ -35,7 +36,6 @@ import { CustomAccordionComponent } from '../../components/custom-accordion/cust
 import { McpIntegrationConfiguratorComponent } from '../../components/mcp-integration-configurator/mcp-integration-configurator.component';
 import { WorkflowProgressService } from '../../services/workflow-progress/workflow-progress.service';
 import { ProjectCreationService } from '../../services/project-creation/project-creation.service';
-import { AppSelectComponent } from '../../components/core/app-select/app-select.component';
 import {
   TechnicalStack, TECHNICAL_STACK_FIELDS, getTechnicalStackOptions, describeTechnicalStack,
 } from '../../constants/technical-stack.constants';
@@ -47,6 +47,8 @@ import {
   standalone: true,
   imports: [
     NgIf,
+    NgFor,
+    MatMenuModule,
     ReactiveFormsModule,
     NgxLoadingModule,
     ButtonComponent,
@@ -57,14 +59,15 @@ import {
     AppSliderComponent,
     CustomAccordionComponent,
     McpIntegrationConfiguratorComponent,
-    AppSelectComponent,
   ],
   viewProviders: [provideIcons({ heroChevronDown })],
 })
 export class CreateSolutionComponent implements OnInit {
   solutionForm!: FormGroup;
-  technicalDetailsMode: 'guided' | 'custom' = 'guided';
-  private customTechnicalDetails = '';
+  technicalDetailsMode: 'guided' | 'custom' | 'none' = 'guided';
+  readonly customTechnicalDetails = new FormControl({ value: '', disabled: true }, {
+    nonNullable: true, validators: [Validators.required, Validators.pattern(/\S/)],
+  });
   readonly technicalStackForm = new FormGroup({
     architecture: new FormControl('', { nonNullable: true, validators: Validators.required }),
     language: new FormControl('', { nonNullable: true, validators: Validators.required }),
@@ -88,6 +91,13 @@ export class CreateSolutionComponent implements OnInit {
   ngOnInit() {
     this.solutionForm = this.createSolutionForm();
     this.technicalStackForm.valueChanges.subscribe(() => this.syncTechnicalDetails());
+    this.customTechnicalDetails.valueChanges.subscribe(value => {
+      if (this.technicalDetailsMode !== 'custom') return;
+      const details = this.solutionForm.get('technicalDetails')!;
+      details.setValue(value);
+      details.markAsDirty();
+      details.markAsTouched();
+    });
     this.syncTechnicalDetails();
     this.store.dispatch(
       new AddBreadcrumbs([
@@ -103,16 +113,43 @@ export class CreateSolutionComponent implements OnInit {
     return !this.solutionForm.get('cleanSolution')?.value;
   }
 
-  getTechnicalOptions(field: keyof TechnicalStack) {
-    return getTechnicalStackOptions(field, this.technicalStackForm.getRawValue());
+  getTechnicalOptions(field: keyof TechnicalStack, stack = this.technicalStackForm.getRawValue()) {
+    return getTechnicalStackOptions(field, stack);
   }
 
-  setTechnicalDetailsMode(mode: 'guided' | 'custom') {
+  trackTechnicalOption = (_: number, option: { value: string }) => option.value;
+
+  nextTechnicalStack(field: keyof TechnicalStack, value: string, stack: TechnicalStack = {
+    architecture: '', language: '', framework: '', frontend: '', database: '',
+  }): TechnicalStack {
+    const next = { ...stack, [field]: value };
+    for (const child of TECHNICAL_STACK_FIELDS.slice(TECHNICAL_STACK_FIELDS.indexOf(field) + 1)) next[child] = '';
+    return next;
+  }
+
+  selectTechnicalStack(stack: TechnicalStack) {
+    this.technicalStackForm.markAsDirty();
+    this.technicalStackForm.markAllAsTouched();
+    this.technicalStackForm.patchValue(stack);
+  }
+
+  get technicalStackLabel(): string {
+    const stack = this.technicalStackForm.getRawValue();
+    if (!TECHNICAL_STACK_FIELDS.every(field => !!stack[field])) return '';
+    return TECHNICAL_STACK_FIELDS.map(field => this.getTechnicalOptions(field, stack)
+      .find(option => option.value === stack[field])?.label).join(' / ');
+  }
+
+  setTechnicalDetailsMode(mode: 'guided' | 'custom' | 'none') {
     if (mode === this.technicalDetailsMode) return;
     const details = this.solutionForm.get('technicalDetails')!;
-    if (this.technicalDetailsMode === 'custom') this.customTechnicalDetails = details.value;
+    if (this.technicalDetailsMode === 'custom') this.customTechnicalDetails.setValue(details.value, { emitEvent: false });
     this.technicalDetailsMode = mode;
-    if (mode === 'custom') details.setValue(this.customTechnicalDetails);
+    if (mode === 'custom') {
+      this.customTechnicalDetails.enable({ emitEvent: false });
+      details.setValue(this.customTechnicalDetails.value);
+    } else this.customTechnicalDetails.disable({ emitEvent: false });
+    if (mode === 'none') details.setValue('暂时没有技术栈。技术选型尚未确定，请先聚焦业务需求，不要假定具体开发语言、框架、前端或数据库。');
     else this.syncTechnicalDetails();
     details.markAsDirty();
     details.markAsUntouched();

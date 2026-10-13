@@ -1,4 +1,10 @@
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { MatMenuHarness } from '@angular/material/menu/testing';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { McpIntegrationConfiguratorComponent } from '../../components/mcp-integration-configurator/mcp-integration-configurator.component';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { NGXLogger } from 'ngx-logger';
@@ -12,6 +18,17 @@ import { ProjectCreationService } from '../../services/project-creation/project-
 import { AppSelectComponent } from '../../components/core/app-select/app-select.component';
 import { APP_CONSTANTS } from '../../constants/app.constants';
 import { TechnicalStack, getTechnicalStackOptions, describeTechnicalStack } from '../../constants/technical-stack.constants';
+import { of } from 'rxjs';
+
+@Component({
+  selector: 'app-mcp-integration-configurator', template: '', standalone: true,
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: McpSettingsStub, multi: true }],
+})
+class McpSettingsStub implements ControlValueAccessor {
+  writeValue() {}
+  registerOnChange() {}
+  registerOnTouched() {}
+}
 
 describe('技术栈选项目录', () => {
   it('每个可选架构、语言和框架都能形成有明确标签的完整技术说明', () => {
@@ -48,7 +65,7 @@ describe('技术细节填写与提交', () => {
     createProject = jasmine.createSpy('createProject').and.returnValue(Promise.resolve());
     TestBed.configureTestingModule({ providers: [
       { provide: NGXLogger, useValue: {} }, { provide: Router, useValue: {} },
-      { provide: Store, useValue: { dispatch: () => {} } },
+      { provide: Store, useValue: { dispatch: () => {}, select: () => of({}) } },
       { provide: AppSystemService, useValue: { fileExists: async () => true } },
       { provide: ElectronService, useValue: {} }, { provide: ToasterService, useValue: {} },
       { provide: DialogService, useValue: {} }, { provide: WorkflowProgressService, useValue: {} },
@@ -137,15 +154,53 @@ describe('技术细节填写与提交', () => {
     component.setTechnicalDetailsMode('custom');
     expect(component.isCreateSolutionDisabled).toBeTrue();
     const custom = '自定义：Python + FastAPI + Redis，采用内部约定的应用架构。';
-    component.solutionForm.get('technicalDetails')?.setValue(custom);
+    component.customTechnicalDetails.setValue(custom);
     component.setTechnicalDetailsMode('guided');
     expect(component.solutionForm.get('technicalDetails')?.value).toContain('Spring Boot');
     component.setTechnicalDetailsMode('custom');
     expect(component.solutionForm.get('technicalDetails')?.value).toBe(custom);
     await component.createSolution();
     expect(createProject.calls.mostRecent().args[0].projectData.technicalDetails).toBe(custom);
-    component.solutionForm.get('technicalDetails')?.setValue('  ');
+    component.customTechnicalDetails.setValue('  ');
     expect(component.isCreateSolutionDisabled).toBeTrue();
+  });
+
+  it('None 无需技术选项即可提交，并保留另外两种模式的草稿', async () => {
+    component.setTechnicalDetailsMode('none');
+    expect(component.isCreateSolutionDisabled).toBeFalse();
+    await component.createSolution();
+    const data = createProject.calls.mostRecent().args[0].projectData;
+    expect(data.technicalDetails).toContain('技术选型尚未确定');
+    expect(data.technicalDetails).toContain('不要假定');
+    component.setTechnicalDetailsMode('guided');
+    expect(component.isCreateSolutionDisabled).toBeTrue();
+    chooseWebStack();
+    component.setTechnicalDetailsMode('custom');
+    component.customTechnicalDetails.setValue('Python + FastAPI');
+    component.setTechnicalDetailsMode('none');
+    expect(component.customTechnicalDetails.disabled).toBeTrue();
+    component.setTechnicalDetailsMode('guided');
+    expect(component.technicalStackLabel).toContain('Spring Boot');
+    component.setTechnicalDetailsMode('custom');
+    expect(component.customTechnicalDetails.enabled).toBeTrue();
+    expect(component.solutionForm.get('technicalDetails')?.value).toBe('Python + FastAPI');
+  });
+
+  it('级联菜单浏览候选不修改已有选择，选中完整路径后才提交', () => {
+    chooseWebStack();
+    const original = component.solutionForm.get('technicalDetails')?.value;
+    let candidate = component.nextTechnicalStack('architecture', 'mobile');
+    candidate = component.nextTechnicalStack('language', 'dart', candidate);
+    expect(component.getTechnicalOptions('framework', candidate).map(option => option.value)).toEqual(['flutter']);
+    expect(component.solutionForm.get('technicalDetails')?.value).toBe(original);
+    candidate = component.nextTechnicalStack('framework', 'flutter', candidate);
+    candidate = component.nextTechnicalStack('frontend', 'native', candidate);
+    candidate = component.nextTechnicalStack('database', 'sqlite', candidate);
+    component.selectTechnicalStack(candidate);
+    expect(component.technicalStackLabel).toContain('Flutter');
+    expect(component.solutionForm.get('technicalDetails')?.value).toContain('本地数据库：SQLite');
+    expect(component.solutionForm.get('technicalDetails')?.dirty).toBeTrue();
+    expect(component.solutionForm.get('technicalDetails')?.touched).toBeTrue();
   });
 
   it('不接受不在当前选项中的技术值', () => {
@@ -153,6 +208,50 @@ describe('技术细节填写与提交', () => {
     component.technicalStackForm.controls.framework.setValue('not-a-framework');
     expect(component.technicalStackForm.controls.framework.value).toBe('');
     expect(component.isCreateSolutionDisabled).toBeTrue();
+  });
+});
+
+describe('级联菜单与输入框交互', () => {
+  it('真实模板逐级展示相容选项，取消不改变选择，最终选择关闭菜单', async () => {
+    // Only the unrelated MCP configurator is omitted; the shipped form and menus are rendered.
+    TestBed.configureTestingModule({ imports: [CreateSolutionComponent, NoopAnimationsModule], providers: [
+      { provide: NGXLogger, useValue: {} }, { provide: Router, useValue: {} },
+      { provide: Store, useValue: { dispatch: () => {}, select: () => of({}) } },
+      { provide: AppSystemService, useValue: {} }, { provide: ElectronService, useValue: {} },
+      { provide: ToasterService, useValue: {} }, { provide: DialogService, useValue: {} },
+      { provide: WorkflowProgressService, useValue: {} }, { provide: ProjectCreationService, useValue: {} },
+    ] });
+    TestBed.overrideComponent(CreateSolutionComponent, {
+      remove: { imports: [McpIntegrationConfiguratorComponent] },
+      add: { imports: [McpSettingsStub] },
+    });
+    const fixture = TestBed.createComponent(CreateSolutionComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    const menu = await TestbedHarnessEnvironment.loader(fixture).getHarness(MatMenuHarness.with({ selector: '#technical-stack-selector' }));
+    await menu.open();
+    const architecture = (await menu.getItems({ text: '移动 App' }))[0];
+    await architecture.click();
+    const languages = (await architecture.getSubmenu())!;
+    expect((await languages.getItems()).length).toBeGreaterThan(0);
+    await menu.close();
+    expect(component.technicalStackLabel).toBe('');
+    await menu.clickItem({ text: '移动 App' }, { text: 'Dart' }, { text: 'Flutter' }, { text: /框架界面/ }, { text: 'SQLite' });
+    expect(component.technicalStackLabel).toContain('Flutter');
+    expect(await menu.isOpen()).toBeFalse();
+    const textarea: HTMLTextAreaElement = fixture.nativeElement.querySelector('#technical-details');
+    expect(textarea.disabled).toBeTrue();
+    expect(textarea.getAttribute('aria-label')).toBe('技术细节');
+    fixture.nativeElement.querySelector('input[value="custom"]').click();
+    fixture.detectChanges();
+    expect(textarea.disabled).toBeFalse();
+    textarea.value = '自定义技术方案';
+    textarea.dispatchEvent(new Event('input'));
+    expect(component.solutionForm.get('technicalDetails')?.value).toBe('自定义技术方案');
+    fixture.nativeElement.querySelector('input[value="none"]').click();
+    fixture.detectChanges();
+    expect(textarea.disabled).toBeTrue();
+    expect(await menu.isDisabled()).toBeTrue();
   });
 });
 

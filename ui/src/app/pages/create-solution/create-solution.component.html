@@ -82,90 +82,94 @@
         <div>
           <label
             class="block text-sm font-medium leading-6 text-secondary-900 sm:pt-1.5"
-            >技术细节<span class="text-danger-500 text-xs">
+            >技术细节<span *ngIf="technicalDetailsMode !== 'none'" class="text-danger-500 text-xs">
               *</span
             ></label
           >
           <p class="text-xs leading-6 text-muted-foreground">
-            选择常用技术组合，或自行描述应用的技术栈
+            选择技术栈、自行填写，或暂不设定
           </p>
         </div>
         <div class="mt-2 sm:col-span-2 sm:mt-0">
-          <fieldset class="mb-4 grid gap-3 sm:grid-cols-2">
+          <fieldset class="space-y-3">
             <legend class="sr-only">技术细节填写方式</legend>
-            <label class="flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 text-sm"
-              [class.border-secondary-200]="technicalDetailsMode !== 'guided'"
-              [class.border-primary-500]="technicalDetailsMode === 'guided'"
-              [class.bg-primary-50]="technicalDetailsMode === 'guided'">
-              <input type="radio" name="technical-details-mode" value="guided"
-                [checked]="technicalDetailsMode === 'guided'" (change)="setTechnicalDetailsMode('guided')"
-                aria-controls="technical-stack-selectors" class="h-4 w-4 accent-primary-600 focus-visible:ring-2 focus-visible:ring-primary-500" />
-              <span>选择技术栈</span>
-            </label>
-            <label class="flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 text-sm"
-              [class.border-secondary-200]="technicalDetailsMode !== 'custom'"
-              [class.border-primary-500]="technicalDetailsMode === 'custom'"
-              [class.bg-primary-50]="technicalDetailsMode === 'custom'">
-              <input type="radio" name="technical-details-mode" value="custom"
-                [checked]="technicalDetailsMode === 'custom'" (change)="setTechnicalDetailsMode('custom')"
-                aria-controls="technical-details" class="h-4 w-4 accent-primary-600 focus-visible:ring-2 focus-visible:ring-primary-500" />
-              <span>自定义输入</span>
+            <div class="grid grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-3">
+              <label class="flex cursor-pointer items-center gap-2 text-sm text-secondary-900">
+                <input type="radio" name="technical-details-mode" value="guided"
+                  [checked]="technicalDetailsMode === 'guided'" (change)="setTechnicalDetailsMode('guided')"
+                  aria-controls="technical-stack-selector" class="h-4 w-4 accent-primary-600" />
+                选择技术栈
+              </label>
+              <div>
+                <button type="button" id="technical-stack-selector" [matMenuTriggerFor]="architectureMenu"
+                  [disabled]="technicalDetailsMode !== 'guided'" [title]="technicalStackLabel"
+                  class="flex min-h-[44px] w-full items-center justify-between gap-2 rounded-lg border border-secondary-200 bg-white px-3 py-2.5 text-left text-sm text-secondary-900 disabled:bg-secondary-100 disabled:text-secondary-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-500">
+                  <span class="truncate" [class.text-secondary-400]="!technicalStackLabel">{{ technicalStackLabel || '请选择：架构 → 语言 → 框架 → 前端 → 数据库' }}</span>
+                  <span aria-hidden="true" class="text-secondary-400">▾</span>
+                </button>
+                <app-error-message *ngIf="technicalDetailsMode === 'guided'" [errorControl]="solutionForm.get('technicalDetails')" />
+              </div>
+            </div>
+            <div class="grid grid-cols-[6.5rem_minmax(0,1fr)] items-start gap-3">
+              <label class="flex cursor-pointer items-center gap-2 pt-4 text-sm text-secondary-900">
+                <input type="radio" name="technical-details-mode" value="custom"
+                  [checked]="technicalDetailsMode === 'custom'" (change)="setTechnicalDetailsMode('custom')"
+                  aria-controls="technical-details" class="h-4 w-4 accent-primary-600" />
+                自定义输入
+              </label>
+              <div>
+                <app-textarea-field [formControl]="customTechnicalDetails" elementId="technical-details"
+                  elementName="技术细节" elementPlaceHolder="自行描述应用的技术栈"
+                  [showLabel]="false" [rows]="3" [required]="technicalDetailsMode === 'custom'" />
+                <app-error-message *ngIf="technicalDetailsMode === 'custom'" [errorControl]="customTechnicalDetails" />
+              </div>
+            </div>
+            <label class="flex w-fit cursor-pointer items-center gap-2 text-sm text-secondary-900">
+              <input type="radio" name="technical-details-mode" value="none"
+                [checked]="technicalDetailsMode === 'none'" (change)="setTechnicalDetailsMode('none')"
+                class="h-4 w-4 accent-primary-600" />
+              None（暂时没有技术栈）
             </label>
           </fieldset>
 
-          <div *ngIf="technicalDetailsMode === 'guided'" id="technical-stack-selectors" [formGroup]="technicalStackForm">
-            <div class="grid gap-4 sm:grid-cols-2">
-              <div>
-                <app-select formControlName="architecture" label="应用架构" placeholder="请选择应用架构"
-                  [options]="getTechnicalOptions('architecture')" [required]="true" [showRequiredIndicator]="true" />
-                <app-error-message [errorControl]="technicalStackForm.controls.architecture" />
-              </div>
-              <div>
-                <app-select formControlName="language" label="开发语言"
-                  [placeholder]="technicalStackForm.controls.language.disabled ? '先选择应用架构' : '请选择开发语言'"
-                  [options]="getTechnicalOptions('language')" [required]="true" [showRequiredIndicator]="true" />
-                <app-error-message [errorControl]="technicalStackForm.controls.language" />
-              </div>
-              <div>
-                <app-select formControlName="framework" label="应用框架"
-                  [placeholder]="technicalStackForm.controls.framework.disabled ? '先选择开发语言' : '请选择应用框架'"
-                  [options]="getTechnicalOptions('framework')" [required]="true" [showRequiredIndicator]="true" />
-                <app-error-message [errorControl]="technicalStackForm.controls.framework" />
-              </div>
-              <div>
-                <app-select formControlName="frontend" label="前端 / 界面"
-                  [placeholder]="technicalStackForm.controls.frontend.disabled ? '先选择应用框架' : '请选择前端 / 界面'"
-                  [options]="getTechnicalOptions('frontend')" [required]="true" [showRequiredIndicator]="true" />
-                <app-error-message [errorControl]="technicalStackForm.controls.frontend" />
-              </div>
-              <div>
-                <app-select formControlName="database" [label]="technicalStackForm.controls.architecture.value === 'mobile' ? '本地数据库' : '数据库'"
-                  [placeholder]="technicalStackForm.controls.database.disabled ? '先选择应用框架' : '请选择数据库'"
-                  [options]="getTechnicalOptions('database')"
-                  [required]="true" [showRequiredIndicator]="true" />
-                <app-error-message [errorControl]="technicalStackForm.controls.database" />
-              </div>
-            </div>
-            <p class="mt-3 text-xs leading-5 text-muted-foreground">上级选项改变后，不适用的选项会清空。其他技术组合可通过“自定义输入”填写。</p>
-            <div *ngIf="solutionForm.get('technicalDetails')?.value" class="mt-4 rounded-lg border border-secondary-200 bg-secondary-50 p-3">
-              <p class="mb-1 text-sm font-medium text-secondary-900">技术栈预览</p>
-              <p class="whitespace-pre-line text-sm leading-6 text-secondary-700" role="status" aria-live="polite">{{ solutionForm.get('technicalDetails')?.value }}</p>
-            </div>
-          </div>
-
-          <app-textarea-field *ngIf="technicalDetailsMode === 'custom'"
-            formControlName="technicalDetails"
-            elementId="technical-details"
-            elementName="技术细节"
-            elementPlaceHolder="技术细节"
-            [showLabel]="false"
-            [rows]="4"
-            [required]="true"
-          />
-          <app-error-message
-            *ngIf="technicalDetailsMode === 'custom'"
-            [errorControl]="solutionForm.get('technicalDetails')"
-          />
+          <mat-menu #architectureMenu="matMenu" aria-label="应用架构">
+            <button type="button" mat-menu-item class="!pl-3 !pr-7" *ngFor="let option of getTechnicalOptions('architecture'); trackBy: trackTechnicalOption"
+              [matMenuTriggerFor]="languageMenu" [matMenuTriggerData]="{ stack: nextTechnicalStack('architecture', option.value) }">
+              <span class="text-sm">{{ option.label }}</span>
+            </button>
+          </mat-menu>
+          <mat-menu #languageMenu="matMenu" aria-label="开发语言">
+            <ng-template matMenuContent let-stack="stack">
+              <button type="button" mat-menu-item class="!pl-3 !pr-7" *ngFor="let option of getTechnicalOptions('language', stack); trackBy: trackTechnicalOption"
+                [matMenuTriggerFor]="frameworkMenu" [matMenuTriggerData]="{ stack: nextTechnicalStack('language', option.value, stack) }">
+                <span class="text-sm">{{ option.label }}</span>
+              </button>
+            </ng-template>
+          </mat-menu>
+          <mat-menu #frameworkMenu="matMenu" aria-label="应用框架">
+            <ng-template matMenuContent let-stack="stack">
+              <button type="button" mat-menu-item class="!pl-3 !pr-7" *ngFor="let option of getTechnicalOptions('framework', stack); trackBy: trackTechnicalOption"
+                [matMenuTriggerFor]="frontendMenu" [matMenuTriggerData]="{ stack: nextTechnicalStack('framework', option.value, stack) }">
+                <span class="text-sm">{{ option.label }}</span>
+              </button>
+            </ng-template>
+          </mat-menu>
+          <mat-menu #frontendMenu="matMenu" aria-label="前端或界面">
+            <ng-template matMenuContent let-stack="stack">
+              <button type="button" mat-menu-item class="!pl-3 !pr-7" *ngFor="let option of getTechnicalOptions('frontend', stack); trackBy: trackTechnicalOption" [title]="option.label"
+                [matMenuTriggerFor]="databaseMenu" [matMenuTriggerData]="{ stack: nextTechnicalStack('frontend', option.value, stack) }">
+                <span class="text-sm">{{ option.value === 'html' ? 'HTML / CSS / JS' : option.label.split('（')[0] }}</span>
+              </button>
+            </ng-template>
+          </mat-menu>
+          <mat-menu #databaseMenu="matMenu" aria-label="数据库">
+            <ng-template matMenuContent let-stack="stack">
+              <button type="button" mat-menu-item class="!px-3" *ngFor="let option of getTechnicalOptions('database', stack); trackBy: trackTechnicalOption"
+                (click)="selectTechnicalStack(nextTechnicalStack('database', option.value, stack))">
+                <span class="text-sm">{{ option.label }}</span>
+              </button>
+            </ng-template>
+          </mat-menu>
         </div>
       </div>
 
