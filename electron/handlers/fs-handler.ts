@@ -1,10 +1,8 @@
 import { ipcMain, dialog } from "electron";
 import { utilityFunctionMap } from "../file-system.utility";
 import fs from "fs";
-import { extractDocumentText } from "../document-text";
 
 export function setupFileSystemHandlers() {
-  ipcMain.handle('document:extractText', async (_event, input: unknown) => extractDocumentText(input));
   ipcMain.handle("dialog:openFile", async () => {
     const { canceled, filePaths } = await dialog.showOpenDialog({
       title: "打开文件",

@@ -552,14 +552,6 @@ export class ElectronService {
     }
   }
 
-  async extractDocumentText(name: string, data: Uint8Array): Promise<{ text?: string; error?: string }> {
-    if (!this.electronAPI) throw new Error('Electron 环境不可用');
-    return this.ipc.request({
-      channel: 'document:extractText', args: [{ name, data }],
-      skipLoading: true, skipWarning: true,
-    });
-  }
-
   async reloadApp() {
     if (this.electronAPI) {
       return await this.electronAPI.invoke('reloadApp', {});

@@ -1,20 +1,8 @@
 # Specifai 中文版与 DeepSeek
 
-本分支基于上游发布标签 `v2.8.2`，本地版本为 `2.8.2-zh.4`。
+本分支基于上游发布标签 `v2.8.2`，本地版本为 `2.8.2-zh.3`。
 界面、桌面菜单、提示、表单、导出字段、工作流进度与默认 AI 自然语言输出使用简体中文。
 模型 ID、协议字段、状态值、品牌名称和既有用户内容保持原格式。
-
-## 多文件解决方案描述
-
-创建解决方案时可在描述框下添加多份 DOCX、PDF、TXT、Markdown 文件。手写描述与附件正文可同时使用，也可仅通过附件提供描述；支持继续添加和逐份移除，移除附件不改写手写内容。
-原有 App 只在需求、用户故事和任务编辑中提供代码文件上传，创建页没有此功能。这里复用该上传组件并修正原有读取顺序和重选时残留旧内容的问题。
-
-正文在本地解析，连同来源文件名保存到原有 `description` 字符串，再传入已有创建及需求生成流程。上传时不调用 AI；创建时沿用已配置的模型。
-Word 复用已安装的 Mammoth；PDF 使用 [unpdf](https://github.com/unjs/unpdf) 和配套 [PDF.js](https://github.com/mozilla/pdf.js) 字符映射资源，包含中文字符映射。解析在独立工作线程完成，限制时间与堆内存；读取失败不覆盖已有文件和手写内容。
-
-最多 10 份，每份不超过 10 MB，附件合计正文不超过 20 万字符。只提取文字正文，不进行 OCR；扫描 PDF 请先识别文字。TXT/Markdown 支持 UTF-8 及带 BOM 的 UTF-16；旧 `.doc` 文件请转换为 `.docx`。
-文件资料中的指令不具有改变生成任务或工具权限的效力；生成提示要求保留来源文件名并指出资料冲突。
-检查：`cd ui && npm run test:solution-form`；`cd electron && npm run build && npm test`。测试包含真实中文 Word 和中英文 PDF 样本。
 
 ## 技术栈填写
 
@@ -40,8 +28,6 @@ Word 复用已安装的 Mammoth；PDF 使用 [unpdf](https://github.com/unjs/unp
 模型与接口依据：[DeepSeek 官方文档](https://api-docs.deepseek.com/quick_start/pricing/)、[思考模式与工具调用](https://api-docs.deepseek.com/guides/thinking_mode/)。
 
 ## 本地构建
-
-构建与后端检查需要 Node.js 22.13 或更新版本；桌面包内的 Electron 提供运行时。
 
 ```sh
 cd ui

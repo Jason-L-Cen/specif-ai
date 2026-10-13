@@ -1,24 +1,20 @@
-<div class="mt-2 flex flex-col gap-1.5">
+<div class="mt-4 inline-flex flex-col gap-1.5">
   <input
     type="file"
     (change)="onFileSelected($event)"
-    [accept]="documents ? documentAccept : codeAccept"
+    accept=".js,.ts,.tsx,.jsx.html,.css,.json,.xml,.py,.java,.c,.cpp,.cs,.php,.rb,.go,.swift"
     multiple
     #fileInput
     class="hidden"
   />
   <app-button
-    [buttonContent]="isReading ? '正在读取文件…' : documents ? '添加描述文件' : '上传代码文件'"
-    [disabled]="isReading"
+    buttonContent="上传代码文件"
     theme="secondary_outline"
     size="sm"
     rounded="md"
     icon="heroDocument"
     (click)="triggerFileInput()"
   />
-  <p *ngIf="documents" class="text-xs leading-5 text-muted-foreground">支持 DOCX、PDF、TXT、Markdown，可多选或继续添加，最多 10 份。每份不超过 10 MB，合计正文不超过 20 万字符。</p>
-  <p *ngIf="documents" class="text-xs leading-5 text-muted-foreground">文件中的文字正文会与手写描述一起使用；扫描 PDF 请先进行 OCR 文字识别。</p>
-  <p *ngIf="isReading" role="status" aria-live="polite" class="text-xs text-muted-foreground">正在提取正文，请稍候。</p>
   <div
     *ngIf="files.length > 0"
     class="mt-2 w-full divide-y divide-secondary-200 border border-secondary-200 rounded-md text-xs font-medium"
@@ -27,11 +23,9 @@
       <span *ngIf="files.length === 1">已选文件</span>
       <span *ngIf="files.length > 1">已选文件</span>
     </div>
-    <div *ngFor="let file of files; let index = index" class="p-2 flex items-center gap-2">
+    <div *ngFor="let file of files" class="p-2 flex items-center gap-2">
       <ng-icon name="heroDocument" strokeWidth="2" class="w-4 h-4" />
-      <span class="min-w-0 flex-1 break-all">{{ file }}</span>
-      <button *ngIf="documents" type="button" (click)="removeFile(index)" [disabled]="isReading"
-        [attr.aria-label]="'移除 ' + file" class="shrink-0 rounded px-2 py-1 text-secondary-600 hover:bg-secondary-100 focus-visible:ring-2 focus-visible:ring-primary-500 disabled:opacity-50">移除</button>
+      <span>{{ file }}</span>
     </div>
   </div>
 </div>
