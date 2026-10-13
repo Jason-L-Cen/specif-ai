@@ -10,23 +10,23 @@ export const REQUIREMENT_TYPE = {
 } as const;
 
 export const REQUIREMENT_DISPLAY_NAME_MAP = {
-  [REQUIREMENT_TYPE.US]: "User Story",
-  [REQUIREMENT_TYPE.BP]: "Business Process",
-  [REQUIREMENT_TYPE.BRD]: "Business Requirement",
-  [REQUIREMENT_TYPE.NFR]: "Non Functional Requirement",
-  [REQUIREMENT_TYPE.PRD]: "Product Requirement",
-  [REQUIREMENT_TYPE.UIR]: "User Interface Requirement",
-  [REQUIREMENT_TYPE.TASK]: "Task",
-  [REQUIREMENT_TYPE.SI]: "Strategic Initiative",
+  [REQUIREMENT_TYPE.US]: "用户故事",
+  [REQUIREMENT_TYPE.BP]: "业务流程",
+  [REQUIREMENT_TYPE.BRD]: "业务需求",
+  [REQUIREMENT_TYPE.NFR]: "非功能需求",
+  [REQUIREMENT_TYPE.PRD]: "产品需求",
+  [REQUIREMENT_TYPE.UIR]: "用户界面需求",
+  [REQUIREMENT_TYPE.TASK]: "任务",
+  [REQUIREMENT_TYPE.SI]: "战略举措",
 };
 
 export const REQUIREMENT_DISPLAY_NAME_PLURAL_MAP = {
-  [REQUIREMENT_TYPE.US]: "User Stories",
-  [REQUIREMENT_TYPE.BP]: "Business Processes",
-  [REQUIREMENT_TYPE.BRD]: "Business Requirements",
-  [REQUIREMENT_TYPE.NFR]: "Non Functional Requirements",
-  [REQUIREMENT_TYPE.PRD]: "Product Requirements",
-  [REQUIREMENT_TYPE.UIR]: "User Interface Requirements",
-  [REQUIREMENT_TYPE.TASK]: "Tasks",
-  [REQUIREMENT_TYPE.SI]: "Strategic Initiatives",
+  [REQUIREMENT_TYPE.US]: "用户故事",
+  [REQUIREMENT_TYPE.BP]: "业务流程",
+  [REQUIREMENT_TYPE.BRD]: "业务需求",
+  [REQUIREMENT_TYPE.NFR]: "非功能需求",
+  [REQUIREMENT_TYPE.PRD]: "产品需求",
+  [REQUIREMENT_TYPE.UIR]: "用户界面需求",
+  [REQUIREMENT_TYPE.TASK]: "任务",
+  [REQUIREMENT_TYPE.SI]: "战略举措",
 };

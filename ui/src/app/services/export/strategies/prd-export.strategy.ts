@@ -158,7 +158,7 @@ export class PRDExportStrategy implements ExportStrategy {
           break;
         }
         default: {
-          throw new Error(`Format ${exportFormat} not supported`);
+          throw new Error(`不支持 ${exportFormat} 格式`);
         }
       }
   

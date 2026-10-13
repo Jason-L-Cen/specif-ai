@@ -406,10 +406,10 @@ export class UserStoriesState {
       const state = ctx.getState();
       const prdId = state.currentConfig?.reqId;
       if(exportOptions.type === 'xlsx'){
-        this.toast.showInfo(`Exporting user stories from ${prdId}`);
+        this.toast.showInfo(`正在导出 ${prdId} 中的用户故事`);
       }
       if(exportOptions.type === 'json'){
-        this.toast.showInfo(`Copied user stories from ${prdId}`);
+        this.toast.showInfo(`已复制 ${prdId} 中的用户故事`);
       }
       this.requirementExportService.exportRequirementData(
         {
@@ -423,8 +423,8 @@ export class UserStoriesState {
         REQUIREMENT_TYPE.US,
       );
     } catch (error) {
-      const message = `Failed to export user stories: ${
-        error instanceof Error ? error.message : 'Unknown error'
+      const message = `导出用户故事失败：${
+        error instanceof Error ? error.message : '未知错误'
       }`;
       this.logger.error(error);
       this.logger.error(message);

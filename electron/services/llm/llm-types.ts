@@ -6,7 +6,10 @@ export enum LLMProvider {
   OLLAMA = 'ollama',
   GEMINI = 'gemini',
   OPENROUTER = 'openrouter',
+  DEEPSEEK = 'deepseek',
 }
+
+export const DEEPSEEK_BASE_URL = 'https://api.deepseek.com';
 
 export interface Message {
   role: string;

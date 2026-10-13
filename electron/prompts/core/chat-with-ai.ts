@@ -1,3 +1,4 @@
+import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../context/markdown-rules";
 import { STRATEGIC_INITIATIVE_DEFINITION_CONTEXT } from "../context/strategic-initiative";
 import { REQUIREMENT_DISPLAY_NAME_MAP, REQUIREMENT_TYPE } from "../../constants/requirement.constants";
 import { BP_DEFINITION_CONTEXT } from "../../prompts/context/bp";
@@ -12,7 +13,9 @@ export const chatWithAIPrompt = (params: ChatWithAIParams) => {
   const { requirementAbbr, project, recursionLimit } = params;
   const persona = getPersona(requirementAbbr);
 
-  return `You are a ${persona} with exceptional technical expertise and research capabilities. You're collaborating on this solution requirement construction within the Specifai application:
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+You are a ${persona} with exceptional technical expertise and research capabilities. You're collaborating on this solution requirement construction within the Specifai application:
 
     ## 🏗️ Project Context
       **Name:** ${project.name} 

@@ -1,3 +1,4 @@
+import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../context/markdown-rules";
 /**
  * Prompt for the inline edit workflow
  * This function generates a prompt to improve text based on user instructions
@@ -6,7 +7,8 @@
  * @returns A formatted prompt string
  */
 export const getInlineEditPrompt = (selectedText: string, userPrompt: string): string => {
-  return `
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
   I have the following text that needs to be improved:
   
   "${selectedText}"

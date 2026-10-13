@@ -25,7 +25,7 @@ export interface SelectOption {
 })
 export class AppSelectComponent implements ControlValueAccessor {
   @Input() options: SelectOption[] = [];
-  @Input() placeholder: string = 'Select an option';
+  @Input() placeholder: string = '请选择';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() searchable: boolean = false;

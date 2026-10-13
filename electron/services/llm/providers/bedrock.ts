@@ -47,16 +47,16 @@ export class BedrockHandler extends LLMHandler {
 
   getConfig(config: Partial<BedrockConfig>): BedrockConfig {
     if (!config.region) {
-      throw new LLMError("AWS region is required", "bedrock");
+      throw new LLMError("AWS 区域不能为空", "bedrock");
     }
     if (!config.accessKeyId) {
-      throw new LLMError("AWS access key ID is required", "bedrock");
+      throw new LLMError("AWS 访问密钥 ID 不能为空", "bedrock");
     }
     if (!config.secretAccessKey) {
-      throw new LLMError("AWS secret access key is required", "bedrock");
+      throw new LLMError("AWS 秘密访问密钥不能为空", "bedrock");
     }
     if (!config.model) {
-      throw new LLMError("Model ID is required", "bedrock");
+      throw new LLMError("模型 ID 不能为空", "bedrock");
     }
 
     return {

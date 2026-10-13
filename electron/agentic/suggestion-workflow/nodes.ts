@@ -180,7 +180,7 @@ export const buildGenerateSuggestionsNode = (
           level: "ERROR",
           statusMessage: `Error parsing LLM response: ${error}`,
         });
-        throw new Error("Failed to parse LLM response as JSON");
+        throw new Error("无法将大语言模型的响应解析为 JSON");
       }
 
       span?.end({

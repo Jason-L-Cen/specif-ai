@@ -19,7 +19,7 @@ export class OpenAIHandler extends LLMHandler {
   protected configData: OpenAIConfig;
   private observabilityManager = ObservabilityManager.getInstance();
 
-  constructor(config: Partial<OpenAIConfig>) {
+  constructor(config: Partial<OpenAIConfig>, private readonly provider: 'openai' | 'deepseek' = 'openai') {
     super();
     this.configData = this.getConfig(config);
 
@@ -27,12 +27,12 @@ export class OpenAIHandler extends LLMHandler {
     if (this.configData.baseUrl?.toLowerCase().includes("azure.com")) {
       if (!this.configData.azureApiKey) {
         throw new LLMError(
-          "Azure OpenAI API key is required for Azure endpoints",
+          "Azure 服务端点必须提供 Azure OpenAI API 密钥",
           "openai"
         );
       }
       // if (!this.configData.apiVersion) {
-      //   throw new LLMError("API version is required for Azure endpoints", "openai");
+      //   throw new LLMError("Azure 服务端点必须提供 API 版本", "openai");
       // }
       this.client = new AzureOpenAI({
         apiKey: this.configData.azureApiKey,
@@ -43,7 +43,7 @@ export class OpenAIHandler extends LLMHandler {
       });
     } else {
       if (!this.configData.apiKey) {
-        throw new LLMError("OpenAI API key is required", "openai");
+        throw new LLMError(`${this.provider === 'deepseek' ? 'DeepSeek' : 'OpenAI'} API 密钥不能为空`, this.provider);
       }
       this.client = new OpenAI({
         apiKey: this.configData.apiKey,
@@ -54,16 +54,16 @@ export class OpenAIHandler extends LLMHandler {
   }
 
   getConfig(config: Partial<OpenAIConfig>): OpenAIConfig {
-    if (!config.model) {
-      throw new LLMError("Model ID is required", "openai");
+    if (!config.model?.trim()) {
+      throw new LLMError("模型 ID 不能为空", this.provider);
     }
 
     return {
       baseUrl: config.baseUrl,
-      apiKey: config.apiKey,
+      apiKey: config.apiKey?.trim(),
       azureApiKey: config.azureApiKey,
       apiVersion: "2024-09-01-preview",
-      model: config.model.toLowerCase(),
+      model: config.model.trim().toLowerCase(),
       maxRetries: config.maxRetries || 3,
     };
   }
@@ -90,6 +90,7 @@ export class OpenAIHandler extends LLMHandler {
       model: this.getModel().id,
       messages: openAIMessages,
       stream: false,
+      ...(this.provider === 'deepseek' ? { thinking: { type: 'disabled' } } : {}),
     });
 
     const traceName = `${TRACES.CHAT_COMPLETION}:${this.configData.model}`;
@@ -107,8 +108,8 @@ export class OpenAIHandler extends LLMHandler {
 
     if (!response.choices?.[0]?.message?.content) {
       throw new LLMError(
-        "No response content received from OpenAI API",
-        "openai"
+        "模型服务未返回回答内容",
+        this.provider
       );
     }
 
@@ -118,7 +119,7 @@ export class OpenAIHandler extends LLMHandler {
   getModel(): ModelInfo {
     return {
       id: this.configData.model,
-      provider: "openai",
+      provider: this.provider,
     };
   }
 

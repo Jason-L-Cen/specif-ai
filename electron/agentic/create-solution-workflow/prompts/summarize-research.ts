@@ -1,3 +1,4 @@
+import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../../prompts/context/markdown-rules";
 import { formatRequirementTypes, getEnabledRequirementTypes, getRequirementPerspectives, type RequirementPreferences } from './utils';
 
 interface GatherInfoParams {
@@ -14,7 +15,9 @@ export function createSummarizeResearchPrompt({ app, requirementPreferences }: G
   const formattedTypes = formatRequirementTypes(enabledTypes);
   const perspectives = getRequirementPerspectives(enabledTypes);
 
-  return `You are a lead technical analyst. As part of your role you synthesize information gathered to support the downstream generation of ${formattedTypes}.
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+You are a lead technical analyst. As part of your role you synthesize information gathered to support the downstream generation of ${formattedTypes}.
 
   ## App Context:
     App Name: ${app.name}

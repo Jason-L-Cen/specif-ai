@@ -76,7 +76,7 @@ export class CreateSolutionComponent implements OnInit {
     this.store.dispatch(
       new AddBreadcrumbs([
         {
-          label: 'Create',
+          label: '创建',
           url: '/create',
         },
       ]),
@@ -155,7 +155,7 @@ export class CreateSolutionComponent implements OnInit {
 
     let isPathValid = await this.appSystemService.fileExists('');
     if (!isPathValid) {
-      this.toast.showError('Please select a valid root directory.');
+      this.toast.showError('请选择有效的根目录。');
       return;
     }
 

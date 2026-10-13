@@ -1,9 +1,12 @@
+import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../../prompts/context/markdown-rules";
 import { BaseMessage } from "@langchain/core/messages";
 
 const summarizeConversation = (
   previousSummary?: string,
   // messages: BaseMessage[]
-) => `You are an excellent assistant. Your task is to summarize the above conversation between you boss and a user.
+) => `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+You are an excellent assistant. Your task is to summarize the above conversation between you boss and a user.
 
 You will generate a concise yet information dense summary of the conversation. You have to conver important details and context of the conversation.
 You will also make sure to track any tool calls made and their results as concisely as possible and the ones that would help you in the future.

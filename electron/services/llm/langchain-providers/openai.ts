@@ -2,7 +2,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import { LLMConfig, LLMError, ModelInfoV1 } from '../llm-types';
 import { LangChainModelProvider } from './base';
 import { LangChainChatGuardrails } from '@presidio-dev/hai-guardrails';
-import { guardrailsEngine } from '../../../guardrails';
+import { guardrailsEngine, langChainGuardrailsHandler } from '../../../guardrails';
 
 export enum OpenAiModelId {
   O3 = 'o3',
@@ -78,7 +78,7 @@ const OpenAiModels: Record<OpenAiModelId, ModelInfoV1> = {
 interface OpenAIConfig extends LLMConfig {
   baseUrl?: string;
   apiKey: string;
-  model: OpenAiModelId;
+  model: string;
   maxRetries?: number;
 }
 
@@ -86,9 +86,9 @@ export class OpenAILangChainProvider implements LangChainModelProvider {
   protected configData: OpenAIConfig;
   private model: ChatOpenAI;
 
-  constructor(config: Partial<OpenAIConfig>) {
+  constructor(config: Partial<OpenAIConfig>, private readonly provider: 'openai' | 'deepseek' = 'openai') {
     this.configData = this.getConfig(config);
-    const modelInfo = OpenAiModels[this.configData.model];
+    const modelInfo = OpenAiModels[this.configData.model as OpenAiModelId];
 
     this.model = LangChainChatGuardrails(
       new ChatOpenAI({
@@ -98,25 +98,28 @@ export class OpenAILangChainProvider implements LangChainModelProvider {
         configuration: {
           baseURL: this.configData.baseUrl,
         },
-        maxTokens: modelInfo.maxTokens,
+        maxTokens: modelInfo?.maxTokens,
+        // shortcut: Use non-thinking mode until LangChain can replay DeepSeek reasoning_content during tool calls.
+        modelKwargs: this.provider === 'deepseek' ? { thinking: { type: 'disabled' } } : undefined,
       }),
-      guardrailsEngine
+      guardrailsEngine,
+      langChainGuardrailsHandler
     );
   }
 
   getConfig(config: Partial<OpenAIConfig>): OpenAIConfig {
-    if (!config.apiKey) {
-      throw new LLMError('OpenAI API key is required', 'openai');
+    if (!config.apiKey?.trim()) {
+      throw new LLMError(`${this.provider === 'deepseek' ? 'DeepSeek' : 'OpenAI'} API 密钥不能为空`, this.provider);
     }
-    if (!config.model) {
-      throw new LLMError('Model ID is required', 'openai');
+    if (!config.model?.trim()) {
+      throw new LLMError('模型 ID 不能为空', this.provider);
     }
 
     return {
       baseUrl: config.baseUrl,
-      apiKey: config.apiKey,
-      model: config.model,
-      maxRetries: config.maxRetries || 3,
+      apiKey: config.apiKey.trim(),
+      model: config.model.trim(),
+      maxRetries: config.maxRetries ?? 3,
     };
   }
 
@@ -125,12 +128,12 @@ export class OpenAILangChainProvider implements LangChainModelProvider {
   }
 
   getModel() {
-    const modelInfo = OpenAiModels[this.configData.model];
+    const modelInfo = OpenAiModels[this.configData.model as OpenAiModelId];
 
     return {
       id: this.configData.model,
-      provider: 'openai',
-      info: modelInfo,
+      provider: this.provider,
+      info: modelInfo || {},
     };
   }
 

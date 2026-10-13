@@ -249,6 +249,9 @@ export const buildGenerateStructuredResponseNode = (
   responseFormat: IResponseFormatInput
 ) => {
   const model = modelProvider.getChatModel();
+  const outputOptions = modelProvider.getModel().provider === 'deepseek'
+    ? { method: 'functionCalling' }
+    : undefined;
 
   return async (
     state: (typeof MessagesAnnotation)["State"],
@@ -279,10 +282,10 @@ export const buildGenerateStructuredResponseNode = (
         "schema" in responseFormat
       ) {
         const { prompt, schema } = responseFormat;
-        modelWithStructuredOutput = model.withStructuredOutput(schema);
+        modelWithStructuredOutput = model.withStructuredOutput(schema, outputOptions);
         messages.unshift(new SystemMessage({ content: prompt }));
       } else {
-        modelWithStructuredOutput = model.withStructuredOutput(responseFormat);
+        modelWithStructuredOutput = model.withStructuredOutput(responseFormat, outputOptions);
       }
 
       const generation = structuredResponseSpan?.generation({

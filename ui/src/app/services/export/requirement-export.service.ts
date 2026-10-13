@@ -48,22 +48,22 @@ export class RequirementExportService {
         if (result.error) throw result.error;
         if (options.type === 'json') {
           throw new Error(
-            `Failed to copy ${REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]} requirements.`,
+            `复制${REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]}失败。`,
           );
         }
         throw new Error(
-          `Failed to export ${REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]} requirements.`,
+          `导出${REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]}失败。`,
         );
       }
     } catch (error) {
       this.logger.error('Export failed:', error);
       if (options.type === 'json') {
         this.toast.showError(
-          `Failed to copy data: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          `复制数据失败：${error instanceof Error ? error.message : '未知错误'}`,
         );
       } else {
         this.toast.showError(
-          `Failed to export data: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          `导出数据失败：${error instanceof Error ? error.message : '未知错误'}`,
         );
       }
       throw error;

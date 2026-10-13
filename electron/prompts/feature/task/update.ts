@@ -54,7 +54,7 @@ STRICT:
     "tasks": [
         {
             "id": "<taskId>"
-            "<task name>": "[description of the task]  \\n#### Acceptance Criteria:  \\n[acceptance criteria for the task as sentences]"
+            "<task name>": "[description of the task]  \\n#### 验收标准：  \\n[acceptance criteria for the task as sentences]"
         }
     ]
 }

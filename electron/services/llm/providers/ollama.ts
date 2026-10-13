@@ -21,7 +21,7 @@ export class OllamaHandler extends LLMHandler {
 
   getConfig(config: Partial<OllamaConfig>): OllamaConfig {
     if (!config.model) {
-      throw new LLMError('Model ID is required', 'ollama');
+      throw new LLMError('模型 ID 不能为空', 'ollama');
     }
 
     return {
@@ -86,7 +86,7 @@ export class OllamaHandler extends LLMHandler {
     }
 
     if (!data.message?.content) {
-      throw new LLMError("No response content received from Ollama API", "ollama");
+      throw new LLMError("Ollama API 未返回回答内容", "ollama");
     }
 
     return data.message.content;

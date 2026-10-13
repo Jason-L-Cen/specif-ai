@@ -1,3 +1,4 @@
+import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../prompts/context/markdown-rules";
 /**
  * Prompts for the test case workflow
  */
@@ -16,7 +17,9 @@ export const buildResearchPrompt = (
   prdTitle: string,
   prdDescription: string
 ): string => {
-  return `Please analyze this user story and gather relevant information for test case generation:
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+Please analyze this user story and gather relevant information for test case generation:
 Story Title: ${userStoryTitle}
 Story Description: ${userStoryDescription}
 ${prdId ? `PRD ID: ${prdId}` : ""}
@@ -116,7 +119,7 @@ Strictly Return the test cases in the following JSON format:
 
 Strictly do not include any explanatory text, markdown formatting, or code blocks. The response must be a raw JSON object only.`;
 
-  return prompt;
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}\n\n${prompt}`;
 };
 
 /**
@@ -132,7 +135,9 @@ export const buildEvaluateTestCasesPrompt = (
   prdTitle: string,
   prdDescription: string
 ): string => {
-  return `Evaluate the following test cases for quality and completeness:
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+Evaluate the following test cases for quality and completeness:
 
 Story Title: ${userStoryTitle}
 Story Description: ${userStoryDescription}

@@ -65,7 +65,7 @@ export class AppComponent implements OnInit, OnDestroy {
         })
         .catch((error) => {
           this.logger.error('Error listening to port', error);
-          alert('An error occurred while trying to listen to the port.');
+          alert('监听端口时发生错误。');
         });
     }
 

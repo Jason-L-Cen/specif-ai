@@ -68,7 +68,7 @@ export function withRetry(options: RetryOptions = {}) {
       }
 
       // This should never happen as the last attempt will either return or throw
-      throw new Error("Maximum retries reached");
+      throw new Error("已达到最大重试次数");
     };
 
     return descriptor;

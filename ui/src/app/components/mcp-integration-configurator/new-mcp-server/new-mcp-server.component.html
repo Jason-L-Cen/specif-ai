@@ -1,16 +1,16 @@
 <div class="p-4 flex flex-col gap-2">
-  <h2>Add New MCP Server</h2>
+  <h2>添加 MCP 服务器</h2>
   <form [formGroup]="form" class="flex flex-col gap-2">
     <div class="flex flex-col gap-1.5">
       <app-input-field
         formControlName="serverId"
         elementId="serverId"
-        elementName="Server ID"
-        elementPlaceHolder="Enter server identifier"
+        elementName="服务器标识"
+        elementPlaceHolder="请输入服务器标识"
         [required]="true"
       ></app-input-field>
       <span *ngIf="isServerIdInvalid" class="text-xs text-danger-600">
-        Please enter a valid server ID (alphanumeric characters, hyphens, periods and underscores only).
+        请输入有效的服务器标识，仅允许英文字母、数字、连字符、句点和下划线。
       </span>
     </div>
 
@@ -18,35 +18,35 @@
       <app-textarea-field
         formControlName="serverConfig"
         elementId="serverConfig"
-        elementName="Server Configuration"
-        elementPlaceHolder="Enter mcp server configuration json"
+        elementName="服务器配置"
+        elementPlaceHolder="请输入 MCP 服务器配置 JSON"
         [required]="true"
         [rows]="10"
         (paste)="onServerConfigPaste($event)"
       ></app-textarea-field>
       <span *ngIf="isServerConfigJsonInvalid" class="text-xs text-danger-600">
-        Please enter valid JSON for the server configuration.
+        请输入有效的服务器配置 JSON。
       </span>
       <span *ngIf="isServerConfigSchemaInvalid && !isServerConfigJsonInvalid" class="text-xs text-danger-600">
-        The server configuration does not match the required schema.
+        服务器配置不符合要求的数据结构。
       </span>
       <div class="flex gap-1 text-xs">
-        Download sample
-        <a [href]="getStdioServerDownloadUrl()" download="sample-stdio-server-config.json" class="text-blue-600 hover:underline">stdio</a> or
-        <a [href]="getSseServerDownloadUrl()" download="sample-sse-server-config.json" class="text-blue-600 hover:underline">sse</a> server for reference
+        下载示例
+        <a [href]="getStdioServerDownloadUrl()" download="sample-stdio-server-config.json" class="text-blue-600 hover:underline">stdio</a> 或
+        <a [href]="getSseServerDownloadUrl()" download="sample-sse-server-config.json" class="text-blue-600 hover:underline">sse</a> 服务器配置以供参考
       </div>
     </div>
 
     
     <div class="flex gap-1 justify-end">
-      <app-button buttonContent="Cancel" size="sm" (click)="onCancel()" theme="secondary_outline"></app-button>
-      <app-button buttonContent="Validate" size="sm" [disabled]="form.invalid || isValidating" (click)="onValidate()" theme="primary"></app-button>
-      <app-button buttonContent="Submit" size="sm" [disabled]="form.invalid || !isValidated || validatedServerStatus?.status === 'error'" (click)="onSubmit()" theme="primary"></app-button>
+      <app-button buttonContent="取消" size="sm" (click)="onCancel()" theme="secondary_outline"></app-button>
+      <app-button buttonContent="验证" size="sm" [disabled]="form.invalid || isValidating" (click)="onValidate()" theme="primary"></app-button>
+      <app-button buttonContent="提交" size="sm" [disabled]="form.invalid || !isValidated || validatedServerStatus?.status === 'error'" (click)="onSubmit()" theme="primary"></app-button>
     </div>
   </form>
 
   <div *ngIf="showServerInformation && validatedServerStatus" class="flex flex-col gap-2">
-    <h3>Server Validation Result</h3>
+    <h3>服务器验证结果</h3>
     <app-mcp-servers-item [server]="validatedServerStatus"></app-mcp-servers-item>
   </div>
 </div>

@@ -1,6 +1,6 @@
 <nav
   class="flex [app-region:no-drag]"
-  aria-label="Breadcrumb"
+  aria-label="面包屑导航"
   *ngIf="breadcrumbs$ | async as breadcrumbs"
 >
   <!--Back button-->
@@ -26,12 +26,12 @@
     <li class="inline-flex items-center">
       <a
         routerLink="/apps"
-        (click)="navigateTo({ label: 'Solutions', url: '/apps' })"
+        (click)="navigateTo({ label: '解决方案', url: '/apps' })"
         class="inline-flex items-center text-sm font-normal cursor-pointer"
         [class.font-semibold]="breadcrumbs.length == 0"
       >
         <ng-icon class="text-sm mr-1" name="heroHome" strokeWidth="2"></ng-icon>
-        Solutions
+        解决方案
       </a>
     </li>
     <li *ngFor="let breadcrumb of breadcrumbs; let last = last">

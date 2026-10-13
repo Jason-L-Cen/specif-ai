@@ -29,7 +29,7 @@ export class MCPConnectionManager {
   async refreshConnection(serverId: string): Promise<void> {
     const connection = this.getConnection(serverId);
     if (!connection) {
-      throw new Error(`MCP Connection ${serverId} not found`);
+      throw new Error(`未找到 MCP 连接 ${serverId}`);
     }
     await connection.connectClient(true, new AbortController().signal);
   }
@@ -73,7 +73,7 @@ export class MCPConnectionManager {
           id,
           status: "error",
           errors: [
-            `Connection failed: ${
+            `连接失败：${
               error instanceof Error ? error.message : String(error)
             }`,
           ],

@@ -277,7 +277,7 @@ function readFileChunk(
       return resolve({
         requirement: null,
         title: null,
-        message: "File name does not match the specified pattern.",
+        message: "文件名不符合指定的命名格式。",
       });
     }
 
@@ -328,7 +328,7 @@ function readFileChunk(
               if (!dataExtracted.title) {
                 reject(
                   new Error(
-                    "Could not find 'requirement' or 'title' field in the available data."
+                    "无法在已有数据中找到 requirement 或 title 字段。"
                   )
                 );
               }

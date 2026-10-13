@@ -12,7 +12,7 @@ export async function chatUserStoryTask(event: IpcMainInvokeEvent, data: unknown
   try {
     const llmConfig = store.get<LLMConfigModel>('llmConfig');
     if (!llmConfig) {
-      throw new Error('LLM configuration not found');
+      throw new Error('未找到大语言模型配置');
     }
 
     console.log('[chat-user-story-task] Using LLM config:', llmConfig);
@@ -31,7 +31,7 @@ export async function chatUserStoryTask(event: IpcMainInvokeEvent, data: unknown
     let basePrompt = prompt;
     if (validatedData.knowledgeBase?.trim()) {
       if (!validatedData.bedrockConfig) {
-        throw new Error('Bedrock configuration is required when using knowledge base');
+        throw new Error('使用知识库时需要配置 Bedrock');
       }
       basePrompt = await LLMUtils.generateKnowledgeBasePromptConstraint(
         validatedData.knowledgeBase,

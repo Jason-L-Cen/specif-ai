@@ -1,10 +1,13 @@
+import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../context/markdown-rules";
 import { SIParams } from "../../schema/core/chat-with-ai.schema";
 /**
  * Prompt for the response format schema of the strategic initiative generation agent
  * @returns A formatted prompt string for the agent response format
  */
 export const getStrategicInitiativeResponseFormatPrompt = (): string => {
-  return `You are a Business Development Consultant. Generate a comprehensive business proposal based on the project information and research findings.
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+You are a Business Development Consultant. Generate a comprehensive business proposal based on the project information and research findings.
           
 IMPORTANT: DO NOT ASK QUESTIONS. Instead, make reasonable assumptions based on the information provided and generate a complete draft.
 
@@ -51,7 +54,9 @@ export const getStrategicInitiativePrompt = (
   researchInformation: string, 
   solutionInfo: { name: string; description: string; techDetails: string }
 ): string => {
-  return `Here is additional research information that may be helpful:
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+Here is additional research information that may be helpful:
 ${researchInformation}
 
 Solution Information:
@@ -69,7 +74,7 @@ CONTENT REQUIREMENTS:
 - Use general investment level descriptions (e.g., "low-investment approach" or "high-investment strategy") rather than specific dollar figures
 - Use general timeframes (e.g., "short-term", "medium-term", "long-term") rather than specific dates or quarters
 - Include well-reasoned examples for all claims and recommendations based on general industry knowledge
-- Add a "References" section at the end of the document that lists all research sources used
+- Add a "参考资料" section at the end of the document that lists all research sources used
 - Double-check all facts before finalizing the content to avoid inconsistencies or errors
 
 TITLE INSTRUCTIONS:
@@ -131,7 +136,7 @@ ${requirement?.description ? `Requirement: ${requirement.description}` : ""}`;
 
   prompt += `\n\nDO NOT ask for more information or URLs. Simply use the fetch_url_content tool on each URL provided and summarize what you find.`;
   
-  return prompt;
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}\n\n${prompt}`;
 };
 
 /**
@@ -139,7 +144,9 @@ ${requirement?.description ? `Requirement: ${requirement.description}` : ""}`;
  * @returns A formatted prompt string for summarizing research findings
  */
 export const getResearchSummaryPrompt = (): string => {
-  return `Summarize your research findings about the business proposal. Focus on industry trends, competitor strategies, and market opportunities that could inform the business proposal.`;
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+Summarize your research findings about the business proposal. Focus on industry trends, competitor strategies, and market opportunities that could inform the business proposal.`;
 };
 
 
@@ -151,7 +158,8 @@ export const getResearchSummaryPrompt = (): string => {
 export const getSIPrompt = (params: SIParams): string => {
   const { project, requirement } = params;
 
-  return `
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
 You are a Business Development Consultant with deep expertise in analyzing companies, identifying strategic opportunities, and crafting actionable business case proposals.
 
 Your task is to help the user define and refine a strategic initiative. The output will eventually be presented to senior leadership for approval. The proposal should deliver meaningful ROI-backed insights.

@@ -24,57 +24,57 @@ export const BP_FILE_KEYS = {
 };
 
 export const ERROR_MESSAGES = {
-  GENERATE_SUGGESTIONS_FAILED: 'Failed to generate suggestions',
+  GENERATE_SUGGESTIONS_FAILED: '生成建议失败',
   DELETE_ASSOCIATED_ERROR: (reqId: string, bpIds: string[]) =>
-    `Unable to remove ${reqId} because it's linked to the following business processes: ${bpIds.join(', ')}.`,
+    `无法删除 ${reqId}，因为它已关联以下业务流程：${bpIds.join('、')}。`,
   DELETE_ASSOCIATED_PRDs_ERROR: (reqId: string, prdIds: string[]) =>
-    `Unable to remove ${reqId} because it's linked to the following product requirement/s: ${prdIds.join(', ')}.`,
+    `无法删除 ${reqId}，因为它已关联以下产品需求：${prdIds.join('、')}。`,
 };
 
 export const SOLUTION_CREATION_TOGGLE_MESSAGES = {
   BROWNFIELD_SOLUTION:
-    'Enabling this toggle will not generate any business or solution requirements for the given solution.',
+    '开启后，将不会为此解决方案生成业务需求或解决方案需求。',
   GREENFIELD_SOLUTION:
-    'You can create requirements based on the solution context',
+    '可根据解决方案的上下文创建需求',
 };
 
 export const CONFIRMATION_DIALOG = {
   DELETION: {
-    TITLE: 'Confirm Deletion',
+    TITLE: '确认删除',
     DESCRIPTION: (entityName: string) =>
-      `Are you sure you want to delete <span class="font-semibold">${entityName}</span>?`,
-    CANCEL_BUTTON_TEXT: 'Cancel',
-    PROCEED_BUTTON_TEXT: 'Delete',
+      `确定要删除 <span class="font-semibold">${entityName}</span> 吗？`,
+    CANCEL_BUTTON_TEXT: '取消',
+    PROCEED_BUTTON_TEXT: '删除',
   },
   UNSAVED_CHANGES: {
-    TITLE: 'Confirm',
+    TITLE: '确认离开',
     DESCRIPTION:
-      'You have unsaved changes on this page. Are you sure you want to navigate to another page without saving?',
-    PROCEED_BUTTON_TEXT: 'Stay',
-    CANCEL_BUTTON_TEXT: 'Leave',
+      '此页面有尚未保存的更改。确定要放弃保存并前往其他页面吗？',
+    PROCEED_BUTTON_TEXT: '留在此页',
+    CANCEL_BUTTON_TEXT: '离开',
   },
   LOGOUT: {
-    TITLE: 'Confirm Logout',
-    DESCRIPTION: 'Are you sure you want to log out?',
-    CANCEL_BUTTON_TEXT: 'Cancel',
-    PROCEED_BUTTON_TEXT: 'Log Out',
+    TITLE: '确认退出登录',
+    DESCRIPTION: '确定要退出登录吗？',
+    CANCEL_BUTTON_TEXT: '取消',
+    PROCEED_BUTTON_TEXT: '退出登录',
   },
   JIRA_REAUTHENTICATION: {
-    TITLE: 'Reauthenticate with Jira',
+    TITLE: '重新进行 Jira 身份验证',
     DESCRIPTION:
-      'Your session with Jira has expired. Please reauthenticate to continue.',
-    CANCEL_BUTTON_TEXT: 'Cancel',
-    PROCEED_BUTTON_TEXT: 'Reauthenticate',
+      'Jira 会话已过期，请重新进行身份验证后继续。',
+    CANCEL_BUTTON_TEXT: '取消',
+    PROCEED_BUTTON_TEXT: '重新验证',
   },
   JIRA_DETAILS_MISSING: {
-    TITLE: 'Jira Integration Incomplete',
+    TITLE: 'Jira 集成尚未配置完成',
     DESCRIPTION:
-      'It looks like your Jira details are missing. Please return to the integration settings, fill in your details, and save them to continue.',
-    CANCEL_BUTTON_TEXT: 'Cancel',
-    PROCEED_BUTTON_TEXT: 'Open integration settings',
+      '缺少 Jira 配置信息。请前往集成设置，补全并保存配置后继续。',
+    CANCEL_BUTTON_TEXT: '取消',
+    PROCEED_BUTTON_TEXT: '打开集成设置',
   },
   CONFIRM_BRD_UPDATE: {
-    TITLE: 'Confirm Update BRD',
+    TITLE: '确认更新业务需求（BRD）',
     DESCRIPTION: ({
       hasRemovedLinks,
       hasLinkedPRDs,
@@ -86,27 +86,27 @@ export const CONFIRMATION_DIALOG = {
 
       if (hasLinkedPRDs) {
         description =
-          'Please note that linked PRDs will not be automatically updated.';
+          '关联的产品需求文档（PRD）不会自动更新。';
       }
 
       if (hasRemovedLinks) {
         description +=
-          (description ? '\nAdditionally, ' : 'Please note that ') +
-          'unlinking this BRD will not remove any content that was added to the previously linked PRD(s).';
+          (description ? '\n此外，' : '') +
+          '取消此业务需求（BRD）的关联后，之前添加到关联产品需求文档（PRD）中的内容仍会保留。';
       }
       description +=
-        ' Any necessary updates to those PRDs will require manual review.\n\nDo you want to proceed?';
+        ' 这些产品需求文档（PRD）如需更新，请手动检查并修改。\n\n确定要继续吗？';
       return description;
     },
-    CANCEL_BUTTON_TEXT: 'Cancel',
-    PROCEED_BUTTON_TEXT: 'Confirm',
+    CANCEL_BUTTON_TEXT: '取消',
+    PROCEED_BUTTON_TEXT: '确认',
   },
   CONFIRM_PRD_UPDATE: {
-    TITLE: 'Confirm Update PRD',
+    TITLE: '确认更新产品需求文档（PRD）',
     DESCRIPTION:
-      'Please note that content added to this PRD from previously linked BRDs will remain. Any necessary updates will require manual review.\n\nDo you want to proceed?',
-    CANCEL_BUTTON_TEXT: 'Cancel',
-    PROCEED_BUTTON_TEXT: 'Confirm',
+      '从之前关联的业务需求（BRD）添加到此产品需求文档（PRD）中的内容仍会保留。如需更新，请手动检查并修改。\n\n确定要继续吗？',
+    CANCEL_BUTTON_TEXT: '取消',
+    PROCEED_BUTTON_TEXT: '确认',
   },
 };
 
@@ -128,15 +128,15 @@ export const REQUIREMENT_TYPE = {
 } as const;
 
 export const REQUIREMENT_DISPLAY_NAME_MAP = {
-  [REQUIREMENT_TYPE.US]: 'User Story',
-  [REQUIREMENT_TYPE.BP]: 'Business Process',
-  [REQUIREMENT_TYPE.BRD]: 'Business Requirement',
-  [REQUIREMENT_TYPE.NFR]: 'Non Functional Requirement',
-  [REQUIREMENT_TYPE.PRD]: 'Product Requirement',
-  [REQUIREMENT_TYPE.UIR]: 'User Interface Requirement',
-  [REQUIREMENT_TYPE.TASK]: 'Task',
-  [REQUIREMENT_TYPE.TC]: 'Tests',
-  [REQUIREMENT_TYPE.SI]: 'Strategic Initiative',
+  [REQUIREMENT_TYPE.US]: '用户故事',
+  [REQUIREMENT_TYPE.BP]: '业务流程',
+  [REQUIREMENT_TYPE.BRD]: '业务需求',
+  [REQUIREMENT_TYPE.NFR]: '非功能需求',
+  [REQUIREMENT_TYPE.PRD]: '产品需求',
+  [REQUIREMENT_TYPE.UIR]: '用户界面需求',
+  [REQUIREMENT_TYPE.TASK]: '任务',
+  [REQUIREMENT_TYPE.TC]: '测试用例',
+  [REQUIREMENT_TYPE.SI]: '战略举措',
 };
 
 export const SPECIFAI_BASE_URL = 'https://specifai.io/current/requirement-types';
@@ -158,20 +158,20 @@ const getEntityDisplayName = (folderId: string): string => {
   return (
     REQUIREMENT_DISPLAY_NAME_MAP[
       folderId as keyof typeof REQUIREMENT_DISPLAY_NAME_MAP
-    ] || 'Unknown Requirement'
+    ] || '未知需求'
   );
 };
 
 const TOASTER_MESSAGES_DEFAULT_TEMPLATE = {
   SUCCESS: (entityKey: string, action: string, entityId?: string) => {
     return entityId
-      ? `${getEntityDisplayName(entityKey)} - <span class="font-semibold">${entityId}</span> ${action} successfully!`
-      : `${getEntityDisplayName(entityKey)} ${action} successfully!`;
+      ? `${getEntityDisplayName(entityKey)} <span class="font-semibold">${entityId}</span> 已${action}。`
+      : `${getEntityDisplayName(entityKey)}已${action}。`;
   },
   FAILURE: (entityKey: string, action: string, entityId?: string) => {
     return entityId
-      ? `Failed to ${action} ${getEntityDisplayName(entityKey)} - <span class="highlight">${entityId}</span>. Please try again.`
-      : `Failed to ${action} ${getEntityDisplayName(entityKey)}. Please try again.`;
+      ? `${action}${getEntityDisplayName(entityKey)} <span class="highlight">${entityId}</span> 失败，请重试。`
+      : `${action}${getEntityDisplayName(entityKey)}失败，请重试。`;
   },
 };
 
@@ -179,21 +179,21 @@ export const TOASTER_MESSAGES = {
   ENTITY: {
     ADD: {
       SUCCESS: (entityType: string) =>
-        TOASTER_MESSAGES_DEFAULT_TEMPLATE.SUCCESS(entityType, 'added'),
+        TOASTER_MESSAGES_DEFAULT_TEMPLATE.SUCCESS(entityType, '添加'),
       FAILURE: (entityType: string) =>
-        TOASTER_MESSAGES_DEFAULT_TEMPLATE.FAILURE(entityType, 'add'),
+        TOASTER_MESSAGES_DEFAULT_TEMPLATE.FAILURE(entityType, '添加'),
     },
     UPDATE: {
       SUCCESS: (entityType: string, entityId: string) =>
         TOASTER_MESSAGES_DEFAULT_TEMPLATE.SUCCESS(
           entityType,
-          'updated',
+          '更新',
           entityId,
         ),
       FAILURE: (entityType: string, entityId: string) =>
         TOASTER_MESSAGES_DEFAULT_TEMPLATE.FAILURE(
           entityType,
-          'update',
+          '更新',
           entityId,
         ),
     },
@@ -201,13 +201,13 @@ export const TOASTER_MESSAGES = {
       SUCCESS: (entityType: string, entityId: string) =>
         TOASTER_MESSAGES_DEFAULT_TEMPLATE.SUCCESS(
           entityType,
-          'deleted',
+          '删除',
           entityId,
         ),
       FAILURE: (entityType: string, entityId: string) =>
         TOASTER_MESSAGES_DEFAULT_TEMPLATE.FAILURE(
           entityType,
-          'delete',
+          '删除',
           entityId,
         ),
     },
@@ -215,42 +215,40 @@ export const TOASTER_MESSAGES = {
       SUCCESS: (entityType: string, entityId: string) =>
         TOASTER_MESSAGES_DEFAULT_TEMPLATE.SUCCESS(
           entityType,
-          'copied',
+          '复制',
           entityId,
         ),
       FAILURE: (entityType: string, entityId: string) =>
-        TOASTER_MESSAGES_DEFAULT_TEMPLATE.FAILURE(entityType, 'copy', entityId),
+        TOASTER_MESSAGES_DEFAULT_TEMPLATE.FAILURE(entityType, '复制', entityId),
     },
     GENERATE: {
       SUCCESS: (entityType: string, isRegenerate = false) =>
         TOASTER_MESSAGES_DEFAULT_TEMPLATE.SUCCESS(
           entityType,
-          isRegenerate ? 'regenerated' : 'generated',
+          isRegenerate ? '重新生成' : '生成',
         ),
       FAILURE: (entityType: string, isRegenerate = false) =>
         TOASTER_MESSAGES_DEFAULT_TEMPLATE.FAILURE(
           entityType,
-          isRegenerate ? 'regenerate' : 'generate',
+          isRegenerate ? '重新生成' : '生成',
         ),
     },
   },
 };
 
 export const APP_MESSAGES = {
-  AWS_BEDROCK_TOOLTIP_MESSAGE: `Enabling the AWS Bedrock Knowledge Base enriches ${environment.ThemeConfiguration.appName}  with enterprise-specific context, enhancing its ability to generate precise, business-relevant responses. This added context improves accuracy and ensures deeper alignment with the overall solution.`,
+  AWS_BEDROCK_TOOLTIP_MESSAGE: `启用 AWS Bedrock 知识库后，${environment.ThemeConfiguration.appName} 可利用企业专属上下文，生成更准确、更符合业务需求及整体解决方案的回答。`,
   JIRA_ACCORDION:
-    'JIRA Integration allows users to publish generated user stories as Jira issues by configuring their Jira account and authenticating with Jira. Following configuration of details users can authenticate with Jira to establish a secure sync. Once synchronized, users can select the\n' +
-    'Sync with Jira\n' +
-    'option to create tickets directly in JIRA with the configured Project Key.',
-  AWS_BEDROCK_ACCORDION_MESSAGE: `Using the AWS Bedrock Knowledge Base enriches ${environment.ThemeConfiguration.appName} with enterprise-specific context, enhancing its ability to generate precise, business-relevant responses. This added context improves accuracy and ensures deeper alignment with the overall solution.`,
+    '配置 Jira 账户并完成身份验证后，可将生成的用户故事发布为 Jira 事项。连接成功后，选择“同步到 Jira”，即可在配置的项目键所对应的 Jira 项目中创建事项。',
+  AWS_BEDROCK_ACCORDION_MESSAGE: `使用 AWS Bedrock 知识库后，${environment.ThemeConfiguration.appName} 可利用企业专属上下文，生成更准确、更符合业务需求及整体解决方案的回答。`,
   ADO_ACCORDION:
-    'Azure DevOps Integration allows users to publish generated user stories as Azure DevOps work items by configuring their organization, project, and personal access token. Once configured and connected, users can sync their user stories directly to Azure DevOps.',
-  ADO_DETAILS_MISSING: 'It looks like your ADO details are missing. Please return to the integration settings, fill in your details, and save them to continue.',
-  ADO_INVALID_CREDENTIALS: 'Invalid ADO credentials. Please update those in integrations page and try again.'
+    '配置 Azure DevOps 组织、项目和个人访问令牌并连接成功后，可将生成的用户故事直接同步为 Azure DevOps 工作项。',
+  ADO_DETAILS_MISSING: '缺少 Azure DevOps 配置信息。请前往集成设置，补全并保存配置后继续。',
+  ADO_INVALID_CREDENTIALS: 'Azure DevOps 凭据无效。请在集成页面更新凭据后重试。'
 };
 
 export const TOOLTIP_CONTENT = {
-  IMPORT_FROM_CODE_BUTTON: 'Import from Code',
+  IMPORT_FROM_CODE_BUTTON: '从代码导入',
 };
 
 export const FOLDER = {

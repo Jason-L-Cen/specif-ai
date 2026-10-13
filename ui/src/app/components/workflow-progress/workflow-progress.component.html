@@ -16,7 +16,7 @@
         [disabled]="isAborting()"
         class="flex items-center justify-center text-red-500 hover:text-red-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed p-1.5 rounded-full hover:bg-red-50 hover:shadow-sm border border-transparent hover:border-red-100 group"
         type="button"
-        title="Cancel Process"
+        title="取消当前流程"
       >
         <ng-icon
           *ngIf="!isAborting()"
@@ -31,7 +31,7 @@
       <app-button
         *ngIf="hasAnyAccordionEvents$ | async"
         (click)="toggleExpandAll()"
-        [buttonContent]="isExpandedAll() ? 'Collapse All' : 'Expand All'"
+        [buttonContent]="isExpandedAll() ? '全部收起' : '全部展开'"
         [icon]="
           isExpandedAll() ? 'heroChevronDoubleUp' : 'heroChevronDoubleDown'
         "
@@ -89,7 +89,7 @@
               class="inline-block w-3 h-3 border-2 border-t-transparent rounded-full animate-spin flex-shrink-0"
               [ngClass]="step.borderColorClass"
               role="status"
-              aria-label="Executing"
+              aria-label="正在执行"
             ></div>
           </div>
         </div>
@@ -131,7 +131,7 @@
               <ng-container
                 [ngTemplateOutlet]="stepDataTemplate"
                 [ngTemplateOutletContext]="{
-                  title: 'Input',
+                  title: '输入',
                   data: step.formattedInput,
                 }"
               ></ng-container>
@@ -141,7 +141,7 @@
               <ng-container
                 [ngTemplateOutlet]="stepDataTemplate"
                 [ngTemplateOutletContext]="{
-                  title: 'Output',
+                  title: '输出',
                   data: step.formattedOutput,
                 }"
               ></ng-container>
@@ -196,7 +196,7 @@
   <ng-template #loaderTemplate>
     <div class="flex flex-col items-center justify-center py-8 space-y-4">
       <h3 class="text-sm font-semibold text-gray-800 tracking-wide">
-        We will be ready to proceed in a moment
+        正在准备，请稍候
       </h3>
       <div class="pt-1" style="--dot-size: 4px; --dot-color: #312e81">
         <app-three-bounce-loader> </app-three-bounce-loader>

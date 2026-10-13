@@ -73,7 +73,7 @@ export abstract class BaseRequirementExportStrategy implements ExportStrategy {
           break;
         }
         default: {
-          throw new Error(`Format ${format} not supported`);
+          throw new Error(`不支持 ${format} 格式`);
         }
       }
 

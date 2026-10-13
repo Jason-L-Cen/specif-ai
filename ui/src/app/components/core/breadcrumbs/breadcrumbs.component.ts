@@ -32,7 +32,7 @@ export class BreadcrumbsComponent implements OnInit {
 
   ngOnInit() {
     this.breadcrumbs$.subscribe((pages) => {
-      this.pageHistory = [{ label: 'Apps', url: '/apps', state: {} }, ...pages];
+      this.pageHistory = [{ label: '应用', url: '/apps', state: {} }, ...pages];
     });
   }
 

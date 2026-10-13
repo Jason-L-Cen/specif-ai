@@ -48,7 +48,7 @@ export const buildResearchNode = ({
       await workflowEvents.dispatchAction(
         "research",
         {
-          title: "Skipped research phase - no tools were available",
+          title: "没有可用工具，已跳过调研阶段",
         },
         runnableConfig
       );
@@ -61,7 +61,7 @@ export const buildResearchNode = ({
     await workflowEvents.dispatchThinking(
       "research",
       {
-        title: `Researching based on PRD: ${state.reqName} context`,
+        title: `正在根据产品需求文档（PRD）“${state.reqName}”的背景进行调研`,
       },
       runnableConfig,
       researchCorrelationId
@@ -119,7 +119,7 @@ export const buildResearchNode = ({
     await workflowEvents.dispatchAction(
       "research",
       {
-        title: `Research completed for PRD: ${state.reqName}`,
+        title: `产品需求文档（PRD）“${state.reqName}”的调研已完成`,
         output: response.structuredResponse.referenceInformation,
       },
       runnableConfig,
@@ -159,8 +159,8 @@ export const buildGenerateStoriesNode = (
         {
           title:
             state.feedbackLoops === 0
-              ? `Generating User Stories for PRD: ${state.reqName}`
-              : `Refining User Stories for PRD: ${state.reqName}`,
+              ? `正在根据产品需求文档（PRD）“${state.reqName}”生成用户故事`
+              : `正在完善产品需求文档（PRD）“${state.reqName}”的用户故事`,
         },
         runnableConfig,
         generateCorrelationId
@@ -218,7 +218,7 @@ export const buildGenerateStoriesNode = (
           level: "ERROR",
           statusMessage: `Error parsing LLM response: ${error}`,
         });
-        throw new Error("Invalid response format from LLM");
+        throw new Error("大语言模型返回的响应格式无效");
       }
 
       console.log("[user-story-node] Successfully parsed stories:", {
@@ -230,12 +230,12 @@ export const buildGenerateStoriesNode = (
         {
           title:
             state.feedbackLoops === 0
-              ? `Generated ${
+              ? `已根据产品需求文档（PRD）“${state.reqName}”生成 ${
                   parsedStories.features?.length || 0
-                } user stories for PRD: ${state.reqName}`
-              : `Refined ${
+                } 个用户故事`
+              : `已完善产品需求文档（PRD）“${state.reqName}”的 ${
                   parsedStories.features?.length || 0
-                } user stories for PRD: ${state.reqName}`,
+                } 个用户故事`,
           input: prompt,
           output: JSON.stringify(parsedStories.features || []),
         },
@@ -261,7 +261,7 @@ export const buildGenerateStoriesNode = (
 
       await workflowEvents.dispatchError(
         "generate-stories",
-        { title: `User story generation for PRD: ${state.reqName} failed` },
+        { title: `产品需求文档（PRD）“${state.reqName}”的用户故事生成失败` },
         runnableConfig,
         generateCorrelationId
       );
@@ -301,7 +301,7 @@ export const buildEvaluateStoriesNode = (
         await workflowEvents.dispatchAction(
           "evaluate-stories",
           {
-            title: "No stories available for evaluation",
+            title: "没有可供评估的用户故事",
           },
           runnableConfig,
           evaluateCorrelationId
@@ -317,7 +317,7 @@ export const buildEvaluateStoriesNode = (
         "evaluate-stories",
         {
           title:
-            "Evaluating generated user stories for quality and completeness",
+            "正在评估已生成用户故事的质量和完整性",
         },
         runnableConfig,
         evaluateCorrelationId
@@ -365,10 +365,10 @@ export const buildEvaluateStoriesNode = (
         "evaluate-stories",
         {
           title: isApproved
-            ? "User story generation completed successfully"
+            ? "用户故事已成功生成"
             : isComplete
-            ? "Completing the evaluation since the maximum evaluation limit is reached."
-            : "User stories need refinement - continuing iteration",
+            ? "已达到最大评估次数，正在结束评估"
+            : "用户故事需要完善，正在继续迭代",
         },
         runnableConfig,
         evaluateCorrelationId
@@ -396,7 +396,7 @@ export const buildEvaluateStoriesNode = (
       await workflowEvents.dispatchError(
         "evaluate-stories",
         {
-          title: `User story evaluation for PRD: ${state.reqName} failed`,
+          title: `产品需求文档（PRD）“${state.reqName}”的用户故事评估失败`,
         },
         runnableConfig,
         evaluateCorrelationId

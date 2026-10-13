@@ -102,21 +102,21 @@ export function setupJiraHandlers(mainWindow: BrowserWindow) {
         exchangeToken("authorization_code", authorizationCode)
           .then((authResponse) => {
             mainWindow?.webContents.send("oauth-reply", authResponse);
-            res.writeHead(200, { "Content-Type": "text/plain" });
-            res.end("Authentication successful. You can close this tab.");
+            res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+            res.end("身份验证成功，可以关闭此标签页。");
           })
           .catch((error) => {
             console.error("Error exchanging authorization code for access token.");
-            res.writeHead(500, { "Content-Type": "text/plain" });
-            res.end("Authentication failed.");
+            res.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" });
+            res.end("身份验证失败。");
           });
       } else {
-        res.writeHead(400, { "Content-Type": "text/plain" });
-        res.end("Missing authorization code.");
+        res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
+        res.end("缺少授权码。");
       }
     } else {
-      res.writeHead(404, { "Content-Type": "text/plain" });
-      res.end("Not Found.");
+      res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+      res.end("未找到请求的资源。");
     }
   });
   
@@ -126,12 +126,12 @@ export function setupJiraHandlers(mainWindow: BrowserWindow) {
       if (err.code === "EADDRINUSE") {
         mainWindow?.webContents.send(
           "port-error",
-          `Port ${port} is already in use by another application.`
+          `端口 ${port} 已被其他应用占用。`
         );
       } else {
         mainWindow?.webContents.send(
           "port-error",
-          `Failed to start server: ${err.message}`
+          `无法启动服务器：${err.message}`
         );
       }
     });
@@ -154,7 +154,7 @@ export function setupJiraHandlers(mainWindow: BrowserWindow) {
         } else {
           mainWindow?.webContents.send(
             "port-error",
-            `Server error: ${err.message}`
+            `服务器错误：${err.message}`
           );
         }
       });
@@ -179,7 +179,7 @@ export function setupJiraHandlers(mainWindow: BrowserWindow) {
   
           if (pids.length === 0) {
             console.log(`No valid process found using port ${port}`);
-            return { success: false, message: "No valid process found" };
+            return { success: false, message: "未找到有效的进程" };
           }
           
           for (const pid of pids) {

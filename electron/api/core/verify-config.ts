@@ -20,7 +20,7 @@ export async function verifyConfig(event: IpcMainInvokeEvent, data: any): Promis
 
     // Make a test call to verify the configuration
     console.log('[verify-config] Making test call to LLM...');
-    const testPrompt = "This is a test prompt to verify the provider configuration.";
+    const testPrompt = "这是用于验证模型服务商配置的测试提示词，请简短回复“连接成功”。";
     const testMessages = [{ role: 'user', content: testPrompt }];
 
     const result = await handler.invoke(testMessages, null, "core:verifyConfig");
@@ -31,7 +31,7 @@ export async function verifyConfig(event: IpcMainInvokeEvent, data: any): Promis
 
     return {
       status: 'success',
-      message: 'Provider configuration verified successfully',
+      message: '模型服务商配置验证成功',
       provider,
       model: actualModel,
       testResponse: result
@@ -42,7 +42,7 @@ export async function verifyConfig(event: IpcMainInvokeEvent, data: any): Promis
     
     return {
       status: 'failed',
-      message: 'Model connection failed. Please validate the credentials.',
+      message: '模型连接失败，请检查身份验证凭据。',
       provider: typeof data === 'object' && data ? (data as any).provider || 'unknown' : 'unknown',
       model: 'unknown'
     };

@@ -195,7 +195,7 @@ function processADFNode(node: any): string {
       const timestamp = node.attrs?.timestamp;
       if (timestamp) {
         try {
-          return new Date(parseInt(timestamp)).toLocaleDateString();
+          return new Date(parseInt(timestamp)).toLocaleDateString('zh-CN');
         } catch {
           return '[Date]';
         }

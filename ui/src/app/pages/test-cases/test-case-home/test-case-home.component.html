@@ -7,7 +7,7 @@
         <div class="flex items-center justify-between w-full">
           <div class="flex items-center flex-grow">
             <h1 class="text-lg font-bold text-secondary-800 truncate max-w-full pr-8">
-              Test Cases
+              测试用例
               <ng-icon
                 name="heroInformationCircle"
                 (click)="electronService.openExternalUrl(docUrl)"
@@ -24,15 +24,14 @@
         </div>
 
         <div class="flex items-center">
-          <h2 class="text-md font-semibold text-secondary-600">User Stories</h2>
+          <h2 class="text-md font-semibold text-secondary-600">用户故事</h2>
           <app-badge
             *ngIf="filteredUserStories$ | async as userStories"
             [badgeText]="userStories.length"
           ></app-badge>
         </div>
         <div class="text-xs text-secondary-500 mb-2">
-          Each user story contains its own test cases. View or create test cases
-          by choosing a user story.
+          每个用户故事都有对应的测试用例。选择用户故事以查看或创建测试用例。
         </div>
         <div *ngIf="selectedPrdTitle" class="text-sm text-secondary-500">
           {{ selectedPrdTitle }}
@@ -49,9 +48,9 @@
         >
           <app-search-input
             class="w-full"
-            placeholder="Search user stories..."
+            placeholder="搜索用户故事…"
             (searchChange)="onSearch($event)"
-            label="Search"
+            label="搜索"
           ></app-search-input>
         </div>
         <div [class]="(filteredUserStories$ | async)?.length ? 'w-2/3' : 'w-full'" class="relative z-50">
@@ -72,14 +71,14 @@
       >
         <img
           src="assets/img/empty-states/no-data.svg"
-          alt="No PRD Available"
+          alt="暂无产品需求文档"
           class="w-80 h-80 mx-auto"
         />
         <h1 class="font-semibold text-secondary-700 text-xl mb-2">
-          No PRD is available.
+          暂无产品需求文档（PRD）。
         </h1>
         <p class="text-secondary-500 text-sm">
-          Please check if PRD documents exist for this project.
+          请检查此项目是否已有产品需求文档（PRD）。
         </p>
       </div>
     </ng-template>
@@ -110,8 +109,8 @@
               [description]="userStory.description"
               [borderClass]="getUserStoryBorderClass(userStory.id)"
               [statusIndicator]="getUserStoryStatusIndicator(userStory.id)"
-              [actionButtonText]="'View Tests'"
-              [copyTooltip]="'Copy user story content'"
+              [actionButtonText]="'查看测试用例'"
+              [copyTooltip]="'复制用户故事内容'"
               (viewItem)="navigateToTestCases(userStory)"
               (copyContent)="copyUserStoryContent($event, userStory)"
             ></app-unified-card>
@@ -125,15 +124,15 @@
             <div class="">
               <img
                 src="assets/img/empty-states/no-data.svg"
-                alt="No User Stories Available"
+                alt="暂无用户故事"
                 class="w-80 h-80 mx-auto"
               />
             </div>
             <h1 class="font-semibold text-secondary-700 text-xl mb-2">
-              No User Stories Available for the selected PRD.
+              所选产品需求文档（PRD）暂无用户故事。
             </h1>
             <p class="text-secondary-500 text-sm">
-              Try selecting a different PRD or create user stories for the PRD.
+              请尝试选择其他产品需求文档（PRD），或为当前文档创建用户故事。
             </p>
           </div>
         </ng-template>

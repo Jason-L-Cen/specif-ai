@@ -27,11 +27,11 @@ export class IpcInterceptor {
         && !exemptedChannels.includes(request.channel)
     ) {
       this.toasterService.showError(
-        'Please configure LLM details to continue',
+        '请先配置大语言模型后再继续',
         undefined,
         true,
       );
-      return Promise.reject(new Error('LLM configuration required'));
+      return Promise.reject(new Error('请配置大语言模型'));
     }
 
     if (!request.skipLoading) {

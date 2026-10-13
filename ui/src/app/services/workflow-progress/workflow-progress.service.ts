@@ -606,7 +606,7 @@ export class WorkflowProgressService implements OnDestroy {
       isFailed: true,
       failureInfo: {
         timestamp: failureInfo?.timestamp || new Date().toISOString(),
-        reason: failureInfo?.reason || 'Unknown error occurred',
+        reason: failureInfo?.reason || '发生未知错误',
       },
     });
 

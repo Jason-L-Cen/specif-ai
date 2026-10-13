@@ -93,7 +93,7 @@ export class InlineEditService {
         requestId: uuidv4(),
         editedText: '',
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error'
+        error: error instanceof Error ? error.message : '未知错误'
       };
     }
   }

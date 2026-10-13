@@ -1,4 +1,5 @@
 import { AmazonKnowledgeBaseRetriever } from '@langchain/aws';
+import { OUTPUT_LANGUAGE_INSTRUCTIONS } from '../../prompts/context/markdown-rules';
 
 interface ChatMessage {
     role: string;
@@ -28,7 +29,7 @@ export class LLMUtils {
 
         // Validate the prompt input
         if (!prompt || typeof prompt !== 'string') {
-            throw new Error("Invalid prompt provided.");
+            throw new Error("提示词无效");
         }
 
         // If chat history exists and is valid, format it appropriately
@@ -41,7 +42,7 @@ export class LLMUtils {
         }
 
         // Append the current user query to the message list
-        messages.push({ role: "user", content: prompt });
+        messages.push({ role: "user", content: `${prompt}\n\n${OUTPUT_LANGUAGE_INSTRUCTIONS}` });
 
         console.info("Exited <LLMUtils.prepareMessages>");
         return messages;
@@ -61,18 +62,17 @@ export class LLMUtils {
         // Validate the knowledge base ID
         knowledgeBaseId = knowledgeBaseId.trim();
         if (!knowledgeBaseId) {
-            throw new Error('Knowledge base ID cannot be empty.');
+            throw new Error('知识库 ID 不能为空');
         }
 
         // Validate the user query
         prompt = prompt.trim();
         if (!prompt) {
-            throw new Error('Prompt cannot be empty.');
+            throw new Error('提示词不能为空');
         }
 
         try {
             // Initialize the knowledge base retriever with AWS credentials from config
-            console.log("Received <retrieveKnowledgeBaseContent>", config);
             const retriever = new AmazonKnowledgeBaseRetriever({
                 knowledgeBaseId: knowledgeBaseId,
                 topK: 4,

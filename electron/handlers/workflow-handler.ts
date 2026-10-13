@@ -31,7 +31,7 @@ export function setupWorkflowHandlers() {
           const trace = o11y.createTrace('generate-test-cases');
           const llmConfig = store.get<LLMConfigModel>('llmConfig');
           if (!llmConfig) {
-            throw new Error('LLM configuration not found');
+            throw new Error('未找到大语言模型配置');
           }
           
           const llm = buildLangchainModelProvider(
@@ -60,7 +60,7 @@ export function setupWorkflowHandlers() {
           await workflowEvents.dispatchThinking(
             "generate-test-cases",
             {
-              title: "Generating test cases based on user story",
+              title: "正在根据用户故事生成测试用例",
             },
             config,
             generateCorrelationId
@@ -89,7 +89,7 @@ export function setupWorkflowHandlers() {
                   node: "tools_end",
                   type: "mcp",
                   message: {
-                    title: `Completed tool execution: ${name}`,
+                    title: `工具已执行完成：${name}`,
                     input: data?.input,
                     output: data?.output?.content,
                   },
@@ -110,7 +110,7 @@ export function setupWorkflowHandlers() {
           await workflowEvents.dispatchAction(
             "generate-test-cases",
             {
-              title: `Successfully generated ${result.values.testCases?.length || 0} test cases`,
+              title: `已成功生成 ${result.values.testCases?.length || 0} 个测试用例`,
               output: JSON.stringify(result.values.testCases || []),
             },
             config,
@@ -126,7 +126,7 @@ export function setupWorkflowHandlers() {
           return result.values;
         }
         default:
-          throw new Error(`Unknown workflow type: ${type}`);
+          throw new Error(`未知的工作流类型：${type}`);
       }
     } catch (error) {
       console.error("Error in workflow handler:", error);

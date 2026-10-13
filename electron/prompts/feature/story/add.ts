@@ -38,7 +38,7 @@ Output Structure should be a valid JSON: Here is the sample Structure. Follow th
     "features": [
         {
             "id": "<featureId>"
-            "<feature name>": "[description of feature]  \\n#### Acceptance Criteria:  \\n[acceptance criteria for the feature as sentences]"
+            "<feature name>": "[description of feature]  \\n#### 验收标准：  \\n[acceptance criteria for the feature as sentences]"
         }
     ]
 }

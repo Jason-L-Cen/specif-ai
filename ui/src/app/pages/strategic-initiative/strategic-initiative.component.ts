@@ -45,11 +45,11 @@ import {
   heroSparklesSolid,
   heroDocumentTextSolid,
 } from '@ng-icons/heroicons/solid';
-import { 
-  heroChevronLeft, 
-  heroChevronRight, 
-  heroLink, 
-  heroTrash, 
+import {
+  heroChevronLeft,
+  heroChevronRight,
+  heroLink,
+  heroTrash,
   heroPencil,
   heroDocumentArrowDown,
   heroEllipsisVertical,
@@ -149,7 +149,7 @@ export class StrategicInitiativeComponent implements OnInit {
 
   isEditingTitle: boolean = false;
   documentTitle: string = '';
-  
+
   documentActionOptions: DropdownOptionGroup[] = [];
 
   @ViewChild('richTextEditor') richTextEditor!: RichTextEditorComponent;
@@ -204,12 +204,12 @@ export class StrategicInitiativeComponent implements OnInit {
       this.requirement = this.data?.description;
       this.ucRequirementId = this.fileName.split('-')[0];
 
-      this.editLabel = `Edit ${this.ucRequirementId}`;
-      
+      this.editLabel = `编辑 ${this.ucRequirementId}`;
+
       // Initialize the document action options
       this.initializeDocumentActions();
     } else {
-      this.editLabel = 'Add';
+      this.editLabel = '添加';
     }
 
     this.store.dispatch(
@@ -240,32 +240,32 @@ export class StrategicInitiativeComponent implements OnInit {
    */
   private initializeDocumentActions(): void {
     const isDraft = this.strategicInitiativeForm?.get('status')?.value === 'DRAFT';
-    
+
     this.documentActionOptions = [
       {
-        groupName: "Document Actions",
+        groupName: '文档操作',
         options: [
           {
-            label: "Export as Word",
+            label: '导出为 Word 文档',
             icon: "heroDocumentArrowDown",
             callback: () => this.exportAsWord()
           }
         ]
       },
       {
-        groupName: "Management",
+        groupName: '管理',
         options: [
           {
-            label: isDraft ? "Finalize Document" : "Return to Draft",
+            label: isDraft ? '标记为完成' : '恢复为草稿',
             icon: isDraft ? "heroCheckCircle" : "heroArrowPath",
             callback: () => this.toggleDocumentStatus(),
-            additionalInfo: isDraft ? 'Mark as complete' : 'Mark as draft'
+            additionalInfo: isDraft ? '标记为完成' : '标记为草稿'
           },
           {
-            label: "Delete Document",
+            label: '删除文档',
             icon: "heroTrash",
             callback: () => this.deleteStrategicInitiative(),
-            additionalInfo: "Remove permanently"
+            additionalInfo: '删除此文档'
           }
         ]
       }
@@ -334,7 +334,7 @@ export class StrategicInitiativeComponent implements OnInit {
 
     this.strategicInitiativeForm.markAsUntouched();
     this.strategicInitiativeForm.markAsPristine();
-    
+
     this.initializeDocumentActions();
   }
 
@@ -367,11 +367,11 @@ export class StrategicInitiativeComponent implements OnInit {
           status: res.status,
           researchUrls: res.researchUrls
         });
-        
+
         this.documentTitle = res.title || '';
-        
+
         this.initializeDocumentActions();
-        
+
         this.strategicInitiativeForm.markAsPristine();
         this.strategicInitiativeForm.markAsUntouched();
       });
@@ -402,18 +402,18 @@ export class StrategicInitiativeComponent implements OnInit {
           }
         });
     }
-    
+
     this.clearStaleData();
   }
-  
+
   getEditorInstance(): any {
     return this.richTextEditor?.editor || null;
   }
-  
+
   onRichTextEditorChange(content: string): void {
     this.onCanvasContentChange(content);
   }
-  
+
   private clearStaleData(): void {
     if (this.mode === 'add') {
       this.chatHistory = [];
@@ -434,7 +434,7 @@ export class StrategicInitiativeComponent implements OnInit {
         WorkflowType.StrategicInitiative,
       );
     }
-    
+
     if (this.electronService.electronAPI) {
       try {
         this.workflowProgressService.removeGlobalListener(
@@ -442,7 +442,7 @@ export class StrategicInitiativeComponent implements OnInit {
           WorkflowType.StrategicInitiative
         );
       } catch (error) {
-        
+
       }
     }
   }
@@ -519,23 +519,23 @@ export class StrategicInitiativeComponent implements OnInit {
     if (toolMessages.length > 0) {
       for (const message of toolMessages) {
         if (message.processed) continue;
-        
+
         try {
           const response = JSON.parse(message.tool);
-          
+
           if (response && response.success && response.updateRequest) {
             const { updatedContent } = response.updateRequest;
-            
+
             if (updatedContent) {
               this.strategicInitiativeForm.patchValue({
                 requirement: updatedContent,
               });
-  
+
               if (this.mode === 'edit') {
                 this.updateStrategicInitiative();
               }
-              
-              this.toastService.showSuccess('Successfully updated document content');
+
+              this.toastService.showSuccess('文档内容已更新');
               message.processed = true;
             }
           }
@@ -582,23 +582,23 @@ export class StrategicInitiativeComponent implements OnInit {
     if (this.mode === 'edit') {
       const currentStatus = this.strategicInitiativeForm.get('status')?.value;
       const newStatus = currentStatus === 'DRAFT' ? 'COMPLETE' : 'DRAFT';
-      
+
       this.strategicInitiativeForm.patchValue({
         status: newStatus,
       });
-      
+
       this.updateStrategicInitiative();
-      
-      const statusMessage = newStatus === 'COMPLETE' ? 
-        'Document marked as complete' : 
-        'Document returned to draft status';
-      
+
+      const statusMessage = newStatus === 'COMPLETE' ?
+        '文档已标记为完成' :
+        '文档已恢复为草稿';
+
       this.toastService.showSuccess(statusMessage);
     }
   }
 
   exportAsWord() {
-    const title = this.strategicInitiativeForm.get('title')?.value || 'Strategic Initiative';
+    const title = this.strategicInitiativeForm.get('title')?.value || '战略举措';
     const markdownContent = this.strategicInitiativeForm.get('requirement')?.value || '';
 
     exportMarkdownToDocx(markdownContent, title, {
@@ -606,12 +606,12 @@ export class StrategicInitiativeComponent implements OnInit {
     })
       .then(() => {
         this.toastService.showSuccess(
-          'Strategic Initiative exported successfully as Word document',
+          '战略举措已导出为 Word 文档',
         );
       })
       .catch((error) => {
         this.toastService.showError(
-          `Failed to export document: ${error.message}`,
+          `导出文档失败：${error.message}`,
         );
       });
   }
@@ -683,7 +683,7 @@ export class StrategicInitiativeComponent implements OnInit {
             node: 'generate-strategic-initiative',
             type: WorkflowProgressEventType.Action,
             message: {
-              title: 'Strategic initiative generated successfully',
+              title: '战略举措已生成',
               input: undefined,
               output: { title: result.title },
             },
@@ -695,11 +695,11 @@ export class StrategicInitiativeComponent implements OnInit {
           title: result.title || formValue.title,
           requirement: result.requirement,
         });
-        
+
         this.documentTitle = result.title || formValue.title;
 
         this.toastService.showSuccess(
-          'Strategic initiative generated successfully',
+          '战略举措已生成',
         );
 
         this.showProgressDialog = false;
@@ -707,12 +707,12 @@ export class StrategicInitiativeComponent implements OnInit {
         this.mode === 'add' ? this.addStrategicInitiative() : this.updateStrategicInitiative();
       } else {
         this.toastService.showError(
-          'Failed to generate strategic initiative. Please try again.',
+          '生成战略举措失败，请重试。',
         );
       }
     } catch (error) {
       this.toastService.showError(
-        'An error occurred while generating the strategic initiative',
+        '生成战略举措时发生错误',
       );
 
       await this.workflowProgressService.setFailed(
@@ -763,14 +763,14 @@ export class StrategicInitiativeComponent implements OnInit {
       WorkflowType.StrategicInitiative,
     );
   }
-  
+
   getDocumentContext = (): string => {
     return this.strategicInitiativeForm.get('requirement')?.value || '';
   }
-  
+
   handleInlineEdit = (newContent: string): void => {
     this.onCanvasContentChange(newContent);
-    
+
     if (this.mode === 'edit') {
       this.updateStrategicInitiative();
     }

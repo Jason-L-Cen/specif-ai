@@ -95,19 +95,19 @@ export class TestCaseHomeComponent implements OnInit, OnDestroy {
   summaryCards: SummaryCardData[] = [
     {
       icon: 'heroDocumentText',
-      title: 'Total User Stories',
+      title: '用户故事总数',
       color: 'primary',
       countFn: () => this.getTotalUserStories()
     },
     {
       icon: 'heroClipboardDocumentCheck',
-      title: 'Stories with Test Cases',
+      title: '已创建测试用例的用户故事',
       color: 'warning',
       countFn: () => this.getUserStoriesWithTestCases(),
     },
     {
       icon: 'heroBeaker',
-      title: 'Total Test Cases Present',
+      title: '测试用例总数',
       color: 'success',
       countFn: () => this.getTotalTestCases()
     }
@@ -424,17 +424,17 @@ export class TestCaseHomeComponent implements OnInit, OnDestroy {
   }
   
   ngOnDestroy() {
-    this.store.dispatch(new DeleteBreadcrumb('Test Cases'));
+    this.store.dispatch(new DeleteBreadcrumb('测试用例'));
     this.destroy$.next();
     this.destroy$.complete();
   }
   
   exportOptions: DropdownOptionGroup[] = [
         {
-          groupName: 'Export',
+          groupName: '导出',
           options: [
             {
-              label: 'Download',
+              label: '下载',
               callback: () => {
                 this.exportTestCases(EXPORT_FILE_FORMATS.EXCEL);
               },
@@ -451,7 +451,7 @@ export class TestCaseHomeComponent implements OnInit, OnDestroy {
   }
     async exportTestCases(format: string) {
       if (this.userStories.length === 0) {
-        this.toast.showError('No user stories found');
+        this.toast.showError('未找到用户故事');
         return;
       }
   
@@ -507,12 +507,12 @@ export class TestCaseHomeComponent implements OnInit, OnDestroy {
         }
   
         if (allTestCaseContents.length === 0) {
-          this.toast.showError('No test cases found to export');
+          this.toast.showError('未找到可导出的测试用例');
           return;
         }
   
         if (skippedUserStories.length > 0) {
-          this.toast.showWarning(`No test cases found for user stories: ${skippedUserStories.join(', ')}`);
+          this.toast.showWarning(`以下用户故事没有测试用例：${skippedUserStories.join('、')}`);
         }
 
         const exportResult = await this.testCaseExportStrategy.export(
@@ -524,11 +524,11 @@ export class TestCaseHomeComponent implements OnInit, OnDestroy {
         );
   
         if (!exportResult.success) {
-          this.toast.showError('Failed to export test cases');
+          this.toast.showError('导出测试用例失败');
         }
       } catch (error) {
         this.logger.error('Error exporting test cases:', error);
-        this.toast.showError('Failed to export test cases');
+        this.toast.showError('导出测试用例失败');
       }
     }
 }

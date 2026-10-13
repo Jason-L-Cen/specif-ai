@@ -79,7 +79,7 @@ export class RequirementExportStrategyManager {
         );
       }
       default: {
-        throw new Error(`Export is not supported for ${requirementType}`);
+        throw new Error(`不支持导出 ${requirementType}`);
       }
     }
   }

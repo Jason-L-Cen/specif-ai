@@ -148,14 +148,14 @@ export class TaskListComponent implements OnInit, OnDestroy {
       featureName: string;
       reqId: string;
     };
-    this.currentLabel = `${this.config.featureId} - Tasks`;
+    this.currentLabel = `${this.config.featureId} - 任务`;
     if (this.userStoryId) {
       this.store.dispatch(new SetSelectedUserStory(this.userStoryId));
     }
     this.store.dispatch(
       new AddBreadcrumb({
         label: this.currentLabel,
-        tooltipLabel: `Tasks of ${this.config.featureId}: ${this.config.featureName}`,
+        tooltipLabel: `${this.config.featureId} 的任务：${this.config.featureName}`,
       }),
     );
     this.store.select(ProjectsState.getMetadata).subscribe((metadata) => {
@@ -192,10 +192,10 @@ export class TaskListComponent implements OnInit, OnDestroy {
       .createBuilder()
       .forComponent(ModalDialogCustomComponent)
       .withData({
-        title: 'Generate User Story Tasks',
+        title: '生成用户故事任务',
         description:
-          'Include additional context to generate relevant user story tasks',
-        placeholder: 'Add additional context for the user story tasks',
+          '补充上下文，以生成符合需求的用户故事任务',
+        placeholder: '为用户故事任务补充上下文',
       })
       .withWidth('600px')
       .open()
@@ -251,7 +251,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
           WorkflowType.Task,
           {
             timestamp: new Date().toISOString(),
-            reason: error?.message || 'Failed to generate tasks',
+            reason: error?.message || '生成任务失败',
           },
         );
         this.toastService.showError(

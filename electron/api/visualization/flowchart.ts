@@ -12,7 +12,7 @@ export async function createFlowchart(event: IpcMainInvokeEvent, data: unknown):
   try {
     const llmConfig = store.get<LLMConfigModel>('llmConfig');
     if (!llmConfig) {
-      throw new Error('LLM configuration not found');
+      throw new Error('未找到大语言模型配置');
     }
 
     console.log('[create-flowchart] Using LLM config:', llmConfig);

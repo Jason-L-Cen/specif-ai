@@ -56,12 +56,12 @@ export class AnthropicHandler extends LLMHandler {
 
   getConfig(config: Partial<AnthropicConfig>): AnthropicConfig {
     if (!config.apiKey && !process.env.ANTHROPIC_API_KEY) {
-      throw new LLMError("Anthropic API key is required", "anthropic");
+      throw new LLMError("Anthropic API 密钥不能为空", "anthropic");
     }
 
     const model = config.model || this.defaultModel;
     if (!Object.values(AnthropicModel).includes(model)) {
-      throw new LLMError(`Invalid model ID: ${model}`, "anthropic");
+      throw new LLMError(`无效的模型 ID：${model}`, "anthropic");
     }
 
     return {
@@ -107,7 +107,7 @@ export class AnthropicHandler extends LLMHandler {
 
     const content = response.content?.[0];
     if (!content || content.type !== 'text' || !('text' in content)) {
-      throw new LLMError("No valid text content received from Anthropic API", "anthropic");
+      throw new LLMError("Anthropic API 未返回有效文本内容", "anthropic");
     }
 
     return content.text;

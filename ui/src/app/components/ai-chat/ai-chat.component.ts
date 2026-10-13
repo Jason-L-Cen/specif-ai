@@ -12,7 +12,7 @@ import {
 } from '../../model/interfaces/chat.interface';
 import { ChatService } from '../../services/chat/chat.service';
 import { UtilityService } from '../../services/utility.service';
-import { TOOLTIP_CONTENT, APP_MESSAGES, CHAT_TYPES, REQUIREMENT_TYPE } from '../../constants/app.constants';
+import { TOOLTIP_CONTENT, APP_MESSAGES, CHAT_TYPES, REQUIREMENT_TYPE, REQUIREMENT_DISPLAY_NAME_MAP } from '../../constants/app.constants';
 import { Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { ChatSettings } from 'src/app/model/interfaces/ChatSettings';
@@ -204,14 +204,12 @@ export class AiChatComponent implements OnInit {
       this.requirementAbbrivation = this.utilityService.getRequirementType(
         this.fileName,
       );
-      this.type = this.utilityService
-        .expandRequirementName(this.fileName)
-        .slice(0, -2);
+      this.type = REQUIREMENT_DISPLAY_NAME_MAP[this.requirementAbbrivation as keyof typeof REQUIREMENT_DISPLAY_NAME_MAP] || this.fileName;
     } else if (this.chatType == CHAT_TYPES.USERSTORY) {
-      this.type = 'User Story';
+      this.type = '用户故事';
       this.requirementAbbrivation = REQUIREMENT_TYPE.US;
     } else if (this.chatType == CHAT_TYPES.TASK) {
-      this.type = 'Task for User Story';
+      this.type = '用户故事任务';
       this.requirementAbbrivation = REQUIREMENT_TYPE.TASK;
     }
     this.smoothScroll();
@@ -411,7 +409,7 @@ export class AiChatComponent implements OnInit {
             // Add visual indicator for blocked message
             this.chatHistory[this.chatHistory.length - 1].blocked = true;
             this.chatHistory[this.chatHistory.length - 1].blockReason = chunk.blockedReason;
-            this.toastService.showWarning('Message was blocked: ' + chunk.blockedReason);
+          this.toastService.showWarning('消息已被拦截：' + chunk.blockedReason);
 
             // Ensure loader is hidden for blocked messages
             this.generateLoader = false;
@@ -475,7 +473,7 @@ export class AiChatComponent implements OnInit {
     this.electronService.chatWithAI(payload)
       .catch((error) => {
         console.error('Chat error:', error);
-        this.toastService.showError('Chat failed. Please try again.');
+        this.toastService.showError('对话失败，请重试。');
       })
       .finally(()=>{
         this.generateLoader = false;
@@ -587,10 +585,10 @@ export class AiChatComponent implements OnInit {
 
       // Show appropriate error messages
       if (errorFiles.length > 0) {
-        this.toastService.showError(`Empty file(s): ${errorFiles.join(', ')}`);
+      this.toastService.showError(`文件内容为空：${errorFiles.join('、')}`);
       }
       if (duplicateFiles.length > 0) {
-        this.toastService.showError(`Duplicate file(s): ${duplicateFiles.join(', ')}`);
+      this.toastService.showError(`文件重复：${duplicateFiles.join('、')}`);
       }
     }
 

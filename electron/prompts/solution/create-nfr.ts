@@ -1,5 +1,5 @@
 import { NFR_CONTEXT } from '../context/nfr';
-import { MARKDOWN_RULES } from '../context/markdown-rules';
+import { MARKDOWN_RULES, OUTPUT_LANGUAGE_INSTRUCTIONS } from '../context/markdown-rules';
 
 interface CreateNFRParams {
   name: string;
@@ -9,7 +9,9 @@ interface CreateNFRParams {
 }
 
 export function createNFRPrompt({ name, description, minCount, referenceInformation }: CreateNFRParams): string {
-  return `You are a requirements analyst tasked with extracting detailed Non-Functional Requirements from the provided app description. Below is the description of the app:
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+You are a requirements analyst tasked with extracting detailed Non-Functional Requirements from the provided app description. Below is the description of the app:
 
 App Name: ${name}
 App Description: ${description}

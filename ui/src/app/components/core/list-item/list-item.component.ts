@@ -67,7 +67,7 @@ export class ListItemComponent {
       );
     } catch (error) {
       this.toast.showError(
-        `Failed to open ${selectedPmoTool.toUpperCase()} item: ${pmoId}`,
+        `无法打开 ${selectedPmoTool === 'ado' ? 'Azure DevOps' : 'Jira'} 工作项：${pmoId}`,
       );
     }
   }

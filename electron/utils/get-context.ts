@@ -9,31 +9,31 @@ export function getContextAndType(type: 'BRD' | 'PRD' | 'UIR' | 'NFR' | 'BP'): {
     case 'BRD':
       return {
         context: BRD_CONTEXT,
-        requirementType: 'Business Requirements',
+        requirementType: '业务需求',
         format: '{"title": <title>, "requirement": <requirement>}'
       };
     case 'PRD':
       return {
         context: PRD_CONTEXT,
-        requirementType: 'Product Requirements',
-        format: '{"title": <title>, "requirement": "<requirement>  \\n#### Screens:  \\n<Screen Description>  \\n#### Personas:  \\n<Persona Description>"}'
+        requirementType: '产品需求',
+        format: '{"title": <title>, "requirement": "<requirement>  \\n#### 界面：  \\n<Screen Description>  \\n#### 用户画像：  \\n<Persona Description>"}'
       };
     case 'NFR':
       return {
         context: NFR_CONTEXT,
-        requirementType: 'Non-Functional Requirements',
+        requirementType: '非功能需求',
         format: '{"title": <title>, "requirement": <requirement>}'
       };
     case 'UIR':
       return {
         context: UIR_CONTEXT,
-        requirementType: 'User Interface Requirements',
+        requirementType: '用户界面需求',
         format: '{"title": <title>, "requirement": <requirement>}'
       };
     case 'BP':
       return {
         context: BP_CONTEXT,
-        requirementType: 'Business Process Flow',
+        requirementType: '业务流程',
         format: '{"title": <title>, "requirement": <requirement>}'
       };
   }

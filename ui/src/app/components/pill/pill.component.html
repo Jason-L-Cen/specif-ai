@@ -3,7 +3,7 @@
     <div [ngClass]='["font-normal text-sm text-inherit", contentContainerClass]'>
         <ng-content></ng-content>
     </div>
-    <button *ngIf="showClear" aria-label="clear" (click)="handleClear()" class="flex items-center">
+    <button *ngIf="showClear" aria-label="清除" (click)="handleClear()" class="flex items-center">
         <ng-icon name="heroXMark" color="#64748b" class="" size="0.875rem" strokeWidth="2px"></ng-icon>
     </button>
 </div>

@@ -2,7 +2,7 @@ import { ChatAnthropic } from "@langchain/anthropic";
 import { LLMConfig, LLMError, ModelInfoV1 } from "../llm-types";
 import { LangChainModelProvider } from "./base";
 import { LangChainChatGuardrails } from "@presidio-dev/hai-guardrails"
-import { guardrailsEngine } from "../../../guardrails";
+import { guardrailsEngine, langChainGuardrailsHandler } from "../../../guardrails";
 
 enum AnthropicModel {
   CLAUDE_3_7_SONNET_20250219 = "claude-3-7-sonnet-20250219",
@@ -68,18 +68,19 @@ export class AnthropicLangChainProvider implements LangChainModelProvider {
         maxRetries: this.configData.maxRetries,
         anthropicApiUrl: this.configData.baseUrl,
       }),
-      guardrailsEngine
+      guardrailsEngine,
+      langChainGuardrailsHandler
     );
   }
 
   getConfig(config: Partial<AnthropicConfig>): AnthropicConfig {
     if (!config.apiKey && !process.env.ANTHROPIC_API_KEY) {
-      throw new LLMError("Anthropic API key is required", "anthropic");
+      throw new LLMError("Anthropic API 密钥不能为空", "anthropic");
     }
 
     const model = config.model;
     if (!model || !Object.values(AnthropicModel).includes(model)) {
-      throw new LLMError(`Invalid model ID: ${model}`, "anthropic");
+      throw new LLMError(`无效的模型 ID：${model}`, "anthropic");
     }
 
     return {

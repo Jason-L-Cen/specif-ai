@@ -27,7 +27,7 @@ export async function inlineEditWithAI(
     // Get LLM configuration
     const llmConfig = store.get<LLMConfigModel>('llmConfig');
     if (!llmConfig) {
-      throw new Error('LLM configuration not found');
+      throw new Error('未找到大语言模型配置');
     }
     
     // Create the model provider
@@ -97,7 +97,7 @@ export async function inlineEditWithAI(
       requestId: payload.requestId || uuidv4(),
       editedText: "",
       success: false,
-      error: error.message || "Failed to generate edited text",
+      error: error.message || "无法生成修改后的文本",
     };
   }
 }

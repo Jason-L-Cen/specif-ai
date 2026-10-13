@@ -6,9 +6,13 @@ import {
   leakageGuard,
   piiGuard,
   secretGuard,
-  SelectionType
+  SelectionType,
 } from "@presidio-dev/hai-guardrails";
 import { LLMHandler } from "../services/llm/llm-handler";
+import {
+  coerceMessageLikeToMessage,
+  mapStoredMessagesToChatMessages,
+} from '@langchain/core/messages';
 
 export class GuardrailsShouldBlock extends Error {
   constructor(message: string) {
@@ -68,17 +72,22 @@ export const generateLLMMessage = (messages: string | any[]): LLMMessage[] => {
   }
   
   if (Array.isArray(messages)) {
-    return messages.map(message => ({
-      role: message.role || "user",
-      content: typeof message.content === "string" 
-        ? message.content 
-        : message.content?.text || message.content,
-      ...(message.id && { id: message.id }),
-      ...(message.tool_calls && { tool_calls: message.tool_calls })
-    }));
+    return messages.map(message => {
+      const type = message._getType?.() || message.role || 'user';
+      return {
+        role: type === 'human' ? 'user' : type === 'ai' ? 'assistant' : type,
+        content: typeof message.content === 'string'
+          ? message.content
+          : Array.isArray(message.content)
+            ? message.content.filter((part: any) => part.type === 'text').map((part: any) => part.text).join('\n')
+            : message.content?.text || message.content,
+        ...(message.id && { id: message.id }),
+        ...(message.tool_calls && { tool_calls: message.tool_calls }),
+      };
+    });
   }
 
-  throw new Error("Invalid message format");
+  throw new Error("消息格式无效");
 };
 
 type ProxyHandler<T extends LLMHandler> = {
@@ -106,14 +115,47 @@ export async function validateGuardrails(messages: string | any[]): Promise<LLMM
   // Validate only user messages
   for (const message of messagesToValidate) {
     const guardResult = await guardrailsEngine.run([message]);
-    console.log("Guard result:", JSON.stringify(guardResult));
     if (isBlockedByGuard(guardResult)) {
-      throw new GuardrailsShouldBlock("Guardrails blocked the response");
+      throw new GuardrailsShouldBlock("安全护栏已拦截响应");
     }
+    message.content = guardResult.messages[0].content;
   }
 
   return llmMessages;
 }
+
+// The guardrails package bundles different LangChain classes; preserve the installed SDK's message metadata.
+export const langChainGuardrailsHandler = {
+  invoke: async (
+    method: (...args: any[]) => any,
+    _target: object,
+    thisArg: object,
+    [input, options]: any[],
+    engine: GuardrailsEngine,
+  ) => {
+    const messages = typeof input === 'string'
+      ? [coerceMessageLikeToMessage(input)]
+      : Array.isArray(input)
+        ? input.map(coerceMessageLikeToMessage)
+        : input.toChatMessages();
+    const guardResult = await engine.run(generateLLMMessage(messages));
+    if (isBlockedByGuard(guardResult)) throw new GuardrailsShouldBlock('安全护栏已拦截此请求');
+    const stored = messages.map((message: any) => message.toDict());
+    for (const [index, message] of stored.entries()) {
+      if (typeof message.data.content === 'string') {
+        message.data.content = guardResult.messages[index].content;
+      } else {
+        message.data.content = await Promise.all(message.data.content.map(async (part: any) => {
+          if (part.type !== 'text') return part;
+          const result = await engine.run([{ role: guardResult.messages[index].role, content: part.text }]);
+          if (isBlockedByGuard(result)) throw new GuardrailsShouldBlock('安全护栏已拦截此请求');
+          return { ...part, text: result.messages[0].content };
+        }));
+      }
+    }
+    return method.call(thisArg, mapStoredMessagesToChatMessages(stored), options);
+  },
+};
 
 const DEFAULT_HANDLER: ProxyHandler<LLMHandler> = {
   invoke: async (method, target, thisArg, args, guardrailsEngine) => {

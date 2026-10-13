@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
 export const addUserStorySchema = z.object({
-    name: z.string().min(1, "App Name must not be empty"),
-    description: z.string().min(1, "App Description must not be empty"),
-    reqId: z.string().min(1, "Product requirement Id must not be empty"),
-    reqDesc: z.string().min(1, "Product requirement must not be empty"),
-    featureId: z.string().min(1, "Feature id must not be empty"),
-    featureRequest: z.string().min(1, "Feature request must not be empty"),
+    name: z.string().min(1, "应用名称不能为空"),
+    description: z.string().min(1, "应用描述不能为空"),
+    reqId: z.string().min(1, "产品需求 ID 不能为空"),
+    reqDesc: z.string().min(1, "产品需求不能为空"),
+    featureId: z.string().min(1, "用户故事 ID 不能为空"),
+    featureRequest: z.string().min(1, "用户故事请求不能为空"),
     contentType: z.string(),
     fileContent: z.string(),
     useGenAI: z.boolean()

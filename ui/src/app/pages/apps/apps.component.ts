@@ -95,7 +95,7 @@ export class AppsComponent implements OnInit, OnDestroy {
 
     if (status.isCreating) {
       return {
-        text: 'Creating...',
+        text: '正在创建…',
         classes: 'text-blue-700 bg-blue-50 ring-blue-600/20',
         icon: 'heroSparkles',
       };
@@ -103,7 +103,7 @@ export class AppsComponent implements OnInit, OnDestroy {
 
     if (status.isFailed) {
       return {
-        text: 'Failed',
+        text: '失败',
         classes: 'text-red-700 bg-red-50 ring-red-600/20',
         icon: 'heroXMark',
       };
@@ -111,7 +111,7 @@ export class AppsComponent implements OnInit, OnDestroy {
 
     if (status.isComplete) {
       return {
-        text: 'Ready',
+        text: '已就绪',
         classes: 'text-success-700 bg-success-50 ring-success-600/20',
         icon: 'heroCheckCircle',
       };

@@ -4,7 +4,7 @@
   </div>
   <div class="rounded-md" [formGroup]="emittedForm">
     <label class="block text-secondary-700 text-sm font-medium mb-2">
-      {{ data.description }} <span class="text-secondary-400">(Optional)</span>
+      {{ data.description }} <span class="text-secondary-400">（可选）</span>
     </label>
     <app-textarea-field
       [elementPlaceHolder]="data.placeholder"
@@ -14,14 +14,14 @@
   </div>
   <div class="flex justify-between mt-6">
     <app-button
-      buttonContent="Cancel"
+      buttonContent="取消"
       theme="secondary"
       size="sm"
       rounded="lg"
       (click)="onClose()"
     />
     <app-button
-      buttonContent="Generate"
+      buttonContent="生成"
       theme="primary"
       size="sm"
       rounded="lg"

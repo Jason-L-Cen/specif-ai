@@ -19,7 +19,7 @@
       [attr.data-state]="editor?.isActive('heading') == true ? 'on' : 'off'"
       [cdkMenuTriggerFor]="headingMenu"
       [ngClass]="[toolbarButtonClass, 'h-8 w-10 flex items-center gap-1']"
-      matTooltip="Heading"
+      matTooltip="标题"
       matTooltipPosition="above"
     >
       <span>Aa</span>
@@ -37,7 +37,7 @@
       [attr.data-state]="editor?.isActive('bold') == true ? 'on' : 'off'"
       [ngClass]="['size-8', toolbarButtonClass]"
       (click)="toggleBold()"
-      matTooltip="Bold"
+      matTooltip="加粗"
       matTooltipPosition="above"
     >
       <ng-icon name="heroBold"></ng-icon>
@@ -48,7 +48,7 @@
       [attr.data-state]="editor?.isActive('italic') == true ? 'on' : 'off'"
       [ngClass]="['size-8', toolbarButtonClass]"
       (click)="toggleItalic()"
-      matTooltip="Italic"
+      matTooltip="斜体"
       matTooltipPosition="above"
     >
       <ng-icon name="heroItalic"></ng-icon>
@@ -59,7 +59,7 @@
       [attr.data-state]="editor?.isActive('link') == true ? 'on' : 'off'"
       [ngClass]="['size-8', toolbarButtonClass]"
       (click)="toggleLink()"
-      matTooltip="Link"
+      matTooltip="链接"
       matTooltipPosition="above"
   >
     <ng-icon name="heroLink"></ng-icon>
@@ -70,7 +70,7 @@
       *ngIf="editor?.isActive('link')"
       [ngClass]="['size-8', toolbarButtonClass]"
       (click)="unsetLink()"
-      matTooltip="Remove Link"
+      matTooltip="移除链接"
       matTooltipPosition="above"
 >
     <ng-icon name="heroLinkSlash"></ng-icon>
@@ -87,7 +87,7 @@
       [attr.data-state]="editor?.isActive('orderedList') == true ? 'on' : 'off'"
       [ngClass]="['size-8', toolbarButtonClass]"
       (click)="toggleOrderedList()"
-      matTooltip="Numbered List"
+      matTooltip="有序列表"
       matTooltipPosition="above"
     >
       <ng-icon name="heroNumberedList" size="16"></ng-icon>
@@ -98,7 +98,7 @@
       [attr.data-state]="editor?.isActive('bulletList') == true ? 'on' : 'off'"
       [ngClass]="['size-8', toolbarButtonClass]"
       (click)="toggleBulletList()"
-      matTooltip="Bullet List"
+      matTooltip="无序列表"
       matTooltipPosition="above"
     >
       <ng-icon name="heroListBullet" size="18"></ng-icon>
@@ -116,7 +116,7 @@
     [attr.data-state]="editor?.isActive('table') == true ? 'on' : 'off'"
     [cdkMenuTriggerFor]="tableMenu"
     [ngClass]="[toolbarButtonClass, 'h-8 w-10 flex items-center gap-1']"
-    matTooltip="Table"
+    matTooltip="表格"
     matTooltipPosition="above"
   >
     <ng-icon name="heroSquares2x2" size="16"></ng-icon>
@@ -143,7 +143,7 @@
       (cdkMenuItemTriggered)="setHeadingLevel()"
       [class]="headingMenuItemClass"
     >
-      <p>Normal Style</p>
+      <p>正文</p>
     </button>
     <button
       [attr.data-state]="
@@ -154,7 +154,7 @@
       (cdkMenuItemTriggered)="setHeadingLevel(1)"
       [class]="headingMenuItemClass"
     >
-      <h1>Heading 1</h1>
+      <h1>标题 1</h1>
     </button>
     <button
       [attr.data-state]="
@@ -165,7 +165,7 @@
       (cdkMenuItemTriggered)="setHeadingLevel(2)"
       [class]="headingMenuItemClass"
     >
-      <h2>Heading 2</h2>
+      <h2>标题 2</h2>
     </button>
     <button
       [attr.data-state]="
@@ -176,7 +176,7 @@
       (cdkMenuItemTriggered)="setHeadingLevel(3)"
       [class]="headingMenuItemClass"
     >
-      <h3>Heading 3</h3>
+      <h3>标题 3</h3>
     </button>
     <button
       [attr.data-state]="
@@ -187,7 +187,7 @@
       (cdkMenuItemTriggered)="setHeadingLevel(4)"
       [class]="headingMenuItemClass"
     >
-      <h4>Heading 4</h4>
+      <h4>标题 4</h4>
     </button>
     <button
       [attr.data-state]="
@@ -198,7 +198,7 @@
       (cdkMenuItemTriggered)="setHeadingLevel(5)"
       [class]="headingMenuItemClass"
     >
-      <h5>Heading 5</h5>
+      <h5>标题 5</h5>
     </button>
     <button
       [attr.data-state]="
@@ -209,7 +209,7 @@
       (cdkMenuItemTriggered)="setHeadingLevel(6)"
       [class]="headingMenuItemClass"
     >
-      <h6>Heading 6</h6>
+      <h6>标题 6</h6>
     </button>
   </div>
 </ng-template>
@@ -224,7 +224,7 @@
     <!-- Table Category -->
     <div class="px-2 py-1 text-sm font-medium text-secondary-700 flex items-center gap-2">
       <ng-icon name="heroSquares2x2" size="16"></ng-icon>
-      <span>Table</span>
+      <span>表格</span>
     </div>
     
     <button
@@ -234,7 +234,7 @@
       [class]="headingMenuItemClass"
     >
       <div class="flex items-center gap-2 pl-6">
-        <span>Insert table</span>
+        <span>插入表格</span>
       </div>
     </button>
     
@@ -246,7 +246,7 @@
       [disabled]="!editor?.isActive('table')"
     >
       <div class="flex items-center gap-2 pl-6">
-        <span>Delete table</span>
+        <span>删除表格</span>
       </div>
     </button>
     
@@ -255,7 +255,7 @@
     <!-- Column Category -->
     <div class="px-2 py-1 text-sm font-medium text-secondary-700 flex items-center gap-2">
       <ng-icon name="heroViewColumns" size="16"></ng-icon>
-      <span>Column</span>
+      <span>列</span>
     </div>
     
     <button
@@ -266,7 +266,7 @@
       [disabled]="!editor?.isActive('table')"
     >
       <div class="flex items-center gap-2 pl-6">
-        <span>Add column before</span>
+        <span>在左侧插入列</span>
       </div>
     </button>
     
@@ -278,7 +278,7 @@
       [disabled]="!editor?.isActive('table')"
     >
       <div class="flex items-center gap-2 pl-6">
-        <span>Add column after</span>
+        <span>在右侧插入列</span>
       </div>
     </button>
     
@@ -290,7 +290,7 @@
       [disabled]="!editor?.isActive('table')"
     >
       <div class="flex items-center gap-2 pl-6">
-        <span>Delete column</span>
+        <span>删除列</span>
       </div>
     </button>
     
@@ -299,7 +299,7 @@
     <!-- Row Category -->
     <div class="px-2 py-1 text-sm font-medium text-secondary-700 flex items-center gap-2">
       <ng-icon name="heroBars3" size="16"></ng-icon>
-      <span>Row</span>
+      <span>行</span>
     </div>
     
     <button
@@ -310,7 +310,7 @@
       [disabled]="!editor?.isActive('table')"
     >
       <div class="flex items-center gap-2 pl-6">
-        <span>Add row before</span>
+        <span>在上方插入行</span>
       </div>
     </button>
     
@@ -322,7 +322,7 @@
       [disabled]="!editor?.isActive('table')"
     >
       <div class="flex items-center gap-2 pl-6">
-        <span>Add row after</span>
+        <span>在下方插入行</span>
       </div>
     </button>
     
@@ -334,7 +334,7 @@
       [disabled]="!editor?.isActive('table')"
     >
       <div class="flex items-center gap-2 pl-6">
-        <span>Delete row</span>
+        <span>删除行</span>
       </div>
     </button>
     
@@ -343,7 +343,7 @@
     <!-- Cell Category -->
     <div class="px-2 py-1 text-sm font-medium text-secondary-700 flex items-center gap-2">
       <ng-icon name="heroTableCells" size="16"></ng-icon>
-      <span>Cell</span>
+      <span>单元格</span>
     </div>
     
     <button
@@ -354,7 +354,7 @@
       [disabled]="!editor?.isActive('table')"
     >
       <div class="flex items-center gap-2 pl-6">
-        <span>Merge cells</span>
+        <span>合并单元格</span>
       </div>
     </button>
     
@@ -366,7 +366,7 @@
       [disabled]="!editor?.isActive('table')"
     >
       <div class="flex items-center gap-2 pl-6">
-        <span>Split cell</span>
+        <span>拆分单元格</span>
       </div>
     </button>
     
@@ -375,7 +375,7 @@
     <!-- Table Header Category -->
     <div class="px-2 py-1 text-sm font-medium text-secondary-700 flex items-center gap-2">
       <ng-icon name="heroFunnel" size="16"></ng-icon>
-      <span>Table Header</span>
+      <span>表头</span>
     </div>
     
     <button
@@ -386,7 +386,7 @@
       [disabled]="!editor?.isActive('table')"
     >
       <div class="flex items-center gap-2 pl-6">
-        <span>Toggle header row</span>
+        <span>切换表头行</span>
       </div>
     </button>
     
@@ -398,7 +398,7 @@
       [disabled]="!editor?.isActive('table')"
     >
       <div class="flex items-center gap-2 pl-6">
-        <span>Toggle header column</span>
+        <span>切换表头列</span>
       </div>
     </button>
   </div>

@@ -49,7 +49,7 @@ export const buildResearchNode = ({
       await workflowEvents.dispatchAction(
         "research",
         {
-          title: "Skipped research phase - no tools were available",
+          title: "没有可用工具，已跳过调研阶段",
         },
         runnableConfig
       );
@@ -62,7 +62,7 @@ export const buildResearchNode = ({
     await workflowEvents.dispatchThinking(
       "research",
       {
-        title: "Researching context for test case generation",
+        title: "正在调研测试用例生成所需的背景信息",
         input: JSON.stringify({
           userStoryTitle: state.userStoryTitle,
           availableTools: tools.length,
@@ -129,7 +129,7 @@ export const buildResearchNode = ({
     await workflowEvents.dispatchAction(
       "research",
       {
-        title: "Research completed - context gathered for test case generation",
+        title: "调研已完成，已收集测试用例生成所需的背景信息",
         output: response.structuredResponse.referenceInformation,
       },
       runnableConfig,
@@ -169,8 +169,8 @@ export const buildGenerateTestCasesNode = (
         "generate-test-cases",
         {
           title: isRefinement 
-            ? `Refining test cases for user story: ${state.userStoryTitle}` 
-            : `Generating test cases for user story: ${state.userStoryTitle}`,
+            ? `正在完善用户故事“${state.userStoryTitle}”的测试用例`
+            : `正在生成用户故事“${state.userStoryTitle}”的测试用例`,
           input: JSON.stringify({
             userStoryTitle: state.userStoryTitle,
             iteration: state.feedbackLoops + 1,
@@ -266,7 +266,7 @@ export const buildGenerateTestCasesNode = (
         await workflowEvents.dispatchAction(
           "generate-test-cases",
           {
-            title: "Error: No test cases found in the response",
+            title: "错误：响应中未找到测试用例",
             input: prompt,
           },
           runnableConfig,
@@ -274,7 +274,7 @@ export const buildGenerateTestCasesNode = (
         );
         
         if (state.feedbackLoops >= 2) {
-          throw new Error("Failed to generate valid test cases after multiple attempts");
+          throw new Error("多次尝试后仍无法生成有效的测试用例");
         }
         
         return {
@@ -293,8 +293,8 @@ export const buildGenerateTestCasesNode = (
         "generate-test-cases",
         {
           title: isRefinement
-            ? `Successfully refined ${testCaseCount} test cases. (Iteration ${state.feedbackLoops + 1})`
-            : `Successfully generated ${testCaseCount} test cases.`,
+            ? `已成功完善 ${testCaseCount} 个测试用例（第 ${state.feedbackLoops + 1} 轮）`
+            : `已成功生成 ${testCaseCount} 个测试用例`,
           input: prompt,
           output: parsedTestCases.testCases,
         },
@@ -322,7 +322,7 @@ export const buildGenerateTestCasesNode = (
 
       await workflowEvents.dispatchAction(
         "generate-test-cases",
-        { title: "Error occurred during test case generation" },
+        { title: "生成测试用例时出错" },
         runnableConfig,
         generateCorrelationId
       );
@@ -373,7 +373,7 @@ export const buildEvaluateTestCasesNode = (
         await workflowEvents.dispatchAction(
           "evaluate-test-cases",
           {
-            title: "No test cases available for evaluation",
+            title: "没有可供评估的测试用例",
           },
           runnableConfig,
           evaluateCorrelationId
@@ -388,7 +388,7 @@ export const buildEvaluateTestCasesNode = (
       await workflowEvents.dispatchThinking(
         "evaluate-test-cases",
         {
-          title: `Evaluating ${state.testCases.length} test cases for user story (Iteration ${state.feedbackLoops})`,
+          title: `正在评估用户故事的 ${state.testCases.length} 个测试用例（第 ${state.feedbackLoops} 轮）`,
           input: JSON.stringify({
             testCaseCount: state.testCases.length,
             userStoryTitle: state.userStoryTitle,
@@ -451,10 +451,10 @@ export const buildEvaluateTestCasesNode = (
         "evaluate-test-cases",
         {
           title: isApproved
-            ? `${state.testCases.length} test cases approved for user story`
+            ? `用户故事的 ${state.testCases.length} 个测试用例已通过评估`
             : isComplete
-            ? `Completing evaluation after ${state.feedbackLoops} iterations for user story`
-            : `Test cases need refinement for user story (Iteration ${state.feedbackLoops} of 3)`,
+            ? `已完成用户故事测试用例的评估，共进行了 ${state.feedbackLoops} 轮`
+            : `用户故事的测试用例需要完善（第 ${state.feedbackLoops} 轮，共 3 轮）`,
           output: isApproved 
             ? "All test cases meet quality standards and cover the user story requirements adequately."
             : isComplete
@@ -487,7 +487,7 @@ export const buildEvaluateTestCasesNode = (
       await workflowEvents.dispatchAction(
         "evaluate-test-cases",
         {
-          title: "Error occurred during test case evaluation",
+          title: "评估测试用例时出错",
         },
         runnableConfig,
         evaluateCorrelationId

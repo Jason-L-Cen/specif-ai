@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -111,6 +111,7 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
     MainLayoutComponent,
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'zh-CN' },
     {
       provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
       useValue: {

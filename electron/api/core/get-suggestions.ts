@@ -18,7 +18,7 @@ export async function getSuggestions(_: IpcMainInvokeEvent, data: unknown): Prom
     const trace = o11y.createTrace('get-suggestions');
 
     if (!llmConfig) {
-      throw new Error('LLM configuration not found');
+      throw new Error('未找到大语言模型配置');
     }
 
     console.log('[get-suggestions] Using LLM config:', llmConfig);

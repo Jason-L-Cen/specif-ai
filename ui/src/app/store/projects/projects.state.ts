@@ -166,7 +166,7 @@ export class ProjectsState {
       const projectExists = await this.appSystemService.fileExists(projectName);
       if (projectExists && !isRetry) {
         throw new Error(
-          'Project already exists, please retry with another unique project name',
+          '项目已存在，请使用其他不重复的项目名称重试。',
         );
       }
 
@@ -247,11 +247,11 @@ export class ProjectsState {
       const error =
         e instanceof Error
           ? e
-          : new Error('Unknown error occurred while creating project');
+          : new Error('创建项目时发生未知错误');
       this.logger.error('Error creating project', error);
 
       const isProjectExistsError = error.message.includes(
-        'Project already exists',
+        '项目已存在',
       );
 
       if (!isProjectExistsError) {
@@ -777,7 +777,7 @@ export class ProjectsState {
 
     if (failedReqIds.length > 0) {
       this.toast.showError(
-        `Failed to update ${failedReqIds.join(', ')} requirements`,
+        `更新以下需求失败：${failedReqIds.join('、')}`,
       );
     }
   }
@@ -791,11 +791,11 @@ export class ProjectsState {
       patchState({ exportingData: true });
       if (options.type === 'json') {
         this.toast.showInfo(
-          `Copied ${REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]} data`,
+          `已复制${REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]}数据`,
         );
       } else {
         this.toast.showInfo(
-          `Exporting ${REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]} data`,
+          `正在导出${REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]}数据`,
         );
       }
       const state = getState();
@@ -811,9 +811,9 @@ export class ProjectsState {
       patchState({ exportingData: false });
     } catch (error) {
       const errorMessage =
-        error instanceof Error ? error.message : 'Unknown error';
+        error instanceof Error ? error.message : '未知错误';
       this.logger.error('Error in export:', { error, errorMessage });
-      this.toast.showError(`Failed to export data: ${errorMessage}`);
+      this.toast.showError(`导出数据失败：${errorMessage}`);
       patchState({ exportingData: false });
     }
   }

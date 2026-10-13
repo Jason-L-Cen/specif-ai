@@ -34,7 +34,7 @@ export class GeminiHandler extends LLMHandler {
 
   getConfig(config: Partial<GeminiConfig>): GeminiConfig {
     if (!config.apiKey && !process.env.GOOGLE_API_KEY) {
-      throw new LLMError("Google API key is required", "gemini");
+      throw new LLMError("Google API 密钥不能为空", "gemini");
     }
 
     if (!config.model) {
@@ -42,7 +42,7 @@ export class GeminiHandler extends LLMHandler {
         "[GeminiHandler] No model provided, using default:",
         this.defaultModel
       );
-      throw new LLMError("Model ID is required", "gemini");
+      throw new LLMError("模型 ID 不能为空", "gemini");
     }
 
     const result = {
@@ -97,7 +97,7 @@ export class GeminiHandler extends LLMHandler {
 
     if (!response.text()) {
       throw new LLMError(
-        "No response content received from Gemini API",
+        "Gemini API 未返回回答内容",
         "gemini"
       );
     }

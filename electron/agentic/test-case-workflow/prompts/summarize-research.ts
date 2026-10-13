@@ -1,3 +1,4 @@
+import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../../prompts/context/markdown-rules";
 export const createSummarizeTestCaseResearchPrompt = ({
   userStoryTitle,
   userStoryDescription,
@@ -11,7 +12,9 @@ export const createSummarizeTestCaseResearchPrompt = ({
   technicalDetails?: string;
   extraContext?: string;
 }) => {
-  return `Based on the research conducted for the following user story, summarize the key findings that will guide test case generation:
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+Based on the research conducted for the following user story, summarize the key findings that will guide test case generation:
 
 Story Title: ${userStoryTitle}
 Story Description: ${userStoryDescription}

@@ -47,7 +47,7 @@ export class JiraToPmoMigrationService {
   async migrateLegacyJiraReferences(solutionName: string, appInfo: any): Promise<void> {
     try {
       this.logger.debug('Starting JIRA to PMO reference migration for project:', solutionName);
-      this.toast.showInfo('Migrating JIRA refs to generic PMO IDs (JIRA, ADO, etc.) for seamless compatibility across platforms.');
+      this.toast.showInfo('正在将 Jira 引用迁移为通用 PMO ID，以兼容 Jira、Azure DevOps 等平台。');
 
       const migratedFilesCount = await this.migratePrdFiles(solutionName);
       await this.updateProjectMetadata(appInfo);
@@ -57,7 +57,7 @@ export class JiraToPmoMigrationService {
 
     } catch (error) {
       this.logger.error('Error during JIRA to PMO migration:', error);
-      this.toast.showError('Failed to migrate JIRA references. Please try again.');
+      this.toast.showError('迁移 Jira 引用失败，请重试。');
       throw error;
     }
   }
@@ -82,7 +82,7 @@ export class JiraToPmoMigrationService {
       return migratedCount;
     } catch (error) {
       this.logger.error('Error accessing PRD directory:', error);
-      this.toast.showWarning('No PRDs found. Migration completed without changes.');
+      this.toast.showWarning('未找到产品需求（PRD），迁移已完成，未进行任何更改。');
       return 0;
     }
   }
@@ -216,10 +216,10 @@ export class JiraToPmoMigrationService {
       this.logger.info(`Successfully migrated ${migratedFilesCount} files from JIRA to PMO references.`);
 
       this.toast.showSuccess(
-        `Migration successful! Reload the app to activate JIRA integration.`
+        '迁移成功，请重新加载应用以启用 Jira 集成。'
       );
     } else {
-      this.toast.showSuccess('Migration completed successfully. No JIRA references were found in the requirement files.');
+      this.toast.showSuccess('迁移已完成，需求文件中未找到 Jira 引用。');
     }
   }
 }

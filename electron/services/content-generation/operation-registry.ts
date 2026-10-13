@@ -105,7 +105,7 @@ class OperationRegistry {
    */
   public checkCancellation(operationId: string): void {
     if (this.isCancelled(operationId)) {
-      throw new Error(`Operation cancelled: ${operationId}`);
+      throw new Error(`操作已取消：${operationId}`);
     }
   }
 

@@ -6,11 +6,11 @@
     class="flex items-center justify-between p-4 sticky top-0 bg-white rounded-t-lg"
   >
     <h1 class="text-xl font-semibold leading-6 text-secondary-900">
-      Solutions
+      解决方案
     </h1>
     <app-button
       (click)="navigateToCreate()"
-      buttonContent="Create Solution"
+      buttonContent="创建解决方案"
       size="sm"
     />
   </div>
@@ -18,9 +18,9 @@
     <!-- Main content -->
     <div class="px-6 pb-6" *ngIf="apps.length === 0">
       <app-empty-state
-        heading="Let's Build Something Great ✨"
-        description="No solutions here... yet! Kick things off by creating your first solution and let Specifai work its magic — auto-generating docs, tasks, and more to make your workflow shine."
-        buttonText="Create Solution"
+        heading="创建你的第一个解决方案 ✨"
+        description="暂无解决方案。创建第一个解决方案后，Specifai 将自动生成文档、任务等内容，帮助你推进工作。"
+        buttonText="创建解决方案"
         imageSrc="assets/img/empty-states/solutions.png"
         (buttonClick)="navigateToCreate()"
       ></app-empty-state>
@@ -55,14 +55,14 @@
             class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-secondary-500"
           >
             <p class="whitespace-nowrap">
-              Created
+              创建时间：
               {{ app?.metadata?.createdAt | timezone }}
             </p>
           </div>
         </div>
         <div class="flex flex-none items-center gap-x-4">
           <app-button
-            buttonContent="View Solution"
+            buttonContent="查看解决方案"
             theme="secondary_outline"
             size="sm"
             rounded="lg"

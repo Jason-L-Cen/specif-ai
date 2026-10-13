@@ -3,10 +3,10 @@ User Story(US):
 User story should ideally describe the feature on a high level. Develop a detailed and well-structured user story for feature that effectively addresses both the client's requests and the provided file content. Ensure that the feature is clear, concise, and comprehensive.
 
 Consider the below format to generate user story:
-Ability to <user action> the <feature>
-In order to <mention the user need>
-As a <the persona or user>
-I want the <end goal or objective of the feature>
+能够通过<用户操作>使用<功能>
+以满足<用户需求>
+作为<用户角色或用户>
+我希望实现<功能的最终目标>
 
 Include the Acceptance Criteria as part of the description.
 Consider this as acceptance criteria format - 

@@ -10,23 +10,22 @@
           class="text-2xl font-bold text-gray-900 tracking-tight"
         >
           {{
-            action() === "pull" ? config.title : "Push to " + config.serviceName
+            action() === "pull" ? config.title : "推送至 " + config.serviceName
           }}
         </h2>
         <p class="text-sm text-gray-500 mt-1">
           {{
             action() === "pull"
-              ? "Import work items from"
-              : "Export work items to"
+              ? "从 " + config.serviceName + " 导入工作项"
+              : "向 " + config.serviceName + " 导出工作项"
           }}
-          {{ config.serviceName }}
         </p>
       </div>
     </div>
     <button
       (click)="onClose()"
       class="text-gray-400 hover:text-red-500 hover:bg-red-50 smooth-transition rounded-full p-3 group"
-      aria-label="Close modal"
+      aria-label="关闭弹窗"
     >
       <ng-icon
         name="heroXMark"
@@ -53,13 +52,13 @@
       </div>
       <div class="flex-1">
         <h4 class="text-base font-semibold text-red-800 mb-1">
-          Connection Error
+          连接错误
         </h4>
         <p class="text-sm text-red-700 leading-relaxed">
           {{ connectionStatus().errorMessage }}
         </p>
         <p class="text-xs text-red-600 mt-3 font-medium">
-          Please check your connection settings or try again.
+          请检查连接设置或重试。
         </p>
       </div>
     </div>
@@ -76,16 +75,16 @@
           <h4 class="font-bold text-gray-900 text-xl mb-1">
             {{
               action() === "pull"
-                ? "Work Items from " + config.serviceName
-                : "Items to Push to " + config.serviceName
+                ? config.serviceName + " 中的工作项"
+                : "待推送至 " + config.serviceName + " 的工作项"
             }}
           </h4>
           <p class="text-sm text-gray-600 flex items-center">
             <span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
             {{
               action() === "pull"
-                ? config.itemLabels.topLevel + "s and their child items"
-                : "Select items to push to " + config.serviceName
+                ? config.itemLabels.topLevel + "及其子项"
+                : "选择要推送至 " + config.serviceName + " 的工作项"
             }}
           </p>
         </div>
@@ -106,18 +105,18 @@
                   ? 'mixed'
                   : 'false'
             "
-            aria-label="Select all work items"
+            aria-label="选择所有工作项"
           />
           <label
             for="selectAllItems"
             class="ml-3 text-sm text-gray-800 cursor-pointer font-semibold select-none"
-            >Select All</label
+            >全选</label
           >
           <span
             *ngIf="selectedCount() > 0"
             class="ml-3 text-xs text-white font-bold bg-gradient-to-r from-blue-500 to-blue-600 rounded-full px-3 py-1 shadow-sm"
           >
-            {{ selectedCount() }} selected
+            已选择 {{ selectedCount() }} 项
           </span>
         </div>
       </div>
@@ -137,10 +136,10 @@
           ></ng-icon>
         </div>
         <span class="text-gray-700 text-base font-medium mt-4"
-          >Loading work items...</span
+          >正在加载工作项…</span
         >
         <span class="text-gray-500 text-sm mt-1"
-          >Please wait while we fetch your data</span
+          >正在获取数据，请稍候</span
         >
       </div>
 
@@ -153,13 +152,13 @@
           <ng-icon name="heroInbox" class="size-12 text-gray-400"></ng-icon>
         </div>
         <h3 class="text-lg font-semibold text-gray-700 mb-2">
-          No Work Items Found
+          未找到工作项
         </h3>
         <p class="text-gray-500 text-base max-w-md leading-relaxed">
-          No work items found in this {{ config.serviceName }} project.
+          此 {{ config.serviceName }} 项目中没有工作项。
         </p>
         <p class="text-sm text-gray-400 mt-2">
-          Try refreshing or check your project configuration.
+          请尝试刷新或检查项目配置。
         </p>
       </div>
 
@@ -184,7 +183,7 @@
               (click)="togglePrdSelection($event, prd.specifaiId)"
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 mr-2 shadow-sm"
               [attr.aria-label]="
-                'Select ' + config.itemLabels.topLevel + ' ' + prd.title
+                '选择' + config.itemLabels.topLevel + ' ' + prd.title
               "
             />
             <ng-icon
@@ -204,7 +203,7 @@
                   <ng-icon
                     name="heroDocumentCheck"
                     class="w-5 h-5 text-amber-600 mr-1"
-                    title="Update existing file - This item will update an existing work item"
+                    title="更新现有文件：此项将更新已有工作项"
                   ></ng-icon>
                 </span>
                 <ng-template #newPrd>
@@ -212,7 +211,7 @@
                     <ng-icon
                       name="heroDocumentPlus"
                       class="w-5 h-5 text-green-600 mr-1"
-                      title="Add new file - This item will create a new work item"
+                      title="添加新文件：此项将创建工作项"
                     ></ng-icon>
                   </span>
                 </ng-template>
@@ -243,7 +242,7 @@
               class="py-3 text-center"
             >
               <span class="text-xs text-gray-400"
-                >No {{ config.itemLabels.midLevel }}s</span
+                >暂无{{ config.itemLabels.midLevel }}</span
               >
             </div>
 
@@ -267,7 +266,7 @@
                   "
                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 mr-2 shadow-sm"
                   [attr.aria-label]="
-                    'Select ' +
+                    '选择' +
                     config.itemLabels.midLevel +
                     ' ' +
                     platformFeature.title
@@ -290,7 +289,7 @@
                       <ng-icon
                         name="heroDocumentCheck"
                         class="w-4 h-4 text-amber-600 mr-1"
-                        title="Update existing file - This item will update an existing work item in the PMO system"
+                        title="更新现有文件：此项将更新项目管理系统中已有的工作项"
                       ></ng-icon>
                     </span>
                     <ng-template #newMid>
@@ -298,7 +297,7 @@
                         <ng-icon
                           name="heroDocumentPlus"
                           class="w-4 h-4 text-green-600 mr-1"
-                          title="Add new file - This item will create a new work item in the PMO system"
+                          title="添加新文件：此项将在项目管理系统中创建工作项"
                         ></ng-icon>
                       </span>
                     </ng-template>
@@ -333,7 +332,7 @@
                   class="py-3 text-center"
                 >
                   <span class="text-xs text-gray-400"
-                    >No {{ config.itemLabels.bottomLevel }}s</span
+                    >暂无{{ config.itemLabels.bottomLevel }}</span
                   >
                 </div>
 
@@ -353,7 +352,7 @@
                       "
                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 mr-2 shadow-sm"
                       [attr.aria-label]="
-                        'Select ' +
+                        '选择' +
                         config.itemLabels.bottomLevel +
                         ' ' +
                         userStory.title
@@ -368,7 +367,7 @@
                           <ng-icon
                             name="heroDocumentCheck"
                             class="w-4 h-4 text-amber-600 mr-1"
-                            title="Update existing file - This item will update an existing work item"
+                            title="更新现有文件：此项将更新已有工作项"
                           ></ng-icon>
                         </span>
                         <ng-template #newBottom>
@@ -376,7 +375,7 @@
                             <ng-icon
                               name="heroDocumentPlus"
                               class="w-4 h-4 text-green-600 mr-1"
-                              title="Add new file - This item will create a new work item"
+                              title="添加新文件：此项将创建工作项"
                             ></ng-icon>
                           </span>
                         </ng-template>
@@ -417,12 +416,12 @@
       >
         <div class="flex items-center justify-center">
           <app-button
-            [buttonContent]="isLoadingMore() ? 'Loading...' : 'Load More Items'"
+            [buttonContent]="isLoadingMore() ? '正在加载…' : '加载更多工作项'"
             theme="secondary"
             size="sm"
             (click)="loadMoreItems()"
             [disabled]="isLoadingMore()"
-            aria-label="Load more work items"
+            aria-label="加载更多工作项"
           >
             <ng-icon
               *ngIf="isLoadingMore()"
@@ -444,7 +443,7 @@
         class="border-t border-gray-100 px-6 py-3 bg-gray-50 text-center"
       >
         <span class="text-xs text-gray-500">
-          Showing {{ prdsWithChildren().length }} items
+          已显示 {{ prdsWithChildren().length }} 项
         </span>
       </div>
     </div>
@@ -455,30 +454,30 @@
     class="flex flex-col sm:flex-row justify-end gap-3 px-8 py-6 border-t border-gray-100 bg-gray-50 rounded-b-2xl"
   >
     <app-button
-      buttonContent="Cancel"
+      buttonContent="取消"
       theme="secondary"
       size="sm"
       (click)="onClose()"
-      aria-label="Cancel and close modal"
+      aria-label="取消并关闭弹窗"
     ></app-button>
 
     <app-button
       *ngIf="!connectionStatus().isConnected"
-      buttonContent="Configure Integration"
+      buttonContent="配置集成"
       theme="primary"
       size="sm"
       (click)="onConfigureIntegration()"
-      aria-label="Configure integration"
+      aria-label="配置集成"
     ></app-button>
 
     <app-button
       *ngIf="connectionStatus().isConnected"
-      [buttonContent]="action() === 'pull' ? 'Pull Items' : 'Push Items'"
+      [buttonContent]="action() === 'pull' ? '拉取工作项' : '推送工作项'"
       theme="primary"
       size="sm"
       (click)="onProceed()"
       [disabled]="selectedCount() === 0 || isLoading()"
-      aria-label="Proceed with selected items"
+      aria-label="处理所选工作项"
     ></app-button>
   </div>
 </div>

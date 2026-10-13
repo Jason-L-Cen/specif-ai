@@ -76,7 +76,7 @@ export class PredefinedMcpServerComponent implements OnInit {
 
   async onValidate() {
     if (this.form.invalid) {
-      this.toasterService.showError('Please fill all required fields before validating.');
+      this.toasterService.showError('验证前，请填写所有必填项。');
       return;
     }
 
@@ -90,12 +90,12 @@ export class PredefinedMcpServerComponent implements OnInit {
       this.showServerInformation = true;
       
       if (this.validatedServerStatus.status === 'connected') {
-        this.toasterService.showSuccess('MCP server validated successfully.');
+        this.toasterService.showSuccess('MCP 服务器验证成功。');
       } else {
-        this.toasterService.showWarning('There are issues connecting to the MCP server. Please check the details.');
+        this.toasterService.showWarning('连接 MCP 服务器时出现问题，请查看详情。');
       }
     } catch (error) {
-      this.toasterService.showError('Failed to validate MCP server: ' + (error instanceof Error ? error.message : 'Unknown error'));
+      this.toasterService.showError('验证 MCP 服务器失败：' + (error instanceof Error ? error.message : '未知错误'));
     } finally {
       this.isValidating = false;
     }
@@ -110,7 +110,7 @@ export class PredefinedMcpServerComponent implements OnInit {
         ...config
       })
     } else if (!this.isValidated) {
-      this.toasterService.showError('Please validate the MCP server before submitting.');
+      this.toasterService.showError('提交前，请先验证 MCP 服务器。');
     }
   }
 
@@ -122,14 +122,14 @@ export class PredefinedMcpServerComponent implements OnInit {
     try {
       await this.electronService.openExternalUrl(url);
     } catch (error) {
-      this.toasterService.showError('Failed to open external URL');
+      this.toasterService.showError('打开外部链接失败');
     }
   }
 
   getFieldErrorMessage(fieldName: string): string {
     const field = this.form.get(fieldName);
     if (field?.hasError('required')) {
-      return 'This field is required.';
+      return '此项为必填项。';
     }
     return '';
   }

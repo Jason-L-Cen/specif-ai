@@ -1,6 +1,6 @@
 import { processRequirementContentForView } from './requirement.utils';
 
-const SECTION_NAMES = ['Acceptance Criteria:'];
+const SECTION_NAMES = ['Acceptance Criteria:', 'Acceptance Criteria：', '验收标准:', '验收标准：'];
 
 export const processTaskContentForView = (
   content: string,

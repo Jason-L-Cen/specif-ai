@@ -1,11 +1,11 @@
 export enum FileTypeEnum {
-  BRD = 'Business Requirements',
-  PRD = 'Product Requirements',
-  UIR = 'User Interface Requirements',
-  NFR = 'Non Functional Requirements',
-  BP = 'Business Process',
-  SI = 'Strategic Initiatives',
-  TC = 'Test Cases',
+  BRD = '业务需求',
+  PRD = '产品需求',
+  UIR = '用户界面需求',
+  NFR = '非功能需求',
+  BP = '业务流程',
+  SI = '战略举措',
+  TC = '测试用例',
 }
 
 export enum IconPairingEnum {

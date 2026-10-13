@@ -1,3 +1,4 @@
+import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../context/markdown-rules";
 interface EvaluatePromptParams {
   reqName: string;
   reqDesc: string;
@@ -9,7 +10,9 @@ export function evaluatePrompt({
   reqDesc,
   features
 }: EvaluatePromptParams): string {
-  return `# INSTRUCTIONS
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+# INSTRUCTIONS
 As a Business Analyst, your task is to evaluate the following feature names against the original requirements and decide whether the feedback is needed.
 
 Your goal is to make sure requirements are split into features that are:
@@ -29,10 +32,10 @@ ${features}
 
 # RESPONSE FORMAT
 
-**chain of thought**
+**思考过程**
 <before providing a response think step by step>
 
-**feedback about each feature**
+**逐项反馈**
 <feedback for individual features>
 <DON'T include features that are satisfactory>
 

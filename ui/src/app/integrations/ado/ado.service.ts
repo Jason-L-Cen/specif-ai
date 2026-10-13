@@ -73,7 +73,7 @@ export class AdoService implements PmoService {
       !adoCredentials?.personalAccessToken
     ) {
       throw new Error(
-        'Azure DevOps credentials not configured. Please configure the integration first.',
+        '尚未配置 Azure DevOps 凭据，请先完成集成设置。',
       );
     }
 
@@ -97,7 +97,7 @@ export class AdoService implements PmoService {
     try {
       if (!this.config) {
         throw new Error(
-          'Azure DevOps service not configured. Call configure() first.',
+          'Azure DevOps 服务尚未配置，请先完成集成设置。',
         );
       }
       return await this.electronService.validateAdoCredentials(
@@ -109,7 +109,7 @@ export class AdoService implements PmoService {
       return {
         isValid: false,
         errorMessage:
-          'Failed to connect to Azure DevOps. Please check your credentials and try again.',
+          '连接 Azure DevOps 失败，请检查凭据后重试。',
       };
     }
   }
@@ -120,7 +120,7 @@ export class AdoService implements PmoService {
   private async getWorkItemsByIds(ids: number[]): Promise<any[]> {
     if (!ids.length) return [];
     if (!this.baseUrl) {
-      throw new Error('Azure DevOps service not configured');
+      throw new Error('Azure DevOps 服务尚未配置');
     }
 
     // Create comma-separated list of IDs
@@ -165,7 +165,7 @@ export class AdoService implements PmoService {
   ): Promise<{ tickets: Ticket[]; totalCount: number }> {
     if (!this.config || !this.baseUrl) {
       console.error(
-        'Azure DevOps service not configured. Call configure() first.',
+        'Azure DevOps 服务尚未配置，请先完成集成设置。',
       );
       return { tickets: [], totalCount: 0 };
     }
@@ -265,7 +265,7 @@ export class AdoService implements PmoService {
                         specifaiId: `TASK${userStory.id}`,
                         // Specifai mapping
                         reqId:
-                          existingUserStoryMapping?.specifaiId || `New Task`,
+                          existingUserStoryMapping?.specifaiId || '新任务',
                         specifaiType: 'Task',
                         specifaiParentId: `US${platformFeature.id}`,
                         isUpdate: isUserStoryUpdate,
@@ -293,7 +293,7 @@ export class AdoService implements PmoService {
                     // Specifai mapping
                     reqId:
                       existingPlatformFeatureMapping?.specifaiId ||
-                      `New User Story`,
+                      '新用户故事',
                     specifaiType: 'User Story',
                     specifaiParentId: `PRD${feature.id}`,
 
@@ -323,7 +323,7 @@ export class AdoService implements PmoService {
                     specifaiId: `US${platformFeature.id}`,
                     reqId:
                       existingPlatformFeatureMapping?.specifaiId ||
-                      `New User Story`,
+                      '新用户故事',
                     specifaiType: 'User Story',
                     specifaiParentId: `PRD${feature.id}`,
                     title: platformFeature.fields['System.Title'],
@@ -346,7 +346,7 @@ export class AdoService implements PmoService {
               // Specifai UI uniqueness
               specifaiId: `PRD${feature.id}`,
               // Specifai mapping
-              reqId: existingFeatureMapping?.specifaiId || `New PRD`,
+              reqId: existingFeatureMapping?.specifaiId || '新产品需求',
               specifaiType: 'PRD',
               specifaiParentId: null, // Top-level items have no parent
 
@@ -372,7 +372,7 @@ export class AdoService implements PmoService {
               pmoIssueType: feature.fields['System.WorkItemType'],
               pmoParentId: null,
               specifaiId: `PRD${feature.id}`,
-              reqId: existingFeatureMapping?.specifaiId || `New PRD`,
+              reqId: existingFeatureMapping?.specifaiId || '新产品需求',
               specifaiType: 'PRD',
               specifaiParentId: null,
               title: feature.fields['System.Title'],
@@ -403,7 +403,7 @@ export class AdoService implements PmoService {
     workItemType: string,
   ): Promise<any[]> {
     if (!this.baseUrl) {
-      throw new Error('Azure DevOps service not configured');
+      throw new Error('Azure DevOps 服务尚未配置');
     }
 
     // Create the WIQL query
@@ -455,7 +455,7 @@ export class AdoService implements PmoService {
    */
   private getRequestOptions() {
     if (!this.config) {
-      throw new Error('Azure DevOps service not configured');
+      throw new Error('Azure DevOps 服务尚未配置');
     }
 
     // Create auth header with Personal Access Token
@@ -508,7 +508,7 @@ export class AdoService implements PmoService {
    */
   private async executeWiqlQuery(query: string): Promise<number[]> {
     if (!this.baseUrl) {
-      throw new Error('Azure DevOps service not configured');
+      throw new Error('Azure DevOps 服务尚未配置');
     }
 
     const url = `${this.baseUrl}/_apis/wit/wiql?api-version=${ADO_API_VERSION}`;
@@ -861,7 +861,7 @@ export class AdoService implements PmoService {
 
                 this.store.dispatch(new BulkUpdateFiles(updates));
                 this.toast.showSuccess(
-                  `Successfully imported ${ticketGroups.length} PRDs with their user stories and tasks from ADO`,
+                  `已从 Azure DevOps 导入 ${ticketGroups.length} 条产品需求（PRD）及其用户故事和任务`,
                 );
 
                 // Refresh the file list
@@ -874,23 +874,23 @@ export class AdoService implements PmoService {
                   this.updatePrdCountInMetadata(newMaxPrdNumber, appInfo);
                 }, 100);
               } else {
-                this.toast.showInfo('No items to import from ADO');
+                this.toast.showInfo('Azure DevOps 中没有可导入的工作项');
               }
             };
 
             // Execute the async processing
             processGroups().catch((error) => {
               console.error('Error processing ADO items:', error);
-              this.toast.showError('Failed to process ADO items');
+              this.toast.showError('处理 Azure DevOps 工作项失败');
             });
           })
           .catch((error) => {
             console.error('Error processing ADO items:', error);
-            this.toast.showError('Failed to process ADO items');
+            this.toast.showError('处理 Azure DevOps 工作项失败');
           });
       } catch (error) {
         console.error('Error importing items from ADO:', error);
-        this.toast.showError('Failed to import items from ADO');
+        this.toast.showError('从 Azure DevOps 导入工作项失败');
       }
     } else {
       this.toast.showInfo(ADO_TOAST.PUSH_INITIATED);
@@ -935,7 +935,7 @@ export class AdoService implements PmoService {
           await this.updateLocalFilesWithAdoIds(selectedItems, appInfo);
         } catch (error) {
           console.error('Error pushing items to ADO:', error);
-          this.toast.showError('Failed to push items to ADO');
+          this.toast.showError('向 Azure DevOps 推送工作项失败');
         }
       })();
     }
@@ -1234,7 +1234,7 @@ export class AdoService implements PmoService {
           reqId: prdId,
           specifaiType: 'PRD',
           specifaiParentId: null,
-          title: prdContent.title || 'Untitled PRD',
+          title: prdContent.title || '未命名产品需求',
           description: prdContent.requirement || '',
           isUpdate: !!prdContent.pmoId,
           child: [],
@@ -1295,7 +1295,7 @@ export class AdoService implements PmoService {
           reqId: feature.id,
           specifaiType: 'User Story',
           specifaiParentId: prdId,
-          title: feature.name || 'Untitled User Story',
+          title: feature.name || '未命名用户故事',
           description: feature.description || '',
           isUpdate: !!feature.pmoId,
           child: [],
@@ -1319,7 +1319,7 @@ export class AdoService implements PmoService {
               reqId: task.id,
               specifaiType: 'Task',
               specifaiParentId: userStoryTicket.specifaiId,
-              title: task.list || 'Untitled Task',
+              title: task.list || '未命名任务',
               description: task.acceptance || '',
               isUpdate: !!task.pmoId,
               child: [],
@@ -1470,7 +1470,7 @@ export class AdoService implements PmoService {
     parentAdoId?: number,
   ): Promise<number> {
     if (!this.baseUrl || !this.config) {
-      throw new Error('Azure DevOps service not configured');
+      throw new Error('Azure DevOps 服务尚未配置');
     }
     const workItemType =
       ticket.pmoIssueType ||
@@ -1666,14 +1666,14 @@ export class AdoService implements PmoService {
         .dispatch(new BulkUpdateFiles(updates))
         .pipe(first())
         .subscribe(() => {
-          this.toast.showSuccess('Successfully pushed selected items to ADO');
+          this.toast.showSuccess('已将所选工作项推送到 Azure DevOps');
           const projectId = appInfo?.id;
           if (projectId) {
             this.store.dispatch(new GetProjectFiles(projectId));
           }
         });
     } else {
-      this.toast.showSuccess('Successfully pushed selected items to ADO');
+      this.toast.showSuccess('已将所选工作项推送到 Azure DevOps');
     }
   }
 }

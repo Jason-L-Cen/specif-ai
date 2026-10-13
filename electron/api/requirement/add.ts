@@ -19,7 +19,7 @@ export async function addRequirement(event: IpcMainInvokeEvent, data: unknown): 
     const trace = o11y.createTrace('add-requirement');
 
     if (!llmConfig) {
-      throw new Error('LLM configuration not found');
+      throw new Error('未找到大语言模型配置');
     }
 
     console.log('[add-requirement] Using LLM config:', llmConfig);
@@ -93,7 +93,7 @@ export async function addRequirement(event: IpcMainInvokeEvent, data: unknown): 
       let cleanedResponse = repairJSON(response);
       const parsed = JSON.parse(cleanedResponse);
       if (!parsed.LLMreqt || !parsed.LLMreqt.title || !parsed.LLMreqt.requirement) {
-        throw new Error('Invalid response structure');
+        throw new Error('响应结构无效');
       }
       result = parsed;
     } catch (error) {
@@ -102,7 +102,7 @@ export async function addRequirement(event: IpcMainInvokeEvent, data: unknown): 
         level: "ERROR",
         statusMessage: `Error parsing LLM response: ${error}`
       });
-      throw new Error('Failed to parse LLM response as JSON');
+      throw new Error('无法将大语言模型的响应解析为 JSON');
     }
 
     return {

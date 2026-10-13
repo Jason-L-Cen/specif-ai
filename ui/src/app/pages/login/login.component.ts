@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
     this.loginForm.markAllAsTouched();
     const username = this.loginForm.get('username')?.value?.trim();
     if (!username) {
-      this.toastService.showError('Username is invalid.');
+      this.toastService.showError('用户名无效。');
       this.loginForm.get('username')?.setValue('');
       return;
     }

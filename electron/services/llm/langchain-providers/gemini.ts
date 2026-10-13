@@ -2,7 +2,7 @@ import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { LLMConfig, LLMError, ModelInfoV1 } from "../llm-types";
 import { LangChainModelProvider } from "./base";
 import { LangChainChatGuardrails } from "@presidio-dev/hai-guardrails"
-import { guardrailsEngine } from "../../../guardrails";
+import { guardrailsEngine, langChainGuardrailsHandler } from "../../../guardrails";
 
 export enum GeminiModelId {
   GEMINI_2_5_PRO_EXP_03_25 = "gemini-2.5-pro-exp-03-25",
@@ -101,7 +101,8 @@ export class GeminiLangChainProvider implements LangChainModelProvider {
         model: this.configData.model,
         maxOutputTokens: modelInfo.maxTokens ?? 8192,
       }),
-      guardrailsEngine
+      guardrailsEngine,
+      langChainGuardrailsHandler
     );
   }
 
@@ -109,7 +110,7 @@ export class GeminiLangChainProvider implements LangChainModelProvider {
     const apiKey = config.apiKey || process.env.GOOGLE_API_KEY;
 
     if (!apiKey) {
-      throw new LLMError("Google API key is required", "gemini");
+      throw new LLMError("Google API 密钥不能为空", "gemini");
     }
 
     if (!config.model) {
@@ -117,7 +118,7 @@ export class GeminiLangChainProvider implements LangChainModelProvider {
         "[GeminiHandler] No model provided, using default:",
         this.defaultModel
       );
-      throw new LLMError("Model ID is required", "gemini");
+      throw new LLMError("模型 ID 不能为空", "gemini");
     }
 
     return {

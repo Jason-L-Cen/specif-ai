@@ -12,10 +12,10 @@ class ContentGenerationManager {
     isInProgress: boolean
   ): void {
     const displayNames: Record<ContentGenerationType, string> = {
-      [ContentGenerationType.Solution]: "Solution Generation",
-      [ContentGenerationType.Story]: "Story Generation",
-      [ContentGenerationType.Task]: "Task Generation",
-      [ContentGenerationType.TestCase]: "Test Case Generation",
+      [ContentGenerationType.Solution]: "生成解决方案",
+      [ContentGenerationType.Story]: "生成用户故事",
+      [ContentGenerationType.Task]: "生成任务",
+      [ContentGenerationType.TestCase]: "生成测试用例",
     };
 
     const key = `${solutionId}-${type}`;

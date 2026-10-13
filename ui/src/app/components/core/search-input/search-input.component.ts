@@ -13,7 +13,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
   viewProviders: [provideIcons({ heroMagnifyingGlass })]
 })
 export class SearchInputComponent {
-  @Input() placeholder: string = 'Search...';
+  @Input() placeholder: string = '搜索…';
   @Output() searchChange = new EventEmitter<string>();
 
   searchControl = new FormControl('');

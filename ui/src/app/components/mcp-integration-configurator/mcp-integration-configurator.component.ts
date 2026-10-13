@@ -76,7 +76,7 @@ export class McpIntegrationConfiguratorComponent
         this.mcpSettings.mcpServers[integration.id] = result;
         this.onChange(this.mcpSettings);
         this.toasterService.showSuccess(
-          'MCP server configuration updated successfully.',
+          'MCP 服务器配置已更新。',
         );
       }
     });
@@ -95,11 +95,11 @@ export class McpIntegrationConfiguratorComponent
         this.mcpSettings.mcpServers[result.id] = result;
         this.onChange(this.mcpSettings);
         this.toasterService.showSuccess(
-          'Custom MCP server configuration updated successfully.',
+          '自定义 MCP 服务器配置已更新。',
         );
       } else {
         this.toasterService.showInfo(
-          'Custom MCP server configuration cancelled.',
+          '已取消配置自定义 MCP 服务器。',
         );
       }
     });
@@ -123,7 +123,7 @@ export class McpIntegrationConfiguratorComponent
         if (result) {
           this.mcpSettings.mcpServers[result.id] = result;
           this.onChange(this.mcpSettings);
-          this.toasterService.showSuccess('New MCP server added successfully.');
+        this.toasterService.showSuccess('MCP 服务器已添加。');
         }
       },
     );
@@ -160,16 +160,16 @@ export class McpIntegrationConfiguratorComponent
     if (this.mcpSettings.mcpServers[id]) {
       this.dialogService
         .confirm({
-          title: 'Confirm Deletion',
-          description: `Are you sure you want to remove ${name ?? id} MCP server?`,
-          confirmButtonText: 'Remove',
-          cancelButtonText: 'Cancel',
+        title: '确认移除',
+        description: `确定要移除 MCP 服务器 ${name ?? id} 吗？`,
+        confirmButtonText: '移除',
+        cancelButtonText: '取消',
         })
         .subscribe((confirmed) => {
           if (confirmed) {
             delete this.mcpSettings.mcpServers[id];
             this.onChange(this.mcpSettings);
-            this.toasterService.showSuccess('MCP server removed successfully.');
+          this.toasterService.showSuccess('MCP 服务器已移除。');
           }
         });
     }

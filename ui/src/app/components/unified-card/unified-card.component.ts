@@ -68,10 +68,10 @@ export class UnifiedCardComponent {
   @Input() badges: CardBadge[] = [];
   
   // Action button (right side of footer)
-  @Input() actionButtonText: string = 'View Details';
+  @Input() actionButtonText: string = '查看详情';
   
   // Copy button tooltip
-  @Input() copyTooltip: string = 'Copy content';
+  @Input() copyTooltip: string = '复制内容';
   
   // Events
   @Output() viewItem = new EventEmitter<void>();

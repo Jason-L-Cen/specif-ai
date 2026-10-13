@@ -1,3 +1,4 @@
+import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../../prompts/context/markdown-rules";
 import {
   getSuggestionPerspectives,
   SuggestionResearchPreferences,
@@ -13,7 +14,9 @@ export function createSummarizeSuggestionResearchPrompt({
 }: SuggestionResearchPreferences): string {
   const perspectives = getSuggestionPerspectives();
 
-  return `You are a lead technical analyst. As part of your role you synthesize information gathered to support the downstream generation of high-quality suggestions for implementing requirements.
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+You are a lead technical analyst. As part of your role you synthesize information gathered to support the downstream generation of high-quality suggestions for implementing requirements.
 
   ## Context:
     Name: ${name}

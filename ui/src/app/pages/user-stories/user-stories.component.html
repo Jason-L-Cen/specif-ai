@@ -7,10 +7,10 @@
     [projectId]="navigation.projectId"
     [workflowType]="WorkflowType.Story"
     [isCompleted]="storyGenerationComplete"
-    initialTitle="Generating User Stories..."
-    completedTitle="User Stories Generated Successfully!"
-    subtitle="Creating user stories and tasks..."
-    completionButtonText="View Generated Stories"
+    initialTitle="正在生成用户故事…"
+    completedTitle="用户故事生成成功！"
+    subtitle="正在创建用户故事和任务…"
+    completionButtonText="查看已生成的用户故事"
     [showCancelButton]="false"
     (closeDialog)="closeProgressDialog()"
   />
@@ -26,7 +26,7 @@
         </h1>
 
         <div class="flex items-center">
-          <h2 class="text-md font-semibold text-secondary-600">User Stories</h2>
+          <h2 class="text-md font-semibold text-secondary-600">用户故事</h2>
           <ng-icon
             name="heroInformationCircle"
             (click)="electronService.openExternalUrl(docUrl)"
@@ -38,17 +38,17 @@
 
       <div class="flex items-center justify-between gap-3">
         <app-button
-          buttonContent="Edit PRD"
+          buttonContent="编辑产品需求文档（PRD）"
           icon="heroArrowTopRightOnSquare"
           theme="secondary_outline"
           size="sm"
           rounded="lg"
           (click)="navigateToEditPRD()"
-          matTooltip="Edit PRD"
+          matTooltip="编辑产品需求文档（PRD）"
         />
         <app-button
           *ngIf="userStories.length === 0"
-          buttonContent="Generate User Stories"
+          buttonContent="生成用户故事"
           theme="secondary"
           size="sm"
           (click)="addMoreContext(userStories.length > 0)"
@@ -60,7 +60,7 @@
           [groupedOptions]="exportOptions"
         />
         <app-button
-          buttonContent="Add New"
+          buttonContent="新增"
           theme="primary"
           size="sm"
           rounded="lg"
@@ -71,7 +71,7 @@
     </div>
     <app-search-input
       *ngIf="userStories.length > 0"
-      placeholder="Search..."
+      placeholder="搜索…"
       (searchChange)="onSearch($event)"
     ></app-search-input>
   </div>
@@ -93,14 +93,14 @@
       <div class="absolute top-4 right-4 flex gap-2">
         <app-button
           (click)="navigateToTaskList(userStory, i)"
-          buttonContent="View Tasks"
+          buttonContent="查看任务"
           theme="secondary_outline"
           size="xs"
           rounded="lg"
         />
         <app-button
           (click)="navigateToTestCases(userStory, i)"
-          buttonContent="Test Cases"
+          buttonContent="测试用例"
           theme="secondary_outline"
           size="xs"
           rounded="lg"
@@ -112,7 +112,7 @@
           [isIconButton]="true"
           icon="heroDocumentDuplicate"
           (click)="copyUserStoryContent($event, userStory)"
-          matTooltip="Copy"
+          matTooltip="复制"
         />
       </div>
     </app-list-item>
@@ -120,7 +120,7 @@
       class="font-semibold text-secondary-700 mt-4 text-center"
       *ngIf="(filteredUserStories$ | async)?.length === 0"
     >
-      No User Stories Available.
+      暂无用户故事。
     </h1>
   </div>
 </div>

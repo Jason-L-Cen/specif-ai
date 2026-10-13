@@ -1,18 +1,18 @@
 <div class="modal-wrapper">
   <div class="modal-header flex items-center justify-between p-4 border-b">
-    <h4 class="text-lg font-medium">Choose Valid Root Folder</h4>
+    <h4 class="text-lg font-medium">选择有效的根目录</h4>
   </div>
   <div class="modal-body p-6">
     <div class="flex w-full">
       <input
         type="text"
         [value]="workingDir"
-        placeholder="Choose Valid Root Folder"
+        placeholder="选择有效的根目录"
         disabled
         class="bg-secondary-100 border border-secondary-300 text-secondary-400 text-sm rounded-l-lg block w-full p-2"
       />
       <app-button
-        [buttonContent]="'Browse'"
+        [buttonContent]="'浏览'"
         [theme]="'primary'"
         [rounded]="'none'"
         [roundedRight]="'md'"
@@ -20,8 +20,7 @@
       ></app-button>
     </div>
     <p class="mt-4 text-sm text-secondary-500">
-      Please select a valid requirements folder to store the requirements
-      generated.
+      请选择有效的需求保存目录，以保存生成的需求。
     </p>
   </div>
 </div>

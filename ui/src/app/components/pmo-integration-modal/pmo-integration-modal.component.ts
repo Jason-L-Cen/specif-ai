@@ -143,7 +143,7 @@ export class PmoIntegrationModalComponent implements OnInit {
         errorMessage:
           error instanceof Error
             ? error.message
-            : 'Connection test failed. Please try again.',
+          : '连接测试失败，请重试。',
       });
     } finally {
       this.isLoading.set(false);
@@ -169,13 +169,13 @@ export class PmoIntegrationModalComponent implements OnInit {
         this.expandAllItemsByDefault(documentHierarchy);
       } else {
         this.toasterService.showError(
-          `This PMO service doesn't support pushing documents to ${this.data.pmoType.toUpperCase()}`,
+          `当前 PMO 服务不支持向 ${this.config.serviceName} 推送文档`,
         );
       }
     } catch (error) {
       console.error(`Error loading current document hierarchy:`, error);
       this.toasterService.showError(
-        `Failed to load current document hierarchy`,
+        '加载当前文档层级失败',
       );
     } finally {
       this.isLoadingWorkItems.set(false);
@@ -217,7 +217,7 @@ export class PmoIntegrationModalComponent implements OnInit {
         error,
       );
       this.toasterService.showError(
-        `Failed to load ${this.data.pmoType.toUpperCase()} work items`,
+        `加载 ${this.config.serviceName} 工作项失败`,
       );
     } finally {
       if (reset) {
@@ -237,7 +237,7 @@ export class PmoIntegrationModalComponent implements OnInit {
       await this.loadPrdsHierarchy(false);
     } catch (error) {
       console.error('Error loading more items:', error);
-      this.toasterService.showError('Failed to load more items');
+      this.toasterService.showError('加载更多工作项失败');
     } finally {
       this.isLoadingMore.set(false);
     }
@@ -313,7 +313,7 @@ export class PmoIntegrationModalComponent implements OnInit {
 
         if (Object.values(selectedItems).every((array) => array.length === 0)) {
           this.toasterService.showWarning(
-            'No items selected. Please select at least one item to import.',
+          '尚未选择工作项，请至少选择一个要导入的工作项。',
           );
           return;
         }
@@ -328,11 +328,11 @@ export class PmoIntegrationModalComponent implements OnInit {
         });
       } catch (error) {
         console.error('Error processing selected items:', error);
-        this.toasterService.showError('Failed to process selected items');
+      this.toasterService.showError('处理所选工作项失败');
       }
     } else {
       this.toasterService.showError(
-        `Please configure ${this.data.pmoType.toUpperCase()} integration before proceeding`,
+        `请先配置 ${this.config.serviceName} 集成后再继续`,
       );
     }
   }
@@ -768,9 +768,9 @@ export class PmoIntegrationModalComponent implements OnInit {
       case 'ado':
         return APP_MESSAGES.ADO_DETAILS_MISSING;
       case 'jira':
-        return 'Jira integration details are missing. Please configure Jira integration first.';
+        return '缺少 Jira 集成信息，请先配置 Jira 集成。';
       default:
-        return 'PMO integration details are missing. Please configure integration first.';
+        return '缺少 PMO 集成信息，请先配置集成。';
     }
   }
 
@@ -779,9 +779,9 @@ export class PmoIntegrationModalComponent implements OnInit {
       case 'ado':
         return APP_MESSAGES.ADO_INVALID_CREDENTIALS;
       case 'jira':
-        return 'Invalid Jira credentials. Please check your credentials and try again.';
+        return 'Jira 凭据无效，请检查后重试。';
       default:
-        return 'Invalid PMO credentials. Please check your credentials and try again.';
+        return 'PMO 凭据无效，请检查后重试。';
     }
   }
 }

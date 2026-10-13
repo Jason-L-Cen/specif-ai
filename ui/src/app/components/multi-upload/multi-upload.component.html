@@ -8,7 +8,7 @@
     class="hidden"
   />
   <app-button
-    buttonContent="Upload Code Files"
+    buttonContent="上传代码文件"
     theme="secondary_outline"
     size="sm"
     rounded="md"
@@ -20,8 +20,8 @@
     class="mt-2 w-full divide-y divide-secondary-200 border border-secondary-200 rounded-md text-xs font-medium"
   >
     <div class="p-2">
-      <span *ngIf="files.length === 1">Selected File</span>
-      <span *ngIf="files.length > 1">Selected Files</span>
+      <span *ngIf="files.length === 1">已选文件</span>
+      <span *ngIf="files.length > 1">已选文件</span>
     </div>
     <div *ngFor="let file of files" class="p-2 flex items-center gap-2">
       <ng-icon name="heroDocument" strokeWidth="2" class="w-4 h-4" />

@@ -200,8 +200,8 @@ export class UserStoriesComponent implements OnInit, OnDestroy {
     );
     this.store.dispatch(
       new AddBreadcrumb({
-        label: `${this.navigation.fileName.split('-')[0] ?? ''} - User Stories`,
-        tooltipLabel: `${this.navigation.fileName.split('-')[0]}:  ${this.navigation.selectedRequirement.title} - User Stories`,
+        label: `${this.navigation.fileName.split('-')[0] ?? ''} - 用户故事`,
+        tooltipLabel: `${this.navigation.fileName.split('-')[0]}:  ${this.navigation.selectedRequirement.title} - 用户故事`,
         url: `/user-stories/${this.navigation.projectId}`,
         state: {
           data: this.navigation.data,
@@ -280,7 +280,7 @@ export class UserStoriesComponent implements OnInit, OnDestroy {
   navigateToEditPRD() {
     this.store.dispatch(
       new DeleteBreadcrumb(
-        `${this.navigation.fileName.split('-')[0] ?? ''} - User Stories`,
+        `${this.navigation.fileName.split('-')[0] ?? ''} - 用户故事`,
       ),
     );
     this.router.navigate(['/edit'], {
@@ -430,7 +430,7 @@ export class UserStoriesComponent implements OnInit, OnDestroy {
           WorkflowType.Story,
           {
             timestamp: new Date().toISOString(),
-            reason: error?.message || 'Failed to generate user stories',
+            reason: error?.message || '生成用户故事失败',
           },
         );
         this.toast.showError(
@@ -486,7 +486,7 @@ export class UserStoriesComponent implements OnInit, OnDestroy {
         WorkflowType.Task,
         {
           timestamp: new Date().toISOString(),
-          reason: error?.message || 'Failed to generate tasks',
+          reason: error?.message || '生成任务失败',
         },
       );
       throw error;
@@ -610,11 +610,11 @@ export class UserStoriesComponent implements OnInit, OnDestroy {
           if (hasLinkedTestCases) {
             this.dialogService
               .confirm({
-                title: 'Warning: Test Cases Will Be Deleted',
+                title: '警告：将删除测试用例',
                 description:
-                  'Regenerating user stories will delete all associated test cases. Are you sure you want to proceed?',
-                cancelButtonText: 'Cancel',
-                confirmButtonText: 'Proceed',
+                  '重新生成用户故事将删除所有关联的测试用例。确定要继续吗？',
+                cancelButtonText: '取消',
+                confirmButtonText: '继续',
               })
               .subscribe((confirmed) => {
                 if (confirmed) {
@@ -636,10 +636,10 @@ export class UserStoriesComponent implements OnInit, OnDestroy {
       .createBuilder()
       .forComponent(ModalDialogCustomComponent)
       .withData({
-        title: 'Generate User Story',
+        title: '生成用户故事',
         description:
-          'Include additional context to generate relevant user story',
-        placeholder: 'Add additional context for the user story',
+          '补充上下文，以生成符合需求的用户故事',
+        placeholder: '为用户故事补充上下文',
       })
       .withWidth('600px')
       .open()
@@ -732,29 +732,29 @@ export class UserStoriesComponent implements OnInit, OnDestroy {
     if (this.userStoriesInState.length > 0) {
       this.exportOptions.push(
         {
-          groupName: 'HAI Actions',
+          groupName: 'AI 操作',
           options: [
             {
-              label: 'Regenerate',
+              label: '重新生成',
               callback: addMoreContext.bind(this),
               icon: 'heroDocument',
-              additionalInfo: 'User Stories & Tasks',
+              additionalInfo: '用户故事与任务',
               isTimestamp: false,
             },
           ],
         },
         {
-          groupName: 'Export',
+          groupName: '导出',
           options: [
             {
-              label: 'Copy to Clipboard',
+              label: '复制到剪贴板',
               callback: exportJson.bind(this),
               icon: 'heroPaperClip',
-              additionalInfo: 'JSON Format',
+              additionalInfo: 'JSON 格式',
               isTimestamp: false,
             },
             {
-              label: 'Download',
+              label: '下载',
               callback: exportExcel.bind(this),
               icon: 'heroDocumentText',
               additionalInfo: 'Excel (.xlsx)',

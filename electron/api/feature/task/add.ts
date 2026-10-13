@@ -19,7 +19,7 @@ export async function addTask(event: IpcMainInvokeEvent, data: any): Promise<Add
     const trace = o11y.createTrace('add-task');
 
     if (!llmConfig) {
-      throw new Error('LLM configuration not found');
+      throw new Error('未找到大语言模型配置');
     }
 
     console.log('[add-task] Using LLM config:', llmConfig);
@@ -73,17 +73,17 @@ export async function addTask(event: IpcMainInvokeEvent, data: any): Promise<Add
       let cleanedResponse = repairJSON(response); 
       const parsed = JSON.parse(cleanedResponse);
       if (!parsed.tasks || !Array.isArray(parsed.tasks) || parsed.tasks.length !== 1) {
-        throw new Error('Invalid response structure');
+        throw new Error('响应结构无效');
       }
 
       const task = parsed.tasks[0];
       if (!task.id || Object.keys(task).length !== 2) {
-        throw new Error(`Invalid task structure: ${JSON.stringify(task)}`);
+        throw new Error(`任务结构无效：${JSON.stringify(task)}`);
       }
 
       const taskName = Object.keys(task).find(key => key !== 'id');
       if (!taskName) {
-        throw new Error('Task name not found in response');
+        throw new Error('响应中未找到任务名称');
       }
 
       llmResponseDict = {
@@ -98,7 +98,7 @@ export async function addTask(event: IpcMainInvokeEvent, data: any): Promise<Add
         level: "ERROR",
         statusMessage: `Error parsing LLM response: ${error}`
       });
-      throw new Error('Failed to parse LLM response as JSON');
+      throw new Error('无法将大语言模型的响应解析为 JSON');
     }
 
     return {

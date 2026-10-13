@@ -153,7 +153,7 @@ export class EditUserStoriesComponent implements OnDestroy {
         }
       });
     this.createUserStoryForm();
-    this.editLabel = this.mode == 'edit' ? 'Edit' : 'Add';
+    this.editLabel = this.mode == 'edit' ? '编辑' : '添加';
     this.store.dispatch(
       new AddBreadcrumb({
         label: this.editLabel,
@@ -416,7 +416,7 @@ export class EditUserStoriesComponent implements OnDestroy {
       };
       
       if (hasLinkedTestCases) {
-        dialogConfig.description = `${this.existingUserForm.id} has linked test cases that will also be deleted. Are you sure you want to proceed?`;
+        dialogConfig.description = `${this.existingUserForm.id} 关联的测试用例也将被删除。确定要继续吗？`;
       }
       
       const confirmed = await firstValueFrom(this.dialogService.confirm(dialogConfig));
@@ -485,7 +485,7 @@ export class EditUserStoriesComponent implements OnDestroy {
   }
 
   getContentContext(): string {
-    return `${this.projectMetadata?.name || ''} - ${this.projectMetadata?.description || ''} - User Story: ${this.name || ''}`;
+    return `${this.projectMetadata?.name || ''} - ${this.projectMetadata?.description || ''} - 用户故事：${this.name || ''}`;
   }
 
   handleInlineEditUpdate(newContent: string): void {

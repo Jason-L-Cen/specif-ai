@@ -83,7 +83,7 @@ const generateRequirement = async ({ key, generatePrompt, preferencesKey, data, 
     } else {
       result = [{
         id: `${key.toUpperCase()}1`,
-        title: `${key.toUpperCase()} Requirements`,
+        title: `${key.toUpperCase()} 需求`,
         requirement: response
       }];
       console.log(`[create-solution] Stored raw response as ${key.toUpperCase()} requirement`);
@@ -92,8 +92,8 @@ const generateRequirement = async ({ key, generatePrompt, preferencesKey, data, 
     console.error(`[create-solution] Error generating ${key.toUpperCase()} requirements:`, error);
     result = [{
       id: `${key.toUpperCase()}_ERROR`,
-      title: `Error Generating ${key.toUpperCase()} Requirements`,
-      requirement: `Failed to generate requirements: ${error}`
+      title: `生成 ${key.toUpperCase()} 需求时出错`,
+      requirement: `需求生成失败：${error}`
     }];
   }
 
@@ -112,7 +112,7 @@ export async function createSolution(event: IpcMainInvokeEvent, data: unknown): 
     const llmConfig = store.get<LLMConfigModel>('llmConfig');
     
     if (!llmConfig) {
-      throw new Error('LLM configuration not found');
+      throw new Error('未找到大语言模型配置');
     }
 
     console.log("[create-solution] Using LLM config:", llmConfig);
@@ -220,7 +220,7 @@ export async function createSolution(event: IpcMainInvokeEvent, data: unknown): 
                 "tools_end",
                 WorkflowEventType.Mcp,
                 {
-                  title: `Executed MCP Tool: ${streamEvent.name}`,
+                  title: `已执行 MCP 工具：${streamEvent.name}`,
                   input: streamEvent.data?.input,
                   output: streamEvent.data?.output?.content,
                 }
@@ -300,12 +300,12 @@ export async function createSolution(event: IpcMainInvokeEvent, data: unknown): 
     if (validatedData && validatedData.id) {
       const channel = WORKFLOW_CHANNEL.SOLUTION_PROGRESS(validatedData.id);
 
-      let title = "Error occurred during solution creation";
+      let title = "创建解决方案时出错";
       if (
         error instanceof Error &&
         (error.name === "AbortError" || error.message === "Aborted")
       ) {
-        title = "Solution creation was aborted by user";
+        title = "用户已取消创建解决方案";
       } 
 
       const errorEvent = workflowEvents.createEvent(
@@ -345,7 +345,7 @@ export async function abortSolutionCreation(
       "abort_failed",
       WorkflowEventType.Error,
       {
-        title: "Failed to abort solution creation",
+        title: "无法取消创建解决方案",
         output: error instanceof Error ? error.message : String(error),
       }
     );

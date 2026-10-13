@@ -248,7 +248,7 @@ export class AdoIntegrationComponent implements PmoIntegrationBase, OnInit {
         'Error validating ADO credentials during connect:',
         error,
       );
-      this.toast.showError('Failed to validate ADO credentials');
+      this.toast.showError('验证 Azure DevOps 凭据失败');
       this.isProcessing.set(false);
     }
   }
@@ -274,8 +274,8 @@ export class AdoIntegrationComponent implements PmoIntegrationBase, OnInit {
 
   getButtonText(): string {
     if (this.isProcessing()) {
-      return this.isConnected() ? 'Disconnecting...' : 'Connecting...';
+      return this.isConnected() ? '正在断开连接…' : '正在连接…';
     }
-    return this.isConnected() ? 'Disconnect' : 'Connect';
+    return this.isConnected() ? '断开连接' : '连接';
   }
 }

@@ -88,8 +88,8 @@ export class PmoIntegrationComponent implements OnInit, OnDestroy {
   readonly accordionTitle = computed(() => {
     const selectedConfig = this.selectedPmoConfig();
     return selectedConfig
-      ? `${selectedConfig.displayName} Integration`
-      : 'PMO Integration';
+      ? `${selectedConfig.displayName} 集成`
+      : 'PMO 集成';
   });
 
   readonly accordionIcon = computed(() => {

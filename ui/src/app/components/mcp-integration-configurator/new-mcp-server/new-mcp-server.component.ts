@@ -65,12 +65,12 @@ export class NewMcpServerComponent implements OnInit {
       KB_INCLUSION_TAG_KEY: "optional-tag-key-to-filter-kbs"
     },
     disabled: false,
-    name: "AWS Bedrock Knowledge Base",
+    name: "AWS Bedrock 知识库",
     transportType: "stdio"
   };
 
   sampleSseServerConfig = {
-    name: "Sample SSE Server",
+    name: "SSE 示例服务器",
     disabled: false,
     url: "https://sample-domain.com/sse",
     transportType: "sse"
@@ -159,7 +159,7 @@ export class NewMcpServerComponent implements OnInit {
   async onValidate() {
     if (this.form.invalid) {
       this.toasterService.showError(
-        'Please enter a valid server ID and MCP server configuration JSON before validating.',
+        '验证前，请输入有效的服务器 ID 和 MCP 服务器 JSON 配置。',
       );
       return;
     }
@@ -178,16 +178,16 @@ export class NewMcpServerComponent implements OnInit {
       this.showServerInformation = true;
 
       if (this.validatedServerStatus.status === 'connected') {
-        this.toasterService.showSuccess('MCP server validated successfully.');
+        this.toasterService.showSuccess('MCP 服务器验证成功。');
       } else {
         this.toasterService.showWarning(
-          'There are issues connecting to the MCP server. Please check the details.',
+          '连接 MCP 服务器时出现问题，请查看详情。',
         );
       }
     } catch (error) {
       this.toasterService.showError(
-        'Failed to validate MCP server: ' +
-          (error instanceof Error ? error.message : 'Unknown error'),
+        '验证 MCP 服务器失败：' +
+          (error instanceof Error ? error.message : '未知错误'),
       );
     } finally {
       this.isValidating = false;
@@ -204,7 +204,7 @@ export class NewMcpServerComponent implements OnInit {
       });
     } else if (!this.isValidated) {
       this.toasterService.showError(
-        'Please validate the MCP server before submitting.',
+        '提交前，请先验证 MCP 服务器。',
       );
     }
   }

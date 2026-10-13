@@ -32,7 +32,7 @@ export class StartupService {
         },
         error: () => {
           this.userState.logout(
-            'Error initializing LLM config. Please try again.',
+            '初始化大语言模型配置失败，请重试。',
           );
         },
       });
@@ -50,7 +50,7 @@ export class StartupService {
           return this.store.dispatch(new VerifyLLMConfig());
         } else {
           this.toasterService.showError(
-            'Settings required: Please add your AI configuration in settings to continue.',
+            '请先在设置中添加 AI 配置后再继续。',
           );
           return of(null);
         }

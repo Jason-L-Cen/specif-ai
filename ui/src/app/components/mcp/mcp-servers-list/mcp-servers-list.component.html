@@ -8,7 +8,7 @@
 
   <!-- Loading State -->
   <div *ngIf="isLoading" class="text-center py-8">
-    <p class="text-secondary-500">Loading MCP servers...</p>
+    <p class="text-secondary-500">正在加载 MCP 服务器…</p>
   </div>
 
   <!-- MCP Servers List -->
@@ -18,7 +18,7 @@
 
     <!-- No Servers Message -->
     <div *ngIf="mcpServers.length === 0" class="text-center py-8">
-      <p class="text-secondary-500">No MCP servers connected</p>
+      <p class="text-secondary-500">尚未连接 MCP 服务器</p>
     </div>
   </div>
 </div>

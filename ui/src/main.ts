@@ -3,6 +3,10 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import * as Sentry from '@sentry/angular';
 import { environment } from './environments/environment';
+import { registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
+
+registerLocaleData(zh);
 
 if (environment.ENABLE_SENTRY) {
   Sentry.init({

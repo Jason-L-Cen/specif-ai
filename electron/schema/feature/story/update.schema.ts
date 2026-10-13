@@ -3,9 +3,9 @@ import { z } from 'zod';
 export const updateStorySchema = z.object({
   name: z.string(),
   description: z.string(),
-  reqId: z.string().min(1, "Product requirement Id must not be empty"),
+  reqId: z.string().min(1, "产品需求 ID 不能为空"),
   reqDesc: z.string(),
-  featureId: z.string().min(1, "Feature id must not be empty"),
+  featureId: z.string().min(1, "用户故事 ID 不能为空"),
   featureRequest: z.string(),
   existingFeatureTitle: z.string(),
   existingFeatureDesc: z.string(),

@@ -1,7 +1,7 @@
 <div class="p-6 flex flex-col justify-start">
-  <h1 class="text-lg font-medium mb-4">{{ data.isEdit ? 'Edit Link' : 'Insert Link' }}</h1>
+  <h1 class="text-lg font-medium mb-4">{{ data.isEdit ? '编辑链接' : '插入链接' }}</h1>
   <div class="mb-4">
-    <label for="url-input" class="block text-sm font-medium mb-1">URL</label>
+    <label for="url-input" class="block text-sm font-medium mb-1">链接地址</label>
     <input 
       id="url-input"
       type="url" 
@@ -13,14 +13,14 @@
   </div>
   <div class="flex justify-end gap-4">
     <app-button
-      buttonContent="Cancel"
+      buttonContent="取消"
       theme="secondary"
       size="sm"
       rounded="lg"
       (click)="onCancel()"
     />
     <app-button
-      buttonContent="{{ data.isEdit ? 'Update' : 'Insert' }}"
+      buttonContent="{{ data.isEdit ? '更新' : '插入' }}"
       theme="primary"
       size="sm"
       rounded="lg"

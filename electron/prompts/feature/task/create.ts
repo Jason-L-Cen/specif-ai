@@ -1,4 +1,4 @@
-import { MARKDOWN_RULES } from '../../context/markdown-rules';
+import { MARKDOWN_RULES, OUTPUT_LANGUAGE_INSTRUCTIONS } from '../../context/markdown-rules';
 
 export interface CreateTaskPromptParams {
   name: string;
@@ -9,7 +9,9 @@ export interface CreateTaskPromptParams {
 }
 
 export function createTaskPrompt(params: CreateTaskPromptParams): string {
-  return `You are a solution architect tasked with creating granular implementation tasks from the provided user story. The tasks should be specific, actionable and directly tied to the technical details mentioned in the user story.
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+You are a solution architect tasked with creating granular implementation tasks from the provided user story. The tasks should be specific, actionable and directly tied to the technical details mentioned in the user story.
 
 Module Name:
 ${params.name}
@@ -65,27 +67,27 @@ RESPONSE FORMAT EXAMPLE
     {
       "id": "TASK1",
       "name": <task 1>
-      "acceptance": "[description of the task 1]  \\n#### Acceptance Criteria:  \\n[acceptance criteria for the task 1 as sentences]"
+      "acceptance": "[description of the task 1]  \\n#### 验收标准：  \\n[acceptance criteria for the task 1 as sentences]"
     },
     {
       "id": "TASK2",
       "name": <task 2>
-      "acceptance": "[description of the task 2]  \\n#### Acceptance Criteria:  \\n[acceptance criteria for the task 2 as sentences]"
+      "acceptance": "[description of the task 2]  \\n#### 验收标准：  \\n[acceptance criteria for the task 2 as sentences]"
     },
     {
       "id": "TASK3",
       "name": <task 3>
-      "acceptance": "[description of the task 3]  \\n#### Acceptance Criteria:  \\n[acceptance criteria for the task 3 as sentences]"
+      "acceptance": "[description of the task 3]  \\n#### 验收标准：  \\n[acceptance criteria for the task 3 as sentences]"
     },
     {
       "id": "TASK4",
       "name": <task 4>
-      "acceptance": "[description of the task 4]  \\n#### Acceptance Criteria:  \\n[acceptance criteria for the task 4 as sentences]"
+      "acceptance": "[description of the task 4]  \\n#### 验收标准：  \\n[acceptance criteria for the task 4 as sentences]"
     },
     {
       "id": "TASK5",
       "name": <task 5>
-      "acceptance": "[description of the task 5]  \\n#### Acceptance Criteria:  \\n[acceptance criteria for the task 5 as sentences]"
+      "acceptance": "[description of the task 5]  \\n#### 验收标准：  \\n[acceptance criteria for the task 5 as sentences]"
     },
     ...
   ]

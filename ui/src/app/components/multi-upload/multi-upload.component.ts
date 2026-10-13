@@ -57,7 +57,7 @@ export class MultiUploadComponent implements AfterViewInit, OnDestroy {
         }
       }
       if (errorFiles.length > 0) {
-        this.toastService.showError(`Empty file(s): ${errorFiles.join(', ')}`);
+        this.toastService.showError(`文件内容为空：${errorFiles.join('、')}`);
         this.fileInput.nativeElement.value = '';
       }
     }
@@ -71,7 +71,7 @@ export class MultiUploadComponent implements AfterViewInit, OnDestroy {
         this.fileContent.emit(this.allFilesContent);
         this.filesList.emit(this.files);
       }
-      this.toastService.showSuccess(`${file.name} added successfully!`);
+      this.toastService.showSuccess(`${file.name} 已添加`);
     };
     reader.readAsText(file);
   }

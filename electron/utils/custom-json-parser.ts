@@ -60,7 +60,7 @@ export function extractRequirementsFromResponse(
     return [
       {
         id: `${requirementType.toUpperCase()}1`,
-        title: `Generated ${requirementType.toUpperCase()} Content`,
+        title: `已生成的 ${requirementType.toUpperCase()} 内容`,
         requirement: response,
       },
     ];

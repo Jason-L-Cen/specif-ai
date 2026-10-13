@@ -1,49 +1,49 @@
 export const APP_INFO_COMPONENT_SUCCESS_MESSAGES = {
-  BRD_UPDATED_SUCCESSFULLY: 'The business requirement has been updated.',
+  BRD_UPDATED_SUCCESSFULLY: '业务需求已更新。',
   PRD_UPDATED_SUCCESSFULLY:
-    'The product requirement has been updated. Please regenerate the user stories as needed.',
-  NFR_UPDATED_SUCCESSFULLY: 'The non-functional requirement has been updated.',
-  UIR_UPDATED_SUCCESSFULLY: 'The user-interface requirement has been updated.',
-  BP_UPDATED_SUCCESSFULLY: 'The business process has been updated.',
+    '产品需求已更新，请根据需要重新生成用户故事。',
+  NFR_UPDATED_SUCCESSFULLY: '非功能需求已更新。',
+  UIR_UPDATED_SUCCESSFULLY: '用户界面需求已更新。',
+  BP_UPDATED_SUCCESSFULLY: '业务流程已更新。',
 };
 
 export const APP_INFO_COMPONENT_ERROR_MESSAGES = {
-  BRD_UPDATE_ERROR: 'Error in updating the business requirement.',
-  PRD_UPDATE_ERROR: 'Error in updating the product requirement.',
-  NFR_UPDATE_ERROR: 'Error in updating the non-functional requirement.',
-  UIR_UPDATE_ERROR: 'Error in updating the user-interface requirement.',
-  BP_UPDATE_ERROR: 'Error in updating the business process.',
-  REQUIRES_PRD_OR_BRD: 'Please add at least one active PRD or BRD before creating a Business Process',
+  BRD_UPDATE_ERROR: '更新业务需求失败。',
+  PRD_UPDATE_ERROR: '更新产品需求失败。',
+  NFR_UPDATE_ERROR: '更新非功能需求失败。',
+  UIR_UPDATE_ERROR: '更新用户界面需求失败。',
+  BP_UPDATE_ERROR: '更新业务流程失败。',
+  REQUIRES_PRD_OR_BRD: '创建业务流程前，请至少添加一条未归档的产品需求（PRD）或业务需求（BRD）。',
 };
 
 export const FEATURE_BREAKDOWN_COMPONENT_SUCCESS_MESSAGES = {
   ADDED_USER_STORY_SUCCESSFULLY:
-    'New user story added! Please refine it into tasks as needed.',
+    '用户故事已添加，请根据需要将其拆解为任务。',
   UPDATED_USER_STORY_SUCCESSFULLY:
-    'User story updated! Please refine it into tasks as needed.',
+    '用户故事已更新，请根据需要将其拆解为任务。',
   ADDED_TASK_SUCCESSFULLY:
-    'New task added! Consider using the AI feature for implementation.',
+    '任务已添加，可使用 AI 功能辅助实现。',
   UPDATED_TASK_SUCCESSFULLY:
-    'Task updated! Consider using the AI feature for implementation.',
+    '任务已更新，可使用 AI 功能辅助实现。',
 };
 
 export const FEATURE_BREAKDOWN_COMPONENT_ERROR_MESSAGES = {
-  ADD_USER_STORY_ERROR: 'Error in adding user story.',
-  UPDATE_USER_STORY_ERROR: 'Error in updating user story.',
-  ADD_TASK_ERROR: 'Error in adding task.',
-  UPDATE_TASK_ERROR: 'Error in updating task.',
+  ADD_USER_STORY_ERROR: '添加用户故事失败。',
+  UPDATE_USER_STORY_ERROR: '更新用户故事失败。',
+  ADD_TASK_ERROR: '添加任务失败。',
+  UPDATE_TASK_ERROR: '更新任务失败。',
 };
 
 export const LOGIN_ERROR_MESSAGES = {
-  ON_INCORRECT_PASSCODE: 'Incorrect passcode. Please enter correct Access Code',
-  ON_GENERIC_ERROR: 'An error occurred. Please try again later.',
-  ON_EMPTY_PASSCODE: 'Please enter a passcode',
+  ON_INCORRECT_PASSCODE: '访问码不正确，请输入正确的访问码。',
+  ON_GENERIC_ERROR: '发生错误，请稍后重试。',
+  ON_EMPTY_PASSCODE: '请输入访问码',
 };
 
 export const FORM_ERROR_MESSAGES: { [key in string]: string } = {
-  required: 'This is a required field',
+  required: '此项为必填项',
 };
 
 export const PROJECT_ERROR_MESSAGES = {
-  PROJECT_CREATION_ABORTED: 'Solution requirements generation was cancelled',
+  PROJECT_CREATION_ABORTED: '已取消生成解决方案需求',
 };

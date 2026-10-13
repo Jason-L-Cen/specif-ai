@@ -47,10 +47,10 @@ export class UserProfileDialogComponent {
         this.dialogRef.close(userName);
       } catch (error) {
         console.error('Error storing username:', error);
-        this.errorMessage = 'Failed to save your username. Please try again.';
+        this.errorMessage = '保存用户名失败，请重试。';
       }
     } else {
-      this.errorMessage = 'Please enter a valid username.';
+      this.errorMessage = '请输入有效的用户名。';
       this.userNameForm.reset();
     }
   }

@@ -20,7 +20,7 @@ export async function createStories(event: IpcMainInvokeEvent, data: unknown): P
     const trace = o11y.createTrace('create-stories');
 
     if (!llmConfig) {
-      throw new Error('LLM configuration not found');
+      throw new Error('未找到大语言模型配置');
     }
 
     console.log('[create-stories] Using LLM config:', llmConfig);
@@ -89,7 +89,7 @@ export async function createStories(event: IpcMainInvokeEvent, data: unknown): P
             "tools_end",
             WorkflowEventType.Mcp,
             {
-              title: `Executed MCP Tool: ${name}`,
+              title: `已执行 MCP 工具：${name}`,
               input: data?.input,
               output: data?.output?.content,
             }
@@ -111,7 +111,7 @@ export async function createStories(event: IpcMainInvokeEvent, data: unknown): P
     try {
       const transformedFeatures = stories.map((feature: any) => {
         if (!feature.id || !feature.title || !feature.description) {
-          throw new Error(`Invalid feature structure: missing required fields in ${JSON.stringify(feature)}`);
+          throw new Error(`用户故事结构无效，缺少必填字段：${JSON.stringify(feature)}`);
         }
         
         const transformedFeature: { id: string; [key: string]: string } = {

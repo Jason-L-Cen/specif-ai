@@ -1,3 +1,4 @@
+import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../../prompts/context/markdown-rules";
 import { toolUseContext } from "../../../agentic/create-solution-workflow/prompts/tool-use.context";
 import {
   getUserStoryPerspectives,
@@ -15,7 +16,9 @@ export const createUserStoryResearchInformationPrompt = ({
 }: UserStoryResearchPreferences & { recursionLimit: number }): string => {
   const perspectives = getUserStoryPerspectives();
 
-  return `
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+
   You are a lead technical analyst. As part of your role you gather comprehensive and relevant information to support the downstream generation of user stories, beginning with a thorough analysis of the PRD requirement as the cornerstone of your research.
 
   ## App Context:

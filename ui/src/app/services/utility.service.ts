@@ -17,15 +17,15 @@ export class UtilityService {
     const [_, prefix, number] = match;
     switch (prefix) {
       case RequirementTypeEnum.BRD:
-        return `Business Requirement ${number}`;
+        return `业务需求 ${number}`;
       case RequirementTypeEnum.PRD:
-        return `Product Requirement ${number}`;
+        return `产品需求 ${number}`;
       case RequirementTypeEnum.NFR:
-        return `Non Functional Requirement ${number}`;
+        return `非功能需求 ${number}`;
       case RequirementTypeEnum.UIR:
-        return `User Interface Requirement ${number}`;
+        return `用户界面需求 ${number}`;
       case RequirementTypeEnum.BP:
-        return `Business Process ${number}`;
+        return `业务流程 ${number}`;
       default:
         return `${abbreviation}`;
     }
@@ -58,14 +58,14 @@ export class UtilityService {
     let screensText = '';
     let personasText = '';
 
-    if (fullText.includes('Screens:')) {
-      [productRequirements, fullText] = fullText.split('Screens:');
+    if (/Screens[:：]|界面[:：]/.test(fullText)) {
+      [productRequirements, fullText] = fullText.split(/Screens[:：]|界面[:：]/);
     } else {
       productRequirements = fullText;
     }
 
-    if (fullText.includes('Personas:')) {
-      [screensText, personasText] = fullText.split('Personas:');
+    if (/Personas[:：]|用户画像[:：]/.test(fullText)) {
+      [screensText, personasText] = fullText.split(/Personas[:：]|用户画像[:：]/);
     } else {
       screensText = fullText;
     }
@@ -73,11 +73,11 @@ export class UtilityService {
     let details = `${productRequirements.trim()}`;
 
     if (screensText && screensText.trim() !== productRequirements.trim()) {
-      details += `<br><br><h3 class="${fontWeight} text-secondary-900 hover:text-secondary-600">SCREENS</h3>${screensText.trim()}`;
+      details += `<br><br><h3 class="${fontWeight} text-secondary-900 hover:text-secondary-600">界面</h3>${screensText.trim()}`;
     }
 
     if (personasText && personasText.trim()) {
-      details += `<br><br><h3 class="${fontWeight} text-secondary-900 hover:text-secondary-600">PERSONAS</h3>${personasText.trim()}`;
+      details += `<br><br><h3 class="${fontWeight} text-secondary-900 hover:text-secondary-600">用户画像</h3>${personasText.trim()}`;
     }
 
     return details;

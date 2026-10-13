@@ -20,7 +20,7 @@ export async function createTask(event: IpcMainInvokeEvent, data: any): Promise<
     const trace = o11y.createTrace('create-task');
 
     if (!llmConfig) {
-      throw new Error('LLM configuration not found');
+      throw new Error('未找到大语言模型配置');
     }
 
     console.log('[create-task] Using LLM config:', llmConfig);
@@ -79,7 +79,7 @@ export async function createTask(event: IpcMainInvokeEvent, data: any): Promise<
             "tools_end",
             WorkflowEventType.Mcp,
             {
-              title: `Executed MCP Tool: ${streamEvent.name}`,
+              title: `已执行 MCP 工具：${streamEvent.name}`,
               input: streamEvent.data?.input,
               output: streamEvent.data?.output?.content,
             }
@@ -102,7 +102,7 @@ export async function createTask(event: IpcMainInvokeEvent, data: any): Promise<
     try {
       const transformedTasks = tasks.map((task: any) => {
         if (!task.id || !task.name || !task.acceptance) {
-          throw new Error(`Invalid task structure: missing required fields in ${JSON.stringify(task)}`);
+          throw new Error(`任务结构无效，缺少必填字段：${JSON.stringify(task)}`);
         }
         
         const transformedTask: { id: string; [key: string]: string } = {
@@ -120,7 +120,7 @@ export async function createTask(event: IpcMainInvokeEvent, data: any): Promise<
       };
     } catch (error) {
       console.error('[create-task] Error processing response:', error);
-      throw new Error('Failed to process workflow response');
+      throw new Error('无法处理工作流响应');
     }
   } catch (error) {
     console.error('Error in createTask:', error);

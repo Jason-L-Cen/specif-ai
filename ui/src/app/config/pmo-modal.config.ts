@@ -10,21 +10,21 @@ export interface PmoModalConfig {
 
 export const PMO_MODAL_CONFIGS: { [key: string]: PmoModalConfig } = {
   ado: {
-    title: 'Pull from ADO',
+    title: '从 Azure DevOps 拉取',
     serviceName: 'Azure DevOps',
     itemLabels: {
-      topLevel: 'Product Requirement',
-      midLevel: 'User Story',
-      bottomLevel: 'Task',
+      topLevel: '产品需求',
+      midLevel: '用户故事',
+      bottomLevel: '任务',
     },
   },
   jira: {
-    title: 'Pull from Jira',
+    title: '从 Jira 拉取',
     serviceName: 'Jira',
     itemLabels: {
-      topLevel: 'Product Requirement',
-      midLevel: 'User Story',
-      bottomLevel: 'Task',
+      topLevel: '产品需求',
+      midLevel: '用户故事',
+      bottomLevel: '任务',
     },
   },
 };

@@ -4,9 +4,9 @@
     <p class="text-xs text-secondary-600">
       {{ data.integration.description }}
       <ng-container *ngIf="data.integration.readmeUrl">
-        Visit
+        请查看
         <a (click)="openExternalUrl(data.integration.readmeUrl)" class="text-primary-600 hover:underline cursor-pointer">README</a>
-        for more information.
+        了解更多信息。
       </ng-container>
     </p>
   </div>
@@ -35,14 +35,14 @@
     </div>
     
     <div class="flex gap-1 justify-end items-center">
-      <app-button buttonContent="Cancel" size="sm" (click)="onCancel()" theme="secondary_outline"></app-button>
-      <app-button buttonContent="Validate" size="sm" [disabled]="form.invalid || isValidating" (click)="onValidate()" theme="primary"></app-button>
-      <app-button buttonContent="Submit" size="sm" [disabled]="form.invalid || !isValidated || validatedServerStatus?.status === 'error'" (click)="onSubmit()" theme="primary"></app-button>
+      <app-button buttonContent="取消" size="sm" (click)="onCancel()" theme="secondary_outline"></app-button>
+      <app-button buttonContent="验证" size="sm" [disabled]="form.invalid || isValidating" (click)="onValidate()" theme="primary"></app-button>
+      <app-button buttonContent="提交" size="sm" [disabled]="form.invalid || !isValidated || validatedServerStatus?.status === 'error'" (click)="onSubmit()" theme="primary"></app-button>
     </div>
   </form>
 
   <div *ngIf="isValidated && showServerInformation && validatedServerStatus" class="flex flex-col gap-2">
-    <h3>Server Validation Result</h3>
+    <h3>服务器验证结果</h3>
     <app-mcp-servers-item [server]="validatedServerStatus"></app-mcp-servers-item>
   </div>
 </div>

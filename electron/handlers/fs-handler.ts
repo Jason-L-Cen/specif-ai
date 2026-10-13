@@ -4,7 +4,10 @@ import fs from "fs";
 
 export function setupFileSystemHandlers() {
   ipcMain.handle("dialog:openFile", async () => {
-    const { canceled, filePaths } = await dialog.showOpenDialog({});
+    const { canceled, filePaths } = await dialog.showOpenDialog({
+      title: "打开文件",
+      buttonLabel: "打开",
+    });
     if (canceled) {
       return null;
     } else {
@@ -22,7 +25,10 @@ export function setupFileSystemHandlers() {
       let filePath = options.rootPath;
 
       if (!filePath) {
-        const response = await dialog.showSaveDialog({});
+        const response = await dialog.showSaveDialog({
+          title: "保存文件",
+          buttonLabel: "保存",
+        });
         filePath = response.filePath || '';
         if (response.canceled) {
           return null;
@@ -40,6 +46,8 @@ export function setupFileSystemHandlers() {
 
   ipcMain.handle("dialog:openDirectory", async () => {
     const { canceled, filePaths } = await dialog.showOpenDialog({
+      title: "选择工作目录",
+      buttonLabel: "选择目录",
       properties: ["openDirectory"],
     });
     if (canceled) {

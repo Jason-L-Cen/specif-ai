@@ -152,7 +152,7 @@ export class EditSolutionComponent {
     );
     this.store.dispatch(
       new AddBreadcrumb({
-        label: this.mode === 'edit' ? 'Edit' : 'Add',
+        label: this.mode === 'edit' ? '编辑' : '添加',
       }),
     );
     if (this.mode === 'edit') {
@@ -426,7 +426,7 @@ export class EditSolutionComponent {
   }
 
   navigateToUserStories() {
-    this.store.dispatch(new DeleteBreadcrumb('Edit'));
+    this.store.dispatch(new DeleteBreadcrumb('编辑'));
 
     this.router.navigate(['/user-stories', this.projectId], {
       state: {

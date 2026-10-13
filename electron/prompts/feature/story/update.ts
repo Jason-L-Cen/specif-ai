@@ -59,16 +59,16 @@ STRICT:
     "features": [
         {
             "id": "<featureId>"
-            "<feature name>": "[description of feature]  \\n#### Acceptance Criteria:  \\n[acceptance criteria for the feature as sentences]"
+            "<feature name>": "[description of feature]  \\n#### 验收标准：  \\n[acceptance criteria for the feature as sentences]"
         }
     ]
 }
 
 Use the following format to generate the user story:
-- Ability to <user action> the <feature>
-- In order to <mention the user need>
-- As a <persona or user>
-- I want the <end goal or objective of the feature>
+- 能够通过<用户操作>使用<功能>
+- 以满足<用户需求>
+- 作为<用户角色或用户>
+- 我希望实现<功能的最终目标>
 
 Special Instructions:
 1. The "id" in the response must match the User Story ID provided (${params.featureId}).

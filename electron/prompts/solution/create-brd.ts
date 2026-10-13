@@ -1,5 +1,5 @@
 import { BRD_CONTEXT } from '../context/brd';
-import { MARKDOWN_RULES } from '../context/markdown-rules';
+import { MARKDOWN_RULES, OUTPUT_LANGUAGE_INSTRUCTIONS } from '../context/markdown-rules';
 
 interface CreateBRDParams {
   name: string;
@@ -9,7 +9,9 @@ interface CreateBRDParams {
 }
 
 export function createBRDPrompt({ name, description, minCount, referenceInformation }: CreateBRDParams): string {
-  return `You are a requirements analyst tasked with extracting detailed Business Requirements from the provided app description.
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+You are a requirements analyst tasked with extracting detailed Business Requirements from the provided app description.
 
 Below is the description of the app:
 App Name: ${name}

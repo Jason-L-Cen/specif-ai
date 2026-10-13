@@ -14,7 +14,7 @@ export class McpServersListComponent {
   @Input() mcpServers: MCPServerDetails[] = [];
   @Input() isLoading = false;
 
-  @Input() heading = "Model Context Protocol (MCP) Servers";
-  @Input() subHeading = "View your connected MCP servers and their capabilities";
+  @Input() heading = "模型上下文协议（MCP）服务器";
+  @Input() subHeading = "查看已连接的 MCP 服务器及其能力";
   @Input() showHeading = true;
 }

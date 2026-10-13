@@ -28,7 +28,7 @@ const findSection = (
 
   // Find all heading matches with proper markdown heading format
   const headingMatches = Array.from(
-    content.matchAll(/^(#{1,6})[\s\t]+([^\n:]+:)[\s\t]*$/gm),
+    content.matchAll(/^(#{1,6})[\s\t]+([^\n:：]+[:：])[\s\t]*$/gm),
   )
     .filter((match) => {
       const headingText = match[2]?.trim();

@@ -31,7 +31,7 @@ export function setupAdoHandlers() {
       });
 
       if (response.status !== 200) {
-        throw new Error(`Unexpected response status: ${response.status}`);
+        throw new Error(`响应状态异常：${response.status}`);
       }
 
       return {

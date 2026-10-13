@@ -40,7 +40,7 @@ export const buildResearchNode = ({
       span?.end({ statusMessage: "No tools are passed so skipping research phase" });
       await workflowEvents.dispatchAction(
         "research",
-        { title: "Skipped research phase - no tools were available" },
+        { title: "没有可用工具，已跳过调研阶段" },
         runnableConfig
       );
       return { referenceInformation: "" };
@@ -49,7 +49,7 @@ export const buildResearchNode = ({
     const researchCorrelationId = uuid();
     await workflowEvents.dispatchThinking(
       "research",
-      { title: "Researching based on business proposal context" },
+      { title: "正在根据业务提案背景进行调研" },
       runnableConfig,
       researchCorrelationId
     );
@@ -103,14 +103,14 @@ export const buildResearchNode = ({
       if (usefulParts.length > 100) {
         referenceInformation = usefulParts;
       } else {
-        referenceInformation = `Based on the available information about ${state.requirement?.title || state.project.description}, please proceed with generating a comprehensive business proposal.`;
+        referenceInformation = `请根据“${state.requirement?.title || state.project.description}”的已有信息，继续生成完整的业务提案。`;
       }
     }
     
     await workflowEvents.dispatchAction(
       "research",
       {
-        title: "Research completed and prepared summary for strategic initiative generation",
+        title: "调研已完成，已整理战略举措生成所需的摘要",
         output: referenceInformation,
       },
       runnableConfig,
@@ -142,7 +142,7 @@ export const buildStrategicInitiativeGenerationNode = ({
       const strategicInitiativeGenerationCorrelationId = uuid();
       await workflowEvents.dispatchThinking(
         "strategic-initiative-generation",
-        { title: "Generating Strategic Initiative Proposal" },
+        { title: "正在生成战略举措提案" },
         runnableConfig,
         strategicInitiativeGenerationCorrelationId
       );
@@ -199,7 +199,7 @@ export const buildStrategicInitiativeGenerationNode = ({
       await workflowEvents.dispatchAction(
         "strategic-initiative-generation",
         {
-          title: "Strategic Initiative Proposal generated successfully",
+          title: "战略举措提案已成功生成",
           output: {
             title: response.structuredResponse.title,
             requirement: response.structuredResponse.requirement,
@@ -220,8 +220,8 @@ export const buildStrategicInitiativeGenerationNode = ({
       span?.end({ level: "ERROR" });
       return {
         strategicInitiativeDraft: {
-          title: state.requirement?.title || "Error generating strategic initiative",
-          requirement: `Error generating strategic initiative proposal: ${error}`,
+          title: state.requirement?.title || "生成战略举措时出错",
+          requirement: `生成战略举措提案时出错：${error}`,
         },
       };
     }

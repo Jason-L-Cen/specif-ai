@@ -57,7 +57,7 @@ export class BusinessProcessFlowComponent
 
   errorBlockVisible: boolean = false;
   errorMessage: string =
-    "It looks like the description you entered doesn't contain enough details to generate a valid process flow. Please Provide a more relevant description or select relevant PRDs and BRDs to generate the process flow.";
+    '输入的描述缺少必要细节，无法生成有效的业务流程图。请补充相关描述，或选择相关产品需求（PRD）和业务需求（BRD）后重新生成。';
   mode: string | null = 'view';
   projectId: string = '';
   projectName: string = '';
@@ -85,7 +85,7 @@ export class BusinessProcessFlowComponent
     this.selectedRequirement = navigation?.extras?.state?.['req'];
     this.data = navigation?.extras?.state?.['data'];
     this.requirementId = this.fileName.split('-')[0];
-    this.currentLabel = `${this.requirementId ?? ''} - Flow chart`;
+    this.currentLabel = `${this.requirementId ?? ''} - 流程图`;
     // Setting current config in state.
     this.store.dispatch(
       new SetCurrentConfig({
@@ -118,7 +118,7 @@ export class BusinessProcessFlowComponent
     // Eg: BP1 - Flow chart
     this.store.dispatch(
       new AddBreadcrumb({
-        label: `${this.requirementId ?? ''} - Flow chart`,
+        label: `${this.requirementId ?? ''} - 流程图`,
         url: this.router.url,
         state: {
           data: this.data,

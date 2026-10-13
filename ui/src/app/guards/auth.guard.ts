@@ -10,7 +10,7 @@ export const UserGuard: CanActivateFn = (route, state) => {
 
   if (!userState.isWorkingDirSet()) {
     userState.logout(
-      'Please select a destination folder and proceed with login.',
+      '请选择保存目录后继续登录。',
     );
     return false;
   }

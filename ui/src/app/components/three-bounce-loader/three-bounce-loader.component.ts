@@ -9,5 +9,5 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./three-bounce-loader.component.scss']
 })
 export class ThreeBounceLoaderComponent {
-  @Input() loadingSRMessage = 'Loading...';
+  @Input() loadingSRMessage = '正在加载…';
 }

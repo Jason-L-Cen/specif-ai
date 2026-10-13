@@ -37,7 +37,7 @@
             'text-secondary-500': selectedFolder?.title !== 'solution',
           }"
         >
-          Solution
+          解决方案
         </h4>
       </div>
     </li>
@@ -177,12 +177,12 @@
                 'text-secondary-500': selectedFolder?.title !== 'TC'
               }"
             >
-              Test Cases
+              测试用例
             <div class="new-button rounded-full text-sm relative flex items-center justify-center overflow-hidden ml-1" *ngIf="newModuleFlag===false">
               <span class="absolute inset-0 flex items-center justify-center">
                 <span class="bg-gradient-to-r from-primary-600 to-secondary-300 rounded-full w-16 h-16 animate-spin"></span>
               </span>
-              <span class="relative z-10 bg-gray-50 text-primary-600 m-[2px] font-medium rounded-full px-1 text-xs">New</span>
+              <span class="relative z-10 bg-gray-50 text-primary-600 m-[2px] font-medium rounded-full px-1 text-xs">新</span>
             </div> 
             </h4>
           </div>
@@ -208,18 +208,18 @@
                 <span class="absolute inset-0 flex items-center justify-center">
                   <span class="bg-gradient-to-r from-primary-600 to-secondary-300 rounded-full w-16 h-16 animate-spin"></span>
                 </span>
-                <span class="relative z-10 bg-gray-50 text-primary-600 font-medium m-[2px] rounded-full px-1 text-xs">New</span>
+                <span class="relative z-10 bg-gray-50 text-primary-600 font-medium m-[2px] rounded-full px-1 text-xs">新</span>
               </div>
             </div>
           </div>
           <app-button
-            buttonContent="Add"
+            buttonContent="添加"
             theme="secondary"
             size="xs"
             rounded="lg"
             [disabled]="isCreatingSolution"
-            tooltip="Add new document"
-            tooltipDisabled="Generating your solution. Please wait..."
+            tooltip="添加新文档"
+            tooltipDisabled="正在生成解决方案，请稍候…"
             (click)="
               folder.key === 'BP'
                 ? navigateToBPAdd()
@@ -276,7 +276,7 @@
               selectedFolder?.title !== 'app-integrations',
           }"
         >
-          Integrations
+          集成
         </h4>
       </div>
     </li>

@@ -19,7 +19,7 @@ import { Store } from '@ngxs/store';
 import { NGXLogger } from 'ngx-logger';
 import { TextareaFieldComponent } from '../../../components/core/textarea-field/textarea-field.component';
 import { ButtonComponent } from '../../../components/core/button/button.component';
-import { AppSelectComponent } from '../../../components/core/app-select/app-select.component';
+import { AppSelectComponent, SelectOption } from '../../../components/core/app-select/app-select.component';
 import { InputFieldComponent } from '../../../components/core/input-field/input-field.component';
 import { MatIconModule } from '@angular/material/icon';
 import { provideIcons, NgIconComponent } from '@ng-icons/core';
@@ -137,6 +137,10 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
   typeOptions = this.testCaseService.typeOptions;
   statusOptions = this.testCaseService.statusOptions;
 
+  getOptionLabel(value: string | undefined, options: SelectOption[]): string {
+    return options.find((option) => option.value === value)?.label ?? value ?? '';
+  }
+
   @HostListener('input') onFormInput() {
     if (this.mode === TestCaseMode.EDIT || this.mode === TestCaseMode.ADD) {
       this.formModified = true;
@@ -159,7 +163,7 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
     // Extract user story ID from route params
     this.userStoryId = this.route.snapshot.paramMap.get('userStoryId') || '';
     if (!this.userStoryId) {
-      this.toast.showError('User story ID not found');
+      this.toast.showError('未找到用户故事 ID');
       return;
     }
 
@@ -188,7 +192,7 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
     } else {
       const testCaseId = this.route.snapshot.paramMap.get('testCaseId') || '';
       if (!testCaseId) {
-        this.toast.showError('Test case ID not found');
+        this.toast.showError('未找到测试用例 ID');
         return;
       }
       this.loadTestCase(testCaseId);
@@ -196,11 +200,11 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
   }
 
   private setupAddMode() {
-    this.breadcrumbLabel = `Add Test Case`;
+    this.breadcrumbLabel = '添加测试用例';
     this.store.dispatch(
       new AddBreadcrumb({
         label: this.breadcrumbLabel,
-        tooltipLabel: `Add new test case for ${this.userStoryId}`,
+        tooltipLabel: `为 ${this.userStoryId} 添加测试用例`,
       })
     );
     this.addStep();
@@ -229,11 +233,11 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
           next: (testCase) => {
             this.testCase = testCase;
             
-            const userStoryLabel = `${this.userStoryId} - Test Cases`;
+            const userStoryLabel = `${this.userStoryId} - 测试用例`;
             this.store.dispatch(
               new AddBreadcrumb({
                 label: userStoryLabel,
-                tooltipLabel: `Test Cases for ${this.userStoryId}`,
+                tooltipLabel: `${this.userStoryId} 的测试用例`,
                 url: `/test-cases/${this.userStoryId}`
               })
             );
@@ -245,7 +249,7 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
             this.populateForm(testCase);
           },
           error: (error) => {
-            this.toast.showError(`Failed to load test case ${testCaseId}`);
+            this.toast.showError(`加载测试用例 ${testCaseId} 失败`);
             this.navigateBack();
           }
         })
@@ -308,7 +312,7 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
   saveTestCase() {
     if (this.testCaseForm.invalid) {
       this.markFormGroupTouched(this.testCaseForm);
-      this.toast.showWarning('Please fill in all required fields before saving');
+      this.toast.showWarning('保存前，请填写所有必填项');
       return;
     }
 
@@ -348,7 +352,7 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
 
   deleteTestCase() {
     const id = this.testCaseForm.get('id')?.value;
-    if (!id) return this.toast.showError('Test case ID not found');
+    if (!id) return this.toast.showError('未找到测试用例 ID');
 
     this.dialogService.confirm({
       title: CONFIRMATION_DIALOG.DELETION.TITLE,
@@ -376,10 +380,10 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
   cancel() {
     if (this.formModified && this.mode !== TestCaseMode.VIEW) {
       this.dialogService.confirm({
-        title: 'Discard Changes',
-        description: 'You have unsaved changes. Are you sure you want to discard them?',
-        confirmButtonText: 'Discard',
-        cancelButtonText: 'Keep Editing',
+        title: '放弃更改',
+        description: '有尚未保存的更改，确定要放弃这些更改吗？',
+        confirmButtonText: '放弃更改',
+        cancelButtonText: '继续编辑',
       }).subscribe((result) => result && this.navigateBack());
     } else {
       this.navigateBack();

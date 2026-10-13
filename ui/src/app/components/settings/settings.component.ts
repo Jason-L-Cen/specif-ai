@@ -214,7 +214,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       new AddBreadcrumbs([
         {
-          label: 'Settings',
+        label: '设置',
           url: '/settings'
         }
       ])
@@ -308,7 +308,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   private async validateLangfuseConfig(): Promise<boolean> {
     if (!this.useLangfuseCustomConfig.value) return true;
     if (!this.langfuseForm.valid) {
-      this.langfuseErrorMessage = 'Please fill in all required Langfuse fields.';
+      this.langfuseErrorMessage = '请填写所有必填的 Langfuse 配置项。';
       return false;
     }
 
@@ -320,7 +320,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
       }
       return true;
     } catch (error) {
-      this.langfuseErrorMessage = 'Failed to validate Langfuse configuration.';
+      this.langfuseErrorMessage = '验证 Langfuse 配置失败。';
       return false;
     }
   }
@@ -379,7 +379,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
               this.availableProviders.find((p) => p.key === provider)
                 ?.displayName || provider;
             this.toasterService.showSuccess(
-              `${providerDisplayName} configuration verified successfully.`,
+          `${providerDisplayName} 配置验证成功。`,
             );
             this.router.navigate(['/apps']);
             this.analyticsTracker.trackEvent(AnalyticsEvents.LLM_CONFIG_SAVED, {
@@ -393,7 +393,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         });
       } else {
         // Show error but keep the form values for correction
-        this.errorMessage = 'Connection Failed! Please verify your model credentials.';
+        this.errorMessage = '连接失败，请检查模型服务商的凭据。';
         this.analyticsTracker.trackEvent(AnalyticsEvents.LLM_CONFIG_SAVED, {
           provider: provider,
           model: latestConfigValues.model || latestConfigValues.deployment,
@@ -404,7 +404,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       }
     }).catch((error) => {
-      this.errorMessage = 'LLM configuration verification failed. Please verify your credentials.';
+      this.errorMessage = '验证大语言模型配置失败，请检查凭据。';
       this.cdr.markForCheck();
       this.analyticsTracker.trackEvent(AnalyticsEvents.LLM_CONFIG_SAVED, {
         provider: provider,
@@ -576,10 +576,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
   resetApp() {
     this.dialogService
       .confirm({
-        title: 'Reset Settings',
-        description: 'Are you sure you want to reset the Settings? This will clear all settings and configurations.',
-        cancelButtonText: 'Cancel',
-        confirmButtonText: 'Reset Settings',
+        title: '重置设置',
+        description: '确定要重置设置吗？所有设置和配置都将被清除。',
+        cancelButtonText: '取消',
+        confirmButtonText: '重置设置',
       })
       .subscribe((confirmed: boolean) => {
         if (confirmed) {
@@ -618,13 +618,13 @@ export class SettingsComponent implements OnInit, OnDestroy {
       this.autoUpdateEnabled.setValue(true);
       this.useLangfuseCustomConfig.setValue(false);
 
-      this.toasterService.showSuccess('Settings reset successfully. Redirecting to login...');
+      this.toasterService.showSuccess('设置已重置，正在返回登录页面…');
       
       this.startupService.logout()
       
     } catch (error) {
       this.logger.error('Error during app reset:', error);
-      this.toasterService.showError('Failed to reset application. Please try again.');
+      this.toasterService.showError('重置应用失败，请重试。');
     }
   }
 

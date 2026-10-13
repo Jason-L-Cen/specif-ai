@@ -36,7 +36,7 @@ export class AutoUpdateModalComponent {
     }).catch((err) => {
       console.error('Error occurred during newer version download: ', err);
       this.loadingService.setLoading(false);
-      this.toasterService.showError('Something went wrong.');
+      this.toasterService.showError('发生错误。');
     });
   }
 

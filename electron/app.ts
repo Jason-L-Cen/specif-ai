@@ -1,4 +1,4 @@
-import { app, ipcMain, BrowserWindow, shell, dialog } from "electron";
+import { app, ipcMain, BrowserWindow, shell, dialog, Menu } from "electron";
 import path from "path";
 import dotenv from "dotenv";
 import { setupFileSystemHandlers } from "./handlers/fs-handler";
@@ -19,8 +19,12 @@ import { setupAppUpdateHandler } from "./handlers/app-update-handler";
 import { setupMcpHandlers } from "./handlers/mcp-handler";
 import { setupWorkflowHandlers } from "./handlers/workflow-handler";
 import { MCPHub } from "./mcp/mcp-hub";
-import { APP_MESSAGES } from "./constants/message.constants";
+import { APP_MESSAGES, ZH_ERROR_MAP } from "./constants/message.constants";
+import { z } from 'zod';
 import { setupSIHandlers } from "./handlers/strategic-initiative-handler";
+
+app.commandLine.appendSwitch('lang', 'zh-CN');
+z.setErrorMap(ZH_ERROR_MAP);
 
 // ========================
 // CONFIGURATION
@@ -269,6 +273,38 @@ async function confirmQuitDuringActiveProcesses(): Promise<boolean> {
 // ========================
 
 app.whenReady().then(async () => {
+  Menu.setApplicationMenu(Menu.buildFromTemplate([
+    { label: 'Specif AI', submenu: [
+      { role: 'about', label: '关于 Specif AI' },
+      { type: 'separator' },
+      { role: 'services', label: '服务' },
+      { type: 'separator' },
+      { role: 'hide', label: '隐藏 Specif AI' },
+      { role: 'hideOthers', label: '隐藏其他应用' },
+      { role: 'unhide', label: '显示所有应用' },
+      { type: 'separator' },
+      { role: 'quit', label: '退出 Specif AI' },
+    ] },
+    { label: '编辑', submenu: [
+      { role: 'undo', label: '撤销' }, { role: 'redo', label: '重做' },
+      { type: 'separator' },
+      { role: 'cut', label: '剪切' }, { role: 'copy', label: '复制' },
+      { role: 'paste', label: '粘贴' }, { role: 'pasteAndMatchStyle', label: '粘贴并匹配样式' },
+      { role: 'delete', label: '删除' }, { role: 'selectAll', label: '全选' },
+    ] },
+    { label: '视图', submenu: [
+      { role: 'reload', label: '重新加载' }, { role: 'forceReload', label: '强制重新加载' },
+      { role: 'toggleDevTools', label: '开发者工具' }, { type: 'separator' },
+      { role: 'resetZoom', label: '实际大小' }, { role: 'zoomIn', label: '放大' },
+      { role: 'zoomOut', label: '缩小' }, { type: 'separator' },
+      { role: 'togglefullscreen', label: '切换全屏' },
+    ] },
+    { label: '窗口', submenu: [
+      { role: 'minimize', label: '最小化' }, { role: 'zoom', label: '缩放窗口' },
+      { role: 'front', label: '前置所有窗口' }, { role: 'close', label: '关闭窗口' },
+    ] },
+  ]));
+
   // Initialize configuration
   const { indexPath, themeConfiguration } = initializeConfig();
 

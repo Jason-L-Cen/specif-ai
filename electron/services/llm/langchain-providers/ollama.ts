@@ -2,7 +2,7 @@ import { ChatOllama } from "@langchain/ollama";
 import { LLMConfig, LLMError } from "../llm-types";
 import { LangChainModelProvider } from "./base";
 import { LangChainChatGuardrails } from "@presidio-dev/hai-guardrails"
-import { guardrailsEngine } from "../../../guardrails";
+import { guardrailsEngine, langChainGuardrailsHandler } from "../../../guardrails";
 
 interface OllamaConfig extends LLMConfig {
   baseUrl: string;
@@ -21,13 +21,14 @@ export class OllamaLangChainProvider implements LangChainModelProvider {
         baseUrl: this.configData.baseUrl,
         model: this.configData.model,
       }),
-      guardrailsEngine
+      guardrailsEngine,
+      langChainGuardrailsHandler
     );
   }
 
   getConfig(config: Partial<OllamaConfig>): OllamaConfig {
     if (!config.model) {
-      throw new LLMError("Model ID is required", "ollama");
+      throw new LLMError("模型 ID 不能为空", "ollama");
     }
 
     return {

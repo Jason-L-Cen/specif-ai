@@ -38,7 +38,7 @@ export const generateStrategicInitiative = async (_event: IpcMainInvokeEvent, da
     const llmConfig = store.get<LLMConfigModel>('llmConfig');
 
     if (!llmConfig) {
-      throw new Error('LLM configuration not found');
+      throw new Error('未找到大语言模型配置');
     }
 
     const model = buildLangchainModelProvider(
@@ -101,7 +101,7 @@ export const generateStrategicInitiative = async (_event: IpcMainInvokeEvent, da
             "tools_end",
             WorkflowEventType.Mcp,
             {
-              title: `Executed Tool: ${streamEvent.name}`,
+              title: `已执行工具：${streamEvent.name}`,
               input: streamEvent.data?.input,
               output: streamEvent.data?.output?.content,
             }
@@ -118,7 +118,7 @@ export const generateStrategicInitiative = async (_event: IpcMainInvokeEvent, da
     const result = await workflow.getState(config);
 
     if (!result.values.strategicInitiativeDraft || !result.values.strategicInitiativeDraft.requirement) {
-      throw new Error('Workflow did not return a valid strategic initiative draft');
+      throw new Error('工作流未返回有效的战略举措草稿');
     }
     
     try {
@@ -152,8 +152,8 @@ export const generateStrategicInitiative = async (_event: IpcMainInvokeEvent, da
     }
   } catch (error) {
     return {
-      title: "Error generating strategic initiative",
-      requirement: `An error occurred while generating the strategic initiative: ${error}`,
+      title: "生成战略举措时出错",
+      requirement: `生成战略举措时出错：${error}`,
       status: "error",
     };
   }

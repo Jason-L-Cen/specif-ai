@@ -5,7 +5,7 @@ import { MCPHub } from "./mcp-hub";
 export const getMcpToolsForActiveProvider = async () => {
   const llmConfig = store.get<LLMConfigModel>("llmConfig");
   if (!llmConfig) {
-    throw new Error("LLM configuration not found");
+    throw new Error("未找到大语言模型配置");
   }
 
   return getMcpToolsForProvider(llmConfig.activeProvider);

@@ -19,7 +19,7 @@ export async function updateBusinessProcess(event: IpcMainInvokeEvent, data: any
     const trace = o11y.createTrace('update-business-process');
 
     if (!llmConfig) {
-      throw new Error('LLM configuration not found');
+      throw new Error('未找到大语言模型配置');
     }
 
     console.log('[update-business-process] Using LLM config:', llmConfig);

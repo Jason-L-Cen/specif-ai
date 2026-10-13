@@ -1,6 +1,7 @@
 export const AvailableProviders = [
   { displayName: 'Azure OpenAI', key: 'openai' },
-  { displayName: 'OpenAI Native', key: 'openai-native' },
+  { displayName: 'OpenAI（官方 API）', key: 'openai-native' },
+  { displayName: 'DeepSeek', key: 'deepseek' },
   { displayName: 'AWS Bedrock', key: 'bedrock' },
   { displayName: 'Gemini', key: 'gemini' },
   { displayName: 'Anthropic', key: 'anthropic' },
@@ -28,6 +29,7 @@ export async function getProviderModels(provider: string): Promise<string[]> {
   }
 
   const modelMap: { [key: string]: string[] } = {
+    'deepseek': ['deepseek-flash', 'deepseek-v4-pro'],
     'openai-native': ['gpt-4o', 'gpt-4o-mini'],
     'bedrock': [
       'anthropic.claude-opus-4-20250514-v1:0',

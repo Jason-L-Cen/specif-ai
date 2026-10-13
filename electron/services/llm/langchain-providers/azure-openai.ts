@@ -2,7 +2,7 @@ import { AzureChatOpenAI } from "@langchain/openai";
 import { LLMConfig, LLMError } from "../llm-types";
 import { LangChainModelProvider } from "./base";
 import { LangChainChatGuardrails } from "@presidio-dev/hai-guardrails"
-import { guardrailsEngine } from "../../../guardrails";
+import { guardrailsEngine, langChainGuardrailsHandler } from "../../../guardrails";
 interface AzureOpenAIConfig extends LLMConfig {
   apiKey: string;
   endpoint: string;
@@ -24,19 +24,20 @@ export class AzureOpenAILangChainProvider implements LangChainModelProvider {
         azureOpenAIApiVersion:
           this.configData.apiVersion || "2024-09-01-preview",
       }),
-      guardrailsEngine
+      guardrailsEngine,
+      langChainGuardrailsHandler
     );
   }
 
   getConfig(config: Partial<AzureOpenAIConfig>): AzureOpenAIConfig {
     if (!config.apiKey) {
-      throw new LLMError("Azure OpenAI API key is required", "openai");
+      throw new LLMError("Azure OpenAI API 密钥不能为空", "openai");
     }
     if (!config.endpoint) {
-      throw new LLMError("Azure OpenAI endpoint is required", "openai");
+      throw new LLMError("Azure OpenAI 服务端点不能为空", "openai");
     }
     if (!config.deployment) {
-      throw new LLMError("Azure OpenAI deployment ID is required", "openai");
+      throw new LLMError("Azure OpenAI 部署 ID 不能为空", "openai");
     }
 
     return {

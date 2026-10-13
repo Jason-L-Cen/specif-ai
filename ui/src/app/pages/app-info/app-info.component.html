@@ -15,7 +15,7 @@
       ></app-sidebar>
     </section>
     <section
-      aria-labelledby="Main Content"
+      aria-label="主要内容"
       class="col-span-2 h-[calc(100vh-80px)] overflow-hidden"
     >
       <div class="overflow-auto rounded-lg bg-white border h-full">
@@ -35,7 +35,7 @@
             *ngIf="!directoryContainsFolder(selectedFolder?.title, directories)"
             class="flex items-center justify-center h-full"
           >
-            No documents available.
+            暂无文档。
           </div>
         </div>
         
@@ -57,9 +57,9 @@
             [workflowType]="WorkflowType.Solution"
             [isVisible]="isCreatingSolution || solutionCreationComplete"
             [isCompleted]="solutionCreationComplete"
-            initialTitle="Creating Solution..."
-            completedTitle="Solution Created Successfully!"
-            subtitle="Relax while SpecifAI takes care of the rest..."
+            initialTitle="正在创建解决方案…"
+            completedTitle="解决方案创建成功！"
+            subtitle="SpecifAI 正在处理后续步骤，请稍候…"
           >
           </app-workflow-progress>
 
@@ -68,22 +68,22 @@
             *ngIf="isCreatingSolution || solutionCreationComplete"
           ></div>
 
-          <h1 class="text-title font-semibold p-4">Solution Information</h1>
+          <h1 class="text-title font-semibold p-4">解决方案信息</h1>
           <div class="grid grid-cols-3 gap-4 p-4">
-            <p class="text-secondary-500">Title</p>
+            <p class="text-secondary-500">标题</p>
             <h1 class="col-span-2 font-medium capitalize">
               {{ appInfo.name }}
             </h1>
           </div>
           <div class="grid grid-cols-3 gap-4 p-4">
-            <p class="text-secondary-500">Description</p>
+            <p class="text-secondary-500">描述</p>
             <p class="col-span-2">{{ appInfo.description }}</p>
           </div>
           <div
             class="grid grid-cols-3 gap-4 p-4"
             *ngIf="appInfo.technicalDetails"
           >
-            <p class="text-secondary-500">Technical Details</p>
+            <p class="text-secondary-500">技术细节</p>
             <p class="col-span-2">{{ appInfo.technicalDetails }}</p>
           </div>
         </div>
@@ -94,7 +94,7 @@
           <h1
             class="text-title font-semibold text-secondary-950 mb-3 pb-3 border-b"
           >
-            Integrations
+            集成
           </h1>
 
           <app-pmo-integration
@@ -108,7 +108,7 @@
           <app-accordion
             [withConnectionStatus]="true"
             [isConnected]="isBedrockConnected"
-            title="AWS Bedrock Knowledge Base"
+            title="AWS Bedrock 知识库"
             dynamicClass="text-sm font-medium text-secondary-950 ml-3"
             iconImage="./assets/img/logo/aws_dark_bg_transparent_logo.svg"
             [isOpen]="accordionState['knowledgeBase']"
@@ -132,7 +132,7 @@
                 for="useBedrockConfig"
                 class="ml-2 text-sm font-medium text-secondary-700"
               >
-                Use existing Bedrock configuration from LLM settings
+                使用大语言模型设置中已有的 Bedrock 配置
               </label>
             </div>
             <div
@@ -144,8 +144,8 @@
                   <app-input-field
                     formControlName="kbId"
                     elementId="kbId"
-                    elementName="Knowledge Base ID"
-                    elementPlaceHolder="Enter Knowledge Base ID"
+                    elementName="知识库 ID"
+                    elementPlaceHolder="请输入知识库 ID"
                   ></app-input-field>
                 </div>
               </div>
@@ -154,8 +154,8 @@
                   <app-input-field
                     formControlName="accessKey"
                     elementId="accessKey"
-                    elementName="AWS Access Key"
-                    elementPlaceHolder="Enter AWS Access Key"
+                    elementName="AWS 访问密钥 ID"
+                    elementPlaceHolder="请输入 AWS 访问密钥 ID"
                     elementType="password"
                   ></app-input-field>
                 </div>
@@ -165,8 +165,8 @@
                   <app-input-field
                     formControlName="secretKey"
                     elementId="secretKey"
-                    elementName="AWS Secret Key"
-                    elementPlaceHolder="Enter AWS Secret Key"
+                    elementName="AWS 秘密访问密钥"
+                    elementPlaceHolder="请输入 AWS 秘密访问密钥"
                     elementType="password"
                   ></app-input-field>
                 </div>
@@ -176,8 +176,8 @@
                   <app-input-field
                     formControlName="region"
                     elementId="region"
-                    elementName="AWS Region"
-                    elementPlaceHolder="Enter AWS Region"
+                    elementName="AWS 区域"
+                    elementPlaceHolder="请输入 AWS 区域"
                   ></app-input-field>
                 </div>
               </div>
@@ -186,8 +186,8 @@
                   <app-input-field
                     formControlName="sessionKey"
                     elementId="sessionKey"
-                    elementName="AWS Session Key (Optional)"
-                    elementPlaceHolder="Enter AWS Session Key"
+                    elementName="AWS 会话令牌（可选）"
+                    elementPlaceHolder="请输入 AWS 会话令牌"
                     elementType="password"
                   ></app-input-field>
                 </div>
@@ -196,7 +196,7 @@
             <div class="mt-6 flex justify-between items-center">
               <div></div>
               <app-button
-                [buttonContent]="isBedrockConnected ? 'Disconnect' : 'Connect'"
+                [buttonContent]="isBedrockConnected ? '断开连接' : '连接'"
                 [theme]="isBedrockConnected ? 'danger' : 'primary'"
                 size="sm"
                 (click)="
@@ -210,7 +210,7 @@
 
           <app-accordion
             [withConnectionStatus]="false"
-            title="MCP Servers"
+            title="MCP 服务器"
             dynamicClass="text-sm font-medium text-secondary-950 ml-3"
             iconImage="./assets/img/logo/mcp_logo.svg"
             [isOpen]="accordionState['mcp']"
@@ -224,7 +224,7 @@
               ></app-mcp-servers>
               <div class="mt-6 flex justify-end">
                 <app-button
-                  buttonContent="Edit MCP Settings"
+                  buttonContent="编辑 MCP 设置"
                   theme="primary"
                   size="sm"
                   (click)="toggleMcpSettingsEdit()"
@@ -238,14 +238,14 @@
                 ></app-mcp-integration-configurator>
                 <div class="mt-6 flex justify-end space-x-4">
                   <app-button
-                    buttonContent="Cancel"
+                    buttonContent="取消"
                     theme="secondary"
                     size="sm"
                     type="button"
                     (click)="toggleMcpSettingsEdit()"
                   ></app-button>
                   <app-button
-                    [buttonContent]="isSavingMcpSettings ? 'Saving...' : 'Save'"
+                    [buttonContent]="isSavingMcpSettings ? '正在保存…' : '保存'"
                     theme="primary"
                     size="sm"
                     type="submit"

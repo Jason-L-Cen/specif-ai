@@ -2,7 +2,7 @@ import { ChatOpenAI } from "@langchain/openai";
 import { LLMConfig, LLMError } from "../llm-types";
 import { LangChainModelProvider } from "./base";
 import { LangChainChatGuardrails } from "@presidio-dev/hai-guardrails"
-import { guardrailsEngine } from "../../../guardrails";
+import { guardrailsEngine, langChainGuardrailsHandler } from "../../../guardrails";
 
 interface OpenRouterConfig extends LLMConfig {
   apiKey: string;
@@ -25,16 +25,17 @@ export class OpenRouterLangChainProvider implements LangChainModelProvider {
           baseURL: this.configData.baseUrl || this.defaultBaseUrl,
         },
       }),
-      guardrailsEngine
+      guardrailsEngine,
+      langChainGuardrailsHandler
     );
   }
 
   getConfig(config: Partial<OpenRouterConfig>): OpenRouterConfig {
     if (!config.apiKey) {
-      throw new LLMError("OpenRouter API key is required", "openrouter");
+      throw new LLMError("OpenRouter API 密钥不能为空", "openrouter");
     }
     if (!config.model) {
-      throw new LLMError("OpenRouter model is required", "openrouter");
+      throw new LLMError("OpenRouter 模型不能为空", "openrouter");
     }
 
     return {

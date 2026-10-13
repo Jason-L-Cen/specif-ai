@@ -5,17 +5,17 @@
 <header
   class="flex items-center justify-between py-3 bg-secondary-50 sticky top-0"
 >
-  <h1 class="text-lg font-semibold">Create Solution</h1>
+  <h1 class="text-lg font-semibold">创建解决方案</h1>
   <div class="flex gap-2">
     <app-button
-      buttonContent="Cancel"
+      buttonContent="取消"
       [disabled]="loading"
       size="sm"
       theme="secondary_outline"
       (click)="navigateToDashboard()"
     ></app-button>
     <app-button
-      buttonContent="Create Solution"
+      buttonContent="创建解决方案"
       [disabled]="isCreateSolutionDisabled"
       size="sm"
       (click)="createSolution()"
@@ -23,14 +23,13 @@
   </div>
 </header>
 <form [formGroup]="solutionForm" class="flex flex-col gap-3 overflow-auto pb-4">
-  <!-- Basic Information Section -->
+  <!-- 基本信息 Section -->
   <app-custom-accordion [id]="'basic-info'" [isOpen]="true">
     <ng-container accordion-trigger>
       <div class="flex flex-col text-sm gap-0.5">
-        <span class="font-semibold text-foreground">Basic Information</span>
+        <span class="font-semibold text-foreground">基本信息</span>
         <span class="font-normal text-muted-foreground"
-          >Provide essential details about the application you intend to
-          develop.</span
+          >填写计划开发的应用的基本信息。</span
         >
       </div>
     </ng-container>
@@ -38,14 +37,14 @@
       <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-3">
         <label
           class="block text-sm font-medium leading-6 text-secondary-900 sm:pt-1.5"
-          >Solution Name<span class="text-danger-500 text-xs"> *</span></label
+          >解决方案名称<span class="text-danger-500 text-xs"> *</span></label
         >
 
         <app-input-field
           formControlName="name"
           elementId="solution-name"
-          elementName="Solution Name"
-          elementPlaceHolder="Solution Name"
+          elementName="解决方案名称"
+          elementPlaceHolder="解决方案名称"
           [showLabel]="false"
           [required]="true"
           class="sm:col-span-2"
@@ -57,20 +56,20 @@
         <div>
           <label
             class="block text-sm font-medium leading-6 text-secondary-900 sm:pt-1.5"
-            >Solution Description<span class="text-danger-500 text-xs">
+            >解决方案描述<span class="text-danger-500 text-xs">
               *</span
             ></label
           >
           <p class="text-xs leading-6 text-muted-foreground">
-            Write a few sentences about your idea
+            用几句话描述你的想法
           </p>
         </div>
         <div class="mt-2 sm:col-span-2 sm:mt-0">
           <app-textarea-field
             formControlName="description"
             elementId="solution-description"
-            elementName="Solution Description"
-            elementPlaceHolder="Solution Description"
+            elementName="解决方案描述"
+            elementPlaceHolder="解决方案描述"
             [showLabel]="false"
             [rows]="4"
             [required]="true"
@@ -83,20 +82,20 @@
         <div>
           <label
             class="block text-sm font-medium leading-6 text-secondary-900 sm:pt-1.5"
-            >Technical Details<span class="text-danger-500 text-xs">
+            >技术细节<span class="text-danger-500 text-xs">
               *</span
             ></label
           >
           <p class="text-xs leading-6 text-muted-foreground">
-            Few sentences about the technical stack of your app
+            用几句话描述应用的技术栈
           </p>
         </div>
         <div class="mt-2 sm:col-span-2 sm:mt-0">
           <app-textarea-field
             formControlName="technicalDetails"
             elementId="technical-details"
-            elementName="Technical Details"
-            elementPlaceHolder="Technical Details"
+            elementName="技术细节"
+            elementPlaceHolder="技术细节"
             [showLabel]="false"
             [rows]="4"
             [required]="true"
@@ -110,7 +109,7 @@
       <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4 sm:py-3">
         <div>
           <label class="block text-sm font-medium leading-6 text-secondary-900"
-            >Is solution built already?<span class="text-danger-500 text-xs">
+            >该解决方案是否已实现？<span class="text-danger-500 text-xs">
               *</span
             ></label
           >
@@ -141,10 +140,9 @@
   >
     <ng-container accordion-trigger>
       <div class="flex flex-col text-sm gap-0.5">
-        <span class="font-semibold text-foreground">Preferences</span>
+        <span class="font-semibold text-foreground">偏好设置</span>
         <span class="font-normal text-muted-foreground"
-          >Configure and optimize your project settings to align with your
-          requirements.</span
+          >根据需求配置项目设置。</span
         >
       </div>
     </ng-container>
@@ -155,12 +153,12 @@
       >
         <div>
           <label class="block text-sm font-medium leading-6 text-secondary-900">
-            Business Requirements (BRD)<span class="text-danger-500 text-xs">
+            业务需求（BRD）<span class="text-danger-500 text-xs">
               *</span
             >
           </label>
           <p class="text-xs leading-6 text-muted-foreground">
-            Set the minimum number of Business Requirements
+            设置业务需求的最少数量
           </p>
         </div>
         <div class="flex items-center col-span-2 gap-4">
@@ -184,12 +182,12 @@
       >
         <div>
           <label class="block text-sm font-medium leading-6 text-secondary-900">
-            Product Requirements (PRD)<span class="text-danger-500 text-xs">
+            产品需求（PRD）<span class="text-danger-500 text-xs">
               *</span
             >
           </label>
           <p class="text-xs leading-6 text-muted-foreground">
-            Set the minimum number of Product Requirements
+            设置产品需求的最少数量
           </p>
         </div>
         <div class="flex items-center col-span-2 gap-4">
@@ -213,10 +211,10 @@
       >
         <div>
           <label class="block text-sm font-medium leading-6 text-secondary-900">
-            UI Requirements (UIR)<span class="text-danger-500 text-xs"> *</span>
+            界面需求（UIR）<span class="text-danger-500 text-xs"> *</span>
           </label>
           <p class="text-xs leading-6 text-muted-foreground">
-            Set the minimum number of UI Requirements
+            设置界面需求的最少数量
           </p>
         </div>
         <div class="flex items-center col-span-2 gap-4">
@@ -240,14 +238,14 @@
       >
         <div>
           <label class="block text-sm font-medium leading-6 text-secondary-900">
-            Non-Functional Requirements (NFR)<span
+            非功能需求（NFR）<span
               class="text-danger-500 text-xs"
             >
               *</span
             >
           </label>
           <p class="text-xs leading-6 text-muted-foreground">
-            Set the minimum number of Non-Functional Requirements
+            设置非功能需求的最少数量
           </p>
         </div>
         <div class="flex items-center col-span-2 gap-4">
@@ -267,13 +265,13 @@
     </ng-container>
   </app-custom-accordion>
 
-  <!-- MCP Integrations Section -->
+  <!-- MCP 集成 Section -->
   <app-custom-accordion [id]="'integrations'">
     <ng-container accordion-trigger>
       <div class="flex flex-col text-sm gap-0.5">
-        <span class="font-semibold text-foreground">MCP Integrations</span>
+        <span class="font-semibold text-foreground">MCP 集成</span>
         <span class="font-normal text-muted-foreground"
-          >Integrate Model Context Protocol servers with your project.</span
+          >将模型上下文协议（MCP）服务器接入项目。</span
         >
       </div>
     </ng-container>

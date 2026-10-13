@@ -1,3 +1,4 @@
+import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../../prompts/context/markdown-rules";
 import {
   getUserStoryPerspectives,
   UserStoryResearchPreferences,
@@ -13,7 +14,9 @@ export function createSummarizeUserStoryResearchPrompt({
 }: UserStoryResearchPreferences): string {
   const perspectives = getUserStoryPerspectives();
 
-  return `You are a lead technical analyst. As part of your role you synthesize information gathered to support the downstream generation of user stories.
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+You are a lead technical analyst. As part of your role you synthesize information gathered to support the downstream generation of user stories.
 
    ## App Context:
     App Name: ${appName}

@@ -47,7 +47,7 @@ export const buildResearchNode = ({
       await workflowEvents.dispatchAction(
         "research",
         {
-          title: "Skipped research phase - no tools were available",
+          title: "没有可用工具，已跳过调研阶段",
         },
         runnableConfig
       );
@@ -60,7 +60,7 @@ export const buildResearchNode = ({
     await workflowEvents.dispatchThinking(
       "research",
       {
-        title: `Researching based on US: ${state.name} context`,
+        title: `正在根据用户故事（US）“${state.name}”的背景进行调研`,
       },
       runnableConfig,
       researchCorrelationId
@@ -118,7 +118,7 @@ export const buildResearchNode = ({
     await workflowEvents.dispatchAction(
       "research",
       {
-        title: `Research completed for US: ${state.name}`,
+        title: `用户故事（US）“${state.name}”的调研已完成`,
         output: response.structuredResponse.referenceInformation,
       },
       runnableConfig,
@@ -155,7 +155,7 @@ export const buildGenerateTasksNode = (
       await workflowEvents.dispatchThinking(
         "generate-tasks",
         {
-          title: `Generating Tasks for US: ${state.name}`,
+          title: `正在根据用户故事（US）“${state.name}”生成任务`,
         },
         runnableConfig,
         generateCorrelationId
@@ -203,15 +203,15 @@ export const buildGenerateTasksNode = (
           level: "ERROR",
           statusMessage: `Error parsing LLM response: ${error}`,
         });
-        throw new Error("Invalid response format from LLM");
+        throw new Error("大语言模型返回的响应格式无效");
       }
 
       await workflowEvents.dispatchAction(
         "generate-tasks",
         {
-          title: `Generated ${parsedTasks.tasks?.length || 0} tasks for US: ${
+          title: `已根据用户故事（US）“${
             state.name
-          }`,
+          }”生成 ${parsedTasks.tasks?.length || 0} 个任务`,
           input: prompt,
           output: parsedTasks,
         },
@@ -240,7 +240,7 @@ export const buildGenerateTasksNode = (
       await workflowEvents.dispatchError(
         "generate-tasks",
         {
-          title: `Task generation for US: ${state.name} failed`,
+          title: `用户故事（US）“${state.name}”的任务生成失败`,
         },
         runnableConfig,
         generateCorrelationId

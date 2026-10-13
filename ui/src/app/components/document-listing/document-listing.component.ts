@@ -292,7 +292,7 @@ export class DocumentListingComponent
               id,
               folderName,
               breadcrumb: {
-                name: 'Add Document',
+                name: '添加文档',
                 link: this.currentRoute,
                 icon: 'add',
               },
@@ -307,7 +307,7 @@ export class DocumentListingComponent
           id,
           folderName,
           breadcrumb: {
-            name: 'Add Strategic Initiative',
+            name: '添加战略举措',
             link: this.currentRoute,
             icon: 'add',
           },
@@ -320,7 +320,7 @@ export class DocumentListingComponent
           id,
           folderName,
           breadcrumb: {
-            name: 'Add Document',
+            name: '添加文档',
             link: this.currentRoute,
             icon: 'add',
           },
@@ -404,7 +404,7 @@ export class DocumentListingComponent
     const projectId = this.appInfo?.id;
 
     if (!projectId) {
-      this.toast.showError('No project selected');
+      this.toast.showError('尚未选择解决方案');
       return;
     }
 
@@ -499,7 +499,7 @@ export class DocumentListingComponent
       );
     } catch (error) {
       this.toast.showError(
-        `Failed to open ${selectedPmoTool.toUpperCase()} item: ${pmoId}`,
+        `无法打开 ${selectedPmoTool === 'ado' ? 'Azure DevOps' : 'Jira'} 工作项：${pmoId}`,
       );
     }
   }
@@ -541,17 +541,17 @@ export class DocumentListingComponent
     this.exportedFolderName = folderName;
     this.exportOptions = [
       {
-        groupName: 'Export',
+        groupName: '导出',
         options: [
           {
-            label: 'Copy to Clipboard',
+            label: '复制到剪贴板',
             callback: exportJson.bind(this),
             icon: 'heroPaperClip',
-            additionalInfo: 'JSON Format',
+            additionalInfo: 'JSON 格式',
             isTimestamp: false,
           },
           {
-            label: 'Download',
+            label: '下载',
             callback: exportExcel.bind(this),
             icon: 'heroDocumentText',
             additionalInfo: 'Excel (.xlsx)',
@@ -565,16 +565,16 @@ export class DocumentListingComponent
       this.selectedFolder.title == 'PRD'
     ) {
       this.exportOptions.push({
-        groupName: 'ADO',
+        groupName: 'Azure DevOps',
         options: [
           {
-            label: 'Pull from ADO',
+            label: '从 Azure DevOps 拉取',
             callback: pullFromAdo.bind(this),
             icon: 'heroArrowDownTray',
             isTimestamp: true,
           },
           {
-            label: 'Push to ADO',
+            label: '推送到 Azure DevOps',
             callback: pushToAdo.bind(this),
             icon: 'heroArrowUpTray',
             isTimestamp: true,
@@ -588,16 +588,16 @@ export class DocumentListingComponent
       this.selectedFolder.title == 'PRD'
     ) {
       this.exportOptions.push({
-        groupName: 'JIRA',
+        groupName: 'Jira',
         options: [
           {
-            label: 'Pull from JIRA',
+            label: '从 Jira 拉取',
             callback: pullFromJira.bind(this),
             icon: 'heroArrowDownTray',
             isTimestamp: true,
           },
           {
-            label: 'Push to JIRA',
+            label: '推送到 Jira',
             callback: pushToJira.bind(this),
             icon: 'heroArrowUpTray',
             isTimestamp: true,

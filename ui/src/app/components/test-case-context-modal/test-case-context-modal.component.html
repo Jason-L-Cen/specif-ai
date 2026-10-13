@@ -6,13 +6,13 @@
     <!-- User Screens Involved Field -->
     <div class="mb-4">
       <label class="block text-secondary-700 text-sm font-medium mb-2">
-        User Screens Involved <span class="text-secondary-400">(Optional)</span>
+        涉及的用户界面 <span class="text-secondary-400">（可选）</span>
       </label>
       <p class="text-secondary-500 text-xs mb-2">
-        List screens and UI components users will interact with.
+        列出用户将操作的界面和界面组件。
       </p>
       <app-textarea-field
-        [elementPlaceHolder]="'E.g., Login Screen, Dashboard, Payment Form'"
+        [elementPlaceHolder]="'例如：登录界面、仪表盘、支付表单'"
         elementId="userScreensInvolved"
         formControlName="userScreensInvolved"
         [rows]="5"
@@ -22,13 +22,13 @@
     <!-- Extra Context Field -->
     <div>
       <label class="block text-secondary-700 text-sm font-medium mb-2">
-        Extra Context <span class="text-secondary-400">(Optional)</span>
+        补充上下文 <span class="text-secondary-400">（可选）</span>
       </label>
       <p class="text-secondary-500 text-xs mb-2">
-        Add any helpful information for test case generation.
+        补充有助于生成测试用例的信息。
       </p>
       <app-textarea-field
-        [elementPlaceHolder]="'E.g., Edge cases, accessibility, user roles'"
+        [elementPlaceHolder]="'例如：边界情况、无障碍要求、用户角色'"
         elementId="extraContext"
         formControlName="extraContext"
         [rows]="5"
@@ -37,14 +37,14 @@
   </div>
   <div class="flex justify-between mt-6">
     <app-button
-      buttonContent="Cancel"
+      buttonContent="取消"
       theme="secondary"
       size="sm"
       rounded="lg"
       (click)="onClose()"
     />
     <app-button
-      buttonContent="Generate"
+      buttonContent="生成"
       theme="primary"
       size="sm"
       rounded="lg"

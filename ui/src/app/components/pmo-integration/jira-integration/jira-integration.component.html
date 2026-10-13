@@ -7,10 +7,10 @@
 <form [formGroup]="jiraForm" class="space-y-6" novalidate>
   <div class="mt-6 p-4 bg-gray-50 rounded-lg border">
     <h4 class="text-sm font-semibold text-gray-900 mb-4">
-      Work Item Type Mapping
+      工作项类型映射
     </h4>
     <p class="text-xs text-gray-600 mb-4">
-      Map SpecifAI requirement types to your Jira issue types
+      配置 SpecifAI 需求类型与 Jira 事项类型的对应关系
     </p>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -18,13 +18,13 @@
         <app-input-field
           formControlName="prdWorkItemType"
           elementId="prdWorkItemType"
-          elementName="PRD Issue Type"
-          elementPlaceHolder="Epic"
+          elementName="产品需求文档（PRD）对应的事项类型"
+          elementPlaceHolder="例如：Epic（请输入 Jira 中的实际名称）"
           [required]="true"
           aria-describedby="prd-type-help"
         />
         <small id="prd-type-help" class="text-xs text-gray-500 mt-1 block">
-          Jira issue type for Product Requirements (e.g., Epic)
+          产品需求对应的 Jira 事项类型（例如：Epic）
         </small>
       </div>
 
@@ -32,13 +32,13 @@
         <app-input-field
           formControlName="userStoryWorkItemType"
           elementId="userStoryWorkItemType"
-          elementName="User Story Issue Type"
-          elementPlaceHolder="Story"
+          elementName="用户故事对应的事项类型"
+          elementPlaceHolder="例如：Story（请输入 Jira 中的实际名称）"
           [required]="true"
           aria-describedby="story-type-help"
         />
         <small id="story-type-help" class="text-xs text-gray-500 mt-1 block">
-          Jira issue type for User Stories (e.g., Story)
+          用户故事对应的 Jira 事项类型（例如：Story）
         </small>
       </div>
 
@@ -46,13 +46,13 @@
         <app-input-field
           formControlName="taskWorkItemType"
           elementId="taskWorkItemType"
-          elementName="Task Issue Type"
-          elementPlaceHolder="Sub-task"
+          elementName="任务对应的事项类型"
+          elementPlaceHolder="例如：Sub-task（请输入 Jira 中的实际名称）"
           [required]="true"
           aria-describedby="task-type-help"
         />
         <small id="task-type-help" class="text-xs text-gray-500 mt-1 block">
-          Jira issue type for Tasks (e.g., Sub-task)
+          任务对应的 Jira 事项类型（例如：Sub-task）
         </small>
       </div>
     </div>
@@ -63,13 +63,13 @@
       <app-input-field
         formControlName="jiraProjectKey"
         elementId="jiraProjectKey"
-        elementName="Jira Project Key"
-        elementPlaceHolder="Enter Jira Project Key"
+        elementName="Jira 项目键"
+        elementPlaceHolder="请输入 Jira 项目键"
         [required]="true"
         aria-describedby="project-key-help"
       />
       <small id="project-key-help" class="sr-only">
-        Enter your Jira project key
+        请输入 Jira 项目键
       </small>
     </div>
 
@@ -77,14 +77,14 @@
       <app-input-field
         formControlName="clientId"
         elementId="clientId"
-        elementName="Jira App Client ID"
-        elementPlaceHolder="Enter Jira Client ID"
+        elementName="Jira 应用客户端 ID"
+        elementPlaceHolder="请输入 Jira 客户端 ID"
         elementType="password"
         [required]="true"
         aria-describedby="client-id-help"
       />
       <small id="client-id-help" class="sr-only">
-        Enter your Jira application client ID
+        请输入 Jira 应用的客户端 ID
       </small>
     </div>
   </div>
@@ -94,14 +94,14 @@
       <app-input-field
         formControlName="clientSecret"
         elementId="clientSecret"
-        elementName="Jira App Client Secret"
-        elementPlaceHolder="Enter Client Secret"
+        elementName="Jira 应用客户端密钥"
+        elementPlaceHolder="请输入客户端密钥"
         elementType="password"
         [required]="true"
         aria-describedby="client-secret-help"
       />
       <small id="client-secret-help" class="sr-only">
-        Enter your Jira application client secret
+        请输入 Jira 应用的客户端密钥
       </small>
     </div>
 
@@ -109,13 +109,13 @@
       <app-input-field
         formControlName="redirectUrl"
         elementId="redirectUrl"
-        elementName="Redirect URL"
-        elementPlaceHolder="Enter Redirect URL"
+        elementName="重定向地址"
+        elementPlaceHolder="请输入重定向地址"
         [required]="true"
         aria-describedby="redirect-url-help"
       />
       <small id="redirect-url-help" class="sr-only">
-        Enter the OAuth redirect URL for your Jira application
+        请输入 Jira 应用的 OAuth 重定向地址
       </small>
     </div>
   </div>
@@ -128,7 +128,7 @@
       (click)="isConnected() ? onDisconnect() : onConnect()"
       [disabled]="buttonDisabled()"
       [attr.aria-label]="
-        isConnected() ? 'Disconnect from Jira' : 'Connect to Jira'
+        isConnected() ? '断开与 Jira 的连接' : '连接 Jira'
       "
     >
     </app-button>

@@ -209,8 +209,8 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
   showProgressDialog: boolean = false;
   testCaseGenerationComplete: boolean = false;
   thinkingProcessConfig: ThinkingProcessConfig = {
-    title: 'Creating Test Cases',
-    subtitle: `Sit back & let the Specifai do its job...`,
+    title: '正在创建测试用例',
+    subtitle: '请稍候，Specifai 正在处理…',
   };
   zone = inject(NgZone);
   projectMetadata$ = this.store.select(ProjectsState.getMetadata);
@@ -294,11 +294,11 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
     const userStoryId = this.route.snapshot.paramMap.get('userStoryId');
 
     if (this.navigation.selectedRequirement?.id) {
-      this.currentLabel = `${this.navigation.selectedRequirement.id} - Test Cases`;
+      this.currentLabel = `${this.navigation.selectedRequirement.id} - 测试用例`;
     } else if (userStoryId) {
-      this.currentLabel = `${userStoryId} - Test Cases`;
+      this.currentLabel = `${userStoryId} - 测试用例`;
     } else {
-      this.currentLabel = 'Test Cases';
+      this.currentLabel = '测试用例';
     }
     
     this.store.select(ProjectsState.getMetadata).subscribe((res) => {
@@ -404,8 +404,8 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
         const fromTestCaseHome = this.route.snapshot.queryParamMap.get('fromTestCaseHome') === 'true';
         if (fromTestCaseHome) {
           this.store.dispatch(new AddBreadcrumb({
-            label: "Test Cases",
-            tooltipLabel: `Test Cases`,
+            label: '测试用例',
+            tooltipLabel: '测试用例',
             url: `/apps/${this.currentProject}`,
             state: {
               data: this.breadcrumbMetadata,
@@ -421,7 +421,7 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
         this.store.dispatch(
             new AddBreadcrumb({
               label: this.currentLabel,
-              tooltipLabel: `Test Cases for ${userStory.id}: ${userStory.name}`,
+              tooltipLabel: `${userStory.id} 的测试用例：${userStory.name}`,
             })
           );
       }
@@ -548,7 +548,7 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
       this.navigation.selectedRequirement?.id;
 
     if (!userStoryId) {
-      this.toast.showError('Please select a user story to add a test case');
+      this.toast.showError('请选择要添加测试用例的用户故事');
       return;
     }
 
@@ -568,7 +568,7 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
 
     if (!userStoryId) {
       this.toast.showError(
-        `Could not determine user story for test case ${selectedTestCase.id}`,
+        `无法确定测试用例 ${selectedTestCase.id} 所属的用户故事`,
       );
       return;
     }
@@ -593,7 +593,7 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
     const userStoryId = this.route.snapshot.paramMap.get('userStoryId');
 
     if (!this.navigation.selectedRequirement?.id && !userStoryId) {
-      this.toast.showError('Please select a user story to generate test cases');
+      this.toast.showError('请选择要生成测试用例的用户故事');
       return;
     }
 
@@ -642,8 +642,8 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
       .generateTestCases(request)
       .then((response) => {
         if (!response.testCases || !Array.isArray(response.testCases) || response.testCases.length === 0) {
-          this.toast.showError("No test cases were generated. Please try again.");
-          throw new Error('No test cases were generated. Please try again.');
+          this.toast.showError('未生成任何测试用例，请重试。');
+          throw new Error('未生成任何测试用例，请重试。');
         }
         
         this.testCases = response.testCases;
@@ -655,22 +655,22 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
           WorkflowType.TestCase,
           {
             timestamp: new Date().toISOString(),
-            reason: error?.message || 'Failed to generate test cases',
+            reason: error?.message || '生成测试用例失败',
           }
         );
         
         this.showThinkingProcess = false;
         
-        const errorMessage = error?.message || 'Failed to generate test cases';
+        const errorMessage = error?.message || '生成测试用例失败';
         this.toast.showError(
           `${TOASTER_MESSAGES.ENTITY.GENERATE.FAILURE(this.entityType, regenerate)} - ${errorMessage}`
         );
         
         this.dialogService.confirm({
-          title: 'Test Case Generation Failed',
-          description: `Failed to generate test cases: ${errorMessage}. Would you like to try again?`,
-          confirmButtonText: 'Try Again',
-          cancelButtonText: 'Cancel',
+          title: '生成测试用例失败',
+          description: `生成测试用例失败：${errorMessage}。是否重试？`,
+          confirmButtonText: '重试',
+          cancelButtonText: '取消',
         }).subscribe((shouldRetry) => {
           if (shouldRetry) {
             this.generateTestCases(regenerate, extraContext, userScreensInvolved);
@@ -687,7 +687,7 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
       '';
 
     if (!userStoryId) {
-      this.toast.showError('User story ID not found');
+      this.toast.showError('未找到用户故事 ID');
       this.showThinkingProcess = false;
       return;
     }
@@ -842,7 +842,7 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
       })
       .catch((error) => {
         this.logger.error('Error creating test case files:', error);
-        this.toast.showError('Failed to create test case files');
+        this.toast.showError('创建测试用例文件失败');
         this.showThinkingProcess = false;
       });
   }
@@ -897,7 +897,7 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
       .createBuilder()
       .forComponent(TestCaseContextModalComponent)
       .withData({
-        title: 'Generate Test Cases',
+        title: '生成测试用例',
         userStories: userStories,
       })
       .withWidth('600px')
@@ -928,7 +928,7 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
               
               this.store.dispatch(new SetSelectedUserStory(selectedUserStory.id));
             } else {
-              this.toast.showError('Selected user story not found');
+              this.toast.showError('未找到所选用户故事');
               return;
             }
           }
@@ -942,10 +942,10 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
   
     exportOptions: DropdownOptionGroup[] = [
       {
-        groupName: 'Export',
+        groupName: '导出',
         options: [
           {
-            label: 'Download',
+            label: '下载',
             callback: () => this.exportTestCases(EXPORT_FILE_FORMATS.EXCEL),
             icon: 'heroDocumentText',
             additionalInfo: 'Excel (.xlsx)',
@@ -959,7 +959,7 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
     }
   async exportTestCases(format: string) {
     if (!this.userStoryId) {
-      this.toast.showError('No user story selected');
+      this.toast.showError('尚未选择用户故事');
       return;
     }
 
@@ -968,7 +968,7 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
       const files = await this.appSystemService.getFolders(testCasePath, FILTER_STRINGS.BASE, false);
       
       if (!files || files.length === 0) {
-        this.toast.showError('No test cases found to export');
+        this.toast.showError('未找到可导出的测试用例');
         return;
       }
 
@@ -1008,7 +1008,7 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
       ));
     } catch (error) {
       this.logger.error('Error exporting test cases:', error);
-      this.toast.showError('Failed to export test cases');
+      this.toast.showError('导出测试用例失败');
     }
   }
 

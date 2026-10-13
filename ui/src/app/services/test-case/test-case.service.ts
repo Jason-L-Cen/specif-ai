@@ -30,31 +30,46 @@ export class TestCaseService {
 
   private readonly SELECTED_PRD_KEY = 'selectedPrdId';
 
-  readonly priorityOptions: SelectOption[] = Object.values(TEST_CASE_PRIORITY).map((val) => ({ value: val, label: val }));
-  readonly typeOptions: SelectOption[] = Object.values(TEST_CASE_TYPE).map((val) => ({ value: val, label: val }));
-  readonly statusOptions: SelectOption[] = Object.values(TestCaseStatus).map((val) => ({ value: val, label: val }));
+  readonly priorityOptions: SelectOption[] = [
+    { value: TEST_CASE_PRIORITY.HIGH, label: '高' },
+    { value: TEST_CASE_PRIORITY.MEDIUM, label: '中' },
+    { value: TEST_CASE_PRIORITY.LOW, label: '低' },
+  ];
+  readonly typeOptions: SelectOption[] = [
+    { value: TEST_CASE_TYPE.FUNCTIONAL, label: '功能' },
+    { value: TEST_CASE_TYPE.INTEGRATION, label: '集成' },
+    { value: TEST_CASE_TYPE.UI_UX, label: '界面与体验' },
+    { value: TEST_CASE_TYPE.PERFORMANCE, label: '性能' },
+    { value: TEST_CASE_TYPE.SECURITY, label: '安全' },
+  ];
+  readonly statusOptions: SelectOption[] = [
+    { value: TestCaseStatus.ACTIVE, label: '启用' },
+    { value: TestCaseStatus.DRAFT, label: '草稿' },
+    { value: TestCaseStatus.DEPRECATED, label: '已弃用' },
+    { value: TestCaseStatus.ARCHIVED, label: '已归档' },
+  ];
   
   readonly priorityFilterOptions: SelectOption[] = [
-    { value: 'all', label: 'All Priorities' },
-    { value: 'High', label: 'High Priority' },
-    { value: 'Medium', label: 'Medium Priority' },
-    { value: 'Low', label: 'Low Priority' }
+    { value: 'all', label: '全部优先级' },
+    { value: 'High', label: '高优先级' },
+    { value: 'Medium', label: '中优先级' },
+    { value: 'Low', label: '低优先级' }
   ];
   
   readonly typeFilterOptions: SelectOption[] = [
-    { value: 'all', label: 'All Types' },
-    { value: 'Functional', label: 'Functional' },
-    { value: 'Integration', label: 'Integration' },
-    { value: 'UI/UX', label: 'UI/UX' },
-    { value: 'Performance', label: 'Performance' },
-    { value: 'Security', label: 'Security' }
+    { value: 'all', label: '全部类型' },
+    { value: 'Functional', label: '功能' },
+    { value: 'Integration', label: '集成' },
+    { value: 'UI/UX', label: '界面与体验' },
+    { value: 'Performance', label: '性能' },
+    { value: 'Security', label: '安全' }
   ];
   
   readonly stepsCountFilterOptions: SelectOption[] = [
-    { value: 'all', label: 'All Steps' },
-    { value: '1-3', label: '1-3 Steps' },
-    { value: '4-6', label: '4-6 Steps' },
-    { value: '7+', label: '7+ Steps' }
+    { value: 'all', label: '全部步骤数' },
+    { value: '1-3', label: '1–3 步' },
+    { value: '4-6', label: '4–6 步' },
+    { value: '7+', label: '7 步及以上' }
   ];
 
   /**
@@ -136,12 +151,12 @@ export class TestCaseService {
           return JSON.parse(content) as ITestCase;
         } catch (error) {
           this.logger.error(`Error parsing test case ${testCaseId}:`, error);
-          throw new Error(`Failed to parse test case ${testCaseId}`);
+          throw new Error(`解析测试用例 ${testCaseId} 失败`);
         }
       }),
       catchError(error => {
         this.logger.error(`Error reading test case ${testCaseId}:`, error);
-        return throwError(() => new Error(`Failed to load test case ${testCaseId}`));
+        return throwError(() => new Error(`加载测试用例 ${testCaseId} 失败`));
       })
     );
   }
@@ -233,7 +248,7 @@ export class TestCaseService {
       }),
       catchError(error => {
         this.logger.error(`Error creating test case file:`, error);
-        return throwError(() => new Error('Failed to create test case'));
+        return throwError(() => new Error('创建测试用例失败'));
       })
     );
   }
@@ -251,7 +266,7 @@ export class TestCaseService {
       map(() => {}),
       catchError(error => {
         this.logger.error(`Error updating test case ${testCase.id}:`, error);
-        return throwError(() => new Error(`Failed to update test case ${testCase.id}`));
+        return throwError(() => new Error(`更新测试用例 ${testCase.id} 失败`));
       })
     );
   }
@@ -269,7 +284,7 @@ export class TestCaseService {
       map(() => {}),
       catchError(error => {
         this.logger.error(`Error deleting test case ${testCaseId}:`, error);
-        return throwError(() => new Error(`Failed to delete test case ${testCaseId}`));
+        return throwError(() => new Error(`删除测试用例 ${testCaseId} 失败`));
       })
     );
   }
@@ -309,7 +324,7 @@ export class TestCaseService {
       map(() => {}),
       catchError(error => {
         this.logger.error(`Error updating test cases:`, error);
-        return throwError(() => new Error('Failed to update test cases'));
+        return throwError(() => new Error('更新测试用例失败'));
       })
     );
   }
@@ -458,19 +473,19 @@ export class TestCaseService {
       icon = 'heroExclamationCircle';
       iconBgClass = 'bg-red-100';
       iconColorClass = 'text-red-600';
-      tooltip = 'No test cases created';
+      tooltip = '尚未创建测试用例';
     } else {
       icon = 'heroClipboardDocumentCheck';
       iconBgClass = 'bg-green-100';
       iconColorClass = 'text-green-600';
-      tooltip = `${testCaseCount} test cases created`;
+      tooltip = `已创建 ${testCaseCount} 个测试用例`;
     }
     
     return {
       icon,
       iconBgClass,
       iconColorClass,
-      text: `${testCaseCount} test cases`,
+      text: `${testCaseCount} 个测试用例`,
       tooltip
     };
   }
@@ -504,7 +519,7 @@ export class TestCaseService {
     let icon = 'heroArrowRight';
     let iconBgClass = 'bg-blue-100';
     let iconColorClass = 'text-blue-600';
-    let text = testCase.priority || 'Normal';
+    let text = this.priorityOptions.find((option) => option.value === testCase.priority)?.label || testCase.priority || '普通';
     
     if (testCase.priority) {
       switch (testCase.priority.toLowerCase()) {
@@ -545,7 +560,7 @@ export class TestCaseService {
     
     if (testCase.type) {
       badges.push({
-        text: testCase.type,
+        text: this.typeOptions.find((option) => option.value === testCase.type)?.label || testCase.type,
         bgClass: 'bg-blue-50',
         textClass: 'text-blue-700'
       });
@@ -553,7 +568,7 @@ export class TestCaseService {
     
     if (testCase.steps?.length) {
       badges.push({
-        text: `${testCase.steps.length} steps`,
+        text: `${testCase.steps.length} 步`,
         bgClass: 'bg-gray-50',
         textClass: 'text-gray-700'
       });

@@ -12,7 +12,7 @@
     >
       <div class="flex items-center justify-center gap-2 text-primary-600">
         <ng-icon name="heroSparklesSolid" class="text-lg"></ng-icon>
-        <span class="text-md font-semibold">Talk to HAI</span>
+        <span class="text-md font-semibold">与 HAI 对话</span>
       </div>
     </div>
 
@@ -25,11 +25,11 @@
           <img
             src="./assets/img/logo/aws_dark_bg_white_logo.svg"
             class="h-6 w-auto"
-            alt="AWS logo"
+            alt="AWS 标志"
           />
           <div class="flex flex-col">
             <span class="text-sm font-semibold text-secondary-800">AWS Bedrock</span>
-            <span class="text-xs text-secondary-600">Knowledge Base</span>
+            <span class="text-xs text-secondary-600">知识库</span>
           </div>
           <ng-icon
             name="heroInformationCircle"
@@ -127,19 +127,19 @@
                         *ngIf="chat.args"
                         class="text-sm text-secondary-700 flex flex-col gap-2 p-2 rounded-md bg-secondary-100"
                       >
-                        <span class="text-xs">Input</span>
+                        <span class="text-xs">输入</span>
                         <span class="text-sm">{{ chat.args | json }}</span>
                       </div>
                       <div
                         class="text-sm text-secondary-700 flex flex-col gap-2 p-2 rounded-md bg-secondary-100"
                       >
-                        <span class="text-xs">Response</span>
+                        <span class="text-xs">响应</span>
                         <span class="text-sm">{{ chat.tool }}</span>
                       </div>
                     </div>
                   </app-custom-accordion>
 
-                  <!-- Update Description Section (Outside Accordion) -->
+                  <!-- 更新描述 Section (Outside Accordion) -->
                   <div
                     *ngIf="chat.name === 'update_requirement_description'"
                     class="flex flex-col gap-3"
@@ -147,8 +147,7 @@
                     <!-- Intent Message -->
                     <div class="text-xs text-secondary-600">
                       <span
-                        >SpecifAI suggested adding the following content to your
-                        description:</span
+                        >SpecifAI 建议在描述中添加以下内容：</span
                       >
                     </div>
 
@@ -183,7 +182,7 @@
                           name="heroDocumentPlus"
                           class="text-lg"
                         ></ng-icon>
-                        Update Description
+                        更新描述
                       </button>
                       <div
                         *ngIf="chat.isAdded"
@@ -193,7 +192,7 @@
                           name="heroCheck"
                           class="text-lg text-white"
                         ></ng-icon>
-                        Updated Successfully
+                        更新成功
                       </div>
                     </div>
                   </div>
@@ -210,7 +209,7 @@
               >
                 <img
                   src="assets/img/logo/haibuild_onlylogo.svg"
-                  alt="AI"
+                  alt="AI 助手"
                   class="w-6 h-6"
                 />
               </div>
@@ -257,7 +256,7 @@
                         openFeedbackModal(chat, 'like');
                         $event.stopPropagation()
                       "
-                      matTooltip="Like"
+                      matTooltip="满意"
                     >
                       <ng-icon
                         [name]="
@@ -278,7 +277,7 @@
                         openFeedbackModal(chat, 'dislike');
                         $event.stopPropagation()
                       "
-                      matTooltip="Dislike"
+                      matTooltip="不满意"
                     >
                       <ng-icon
                         [name]="
@@ -305,7 +304,7 @@
         >
           <img
             src="assets/img/logo/haibuild_onlylogo.svg"
-            alt="AI"
+            alt="AI 助手"
             class="w-6 h-6"
           />
         </div>
@@ -329,12 +328,12 @@
     <div class="bg-white rounded-lg p-6 w-96 max-w-md">
       <h3 class="text-base font-medium mb-4">
         {{
-          feedbackType === "like" ? "Share what you liked" : "Help us improve"
+          feedbackType === "like" ? "分享你满意的地方" : "帮助我们改进"
         }}
       </h3>
       <textarea
         [(ngModel)]="feedbackText"
-        placeholder="Your thoughts help us enhance the experience (optional)"
+        placeholder="你的意见有助于改善使用体验（可选）"
         class="w-full h-28 p-3 text-sm border border-secondary-200 rounded-lg"
       ></textarea>
       <div class="flex justify-end gap-3 mt-4">
@@ -342,13 +341,13 @@
           class="bg-secondary-200 text-secondary-700 px-4 py-2 text-sm rounded-lg"
           (click)="closeFeedbackModal()"
         >
-          Cancel
+          取消
         </button>
         <button
           class="bg-primary-600 text-white px-4 py-2 text-sm rounded-lg"
           (click)="submitFeedback()"
         >
-          Submit
+          提交
         </button>
       </div>
     </div>
@@ -366,12 +365,12 @@
       >
         <img
           src="assets/img/logo/haibuild_onlylogo.svg"
-          alt="AI"
+          alt="AI 助手"
           class="w-6 h-6"
         />
       </div>
       <div class="text-sm text-secondary-600 mt-2">
-        Generating suggestions for you...
+        正在为你生成建议…
       </div>
     </div>
 
@@ -382,7 +381,7 @@
           *ngIf="chatHistory.length == 0"
           class="text-sm text-secondary-600 font-medium"
         >
-          Suggestions to improve:
+          改进建议：
         </div>
         <ul
           class="flex gap-2"
@@ -453,7 +452,7 @@
         <div class="relative flex flex-col h-full">
           <div class="flex-grow h-16">
             <textarea
-              placeholder="Chat to add or modify your requirement"
+              placeholder="通过对话添加或修改需求"
               [disabled]="generateLoader"
               [(ngModel)]="message"
               name="message"
@@ -493,7 +492,7 @@
               [disabled]="isSendDisabled"
               class="bg-primary-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
             >
-              Send
+              发送
             </button>
           </div>
         </div>

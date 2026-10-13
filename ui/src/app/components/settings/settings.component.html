@@ -21,7 +21,7 @@
           "
           class="w-full px-3 py-3 text-sm font-medium text-left focus:outline-none border-l-2"
         >
-          Settings
+          设置
         </button>
         <button
           id="tab-about"
@@ -37,7 +37,7 @@
           "
           class="w-full px-3 py-3 text-sm font-medium text-left focus:outline-none border-l-2"
         >
-          About
+          关于
         </button>
       </div>
     </div>
@@ -63,14 +63,14 @@
           [formGroup]="configForm"
           class="space-y-8 divide-y divide-secondary-200"
         >
-          <!-- LLM Configuration -->
+          <!-- 大语言模型配置 -->
           <div class="space-y-4">
             <div>
               <h2 class="text-base font-medium leading-7 text-secondary-900">
-                LLM Configuration
+                大语言模型配置
               </h2>
               <p class="text-sm leading-6 text-secondary-500">
-                Configure your Language Model provider settings
+                配置模型服务商及模型连接参数
               </p>
             </div>
 
@@ -80,7 +80,7 @@
                 for="providerSelect"
                 class="block text-sm font-medium text-secondary-900"
               >
-                LLM Provider
+                模型服务商
               </label>
               <div class="relative">
                 <app-select
@@ -90,7 +90,7 @@
                   [searchable]="false"
                   [required]="true"
                   [clearable]="true"
-                  placeholder="Select LLM Provider"
+                  placeholder="选择模型服务商"
                 ></app-select>
               </div>
             </div>
@@ -140,7 +140,7 @@
                         [options]="field.options || []"
                         [searchable]="field.useAutocomplete || false"
                         [required]="field.required || false"
-                        [placeholder]="'Select ' + field.label"
+                        [placeholder]="'选择' + field.label"
                       ></app-select>
                     </div>
                   </div>
@@ -172,10 +172,10 @@
           <div class="space-y-4 pt-6">
             <div>
               <h2 class="text-base font-medium leading-7 text-secondary-900">
-                Analytics
+                使用分析
               </h2>
               <p class="text-sm leading-6 text-secondary-500">
-                Configure analytics and data collection preferences
+                配置使用分析与数据收集偏好
               </p>
             </div>
 
@@ -184,7 +184,7 @@
             >
               <div class="px-4 py-3 flex items-center justify-between">
                 <span class="text-sm text-secondary-900"
-                  >Enable Analytics Tracking</span
+                  >启用使用分析追踪</span
                 >
                 <label class="relative inline-flex items-center cursor-pointer">
                   <input
@@ -203,7 +203,7 @@
               <div class="px-4 py-3">
                 <div class="flex items-center justify-between">
                   <span class="text-sm text-secondary-900"
-                    >Use Custom Langfuse Account</span
+                    >使用自定义 Langfuse 账户</span
                   >
                   <label
                     class="relative inline-flex items-center"
@@ -241,14 +241,14 @@
                       for="baseUrl"
                       class="block text-sm font-medium text-secondary-900"
                     >
-                      Base URL <span class="text-danger-500">*</span>
+                      基础地址 <span class="text-danger-500">*</span>
                     </label>
                     <input
                       type="text"
                       id="baseUrl"
                       formControlName="baseUrl"
                       class="h-10 block w-full px-3 border border-secondary-300 text-secondary-900 text-sm rounded-lg focus-visible:ring-1 focus-visible:ring-primary-500 focus-visible:border-primary-500 disabled:bg-secondary-100 focus-visible:outline-none"
-                      placeholder="Enter Langfuse Base URL"
+                      placeholder="请输入 Langfuse 基础地址"
                     />
                   </div>
 
@@ -257,14 +257,14 @@
                       for="publicKey"
                       class="block text-sm font-medium text-secondary-900"
                     >
-                      Public Key <span class="text-danger-500">*</span>
+                      公开密钥 <span class="text-danger-500">*</span>
                     </label>
                     <input
                       type="text"
                       id="publicKey"
                       formControlName="publicKey"
                       class="h-10 block w-full px-3 border border-secondary-300 text-secondary-900 text-sm rounded-lg focus-visible:ring-1 focus-visible:ring-primary-500 focus-visible:border-primary-500 disabled:bg-secondary-100 focus-visible:outline-none"
-                      placeholder="Enter Langfuse Public Key"
+                      placeholder="请输入 Langfuse 公开密钥"
                     />
                   </div>
 
@@ -273,14 +273,14 @@
                       for="secretKey"
                       class="block text-sm font-medium text-secondary-900"
                     >
-                      Secret Key <span class="text-danger-500">*</span>
+                      私密密钥 <span class="text-danger-500">*</span>
                     </label>
                     <input
                       type="password"
                       id="secretKey"
                       formControlName="secretKey"
                       class="h-10 block w-full px-3 border border-secondary-300 text-secondary-900 text-sm rounded-lg focus-visible:ring-1 focus-visible:ring-primary-500 focus-visible:border-primary-500 disabled:bg-secondary-100 focus-visible:outline-none"
-                      placeholder="Enter Langfuse Secret Key"
+                      placeholder="请输入 Langfuse 私密密钥"
                     />
                   </div>
 
@@ -296,7 +296,7 @@
                         for="enableDetailedTraces"
                         class="ml-2 block text-sm font-medium text-secondary-900"
                       >
-                        Enable Detailed Traces
+                        启用详细追踪记录
                       </label>
                     </div>
                   </div>
@@ -309,10 +309,10 @@
           <div class="space-y-4 pt-6">
             <div>
               <h2 class="text-base font-medium leading-7 text-secondary-900">
-                Destination
+                保存位置
               </h2>
               <p class="text-sm leading-6 text-secondary-500">
-                Configure where your generated requirements will be stored
+                配置生成需求的保存位置
               </p>
             </div>
 
@@ -321,19 +321,19 @@
                 for="workingDir"
                 class="block text-sm font-medium text-secondary-900"
               >
-                Storage Location
+                存储目录
               </label>
               <div class="flex w-full">
                 <input
                   type="text"
                   [value]="workingDir"
-                  placeholder="Choose Destination Folder"
+                  placeholder="选择保存目录"
                   disabled
                   id="workingDir"
                   class="bg-secondary-100 border border-secondary-300 text-secondary-400 text-sm rounded-l-lg block w-full p-2"
                 />
                 <app-button
-                  [buttonContent]="'Browse'"
+                  [buttonContent]="'浏览'"
                   [theme]="'primary'"
                   [rounded]="'none'"
                   [roundedRight]="'lg'"
@@ -347,10 +347,10 @@
           <div class="space-y-4 pt-6">
             <div>
               <h2 class="text-base font-medium leading-7 text-secondary-900">
-                Update
+                更新
               </h2>
               <p class="text-sm leading-6 text-secondary-500">
-                Configure automatic updates and version management
+                配置自动更新与版本管理
               </p>
             </div>
 
@@ -359,7 +359,7 @@
             >
               <div class="px-4 py-3 flex items-center justify-between">
                 <span class="text-sm text-secondary-900"
-                  >Automatic Updates</span
+                  >自动更新</span
                 >
                 <label class="relative inline-flex items-center cursor-pointer">
                   <input
@@ -381,7 +381,7 @@
                 (keydown.enter)="checkForUpdates()"
                 (keydown.space)="checkForUpdates(); $event.preventDefault()"
               >
-                <span>Check for Updates</span>
+                <span>检查更新</span>
                 <svg
                   width="20"
                   height="20"
@@ -406,7 +406,7 @@
         <!-- Action Buttons -->
         <div class="mt-8 flex items-center justify-between">
           <app-button
-            buttonContent="Reset Settings"
+            buttonContent="重置设置"
             theme="danger_outline"
             size="sm"
             (click)="resetApp()"
@@ -414,14 +414,14 @@
           <div class="flex items-center gap-x-2">
             <app-button
               *ngIf="hasChanges"
-              buttonContent="Discard"
+              buttonContent="放弃更改"
               theme="secondary_outline"
               size="sm"
               (click)="navigateToHome()"
             />
             <app-button
               *ngIf="hasChanges"
-              buttonContent="Save"
+              buttonContent="保存"
               theme="primary"
               size="sm"
               (click)="onSave()"
@@ -444,7 +444,7 @@
         >
           <div class="px-4 py-3 flex items-center justify-between">
             <span class="text-sm text-secondary-900"
-              >Accelerate SDLC process with</span
+              >加速软件开发生命周期</span
             >
             <img
               *ngIf="themeConfiguration.companyLogoColor.length > 0"
@@ -454,7 +454,7 @@
             />
           </div>
           <div class="px-4 py-3 flex items-center justify-between">
-            <span class="text-sm text-secondary-900">Version</span>
+            <span class="text-sm text-secondary-900">版本</span>
             <span class="text-sm text-secondary-600">{{
               getAboutContent().version
             }}</span>
@@ -465,7 +465,7 @@
             tabindex="0"
             (click)="electronService.openExternalUrl('https://specifai.io/current')"
           >
-            <span class="text-sm text-secondary-900">Specifai User Guide</span>
+            <span class="text-sm text-secondary-900">Specifai 使用指南</span>
             <svg
               width="20"
               height="20"
@@ -491,7 +491,7 @@
             (keydown.enter)="logout()"
             (keydown.space)="logout(); $event.preventDefault()"
           >
-            <span>Log Out</span>
+            <span>退出登录</span>
             <svg
               width="20"
               height="20"

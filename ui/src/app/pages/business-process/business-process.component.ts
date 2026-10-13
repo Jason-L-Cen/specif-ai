@@ -177,7 +177,7 @@ export class BusinessProcessComponent implements OnInit {
         },
       }),
     );
-    this.editLabel = this.mode == 'edit' ? 'Edit' : 'Add';
+    this.editLabel = this.mode == 'edit' ? '编辑' : '添加';
     this.store.dispatch(
       new AddBreadcrumb({
         label: this.editLabel,

@@ -87,7 +87,7 @@ export const chatWithAI = async (_: IpcMainInvokeEvent, data: unknown) => {
     const llmConfig = store.get<LLMConfigModel>("llmConfig");
 
     if (!llmConfig) {
-      throw new Error("LLM configuration not found");
+      throw new Error("未找到大语言模型配置");
     }
 
     const model = buildLangchainModelProvider(
@@ -182,12 +182,12 @@ export const chatWithAI = async (_: IpcMainInvokeEvent, data: unknown) => {
     const errorResponse =
       error instanceof GuardrailsShouldBlock
         ? {
-            response: "Request blocked by guardrails",
+            response: "请求已被安全护栏拦截",
             blocked: true,
             blockedReason: APP_MESSAGES.BLOCKED_REASON,
           }
         : {
-            response: "Request not processed",
+            response: "请求未能处理",
             blocked: true,
             blockedReason: APP_MESSAGES.RESPONSE_NOT_PROCESSES,
           };
@@ -241,7 +241,7 @@ const buildToolsForRequirement = async (data: ChatWithAIParams) => {
 
   const addToRequirementDescription = tool(
     ({}: { contentToAdd: string }): string => {
-      return "Tool called successfully, The user is notified that you've suggested adding content to the description";
+      return "工具调用成功，已通知用户审阅你建议添加到描述中的内容";
     },
     {
       name: "update_requirement_description",
@@ -264,7 +264,7 @@ const buildToolsForRequirement = async (data: ChatWithAIParams) => {
       if (!searchBlock) {
         return JSON.stringify({
           success: false,
-          error: "searchBlock is required",
+          error: "searchBlock 不能为空",
         });
       }
 
@@ -276,7 +276,7 @@ const buildToolsForRequirement = async (data: ChatWithAIParams) => {
       } else {
         return JSON.stringify({
           success: false,
-          error: "Search block not found in the document",
+          error: "未在文档中找到要替换的文本块",
         });
       }
 
@@ -295,7 +295,7 @@ const buildToolsForRequirement = async (data: ChatWithAIParams) => {
       console.log("[replaceTextBlock] Update request created:", updateRequest);
       return JSON.stringify({
         success: true,
-        message: `Text block replace request created. Replacing specific text block with new content.`,
+        message: `已创建文本块替换请求，将使用新内容替换指定文本块。`,
         updateRequest,
       });
     },

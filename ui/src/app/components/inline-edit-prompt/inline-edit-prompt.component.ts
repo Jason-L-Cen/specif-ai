@@ -138,12 +138,12 @@ export class InlineEditPromptComponent implements OnInit, OnDestroy {
           this.isEditReady = true;
         } else {
           this.isLoading = false;
-          this.errorMessage = response.error || 'Failed to generate edit';
+          this.errorMessage = response.error || '生成修改内容失败';
           this.toasterService.showError(this.errorMessage);
         }
       } catch (error) {
         this.isLoading = false;
-        this.errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+        this.errorMessage = error instanceof Error ? error.message : '发生意外错误';
         this.toasterService.showError(this.errorMessage);
       }
     }
@@ -157,7 +157,7 @@ export class InlineEditPromptComponent implements OnInit, OnDestroy {
    * Accept the AI-generated edit
    */
   acceptEdit(): void {
-    this.toasterService.showSuccess('Edit applied');
+    this.toasterService.showSuccess('已应用修改');
     this.dialogRef.close({
       accepted: true,
       editedText: this.editedText
@@ -168,7 +168,7 @@ export class InlineEditPromptComponent implements OnInit, OnDestroy {
    * Reject the AI-generated edit - go back to prompt screen instead of closing dialog
    */
   rejectEdit(): void {
-    this.toasterService.showInfo('Edit rejected');
+    this.toasterService.showInfo('已拒绝修改');
     this.goBackToPrompt();
   }
   

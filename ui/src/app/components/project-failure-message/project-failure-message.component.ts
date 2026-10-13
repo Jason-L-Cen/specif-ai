@@ -52,9 +52,9 @@ export class ProjectFailureMessageComponent {
   ) {}
 
   get failureReason(): string {
-    if (!this.failureInfo) return 'Unknown failure reason';
+    if (!this.failureInfo) return '失败原因未知';
     return (
-      this.failureInfo.reason || 'An error occurred during project creation'
+      this.failureInfo.reason || '创建解决方案时发生错误'
     );
   }
 
@@ -62,13 +62,13 @@ export class ProjectFailureMessageComponent {
     if (!this.failureInfo?.timestamp) return '';
 
     const date = new Date(this.failureInfo.timestamp);
-    return date.toLocaleString('en-US', {
+    return date.toLocaleString('zh-CN', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
       hour: 'numeric',
       minute: '2-digit',
-      hour12: true,
+      hour12: false,
     });
   }
 
@@ -95,7 +95,7 @@ export class ProjectFailureMessageComponent {
   }
 
   get logsButtonText(): string {
-    return this.showLogs ? 'Hide Logs' : 'View Logs';
+    return this.showLogs ? '隐藏日志' : '查看日志';
   }
 
   get logsButtonIcon(): string {

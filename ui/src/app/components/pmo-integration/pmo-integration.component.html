@@ -35,13 +35,12 @@
         <div class="ml-4 flex-1">
           <div class="flex items-center mb-1">
             <h4 class="text-sm font-semibold text-amber-800">
-              Important Notice
+              重要提示
             </h4>
           </div>
           <p class="text-sm text-amber-700 leading-relaxed">
-            Once you complete the integration setup, you cannot change back to a
-            different PMO tool (JIRA or ADO). Please ensure you select the
-            correct integration before proceeding with the configuration.
+            完成集成配置后，无法再切换为其他项目管理工具（Jira 或 Azure DevOps）。
+            请在继续配置前确认已选择正确的集成。
           </p>
         </div>
       </div>
@@ -74,7 +73,7 @@
             *ngIf="integration.id === 'ado'"
             class="ml-2 inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 border border-blue-200 leading-none"
           >
-            Beta
+            测试版
           </span>
         </label>
       </div>

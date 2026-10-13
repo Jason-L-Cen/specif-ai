@@ -14,16 +14,16 @@
             icon="heroArrowTopRightOnSquare"
             iconPosition="right"
             [tooltip]="
-              'Open in ' +
+              '在 ' +
               (payload.metadata?.integration?.selectedPmoTool === 'ado'
                 ? 'Azure DevOps'
-                : 'Jira')
+                : 'Jira') + ' 中打开'
             "
           >
             <img
               *ngIf="getPmoLogo()"
               [src]="getPmoLogo()"
-              alt="PMO"
+              alt="项目管理工具标志"
               class="w-3 h-3 mr-1"
               slot="icon-left"
             />

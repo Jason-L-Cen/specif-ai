@@ -82,9 +82,9 @@ export class WorkflowProgressComponent implements OnInit, OnDestroy {
   @Input() workflowType!: WorkflowType;
   @Input() isVisible: boolean = false;
   @Input() isCompleted: boolean = false;
-  @Input() initialTitle: string = 'Creating Solution...';
-  @Input() subtitle: string = 'Relax while SpecifAI takes care of the rest...';
-  @Input() completedTitle: string = 'Process Completed Successfully!';
+  @Input() initialTitle: string = '正在创建解决方案…';
+  @Input() subtitle: string = '请稍候，Specifai 正在完成后续处理…';
+  @Input() completedTitle: string = '处理已完成';
   @Input() maxHeight: string = 'none';
   @Input() showCancelButton: boolean = true;
   @Input() showHeader: boolean = true;
@@ -299,10 +299,10 @@ export class WorkflowProgressComponent implements OnInit, OnDestroy {
 
     this.dialogService
       .confirm({
-        title: 'Cancel Process',
-        description: `Are you sure you want to cancel the ${this.workflowType} creation process? This action cannot be undone.`,
-        confirmButtonText: 'Yes, Cancel',
-        cancelButtonText: 'No, Continue',
+        title: '取消处理',
+        description: '确定要取消当前创建操作吗？此操作无法撤销。',
+        confirmButtonText: '确认取消',
+        cancelButtonText: '继续处理',
       })
       .subscribe((result: boolean) => {
         if (result) {
@@ -322,13 +322,13 @@ export class WorkflowProgressComponent implements OnInit, OnDestroy {
 
       if (!success) {
         this.toasterService.showWarning(
-          `Unable to cancel ${this.workflowType} creation. The process may have already completed.`,
+          '无法取消创建操作，处理可能已经完成。',
         );
       }
     } catch (error) {
       console.error(`Error cancelling ${this.workflowType} creation:`, error);
       this.toasterService.showError(
-        `An error occurred while cancelling ${this.workflowType} creation. Please try again.`,
+        '取消创建操作时发生错误，请重试。',
       );
     } finally {
       this.isAborting.set(false);

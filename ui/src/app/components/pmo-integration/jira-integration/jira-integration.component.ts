@@ -273,8 +273,8 @@ export class JiraIntegrationComponent implements PmoIntegrationBase, OnInit {
 
   getButtonText(): string {
     if (this.isProcessing()) {
-      return this.isConnected() ? 'Disconnecting...' : 'Connecting...';
+      return this.isConnected() ? '正在断开连接…' : '正在连接…';
     }
-    return this.isConnected() ? 'Disconnect' : 'Connect';
+    return this.isConnected() ? '断开连接' : '连接';
   }
 }

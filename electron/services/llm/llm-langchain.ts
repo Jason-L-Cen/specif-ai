@@ -1,5 +1,5 @@
 import { LangChainModelProvider } from "./langchain-providers/base";
-import { LLMError, LLMProvider } from "./llm-types";
+import { DEEPSEEK_BASE_URL, LLMError, LLMProvider } from "./llm-types";
 
 import { AnthropicLangChainProvider } from "./langchain-providers/anthropic";
 import { AzureOpenAILangChainProvider } from "./langchain-providers/azure-openai";
@@ -25,6 +25,8 @@ export function buildLangchainModelProvider(
   switch (providerName.toLowerCase()) {
     case LLMProvider.OPENAI_NATIVE:
       return new OpenAILangChainProvider(config);
+    case LLMProvider.DEEPSEEK:
+      return new OpenAILangChainProvider({ ...config, baseUrl: DEEPSEEK_BASE_URL }, 'deepseek');
     case LLMProvider.ANTHROPIC:
       return new AnthropicLangChainProvider(config);
     case LLMProvider.BEDROCK:
@@ -39,7 +41,7 @@ export function buildLangchainModelProvider(
       return new OpenRouterLangChainProvider(config);
     default:
       throw new LLMError(
-        `Invalid provider: ${provider}. Must be one of: ${Object.values(
+        `无效的模型服务商：${provider}。可用服务商： ${Object.values(
           LLMProvider
         ).join(", ")}`,
         "builder"

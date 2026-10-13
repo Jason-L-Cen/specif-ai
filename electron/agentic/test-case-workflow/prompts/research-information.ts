@@ -1,3 +1,4 @@
+import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../../prompts/context/markdown-rules";
 export const createTestCaseResearchInformationPrompt = ({
   userStoryTitle,
   userStoryDescription,
@@ -13,7 +14,9 @@ export const createTestCaseResearchInformationPrompt = ({
   extraContext?: string;
   recursionLimit: number;
 }) => {
-  return `You are a test case research assistant. Your task is to analyze the given user story and gather relevant information for test case generation.
+  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+
+You are a test case research assistant. Your task is to analyze the given user story and gather relevant information for test case generation.
 
 Story Title: ${userStoryTitle}
 Story Description: ${userStoryDescription}

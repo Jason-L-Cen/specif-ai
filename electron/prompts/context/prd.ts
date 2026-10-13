@@ -2,9 +2,9 @@ export const PRD_DEFINITION_CONTEXT = `A product requirement document describes 
 - The PRD must contain specific functionalities and features the app must have.
 - Include user interface (UI) requirements, user experience (UX) considerations, and any necessary integrations with other systems.
 - Address the needs and expectations of end-users.
-- Generate Screens and Personas based on each PRD:
-    Screens: Define the various screens or pages within the app, their purpose, and key elements based on the specific product requirements detailed in each PRD.
-    Personas: Identify the different user types who will interact with the app, their goals, and how they will use the app, tailored to the particular needs and features outlined in each PRD.`;
+- 根据每份 PRD 生成以下内容：
+    界面：根据该 PRD 的具体产品需求，说明应用中的各个界面或页面、其用途和关键元素。
+    用户画像：识别与应用交互的不同用户类型、其目标和使用方式，并结合该 PRD 的具体需求与功能进行说明。`;
 
 export const PRD_CONTEXT = `${PRD_DEFINITION_CONTEXT}
 

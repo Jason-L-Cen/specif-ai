@@ -154,7 +154,7 @@ export class InlineEditDirective implements OnInit, OnDestroy {
     }
 
     this.sparkleIcon = this.renderer.createElement('div');
-    this.renderer.setAttribute(this.sparkleIcon, 'title', 'Edit with AI');
+    this.renderer.setAttribute(this.sparkleIcon, 'title', '使用 AI 编辑');
 
     if (this.sparkleIcon) {
       this.sparkleIcon.className = `
@@ -237,12 +237,12 @@ export class InlineEditDirective implements OnInit, OnDestroy {
    */
   private applyEdit(editedText: string): void {
     if (!this.selectionRange || !this.selectedText) {
-      this.toasterService.showError('No text selection found');
+      this.toasterService.showError('尚未选择文本');
       return;
     }
 
     if (!editedText || editedText.trim() === '') {
-      this.toasterService.showError('Edited text is empty');
+      this.toasterService.showError('修改后的文本为空');
       return;
     }
 
@@ -303,7 +303,7 @@ export class InlineEditDirective implements OnInit, OnDestroy {
               }
             })
             .catch(() => {
-              this.toasterService.showError('Error converting content format');
+              this.toasterService.showError('转换内容格式失败');
               // Fallback to the edited text directly if conversion fails
               if (this.onContentUpdated) {
                 this.onContentUpdated(editedText);
@@ -322,16 +322,16 @@ export class InlineEditDirective implements OnInit, OnDestroy {
           console.warn('Could not set cursor position:', e);
         }
       } catch (error) {
-        this.toasterService.showError('Failed to apply edit');
+        this.toasterService.showError('应用修改失败');
       }
     } else if (this.onContentUpdated) {
       try {
         this.onContentUpdated(editedText);
       } catch (error) {
-        this.toasterService.showError('Failed to update content');
+        this.toasterService.showError('更新内容失败');
       }
     } else {
-      this.toasterService.showError('Could not apply edit');
+      this.toasterService.showError('无法应用修改');
     }
 
     // Clean up
@@ -339,7 +339,7 @@ export class InlineEditDirective implements OnInit, OnDestroy {
     this.cleanupSelection();
 
     // Show success toast
-    this.toasterService.showSuccess('Text updated successfully');
+    this.toasterService.showSuccess('文本已更新');
   }
 
   /**

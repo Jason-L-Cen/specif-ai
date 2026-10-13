@@ -39,7 +39,7 @@ export class LinkDialogComponent {
     if (this.data.url && this.isValidUrl(this.data.url)) {
       this.dialogRef.close(this.data);
     } else {
-      this.urlError = 'Please enter a valid URL';
+      this.urlError = '请输入有效的 URL';
     }
   }
 }

@@ -150,12 +150,12 @@ export class AddTaskComponent implements OnDestroy {
       });
 
     this.createTaskForm(taskId);
-    this.editLabel = this.mode == 'edit' ? 'Edit' : 'Add';
+    this.editLabel = this.mode == 'edit' ? '编辑' : '添加';
 
     this.store.dispatch(
       new AddBreadcrumb({
-        label: this.config.featureId + ' - Tasks',
-        tooltipLabel: `Tasks of ${this.config.featureId}: ${this.config.featureName}`,
+        label: this.config.featureId + ' - 任务',
+        tooltipLabel: `${this.config.featureId} 的任务：${this.config.featureName}`,
         url: `/task-list/${userStoryId}`,
         state: { config: this.config },
       }),
@@ -521,7 +521,7 @@ export class AddTaskComponent implements OnDestroy {
   }
 
   getContentContext(): string {
-    return `${this.userStory?.name || ''} - ${this.userStory?.description || ''} - Task: ${this.existingTask.task || ''}`;
+    return `${this.userStory?.name || ''} - ${this.userStory?.description || ''} - 任务：${this.existingTask.task || ''}`;
   }
 
   handleInlineEditUpdate(newContent: string): void {

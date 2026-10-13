@@ -51,7 +51,7 @@ export const buildResearchNode = ({
       await workflowEvents.dispatchAction(
         "research",
         {
-          title: "Skipped research phase - no tools were available",
+          title: "没有可用工具，已跳过调研阶段",
         },
         runnableConfig
       );
@@ -67,7 +67,7 @@ export const buildResearchNode = ({
     await workflowEvents.dispatchThinking(
       "research",
       {
-        title: "Researching based on solution context",
+        title: "正在根据解决方案背景进行调研",
       },
       runnableConfig,
       researchCorrelationId
@@ -117,7 +117,7 @@ export const buildResearchNode = ({
       "research",
       {
         title:
-          "Research completed and prepared summary for requirement generation",
+          "调研已完成，已整理需求生成所需的摘要",
         output: response.structuredResponse.referenceInformation,
       },
       runnableConfig,
@@ -165,7 +165,7 @@ export const buildReqGenerationNode = (params: BuildGenerationNodeParams) => {
         await workflowEvents.dispatchAction(
           "requirement-generation",
           {
-            title: `Skipped ${type} requirement generation - disabled by preferences`,
+            title: `已跳过 ${type} 需求生成，该类型已在偏好设置中禁用`,
           },
           runnableConfig,
           reqGenerationCorrelationId
@@ -185,7 +185,7 @@ export const buildReqGenerationNode = (params: BuildGenerationNodeParams) => {
       await workflowEvents.dispatchThinking(
         "requirement-generation",
         {
-          title: `Generating ${REQUIREMENT_DISPLAY_NAME_MAP[type]} (${type})`,
+          title: `正在生成${REQUIREMENT_DISPLAY_NAME_MAP[type]}（${type}）`,
         },
         runnableConfig,
         reqGenerationCorrelationId
@@ -229,7 +229,7 @@ export const buildReqGenerationNode = (params: BuildGenerationNodeParams) => {
       await workflowEvents.dispatchAction(
         "requirement-generation",
         {
-          title: `${REQUIREMENT_DISPLAY_NAME_MAP[type]} (${type}) generated successfully`,
+          title: `${REQUIREMENT_DISPLAY_NAME_MAP[type]}（${type}）已成功生成`,
           input: requirementTypePrompt,
           output: response.requirements
         },

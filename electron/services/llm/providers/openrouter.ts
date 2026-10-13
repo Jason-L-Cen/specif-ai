@@ -29,10 +29,10 @@ export class OpenRouterHandler extends LLMHandler {
 
   getConfig(config: Partial<OpenRouterConfig>): OpenRouterConfig {
     if (!config.apiKey) {
-      throw new LLMError('OpenRouter API key is required', 'openrouter');
+      throw new LLMError('OpenRouter API 密钥不能为空', 'openrouter');
     }
     if (!config.model) {
-      throw new LLMError('OpenRouter model is required', 'openrouter');
+      throw new LLMError('OpenRouter 模型不能为空', 'openrouter');
     }
 
     return {
@@ -80,7 +80,7 @@ export class OpenRouterHandler extends LLMHandler {
     
     if (!response.choices?.[0]?.message?.content) {
       throw new LLMError(
-        'No response content received from OpenRouter API',
+        'OpenRouter API 未返回回答内容',
         'openrouter'
       );
     }

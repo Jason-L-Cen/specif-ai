@@ -64,7 +64,7 @@ export class LLMConfigState {
     
     // Only switch if we have a configuration for this provider
     if (!state.providerConfigs[provider]) {
-      this.toasterService.showError(`No configuration found for provider: ${provider}`);
+      this.toasterService.showError(`未找到模型服务商 ${provider} 的配置。`);
       return;
     }
 
@@ -99,7 +99,7 @@ export class LLMConfigState {
           if (response.status === 'failed') {
             const providerDisplayName = AvailableProviders.find(p => p.key === state.activeProvider)?.displayName || state.activeProvider;
             this.toasterService.showError(
-              `Failed to verify ${providerDisplayName} configuration. Please check your credentials and try again.`,
+              `${providerDisplayName} 配置验证失败，请检查凭据后重试。`,
               DEFAULT_TOAST_DURATION
             );
           }
@@ -110,7 +110,7 @@ export class LLMConfigState {
           console.error('Error verifying LLM config');
           const providerDisplayName = AvailableProviders.find(p => p.key === state.activeProvider)?.displayName || state.activeProvider;
           this.toasterService.showError(
-            `Failed to verify ${providerDisplayName} configuration. Please check your credentials and try again.`, 
+            `${providerDisplayName} 配置验证失败，请检查凭据后重试。`,
             DEFAULT_TOAST_DURATION
           );
           // Keep existing config, just sync it
