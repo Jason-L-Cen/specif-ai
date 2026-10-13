@@ -36,6 +36,7 @@ import { CustomAccordionComponent } from '../../components/custom-accordion/cust
 import { McpIntegrationConfiguratorComponent } from '../../components/mcp-integration-configurator/mcp-integration-configurator.component';
 import { WorkflowProgressService } from '../../services/workflow-progress/workflow-progress.service';
 import { ProjectCreationService } from '../../services/project-creation/project-creation.service';
+import { MultiUploadComponent } from '../../components/multi-upload/multi-upload.component';
 import {
   TechnicalStack, TECHNICAL_STACK_FIELDS, getTechnicalStackOptions, describeTechnicalStack,
 } from '../../constants/technical-stack.constants';
@@ -59,11 +60,15 @@ import {
     AppSliderComponent,
     CustomAccordionComponent,
     McpIntegrationConfiguratorComponent,
+    MultiUploadComponent,
   ],
   viewProviders: [provideIcons({ heroChevronDown })],
 })
 export class CreateSolutionComponent implements OnInit {
   solutionForm!: FormGroup;
+  readonly descriptionText = new FormControl('', { nonNullable: true });
+  private descriptionFilesContent = '';
+  descriptionImporting = false;
   technicalDetailsMode: 'guided' | 'custom' | 'none' = 'guided';
   readonly customTechnicalDetails = new FormControl({ value: '', disabled: true }, {
     nonNullable: true, validators: [Validators.required, Validators.pattern(/\S/)],
@@ -90,6 +95,7 @@ export class CreateSolutionComponent implements OnInit {
 
   ngOnInit() {
     this.solutionForm = this.createSolutionForm();
+    this.descriptionText.valueChanges.subscribe(() => this.syncDescription());
     this.technicalStackForm.valueChanges.subscribe(() => this.syncTechnicalDetails());
     this.customTechnicalDetails.valueChanges.subscribe(value => {
       if (this.technicalDetailsMode !== 'custom') return;
@@ -111,6 +117,19 @@ export class CreateSolutionComponent implements OnInit {
 
   showGenerationPreferencesTab(): boolean {
     return !this.solutionForm.get('cleanSolution')?.value;
+  }
+
+  onDescriptionFiles(content: string): void {
+    this.descriptionFilesContent = content;
+    this.syncDescription();
+  }
+
+  private syncDescription(): void {
+    const files = this.descriptionFilesContent ? `参考文件正文：\n\n${this.descriptionFilesContent}` : '';
+    const description = this.solutionForm.get('description')!;
+    description.setValue([this.descriptionText.value, files].filter(value => !!value.trim()).join('\n\n'));
+    description.markAsDirty();
+    description.markAsTouched();
   }
 
   getTechnicalOptions(field: keyof TechnicalStack, stack = this.technicalStackForm.getRawValue()) {
@@ -234,6 +253,7 @@ export class CreateSolutionComponent implements OnInit {
   }
 
   async createSolution() {
+    if (this.descriptionImporting) return;
     let isRootDirectorySet = localStorage.getItem(APP_CONSTANTS.WORKING_DIR);
     if (isRootDirectorySet === null || isRootDirectorySet === '') {
       this.openSelectRootDirectoryModal();
@@ -275,7 +295,7 @@ export class CreateSolutionComponent implements OnInit {
   }
 
   get isCreateSolutionDisabled(): boolean {
-    return this.loading || this.solutionForm.invalid;
+    return this.loading || this.descriptionImporting || this.solutionForm.invalid;
   }
 
   openSelectRootDirectoryModal() {
