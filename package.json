@@ -1,11 +1,11 @@
 {
   "name": "specif-ai",
-  "displayName": "Specifai",
-  "version": "2.8.2-zh.6",
-  "description": "AI-powered platform that generates project requirements and transforms them into actionable tasks with intuitive workflows.",
+  "displayName": "爱思 产品研发助手 · Ace PDA",
+  "version": "2.8.2-zh.7",
+  "description": "Ace Product Development Assistant（Ace PDA）— 爱思 产品研发助手",
   "repository": {
     "type": "git",
-    "url": "https://github.com/presidio-oss/specif-ai"
+    "url": "https://github.com/Jason-L-Cen/specif-ai"
   },
   "scripts": {
     "changeset": "npx @changesets/cli",

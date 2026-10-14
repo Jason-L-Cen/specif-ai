@@ -1,8 +1,28 @@
-# Specifai 中文版与 DeepSeek
+# 爱思 产品研发助手 · Ace PDA
 
-本分支基于上游发布标签 `v2.8.2`，本地版本为 `2.8.2-zh.6`。
+英文名称：**Ace Product Development Assistant**，简称 **Ace PDA**。AI 助手名称为 **Ace**。
+
+本分支基于上游发布标签 `v2.8.2`，本地版本为 `2.8.2-zh.7`。
 界面、桌面菜单、提示、表单、导出字段、工作流进度与默认 AI 自然语言输出使用简体中文。
-模型 ID、协议字段、状态值、品牌名称和既有用户内容保持原格式。
+模型 ID、协议字段、状态值和既有用户内容保持原格式。应用自身的界面、聊天头像、欢迎页、关于页、菜单及安装图标使用提供的 ACE 品牌资产。
+
+## 需求类型与演示操作
+
+| 类型 | 用途 |
+| --- | --- |
+| BRD 业务需求 | 业务目标、规则和范围 |
+| PRD 产品需求 | 产品功能和行为，关联 BRD |
+| US 用户故事 | 在某条 PRD 下描述角色、目标和验收标准 |
+| TASK 任务 | 实现某条用户故事的具体工作 |
+| NFR 非功能需求 | 性能、安全、一致性等约束 |
+| UIR 用户界面需求 | 页面和交互要求 |
+| TC 测试用例 | 归属用户故事，包含前置条件、步骤和预期结果 |
+| SI 战略举措 | 阶段目标和验证计划 |
+| BP 业务流程 | 业务步骤，选择关联的 PRD |
+
+操作入口：**产品需求 → 对应 PRD 卡片上的“用户故事” → 新增**。填写名称及描述，描述中使用 AC1、AC2 等编号写明验收标准，再点击“添加”。空故事列表可点击“生成用户故事”，补充上下文后由 AI 生成故事及任务。
+从故事卡片的“测试用例”进入，可手动添加或生成用例；用例自动归入该故事，描述中补充 PRD、US、AC 编号可解释验证范围。比如 `PRD02 → US1 → AC3 → TC05` 验证五分钟临时锁定。
+现场可先演示已保存的需求、故事和用例，再在无故事的 PRD 下新增样例。AI 评估通过表示内容评估完成，不能视为业务测试实际执行通过。
 
 ## 多文件解决方案描述
 
@@ -61,9 +81,13 @@ CSC_IDENTITY_AUTO_DISCOVERY=false npm run package:mac:local
 ```
 
 输出位于 `electron/dist`，适用于 Apple Silicon Mac。该本地安装包未进行 Apple 公证；不自动发布 GitHub Release。
-安装时沿用产品名称 `Specif AI` 和应用标识 `com.electron.specifai`，配置文件与工作目录不随应用替换而迁移。
+安装包和系统简称为 `Ace PDA`，显示名称为“爱思 产品研发助手”。保留原应用标识 `com.electron.specifai`；打包应用继续读取原有 `Specif AI` 配置目录，MCP 设置共用此目录，已有 DeepSeek 设置和工作目录无需重新配置。
 个人构建的更新源指向本 fork，防止上游安装包覆盖中文版本。
 
 中文文档分节的定向浏览器测试：`cd ui && npm run test:localization`。
 需要已安装 Chrome；macOS 可先设置 `CHROME_BIN='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'`。
 该定向配置避开上游已有的失效测试夹具；原始完整 Angular 测试套件仍有与本次改动无关的编译错误。
+
+## 开源来源
+
+基于 [Specifai](https://github.com/presidio-oss/specif-ai) 开发。原始版权及 MIT 许可保留在 [LICENSE](LICENSE) 中；ACE 标志由项目使用者提供。

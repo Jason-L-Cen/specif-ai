@@ -1,10 +1,10 @@
 # Intelligent Requirement Interaction ✨
 
-Specifai offers powerful intelligent requirement interaction capabilities that enhance your workflow. This guide covers the Intelligent Chat Interface and Intelligent Inline Editing features.
+Ace PDA offers powerful intelligent requirement interaction capabilities that enhance your workflow. This guide covers the Intelligent Chat Interface and Intelligent Inline Editing features.
 
 ## 💬 AI Chat Interface
 
-The Intelligent Chat Interface is your on-demand SDLC assistant within Specifai. It uses natural language understanding and context awareness to streamline your requirements management.
+The Intelligent Chat Interface is your on-demand SDLC assistant within Ace PDA. It uses natural language understanding and context awareness to streamline your requirements management.
 
 <div align="center">
 
@@ -47,7 +47,7 @@ The Intelligent Chat Interface is your on-demand SDLC assistant within Specifai.
 
 ## 🪄 AI-Powered Inline Editing
 
-Specifai's inline editing feature allows you to instantly improve any text within editable fields using intelligent assistance, without disrupting your workflow.
+Ace PDA's inline editing feature allows you to instantly improve any text within editable fields using intelligent assistance, without disrupting your workflow.
 
 <div align="center">
 

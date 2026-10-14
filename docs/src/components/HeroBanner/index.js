@@ -13,8 +13,8 @@ export default function HeroBanner() {
           <div className={styles['hero-banner__image-wrapper']}>
             <div className={styles['hero-banner__image-glow']}></div>
             <img 
-              src="/img/hai-human-ai-logo.svg"
-              alt="HAI Human-AI Logo"
+              src="/img/ace_white.svg"
+              alt="Ace PDA Logo"
               className={styles['hero-banner__image']}
             />
           </div>
@@ -37,7 +37,7 @@ export default function HeroBanner() {
               </Link>
               <Link
                 className={`${styles['hero-banner__button']} ${styles['hero-banner__button--secondary']}`}
-                to="https://github.com/presidio-oss/specif-ai"
+                to="https://github.com/Jason-L-Cen/specif-ai"
                 target="_blank"
                 rel="noopener noreferrer">
                 <span className={styles['hero-banner__button-shine']}></span>

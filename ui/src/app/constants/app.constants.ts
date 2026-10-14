@@ -139,19 +139,19 @@ export const REQUIREMENT_DISPLAY_NAME_MAP = {
   [REQUIREMENT_TYPE.SI]: '战略举措',
 };
 
-export const SPECIFAI_BASE_URL = 'https://specifai.io/current/requirement-types';
-export const SPECIFAI_FALLBACK_URL = 'https://specifai.io/current/core-features';
+export const SPECIFAI_BASE_URL = 'https://github.com/Jason-L-Cen/specif-ai/blob/dev-JasonCen/README.zh-CN.md';
+export const SPECIFAI_FALLBACK_URL = `${SPECIFAI_BASE_URL}#需求类型与演示操作`;
 
 export const SPECIFAI_REQ_DOCS = {
-  [REQUIREMENT_TYPE.BRD]: `${SPECIFAI_BASE_URL}#1-business-requirements-brd`,
-  [REQUIREMENT_TYPE.PRD]: `${SPECIFAI_BASE_URL}#2-product-requirements-prd`,
-  [REQUIREMENT_TYPE.US]: `${SPECIFAI_BASE_URL}#3-user-stories-us`,
-  [REQUIREMENT_TYPE.TASK]: `${SPECIFAI_BASE_URL}#4-tasks`,
-  [REQUIREMENT_TYPE.NFR]: `${SPECIFAI_BASE_URL}#5-non-functional-requirements-nfr`,
-  [REQUIREMENT_TYPE.UIR]: `${SPECIFAI_BASE_URL}#6-user-interface-requirements-uir`,
-  [REQUIREMENT_TYPE.TC]: `${SPECIFAI_BASE_URL}#7-test-cases-tc`,
-  [REQUIREMENT_TYPE.SI]: `${SPECIFAI_BASE_URL}#8-strategic-initiatives-si`,
-  [REQUIREMENT_TYPE.BP]: `https://specifai.io/current/business-workflows`,
+  [REQUIREMENT_TYPE.BRD]: `${SPECIFAI_BASE_URL}#需求类型与演示操作`,
+  [REQUIREMENT_TYPE.PRD]: `${SPECIFAI_BASE_URL}#需求类型与演示操作`,
+  [REQUIREMENT_TYPE.US]: `${SPECIFAI_BASE_URL}#需求与测试用例关联`,
+  [REQUIREMENT_TYPE.TASK]: `${SPECIFAI_BASE_URL}#需求与测试用例关联`,
+  [REQUIREMENT_TYPE.NFR]: `${SPECIFAI_BASE_URL}#需求类型与演示操作`,
+  [REQUIREMENT_TYPE.UIR]: `${SPECIFAI_BASE_URL}#需求类型与演示操作`,
+  [REQUIREMENT_TYPE.TC]: `${SPECIFAI_BASE_URL}#需求与测试用例关联`,
+  [REQUIREMENT_TYPE.SI]: `${SPECIFAI_BASE_URL}#需求类型与演示操作`,
+  [REQUIREMENT_TYPE.BP]: `${SPECIFAI_BASE_URL}#需求类型与演示操作`,
 } as const;
 
 const getEntityDisplayName = (folderId: string): string => {

@@ -15,7 +15,7 @@ export const chatWithAIPrompt = (params: ChatWithAIParams) => {
 
   return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
 
-You are a ${persona} with exceptional technical expertise and research capabilities. You're collaborating on this solution requirement construction within the Specifai application:
+You are Ace, a ${persona} with exceptional technical expertise and research capabilities. You're collaborating on this solution requirement construction within Ace Product Development Assistant (Ace PDA):
 
     ## 🏗️ Project Context
       **Name:** ${project.name} 

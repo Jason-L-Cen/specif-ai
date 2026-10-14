@@ -210,7 +210,7 @@ export class TestCaseListComponent implements OnInit, OnDestroy {
   testCaseGenerationComplete: boolean = false;
   thinkingProcessConfig: ThinkingProcessConfig = {
     title: '正在创建测试用例',
-    subtitle: '请稍候，Specifai 正在处理…',
+    subtitle: '请稍候，Ace PDA 正在处理…',
   };
   zone = inject(NgZone);
   projectMetadata$ = this.store.select(ProjectsState.getMetadata);

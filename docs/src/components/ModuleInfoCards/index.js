@@ -27,7 +27,7 @@ const ModuleList = [
     description: (
       <>
         Create and manage comprehensive BRDs, PRDs, NFRs, and UIRs that align 
-        business goals with technical implementation. Specifai helps you maintain 
+        business goals with technical implementation. Ace PDA helps you maintain
         structured documentation that adheres to industry best practices.
       </>
     ),
@@ -151,7 +151,7 @@ const ModuleList = [
     ),
     description: (
       <>
-        Seamlessly connect Specifai with JIRA, Azure DevOps, and other enterprise tools
+        Seamlessly connect Ace PDA with JIRA, Azure DevOps, and other enterprise tools
         to enhance your workflow. Sync requirements, push generated artifacts, and maintain
         traceability across your development ecosystem.
       </>

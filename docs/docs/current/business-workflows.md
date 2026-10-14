@@ -1,6 +1,6 @@
 # Visualizing Business Workflows 📊
 
-Learn how to create and manage Business Process Flows in Specifai to effectively visualize your business workflows.
+Learn how to create and manage Business Process Flows in Ace PDA to effectively visualize your business workflows.
 
 ## What is a Business Process Flow?
 
@@ -15,7 +15,7 @@ A **Business Process Flow (BP Flow)** is a visual representation of the steps, d
 <div align="center">
 
 ![Business Process Flow Visualization](../../static/gif/specifai-bp-visualisation.gif)
-*Business process flow visualization in action within Specifai*
+*Business process flow visualization in action within Ace PDA*
 
 </div>
 

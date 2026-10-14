@@ -1,6 +1,6 @@
 # Agent-Driven Requirement Authoring 🤖
 
-Specifai leverages advanced AI to automate the creation of various content types. This guide covers how Specifai can generate user stories, tasks, test cases, and strategic initiatives automatically.
+Ace PDA leverages advanced AI to automate the creation of various content types. This guide covers how Ace PDA can generate user stories, tasks, test cases, and strategic initiatives automatically.
 
 ## 📝 Automating User Story & Task Creation
 
@@ -158,7 +158,7 @@ One of the most powerful features of Strategic Initiative generation is the abil
 
 ## Integration with Other Features
 
-Agent-Driven Requirement Authoring works seamlessly with other Specifai features:
+Agent-Driven Requirement Authoring works seamlessly with other Ace PDA features:
 
 - Use the [Intelligent Chat Interface](ai-interaction.md) to refine and enhance generated content
 - Apply [Intelligent Inline Editing](ai-interaction.md) to improve specific sections of generated content

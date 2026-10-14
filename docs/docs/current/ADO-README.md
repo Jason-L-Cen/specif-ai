@@ -1,6 +1,6 @@
-# Azure DevOps Integration Guide for Specifai
+# Azure DevOps Integration Guide for Ace PDA
 
-This guide explains how to integrate the Specifai solution with Azure DevOps using Personal Access Tokens (PAT). Follow these steps to create a PAT, configure permissions, and set up the integration for seamless work item synchronization.
+This guide explains how to integrate the Ace PDA solution with Azure DevOps using Personal Access Tokens (PAT). Follow these steps to create a PAT, configure permissions, and set up the integration for seamless work item synchronization.
 
 ## Step 1: Create a Personal Access Token in Azure DevOps
 
@@ -14,7 +14,7 @@ This guide explains how to integrate the Specifai solution with Azure DevOps usi
    - Click **+ New Token** to create a new PAT.
 
 3. **Configure the Token:**
-   - Enter a **Name** for the token, such as "Specifai Integration Token."
+   - Enter a **Name** for the token, such as "Ace PDA Integration Token."
    - Set the **Expiration** date (recommended: 1 year or custom date based on your security policies).
    - Select the **Organization** where your projects are located.
 
@@ -44,7 +44,7 @@ This guide explains how to integrate the Specifai solution with Azure DevOps usi
 
 ## Step 4: Configure Work Item Types (Optional)
 
-Specifai supports mapping between its document types and Azure DevOps work item types. The default mapping is:
+Ace PDA supports mapping between its document types and Azure DevOps work item types. The default mapping is:
 
 - **PRD (Product Requirements Document)** → **Feature**
 - **User Story** → **Platform Feature**
@@ -52,12 +52,12 @@ Specifai supports mapping between its document types and Azure DevOps work item 
 
 If your Azure DevOps project uses different work item types, you can configure custom mappings in the integration settings.
 
-## Step 5: Set Up the Integration in Specifai
+## Step 5: Set Up the Integration in Ace PDA
 
 1. **Open the Integration Page:**
-   - Launch the Specifai application and navigate to your solution.
+   - Launch the Ace PDA application and navigate to your solution.
    - Go to **Solution** → **Integration** page.
-   ![Specifai ADO Integration Form](../../static/img/specifai-ado-integration.png)
+   ![Ace PDA ADO Integration Form](../../static/img/specifai-ado-integration.png)
 
 2. **Enter the Azure DevOps Configuration:**
    - Provide the following information in the Azure DevOps Integration section:
@@ -86,7 +86,7 @@ If your Azure DevOps project uses different work item types, you can configure c
 
 ## Step 6: Using the Azure DevOps Integration
 
-### Pull from Azure DevOps (ADO → Specifai)
+### Pull from Azure DevOps (ADO → Ace PDA)
 
 1. **Access the Integration Modal:**
    - Navigate to your solution's integration page.
@@ -102,18 +102,18 @@ If your Azure DevOps project uses different work item types, you can configure c
    _Hierarchical view for selecting Azure DevOps work items to import_
 
 3. **Import Selected Items:**
-   - Select the work items you want to import into Specifai.
+   - Select the work items you want to import into Ace PDA.
    - Click **Pull from ADO** to import the selected items.
-   - The system will create corresponding PRD, User Story, and Task files in your Specifai project.
+   - The system will create corresponding PRD, User Story, and Task files in your Ace PDA project.
 
-### Push to Azure DevOps (Specifai → ADO)
+### Push to Azure DevOps (Ace PDA → ADO)
 
 1. **Select Items to Export:**
    - Choose the PRDs, User Stories, and Tasks you want to push to Azure DevOps.
    - The system maintains the hierarchical relationships during export.
 
    ![ADO Push Selection Interface](../../static/img/specifai-ado-push-selection.png)
-   _Hierarchical view for selecting Specifai documents to push to Azure DevOps_
+   _Hierarchical view for selecting Ace PDA documents to push to Azure DevOps_
 
 2. **Push to ADO:**
    - Click **Push to ADO** to create corresponding work items in Azure DevOps.
@@ -154,4 +154,4 @@ If your Azure DevOps project uses different work item types, you can configure c
 
 ---
 
-By following these steps, you can successfully integrate Specifai with Azure DevOps for seamless work item management and synchronization.
+By following these steps, you can successfully integrate Ace PDA with Azure DevOps for seamless work item management and synchronization.

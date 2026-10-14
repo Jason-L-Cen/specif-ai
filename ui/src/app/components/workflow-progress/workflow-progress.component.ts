@@ -83,7 +83,7 @@ export class WorkflowProgressComponent implements OnInit, OnDestroy {
   @Input() isVisible: boolean = false;
   @Input() isCompleted: boolean = false;
   @Input() initialTitle: string = '正在创建解决方案…';
-  @Input() subtitle: string = '请稍候，Specifai 正在完成后续处理…';
+  @Input() subtitle: string = '请稍候，Ace PDA 正在完成后续处理…';
   @Input() completedTitle: string = '处理已完成';
   @Input() maxHeight: string = 'none';
   @Input() showCancelButton: boolean = true;

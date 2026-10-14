@@ -23,12 +23,12 @@ const QuickGuideCards = [
       </svg>
     ),
     description:
-      "Experience Specifai in minutes with our step-by-step setup guide designed for rapid deployment",
+      "Experience Ace PDA in minutes with our step-by-step setup guide designed for rapid deployment",
     external: false,
   },
   {
     title: "Join the Community",
-    link: "https://github.com/presidio-oss/specif-ai",
+    link: "https://github.com/Jason-L-Cen/specif-ai",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -48,8 +48,8 @@ const QuickGuideCards = [
     external: true,
   },
   {
-    title: "Get Specifai Now",
-    link: "https://github.com/presidio-oss/specif-ai/releases",
+    title: "Get Ace PDA Now",
+    link: "https://github.com/Jason-L-Cen/specif-ai/releases",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -93,9 +93,9 @@ export default function DemoShowcase() {
     <section className={styles.demoSection}>
       <div className="container">
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>See Specifai in Action</h2>
+          <h2 className={styles.sectionTitle}>See Ace PDA in Action</h2>
           <p className={styles.demoOverviewText}>
-            Specifai intelligently transforms your requirements into
+            Ace PDA intelligently transforms your requirements into
             comprehensive documentation, automates user story creation,
             generates test cases, and provides powerful visualization tools -
             all with AI-powered assistance at every step.

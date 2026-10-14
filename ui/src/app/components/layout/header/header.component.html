@@ -3,23 +3,26 @@
     class="bg-white border-b [app-region:drag] select-none h-[39px] w-full"
   >
     <div class="flex items-center justify-between pl-4">
-      <div [ngClass]="{ 'pl-16': isMacOS && !isFullscreen }">
+      <div class="min-w-0 flex-1 overflow-hidden whitespace-nowrap" [ngClass]="{ 'pl-16': isMacOS && !isFullscreen }">
         <app-breadcrumbs />
       </div>
-      <div class="flex items-center gap-x-3">
-        <div>
+      <div class="flex shrink-0 items-center gap-x-3 pl-3">
+        <div class="flex items-center gap-2">
           <ng-container
             *ngIf="themeConfiguration.appLogoDark.length > 0; else showAppName"
           >
-            <span class="sr-only">{{ themeConfiguration.appName }}</span>
             <img
               [src]="themeConfiguration.appLogoDark"
-              class="mx-auto h-5"
-              [alt]="themeConfiguration.appName"
+              class="h-7 w-7 shrink-0"
+              alt="Ace PDA 标志"
             />
+            <div class="leading-tight">
+              <p class="text-xs font-semibold text-secondary-900">{{ themeConfiguration.appName }}</p>
+              <p class="text-[9px] text-secondary-500">{{ themeConfiguration.appEnglishName }}</p>
+            </div>
           </ng-container>
           <ng-template #showAppName>
-            <h1 class="text-2xl text-secondary-50">
+            <h1 class="text-sm text-secondary-900">
               {{ themeConfiguration.appName }}
             </h1>
           </ng-template>

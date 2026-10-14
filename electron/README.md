@@ -1,6 +1,6 @@
-# 🖥️ Specifai Desktop Application - Electron
+# 🖥️ Ace PDA Desktop Application - Electron
 
-The Electron-based desktop application for Specifai facilitates local file system integration for all generated documents, providing a seamless user experience across platforms.
+The Electron-based desktop application for Ace PDA facilitates local file system integration for all generated documents, providing a seamless user experience across platforms.
 
 ## Table of Contents
 - [Features](#features)

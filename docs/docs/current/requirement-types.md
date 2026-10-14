@@ -1,6 +1,6 @@
 # Requirements Document Types and Best Practices 📝
 
-Specifai streamlines the creation of essential SDLC documents through AI-powered generation and intuitive management. This guide explains the various document types available in Specifai and best practices for each.
+Ace PDA streamlines the creation of essential SDLC documents through AI-powered generation and intuitive management. This guide explains the various document types available in Ace PDA and best practices for each.
 
 <div align="center">
 
@@ -28,7 +28,7 @@ A **Business Requirements Document (BRD)** is a formal document that describes t
 <div align="center">
 
 ![BRD Details](../../static/img/specifai-brd-details.png)
-*Business Requirements Document interface in Specifai*
+*Business Requirements Document interface in Ace PDA*
 
 </div>
 
@@ -48,7 +48,7 @@ A **Product Requirements Document (PRD)** is a technical document that outlines 
 <div align="center">
 
 ![PRD Details](../../static/img/specifai-prd-details.png)
-*Product Requirements Document interface in Specifai*
+*Product Requirements Document interface in Ace PDA*
 
 </div>
 
@@ -74,7 +74,7 @@ A **Product Requirements Document (PRD)** is a technical document that outlines 
 <div align="center">
 
 ![User Story Details](../../static/img/specifai-user-story-details.png)
-*User Story details interface in Specifai*
+*User Story details interface in Ace PDA*
 
 </div>
 
@@ -94,7 +94,7 @@ A **Product Requirements Document (PRD)** is a technical document that outlines 
 <div align="center">
 
 ![Task Details](../../static/img/specifai-task-details.png)
-*Task details interface in Specifai*
+*Task details interface in Ace PDA*
 
 </div>
 
@@ -114,7 +114,7 @@ A **Product Requirements Document (PRD)** is a technical document that outlines 
 <div align="center">
 
 ![NFR Details](../../static/img/specifai-nfr-details.png)
-*Non-Functional Requirements interface in Specifai*
+*Non-Functional Requirements interface in Ace PDA*
 
 </div>
 
@@ -134,7 +134,7 @@ A **Product Requirements Document (PRD)** is a technical document that outlines 
 <div align="center">
 
 ![UIR Details](../../static/img/specifai-uir-details.png)
-*User Interface Requirements interface in Specifai*
+*User Interface Requirements interface in Ace PDA*
 
 </div>
 
@@ -174,7 +174,7 @@ Alternative Flows:
 <div align="center">
 
 ![TC Details](../../static/img/specifai-test-cases.png)
-*Test Cases in Specifai*
+*Test Cases in Ace PDA*
 
 </div>
 
@@ -205,7 +205,7 @@ Alternative Flows:
 <div align="center">
 
 ![SI Details](../../static/img/specifai-si.png)
-*Strategic Initiative in Specifai*
+*Strategic Initiative in Ace PDA*
 
 </div>
 

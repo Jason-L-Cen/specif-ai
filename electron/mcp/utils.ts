@@ -2,7 +2,7 @@ import { app } from "electron";
 import { MCPConnection } from "./mcp-connection";
 
 const getApplicationUserDataPath = () => {
-  return `${app.getPath("appData")}/${app.getName()}`;
+  return app.getPath("userData");
 };
 
 export const getGlobalMCPSettingsFilePath = () => {

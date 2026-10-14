@@ -1,18 +1,18 @@
-# 👋 Welcome to Specifai Documentation
+# 👋 Welcome to Ace PDA Documentation
 
-Specifai is your AI-powered companion for revolutionizing project requirements management! This comprehensive guide will help you master all features of Specifai and transform your SDLC process.
+Ace PDA is your AI-powered companion for revolutionizing project requirements management! This comprehensive guide will help you master all features of Ace PDA and transform your SDLC process.
 
-![Specifai Overview](../../static/gif/specifai-overview.gif)
+![Ace PDA Overview](../../static/gif/specifai-overview.gif)
 
-## 📘 What is Specifai?
+## 📘 What is Ace PDA?
 
-Specifai is an intelligent requirements management tool that leverages AI to streamline your software development lifecycle. From document generation to user story creation, Specifai helps teams work more efficiently and maintain consistency across projects.
+Ace PDA is an intelligent requirements management tool that leverages AI to streamline your software development lifecycle. From document generation to user story creation, Ace PDA helps teams work more efficiently and maintain consistency across projects.
 
 ---
 
 ## 🏁 Getting Started
 
-New to Specifai? Start here:
+New to Ace PDA? Start here:
 
 📚 [Complete Getting Started Guide](getting-started.md)
 
@@ -39,7 +39,7 @@ Get real-time requirement edits and context-specific suggestions.
 </div>
 
 ### 📊 Requirements Management
-Efficiently manage your project requirements with Specifai's robust tools, including:
+Efficiently manage your project requirements with Ace PDA's robust tools, including:
 - Business Process Visualization
 - User Story Generation
 - Task Management
@@ -79,7 +79,7 @@ Efficiently manage your project requirements with Specifai's robust tools, inclu
 ## 🔌 Enterprise Solutions
 
 ### MCP Integration
-Specifai leverages powerful MCP Tools including:
+Ace PDA leverages powerful MCP Tools including:
 - AWS Bedrock Knowledgebase
 - FileSystem Integration
 - Confluence Integration
@@ -99,7 +99,7 @@ Enterprise knowledge base integration for enhanced AI suggestions and iterative 
 ## 🧠 Model Configuration
 
 ### ⚙️ Configuring Preferred AI Models
-Choose the AI model that best suits your needs from a variety of providers. Specifai supports:
+Choose the AI model that best suits your needs from a variety of providers. Ace PDA supports:
 * **Azure OpenAI**
     * gpt-4o
     * gpt-4o-mini
@@ -182,18 +182,18 @@ Choose the AI model that best suits your needs from a variety of providers. Spec
 
 ## 🔗 Additional Resources
 
-- [GitHub Repository](https://github.com/presidio-oss/specif-ai)
-- [Release Notes](https://github.com/presidio-oss/specif-ai/releases)
-- [Contributing Guidelines](https://github.com/presidio-oss/specif-ai/blob/main/CONTRIBUTING.md)
-- [License Information](https://github.com/presidio-oss/specif-ai/blob/main/LICENSE)
+- [GitHub Repository](https://github.com/Jason-L-Cen/specif-ai)
+- [Release Notes](https://github.com/Jason-L-Cen/specif-ai/releases)
+- [Contributing Guidelines](https://github.com/Jason-L-Cen/specif-ai/blob/main/CONTRIBUTING.md)
+- [License Information](https://github.com/Jason-L-Cen/specif-ai/blob/main/LICENSE)
 
 ## 🤝 Support & Community
 
 Need assistance? We're here to help:
-- 📧 Email: hai-feedback@presidio.com
-- 🐛 [GitHub Issues](https://github.com/presidio-oss/specif-ai/issues)
-- 💡 [Feature Requests](https://github.com/presidio-oss/specif-ai/discussions)
+- 💬 Feedback: https://github.com/Jason-L-Cen/specif-ai/issues
+- 🐛 [GitHub Issues](https://github.com/Jason-L-Cen/specif-ai/issues)
+- 💡 [Feature Requests](https://github.com/Jason-L-Cen/specif-ai/discussions)
 
 ---
 
-Specifai is designed to make your development process smoother and more efficient. Our organized documentation ensures you can focus on what matters most – building great solutions!
+Ace PDA is designed to make your development process smoother and more efficient. Our organized documentation ensures you can focus on what matters most – building great solutions!

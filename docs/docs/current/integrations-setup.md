@@ -1,35 +1,35 @@
 # Solution Integrations Setup Guide
 
-Connect powerful external tools and services to enhance your Specifai workflows.
+Connect powerful external tools and services to enhance your Ace PDA workflows.
 
 ---
 
 ## 🎯 JIRA Integration
 
-Integrate JIRA to transform Specifai-generated requirements into actionable JIRA tickets, streamlining your development pipeline.
+Integrate JIRA to transform Ace PDA-generated requirements into actionable JIRA tickets, streamlining your development pipeline.
 
 <div align="center">
 
 ![JIRA Integration](../../static/img/specifai-jira-integration.png)
-*Manage JIRA integrations within Specifai*
+*Manage JIRA integrations within Ace PDA*
 
 </div>
 
 ### ✨ Features and Benefits
 
-* **Bidirectional Synchronization:** Pull issues from Jira into Specifai or push Specifai requirements to Jira.
+* **Bidirectional Synchronization:** Pull issues from Jira into Ace PDA or push Ace PDA requirements to Jira.
 * **Automated Ticket Creation:** Convert PRDs, User Stories, and Tasks into JIRA epics, stories, and tasks, maintaining hierarchy.
 * **Bulk Operations:** Import or export multiple prds, stories and tasks efficiently, maintaining parent-child relationships.
-* **Seamless Synchronization:** Create and update JIRA tickets based on Specifai changes, ensuring data consistency.
+* **Seamless Synchronization:** Create and update JIRA tickets based on Ace PDA changes, ensuring data consistency.
 
 ### ⚡ Quick Start Guide
 
-1.  **Prerequisites:** You'll need an active JIRA instance, administrator access (or relevant permissions) to create JIRA OAuth apps, and the Specifai desktop application.
+1.  **Prerequisites:** You'll need an active JIRA instance, administrator access (or relevant permissions) to create JIRA OAuth apps, and the Ace PDA desktop application.
 
 2.  **Detailed Setup:** For comprehensive OAuth configuration and permissions, refer to our [Jira OAuth 2.0 Integration Guide](JIRA-README.md).
 
 3.  **Sync to JIRA:**
-    * From the **PRD** page in Specifai, select your PRD and go to its **Stories** tab.
+    * From the **PRD** page in Ace PDA, select your PRD and go to its **Stories** tab.
     * Click **Export** and choose **Sync to JIRA**.
         <div align="center">
 
@@ -41,11 +41,11 @@ Integrate JIRA to transform Specifai-generated requirements into actionable JIRA
         * **Epic**: PRD
         * **Story**: User Story
         * **Task**: Task
-    * You'll receive a notification upon sync completion. JIRA Ticket IDs are displayed in Specifai next to corresponding requirements for easy reference and search.
+    * You'll receive a notification upon sync completion. JIRA Ticket IDs are displayed in Ace PDA next to corresponding requirements for easy reference and search.
         <div align="center">
 
         ![After Successful JIRA Sync](../../static/img/specifai-post-jira-sync.png)
-        *Synced JIRA tickets displayed in Specifai*
+        *Synced JIRA tickets displayed in Ace PDA*
 
         </div>
 
@@ -53,34 +53,34 @@ Integrate JIRA to transform Specifai-generated requirements into actionable JIRA
 
 ## 🔷 Azure DevOps Integration
 
-Integrate Azure DevOps to synchronize Specifai-generated requirements with your ADO work items, enabling seamless project management across platforms.
+Integrate Azure DevOps to synchronize Ace PDA-generated requirements with your ADO work items, enabling seamless project management across platforms.
 
 <div align="center">
 
 ![Azure DevOps Integration](../../static/img/specifai-ado-integration.png)
-*Manage Azure DevOps integrations within Specifai*
+*Manage Azure DevOps integrations within Ace PDA*
 
 </div>
 
 ### ✨ Features and Benefits
 
 * **Hierarchical Work Item Management:** Support for Features → Platform Features → User Stories mapping that aligns with ADO's structure.
-* **Bidirectional Synchronization:** Pull work items from ADO into Specifai or push Specifai requirements to ADO.
+* **Bidirectional Synchronization:** Pull work items from ADO into Ace PDA or push Ace PDA requirements to ADO.
 * **Flexible Mapping:** Configure work item types to match your ADO project structure (PRD→Feature, User Story→Platform Feature, Task→User Story).
 * **Bulk Operations:** Import or export multiple work items efficiently, maintaining parent-child relationships.
 * **Personal Access Token Authentication:** Secure authentication using Azure DevOps PATs with granular permission control.
 
 ### ⚡ Quick Start Guide
 
-1. **Prerequisites:** You'll need an active Azure DevOps organization, project access with work item permissions, and the Specifai desktop application.
+1. **Prerequisites:** You'll need an active Azure DevOps organization, project access with work item permissions, and the Ace PDA desktop application.
 
 2. **Detailed Setup:** For comprehensive PAT creation and configuration, refer to our [Azure DevOps Integration Guide](ADO-README.md).
 
 3. **Pull from Azure DevOps:**
-   * Navigate to your solution's integration page in Specifai.
+   * Navigate to your solution's integration page in Ace PDA.
    * Click **Sync with Azure DevOps** to access the ADO integration modal.
    * Select the Features, Platform Features, and User Stories you want to import.
-   * Click **Pull from ADO** to import selected items into Specifai as PRDs, User Stories, and Tasks.
+   * Click **Pull from ADO** to import selected items into Ace PDA as PRDs, User Stories, and Tasks.
 
 4. **Push to Azure DevOps:**
    * From your solution, select the PRDs, User Stories, and Tasks you want to export.
@@ -88,7 +88,7 @@ Integrate Azure DevOps to synchronize Specifai-generated requirements with your 
    * The system maintains hierarchical relationships (PRD→Feature, User Story→Platform Feature, Task→User Story).
 
 5. **Successful Integration:**
-   * Upon successful sync, you'll see confirmation messages and ADO work item IDs displayed in Specifai.
+   * Upon successful sync, you'll see confirmation messages and ADO work item IDs displayed in Ace PDA.
    * Work items maintain bidirectional references for easy tracking and updates.
    
    <div align="center">
@@ -102,7 +102,7 @@ Integrate Azure DevOps to synchronize Specifai-generated requirements with your 
 
 ## 🚀 AWS Bedrock Knowledge Base Direct Solution Integration
 
-Connect your enterprise knowledge base to Specifai's AI chat, enhancing suggestions and enabling context-aware requirement generation for all document types.
+Connect your enterprise knowledge base to Ace PDA's AI chat, enhancing suggestions and enabling context-aware requirement generation for all document types.
 
 ### ✨ Benefits & Features
 
@@ -126,18 +126,18 @@ Connect your enterprise knowledge base to Specifai's AI chat, enhancing suggesti
 
 4.  **Knowledge Base ID:** Accurately enter your AWS Knowledge Base ID.
 
-5.  **Connect:** Click "**Connect**" to establish the link between Specifai and your AWS Knowledge Base.
+5.  **Connect:** Click "**Connect**" to establish the link between Ace PDA and your AWS Knowledge Base.
 
 ### ✅ Verification Steps
 
-* **Verify KB Access:** Confirm Specifai can access and retrieve data from your AWS KB.
+* **Verify KB Access:** Confirm Ace PDA can access and retrieve data from your AWS KB.
 * **Test Chat Suggestions:** Verify AI chat suggestions are enhanced and relevant, drawing from the KB.
 
 ---
 
 ## 🧠 Model Context Protocol (MCP) Integration
 
-**MCP** is Specifai's extensible framework for integrating external tools and knowledge bases. It enhances AI relevance and accuracy for all generated requirements.
+**MCP** is Ace PDA's extensible framework for integrating external tools and knowledge bases. It enhances AI relevance and accuracy for all generated requirements.
 
 <div align="center">
     *Supercharge your development workflow with powerful tools and knowledge bases through the flexible Model Context Protocol (MCP)*
@@ -145,7 +145,7 @@ Connect your enterprise knowledge base to Specifai's AI chat, enhancing suggesti
 
 ### 🛠 Built-in MCP Server Integration
 
-Specifai natively supports **AWS Bedrock Knowledge Base (KB)** as a built-in MCP server, leveraging your organizational data for requirements. Configuration is straightforward via the UI. For detailed setup, refer to our [AWS Bedrock KB Configuration Guide](aws-bedrock-kb-configuration.md).
+Ace PDA natively supports **AWS Bedrock Knowledge Base (KB)** as a built-in MCP server, leveraging your organizational data for requirements. Configuration is straightforward via the UI. For detailed setup, refer to our [AWS Bedrock KB Configuration Guide](aws-bedrock-kb-configuration.md).
 
 <div align="center">
 
@@ -156,7 +156,7 @@ Specifai natively supports **AWS Bedrock Knowledge Base (KB)** as a built-in MCP
 
 ### 🛠 Custom MCP Server Integration
 
-Beyond built-in options, Specifai enables custom MCP server integration, extending functionality with proprietary data or specialized applications (e.g., a file system MCP server).
+Beyond built-in options, Ace PDA enables custom MCP server integration, extending functionality with proprietary data or specialized applications (e.g., a file system MCP server).
 
 #### Configuring Custom MCP Servers
 
@@ -222,7 +222,7 @@ All MCP integrations are managed from a single **Integrations** page, providing 
 
 ### 💡 How MCP Enhances Requirement Workflows
 
-MCP tools are dynamically invoked during the **research step** within Specifai's agentic workflows, gathering crucial information that directly impacts output quality.
+MCP tools are dynamically invoked during the **research step** within Ace PDA's agentic workflows, gathering crucial information that directly impacts output quality.
 
 MCP specifically enhances:
 
@@ -233,13 +233,13 @@ MCP specifically enhances:
 ---
 
 ## Next Steps
-Now that you've set up your integrations, you're ready to enhance your Specifai experience! Explore the following:
-* **[Advanced Features Guide](advanced-features.md)** for deeper insights into Specifai's capabilities.
+Now that you've set up your integrations, you're ready to enhance your Ace PDA experience! Explore the following:
+* **[Advanced Features Guide](advanced-features.md)** for deeper insights into Ace PDA's capabilities.
 * **[Troubleshooting Guide](troubleshooting.md)** for common issues and solutions.
 ---
 
 Need more help?
-* Contact us at [hai-feedback@presidio.com](mailto:hai-feedback@presidio.com)
-* Visit our [GitHub Issues](https://github.com/presidio-oss/specif-ai/issues) page.
+* Contact us at [project issues](https://github.com/Jason-L-Cen/specif-ai/issues)
+* Visit our [GitHub Issues](https://github.com/Jason-L-Cen/specif-ai/issues) page.
 
-Specifai is continuously evolving—check our [release notes](https://github.com/presidio-oss/specif-ai/releases) for updates!
+Ace PDA is continuously evolving—check our [release notes](https://github.com/Jason-L-Cen/specif-ai/releases) for updates!

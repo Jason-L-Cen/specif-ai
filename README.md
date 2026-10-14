@@ -1,15 +1,15 @@
 <div align="center">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
-  <img src="https://img.shields.io/github/issues/presidio-oss/specif-ai" alt="Issues" />
-  <img src="https://img.shields.io/github/stars/presidio-oss/specif-ai" alt="Stars" />
-  <img src="https://img.shields.io/github/forks/presidio-oss/specif-ai" alt="Forks" />
+  <img src="https://img.shields.io/github/issues/Jason-L-Cen/specif-ai" alt="Issues" />
+  <img src="https://img.shields.io/github/stars/Jason-L-Cen/specif-ai" alt="Stars" />
+  <img src="https://img.shields.io/github/forks/Jason-L-Cen/specif-ai" alt="Forks" />
 </div>
 <br />
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/static/img/hai-specif-ai-light.svg">
-    <source media="(prefers-color-scheme: light)" srcset="docs/static/img/hai-specif-ai-theme.svg">
-    <img alt="HAI Logo" src="docs/static/img/hai-specif-ai-theme.svg" height="auto">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/static/img/ace_white.svg">
+    <source media="(prefers-color-scheme: light)" srcset="docs/static/img/ace.svg">
+    <img alt="Ace PDA Logo" src="docs/static/img/ace.svg" height="96">
   </picture>
 </div>
 <br />  
@@ -19,11 +19,15 @@
 </div>
 <br>
 
-# 🚀 Specifai
+# 爱思 产品研发助手 · Ace PDA
 
-**Specifai** is an AI-powered platform that transforms the project requirements management. It combines AI technology with intuitive workflows to automate documentation, generate and manage tasks - all while adapting to your team's specific needs.
+**Ace Product Development Assistant**, abbreviated **Ace PDA**. The AI assistant is named **Ace**.
+
+See the [Chinese usage and build guide](README.zh-CN.md) for this branch, including DeepSeek, document upload, and requirement-to-test-case traceability. The original project copyright and MIT license are preserved in [LICENSE](LICENSE).
+
+**Ace PDA** is an AI-powered platform that transforms the project requirements management. It combines AI technology with intuitive workflows to automate documentation, generate and manage tasks - all while adapting to your team's specific needs.
 <div align="center">
-    <img src="docs/static/gif/specifai-overview.gif" alt="Specifai in Action" width="900">
+    <img src="docs/static/gif/specifai-overview.gif" alt="Ace PDA in Action" width="900">
 </div>
 
 ## Table of Contents
@@ -40,9 +44,9 @@
 
 ## 🌟 Overview
 
-In today's fast-paced software development landscape, delivering high-quality solutions quickly is more critical than ever. Specifai is a cutting-edge platform that revolutionizes how teams generate, manage, and refine software requirements by combining AI intelligence with human context.
+In today's fast-paced software development landscape, delivering high-quality solutions quickly is more critical than ever. Ace PDA is a cutting-edge platform that revolutionizes how teams generate, manage, and refine software requirements by combining AI intelligence with human context.
 
-By simply providing a solution name, description, and tech stack details, Specifai automatically generates comprehensive documentation, including:
+By simply providing a solution name, description, and tech stack details, Ace PDA automatically generates comprehensive documentation, including:
 
 - 📄 Business Requirement Documents (BRD)
 - 🔧 Non-Functional Requirements Documents (NFRD)
@@ -58,14 +62,14 @@ By simply providing a solution name, description, and tech stack details, Specif
 
 <img src="docs/static/img/welcome-page.png" alt="Welcome Page" width="900" />
 
-1. **Download the Specifai desktop application** from the [releases page](https://github.com/presidio-oss/specif-ai/releases).
+1. **Download the Ace PDA desktop application** from the [releases page](https://github.com/Jason-L-Cen/specif-ai/releases).
 2. **Start** the Desktop Application
 3. **Enter the Username and Working directory and get started!**
 
 ### 🧩 For Developers
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/presidio-oss/specif-ai.git
+   git clone https://github.com/Jason-L-Cen/specif-ai.git
    cd specif-ai
    ```
 2. **Set up the development environment**
@@ -84,7 +88,7 @@ By simply providing a solution name, description, and tech stack details, Specif
 
 </div>
 
-- **🪄 AI-Powered Inline Editing**: Specifai's inline editing feature allows you to instantly improve any text within editable fields using AI assistance, without disrupting your workflow.
+- **🪄 AI-Powered Inline Editing**: Ace PDA's inline editing feature allows you to instantly improve any text within editable fields using AI assistance, without disrupting your workflow.
 
 <div align="center">
 
@@ -173,7 +177,7 @@ For Test Case Generation instructions, please refer to our [Automated Test Case 
 
 #### Custom Langfuse Configuration
 
-Specifai supports custom Langfuse configuration for enhanced observability and analytics:
+Ace PDA supports custom Langfuse configuration for enhanced observability and analytics:
 
 <div align="center">
   <img src="docs/static/img/specifai-custom-langfuse-settings.png" alt="Custom Langfuse Configuration" width="800">
@@ -191,7 +195,7 @@ Key configuration options include:
 
 #### ✨ Agentic Solution Requirement Generation Flow
 
-Specif AI utilises the Langgraph framework to deliver an efficient agentic workflow, enhancing the creation of solution requirements with precision. Following are the key phases involved:
+Ace PDA utilises the Langgraph framework to deliver an efficient agentic workflow, enhancing the creation of solution requirements with precision. Following are the key phases involved:
 
 - **Context Gathering Phase:** 
   - **Summarisation:** Analyses solution metadata and conversation history, employing summarisation to manage conversation context data effectively.
@@ -208,7 +212,7 @@ This Agentic architecture ensures seamless task orchestration and accelerates th
 
 ### 🔌 Integrations
 
-Specifai seamlessly integrates with popular tools to enhance your workflow:
+Ace PDA seamlessly integrates with popular tools to enhance your workflow:
 
 #### Jira Integration
 The stories and tasks generated as part of the solutions can be used to create actual stories and tasks in your Jira instance using the Jira integration provided by the application. Features include:
@@ -221,7 +225,7 @@ For Jira setup instructions, please refer to our [Jira Setup Guide](docs/docs/cu
 #### Azure DevOps Integration
 Seamlessly integrate with Azure DevOps to synchronize your requirements and work items. The ADO integration supports hierarchical work item management and bidirectional synchronization. Features include:
 - **Hierarchical Work Item Management**: Support for Features → Platform Features → User Stories mapping
-- **Bidirectional Sync**: Pull work items from ADO or push Specifai requirements to ADO
+- **Bidirectional Sync**: Pull work items from ADO or push Ace PDA requirements to ADO
 - **Flexible Mapping**: Configure work item types to match your ADO project structure
 - **Bulk Operations**: Import/export multiple work items efficiently
 - **Personal Access Token Authentication**: Secure authentication using Azure DevOps PATs
@@ -241,13 +245,13 @@ The enterprise knowledge base is integrated with AI-powered chat to enhance sugg
   <em>Supercharge your development workflow with powerful tools and knowledge bases through the flexible Model Context Protocol (MCP)</em>
 </div>
 
-The Model Context Protocol (MCP) is a powerful integration framework that enables Specifai to connect with external tools, services, and knowledge bases. This extensible architecture allows you to enhance your requirement generation workflow with custom capabilities while maintaining a seamless user experience.
+The Model Context Protocol (MCP) is a powerful integration framework that enables Ace PDA to connect with external tools, services, and knowledge bases. This extensible architecture allows you to enhance your requirement generation workflow with custom capabilities while maintaining a seamless user experience.
 
 ---
 
 ### 📚 Built-in Integration: AWS Bedrock Knowledge Base
 
-Specifai includes native support for **AWS Bedrock Knowledge Base (KB)**. Configuration is available directly in the UI. For detailed setup instructions, see our [AWS Bedrock KB Configuration Guide](docs/docs/current/aws-bedrock-kb-configuration.md).
+Ace PDA includes native support for **AWS Bedrock Knowledge Base (KB)**. Configuration is available directly in the UI. For detailed setup instructions, see our [AWS Bedrock KB Configuration Guide](docs/docs/current/aws-bedrock-kb-configuration.md).
 
 <div align="center">
   <img src="docs/static/img/mcp/aws-bedrock-kb-config.png" alt="AWS Bedrock KB Configuration" width="800">
@@ -258,7 +262,7 @@ Specifai includes native support for **AWS Bedrock Knowledge Base (KB)**. Config
 
 ### 🛠 Add Custom MCP Servers
 
-Specifai also supports integration with custom MCP-compatible tools and services. For example, you can connect a file system MCP server, which will automatically surface its tools and resources in the UI.
+Ace PDA also supports integration with custom MCP-compatible tools and services. For example, you can connect a file system MCP server, which will automatically surface its tools and resources in the UI.
 
 <div align="center">
   <img src="docs/static/img/mcp/custom-mcp-config.png" alt="Custom MCP Server Configuration" width="800">
@@ -276,18 +280,18 @@ All MCP integrations can be managed from the **Integrations** page, where you ca
 
 ## 🏗 Architecture
 
-Specifai follows a modern, scalable architecture designed for optimal performance and maintainability.
+Ace PDA follows a modern, scalable architecture designed for optimal performance and maintainability.
 
 <div align="center">
 
-![Specifai Architecture](docs/static/gif/specifai-architecture.gif)  
-*Specifai Architecture*
+![Ace PDA Architecture](docs/static/gif/specifai-architecture.gif)
+*Ace PDA Architecture*
 
 </div>
 
 ## 📝 Version Controlled Requirements Management Made Easy
 
-Specifai is a powerful desktop application built to streamline and organize your project requirements. With Specifai, users can create a unified directory where all essential files are not only accessible and editable but also seamlessly synced with platforms like OneDrive, Dropbox etc. This setup allows users to point to specific artifacts and data sources in a version-controlled environment, making collaboration and tracking effortless. Our goal is to enhance your development workflow by integrating seamlessly with the tools you already use, without adding complexity or obstacles.
+Ace PDA is a powerful desktop application built to streamline and organize your project requirements. With Ace PDA, users can create a unified directory where all essential files are not only accessible and editable but also seamlessly synced with platforms like OneDrive, Dropbox etc. This setup allows users to point to specific artifacts and data sources in a version-controlled environment, making collaboration and tracking effortless. Our goal is to enhance your development workflow by integrating seamlessly with the tools you already use, without adding complexity or obstacles.
 
 
 ## 🗺 Roadmap
@@ -298,7 +302,7 @@ Specifai is a powerful desktop application built to streamline and organize your
 
 ## 🤝 Contributing
 
-To contribute to the project, start by exploring [open issues](https://github.com/presidio-oss/specif-ai/issues) or checking our [feature request board](https://github.com/presidio-oss/specif-ai/discussions/categories/feature-requests?discussions_q=is%3Aopen+category%3A%22Feature+Requests%22+sort%3Atop).
+To contribute to the project, start by exploring [open issues](https://github.com/Jason-L-Cen/specif-ai/issues) or checking our [feature request board](https://github.com/Jason-L-Cen/specif-ai/discussions/categories/feature-requests?discussions_q=is%3Aopen+category%3A%22Feature+Requests%22+sort%3Atop).
 
 Please read our [Contributing Guidelines](./CONTRIBUTING.md) for more details.
 
@@ -310,10 +314,10 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 Thanks to all contributors and users for their support and feedback.
 
-<a href="https://github.com/presidio-oss/specif-ai/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=presidio-oss/specif-ai" />
+<a href="https://github.com/Jason-L-Cen/specif-ai/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Jason-L-Cen/specif-ai" />
 </a>
 
 ## 📧 Contact
 
-For any questions or feedback, please contact us at [hai-feedback@presidio.com](mailto:hai-feedback@presidio.com).
+For any questions or feedback, please contact us at [project issues](https://github.com/Jason-L-Cen/specif-ai/issues).

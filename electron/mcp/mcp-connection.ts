@@ -39,7 +39,7 @@ export class MCPConnection {
     metadata: Record<string, any> = {}
   ) {
     this.client = new Client({
-      name: "specifai-client",
+      name: "ace-pda-client",
       version: "0.1",
     });
 

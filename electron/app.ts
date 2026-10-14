@@ -26,6 +26,12 @@ import { setupSIHandlers } from "./handlers/strategic-initiative-handler";
 app.commandLine.appendSwitch('lang', 'zh-CN');
 z.setErrorMap(ZH_ERROR_MAP);
 
+// Keep existing settings and MCP connections when the displayed product name changes.
+app.setPath('userData', app.isPackaged
+  ? path.join(app.getPath('appData'), 'Specif AI')
+  : app.getPath('userData'));
+app.setName('Ace PDA');
+
 // ========================
 // CONFIGURATION
 // ========================
@@ -53,13 +59,9 @@ let mainWindow: BrowserWindow | null = null;
 
 function getIconPath(themeConfiguration: any): string {
   const icons = themeConfiguration.appIcons;
-  if (process.platform === "darwin") {
-    return path.join(__dirname, icons.mac);
-  } else if (process.platform === "win32") {
-    return path.join(__dirname, icons.win);
-  } else {
-    return path.join(__dirname, icons.linux);
-  }
+  const icon = process.platform === 'darwin' ? icons.mac
+    : process.platform === 'win32' ? icons.win : icons.linux;
+  return path.join(app.isPackaged ? process.resourcesPath : path.resolve(__dirname, '..'), icon);
 }
 
 function createWindow(indexPath: string, themeConfiguration: any) {
@@ -74,7 +76,8 @@ function createWindow(indexPath: string, themeConfiguration: any) {
       nodeIntegration: false,
     },
     titleBarStyle: "hiddenInset",
-    icon: path.join(__dirname, getIconPath(themeConfiguration)),
+    title: '爱思 产品研发助手',
+    icon: getIconPath(themeConfiguration),
   });
 
   if (!app.isPackaged) {
@@ -273,17 +276,24 @@ async function confirmQuitDuringActiveProcesses(): Promise<boolean> {
 // ========================
 
 app.whenReady().then(async () => {
+  app.setAboutPanelOptions({
+    applicationName: '爱思 产品研发助手 · Ace PDA',
+    applicationVersion: app.getVersion(),
+    version: 'Ace Product Development Assistant',
+    credits: 'Ace Product Development Assistant（Ace PDA）',
+    iconPath: path.join(app.isPackaged ? process.resourcesPath : path.resolve(__dirname, '..'), 'assets/icons/ace-pda.png'),
+  });
   Menu.setApplicationMenu(Menu.buildFromTemplate([
-    { label: 'Specif AI', submenu: [
-      { role: 'about', label: '关于 Specif AI' },
+    { label: 'Ace PDA', submenu: [
+      { role: 'about', label: '关于 Ace PDA' },
       { type: 'separator' },
       { role: 'services', label: '服务' },
       { type: 'separator' },
-      { role: 'hide', label: '隐藏 Specif AI' },
+      { role: 'hide', label: '隐藏 Ace PDA' },
       { role: 'hideOthers', label: '隐藏其他应用' },
       { role: 'unhide', label: '显示所有应用' },
       { type: 'separator' },
-      { role: 'quit', label: '退出 Specif AI' },
+      { role: 'quit', label: '退出 Ace PDA' },
     ] },
     { label: '编辑', submenu: [
       { role: 'undo', label: '撤销' }, { role: 'redo', label: '重做' },

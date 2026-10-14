@@ -29,12 +29,13 @@
   <main
     class="flex flex-col h-screen w-screen items-center justify-center space-y-12 relative"
   >
-    <img
-      id="app-logo"
-      [src]="themeConfiguration.appLogo"
-      class="h-10"
-      alt="应用标志"
-    />
+    <div class="flex items-center gap-3">
+      <img id="app-logo" [src]="themeConfiguration.appLogo" class="h-12 w-12" alt="Ace PDA 标志" />
+      <div>
+        <p class="font-semibold text-xl text-white">{{ themeConfiguration.appName }}</p>
+        <p class="text-sm text-secondary-300">{{ themeConfiguration.appEnglishName }}</p>
+      </div>
+    </div>
 
     <div class="bg-white rounded-lg shadow-lg max-w-lg overflow-hidden [app-region:no-drag]">
       <div class="space-y-1 px-6 pt-6 text-center">
@@ -105,7 +106,7 @@
     <img
       *ngIf="themeConfiguration.companyLogo.length > 0"
       id="company-logo"
-      class="h-4"
+      class="h-12"
       [src]="themeConfiguration.companyLogo"
       [alt]="themeConfiguration.companyName"
     />

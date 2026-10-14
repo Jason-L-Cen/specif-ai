@@ -1,17 +1,17 @@
-# Getting Started with Specifai 🚀
+# Getting Started with Ace PDA 🚀
 
-Welcome to Specifai - your AI-powered companion for revolutionizing the SDLC process! This guide will help you get up and running with Specifai, transforming how you manage project requirements.
+Welcome to Ace PDA - your AI-powered companion for revolutionizing the SDLC process! This guide will help you get up and running with Ace PDA, transforming how you manage project requirements.
 
 ## 📋 What You'll Learn
 
 In this guide, you'll learn how to:
-- Install Specifai on your system
+- Install Ace PDA on your system
 - Perform initial configuration steps, including:
     - Setting up your user profile
     - Configuring your workspace
     - Connecting your preferred AI model
     - Adjusting optional settings like analytics
-- Verify your Specifai installation
+- Verify your Ace PDA installation
 - Discover next steps to start building solutions
 
 ## 🔍 Before You Begin
@@ -27,14 +27,14 @@ In this guide, you'll learn how to:
 ### Download Latest Release (v2.8.1)
 
 Choose your platform:
-- **Windows**: [Download Specifai for Windows](https://github.com/presidio-oss/specif-ai/releases/download/v2.8.1/Specif-AI-Setup-2.8.1.exe)
+- **Windows**: [Download Ace PDA for Windows](https://github.com/Jason-L-Cen/specif-ai/releases/download/v2.8.1/Specif-AI-Setup-2.8.1.exe)
 - **macOS**: 
-    - [Apple Silicon (M1/M2/M3)](https://github.com/presidio-oss/specif-ai/releases/download/v2.8.1/Specif-AI-2.8.1-arm64.dmg)
-    - [Intel Processors](https://github.com/presidio-oss/specif-ai/releases/download/v2.8.1/Specif-AI-2.8.1.dmg)
+    - [Apple Silicon (M1/M2/M3)](https://github.com/Jason-L-Cen/specif-ai/releases/download/v2.8.1/Specif-AI-2.8.1-arm64.dmg)
+    - [Intel Processors](https://github.com/Jason-L-Cen/specif-ai/releases/download/v2.8.1/Specif-AI-2.8.1.dmg)
 
 > 💡 **Mac users**: Check your processor type in Apple Menu → About This Mac
 
-View all versions on our [releases page](https://github.com/presidio-oss/specif-ai/releases).
+View all versions on our [releases page](https://github.com/Jason-L-Cen/specif-ai/releases).
 
 ### Quick Install Guide
 
@@ -45,12 +45,12 @@ View all versions on our [releases page](https://github.com/presidio-oss/specif-
 
 #### macOS
 1. Open the `.dmg` file.
-2. Drag Specifai to Applications.
+2. Drag Ace PDA to Applications.
 3. Right-click and select "Open" (first time only).
 
 ## 🎯 Initial Setup
 
-When you first launch Specifai, you'll see the welcome screen, guiding you through a quick setup process. Here's what you need to do:
+When you first launch Ace PDA, you'll see the welcome screen, guiding you through a quick setup process. Here's what you need to do:
 
 ![Welcome Screen](../../static/img/welcome-page.png)
 
@@ -126,7 +126,7 @@ Choose a workspace directory that is:
 ### 4. Optional Settings
 
 #### Analytics & Updates
-- Enable/disable usage analytics to track the performance of Specifai.
+- Enable/disable usage analytics to track the performance of Ace PDA.
 - Configure automatic updates.
 - Set up custom Langfuse analytics (optional).
 
@@ -137,14 +137,14 @@ Choose a workspace directory that is:
 ## ✅ Verification Steps
 
 Ensure your setup is complete by checking:
-1. Specifai launches without errors.
+1. Ace PDA launches without errors.
 2. Your chosen workspace is accessible.
 3. The AI model connection is working correctly.
 4. Analytics are configured as desired (if enabled).
 
 ## 🎉 Next Steps
 
-You're ready to start using Specifai! Here's what to do next:
+You're ready to start using Ace PDA! Here's what to do next:
 
 1.  **Create your first solution:**
     - Learn about solution structure.
@@ -180,9 +180,9 @@ Having issues? Check these common solutions:
 
 Need more help?
 - 📚 [Full Troubleshooting Guide](troubleshooting.md)
-- 🐛 [GitHub Issues](https://github.com/presidio-oss/specif-ai/issues)
-- 📧 Contact: hai-feedback@presidio.com
+- 🐛 [GitHub Issues](https://github.com/Jason-L-Cen/specif-ai/issues)
+- 💬 Feedback: https://github.com/Jason-L-Cen/specif-ai/issues
 
 ---
 
-Specifai is designed to make your development process smoother and more efficient. Don't hesitate to reach out if you need help getting started!
+Ace PDA is designed to make your development process smoother and more efficient. Don't hesitate to reach out if you need help getting started!

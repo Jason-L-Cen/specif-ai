@@ -1,6 +1,6 @@
 # Solution Creation & Management 🎯
 
-This guide walks you through creating, structuring, and managing solutions in Specifai.
+This guide walks you through creating, structuring, and managing solutions in Ace PDA.
 
 ## 🎯 Solution Creation
 
@@ -30,7 +30,7 @@ This guide walks you through creating, structuring, and managing solutions in Sp
         * **Infrastructure** (e.g., AWS, Azure)
     * **Is solution built already?**: Configure requirement generation preferences using this toggle.
         * **When enabled:** No requirements will be automatically generated, giving users more control over requirement creation.
-        * **When disabled:** Specifai starts fresh with new requirement generation based on the provided context.
+        * **When disabled:** Ace PDA starts fresh with new requirement generation based on the provided context.
 
 3.  **Configure Solution Preferences:**
     Set the minimum number of requirements (default: 15) to be generated for BRD, PRD, UIR, and NFR types. Adjust this based on your project's scope.
@@ -48,7 +48,7 @@ This guide walks you through creating, structuring, and managing solutions in Sp
 
 5.  **Create Solution Space:**
     * Click "**Create**" to initialize your solution with requirements and MCP configurations.
-    * Watch as Specifai sets up your workspace with AI-powered intelligence.
+    * Watch as Ace PDA sets up your workspace with AI-powered intelligence.
 
 ### Understanding Solution Structure
 Each solution follows a modular, scalable structure:
@@ -112,7 +112,7 @@ Each solution follows a modular, scalable structure:
 
 ## ✍️ Organizing and Refining Your Requirements
 
-Once your initial documents are generated, Specifai provides robust tools to organize and refine your requirements.
+Once your initial documents are generated, Ace PDA provides robust tools to organize and refine your requirements.
 
 ### 1. Adding Requirements
 * **Fill in Basic Details:**
@@ -161,7 +161,7 @@ Once your initial documents are generated, Specifai provides robust tools to org
 
 ## 🧠 Model Configuration
 
-Specifai offers flexible AI model configuration, allowing you to choose and connect to various powerful language models to best suit your project's needs.
+Ace PDA offers flexible AI model configuration, allowing you to choose and connect to various powerful language models to best suit your project's needs.
 
 > For detailed setup instructions, refer to our [Getting Started Guide](getting-started.md#3-ai-model-configuration-).
 
@@ -174,6 +174,6 @@ Specifai offers flexible AI model configuration, allowing you to choose and conn
 
 ---
 
-Need help? Check our [troubleshooting guide](troubleshooting.md) for quick solutions, or reach out to [support](mailto:hai-feedback@presidio.com) if you have any questions.
+Need help? Check our [troubleshooting guide](troubleshooting.md) for quick solutions, or reach out to [project issues](https://github.com/Jason-L-Cen/specif-ai/issues) if you have any questions.
 
-Specifai is continuously evolving to meet your needs—be sure to check our [release notes](https://github.com/presidio-oss/specif-ai/releases) for the latest features and improvements!
+Ace PDA is continuously evolving to meet your needs—be sure to check our [release notes](https://github.com/Jason-L-Cen/specif-ai/releases) for the latest features and improvements!

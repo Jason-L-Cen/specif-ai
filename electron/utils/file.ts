@@ -8,7 +8,7 @@ export const joinPaths = (...segments: string[]): string => {
 };
 
 export const getSpecifaiAppDataPath = () =>
-  `${app.getPath("appData")}/${app.getName()}`;
+  app.getPath("userData");
 
 export const ensureSettingsDirectoryExists = async () => {
   const settingsDir = path.join(getSpecifaiAppDataPath(), PATHS.APP_SETTINGS);

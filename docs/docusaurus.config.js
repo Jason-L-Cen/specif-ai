@@ -1,7 +1,7 @@
 // @ts-check
 const config = {
-  title: 'Specifai',
-  tagline: 'Accelerate your SDLC process with AI-powered intelligence.',
+  title: '爱思 产品研发助手',
+  tagline: 'Ace Product Development Assistant · Ace PDA',
   customFields: {
     subTagline:
       'Transform requirements into intelligent solutions with enterprise-grade AI.',
@@ -13,7 +13,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   organizationName: 'hai',
-  projectName: 'specifai',
+    projectName: 'specifai',
 
   i18n: {
     defaultLocale: 'en',
@@ -49,7 +49,7 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/presidio-oss/specif-ai/tree/main/docs/',
+          editUrl: 'https://github.com/Jason-L-Cen/specif-ai/tree/dev-JasonCen/docs/',
           routeBasePath: '/',
           sidebarCollapsible: true,
           sidebarCollapsed: false,
@@ -65,13 +65,13 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/specifai-social-card.jpg',
+      image: 'img/ace-pda.png',
       navbar: {
-        title: '',
+        title: 'Ace PDA',
         logo: {
-          alt: 'Specifai Logo',
-          src: 'img/hai-specif-ai-theme.svg',
-          srcDark: 'img/hai-specif-ai-light.svg',
+          alt: 'Ace PDA Logo',
+          src: 'img/ace.svg',
+          srcDark: 'img/ace_white.svg',
         },
         items: [
           {
@@ -81,7 +81,7 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'https://github.com/presidio-oss/specif-ai',
+            href: 'https://github.com/Jason-L-Cen/specif-ai',
             label: 'GitHub',
             position: 'right',
           },
@@ -129,24 +129,24 @@ const config = {
             ],
           },
           {
-            title: 'Presidio',
+            title: 'Ace PDA',
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/presidio-oss/specif-ai',
+                href: 'https://github.com/Jason-L-Cen/specif-ai',
               },
               {
-                label: 'LinkedIn',
-                href: 'https://www.linkedin.com/company/presidio-/',
+                label: 'Issues',
+                href: 'https://github.com/Jason-L-Cen/specif-ai/issues',
               },
               {
-                label: 'Support',
-                href: 'mailto:hai-feedback@presidio.com',
+                label: 'License',
+                href: 'https://github.com/Jason-L-Cen/specif-ai/blob/dev-JasonCen/LICENSE',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Presidio, Inc. • Made with ❤️ by the HAI team`,
+        copyright: 'Ace PDA · 原始开源版权信息见 MIT LICENSE',
       },
       prism: {
         theme: require('prism-react-renderer').themes.github,

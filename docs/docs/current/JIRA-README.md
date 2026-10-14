@@ -1,6 +1,6 @@
-# Jira OAuth 2.0 Integration Guide for Specifai
+# Jira OAuth 2.0 Integration Guide for Ace PDA
 
-This guide explains how to integrate the Specifai solution with Jira using OAuth 2.0. Follow these steps to create an OAuth app, configure permissions, and set up the integration.
+This guide explains how to integrate the Ace PDA solution with Jira using OAuth 2.0. Follow these steps to create an OAuth app, configure permissions, and set up the integration.
 
 ## Step 1: Create an OAuth 2.0 Integration
 
@@ -13,7 +13,7 @@ This guide explains how to integrate the Specifai solution with Jira using OAuth
 
    - Log in and click the **Create New App** button.
    - Select **OAuth 2.0 Integration** from the options.
-   - Enter a name for the app, such as "Specifai Integration."
+   - Enter a name for the app, such as "Ace PDA Integration."
    - Click **Create App** to proceed.
 
 3. **Navigate to the App Configuration:**
@@ -47,7 +47,7 @@ This guide explains how to integrate the Specifai solution with Jira using OAuth
 
 2. **Select OAuth 2.0 Authorization:**
 
-   - Choose **OAuth 2.0** as the authorization type to enable OAuth-based authentication between Jira and the Specifai.
+   - Choose **OAuth 2.0** as the authorization type to enable OAuth-based authentication between Jira and the Ace PDA.
 
 3. **Set the Callback URL:**
    - Enter the **Callback URL** for the Requirements app. This URL is where users will be redirected after authorizing the app.
@@ -69,7 +69,7 @@ This guide explains how to integrate the Specifai solution with Jira using OAuth
 
 ## Step 5: Configure Work Item Type Mapping (Optional)
 
-Specifai supports mapping between its document types and Jira issue types. The default mapping is:
+Ace PDA supports mapping between its document types and Jira issue types. The default mapping is:
 
 - **PRD (Product Requirements Document)** → **Epic**
 - **User Story** → **Story**
@@ -77,13 +77,13 @@ Specifai supports mapping between its document types and Jira issue types. The d
 
 If your Jira project uses different issue types, you can configure custom mappings in the integration settings.
 
-## Step 6: Set Up the Integration in Specifai
+## Step 6: Set Up the Integration in Ace PDA
 
 1. **Open the Integration Page:**
 
-   - Launch the Specifai application and navigate to your solution.
+   - Launch the Ace PDA application and navigate to your solution.
    - Go to **Solution** → **Integration** page.
-     ![Specifai JIRA Integration Form](../../static/img/specifai-jira-integration.png)
+     ![Ace PDA JIRA Integration Form](../../static/img/specifai-jira-integration.png)
 
 2. **Enter the OAuth Credentials:**
 
@@ -122,11 +122,11 @@ If your Jira project uses different issue types, you can configure custom mappin
 
 ## Step 8: Using the Jira Integration
 
-### Pull from Jira (Jira → Specifai)
+### Pull from Jira (Jira → Ace PDA)
 
 1. **Navigate to PRD Page:**
 
-   - Navigate to your PRD page in Specifai.
+   - Navigate to your PRD page in Ace PDA.
    - From the options menu, click **Pull from Jira**.
 
      ![Sync with Jira Option](../../static/img/specifai-sync-with-jira-option.png)
@@ -153,27 +153,27 @@ If your Jira project uses different issue types, you can configure custom mappin
 4. **Import Selected Items:**
 
    - Review your selections in the hierarchical tree.
-   - Click **Pull from Jira** to import the selected issues into Specifai.
-   - The system will create corresponding PRD, User Story, and Task files in your Specifai project.
+   - Click **Pull from Jira** to import the selected issues into Ace PDA.
+   - The system will create corresponding PRD, User Story, and Task files in your Ace PDA project.
 
    ![Post Jira Sync](../../static/img/specifai-post-jira-sync.png)
 
-### Push to Jira (Specifai → Jira)
+### Push to Jira (Ace PDA → Jira)
 
 1. **Select Items to Export:**
 
-   - Navigate to your PRD page in Specifai.
+   - Navigate to your PRD page in Ace PDA.
    - From the options menu, click **Push to Jira**.
 
 2. **Hierarchical Export Selection:**
 
-   - The system will display your Specifai documents in a hierarchical view:
+   - The system will display your Ace PDA documents in a hierarchical view:
      - **PRDs** (will become Epics)
      - **User Stories** (will become Stories)
      - **Tasks** (will become Tasks)
 
    ![Jira Push Selection Interface](../../static/img/specifai-jira-push-selection.png)
-   _Hierarchical view for selecting Specifai documents to push to Jira_
+   _Hierarchical view for selecting Ace PDA documents to push to Jira_
 
 3. **Choose Export Options:**
 

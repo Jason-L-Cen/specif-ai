@@ -443,12 +443,13 @@
           class="rounded-lg border border-secondary-200 divide-y divide-secondary-200 overflow-hidden"
         >
           <div class="px-4 py-3 flex items-center justify-between">
-            <span class="text-sm text-secondary-900"
-              >加速软件开发生命周期</span
-            >
+            <div>
+              <p class="text-sm font-semibold text-secondary-900">{{ themeConfiguration.appName }} · Ace PDA</p>
+              <p class="text-xs text-secondary-500">{{ themeConfiguration.appEnglishName }}</p>
+            </div>
             <img
               *ngIf="themeConfiguration.companyLogoColor.length > 0"
-              class="h-3 w-auto"
+              class="h-8 w-8"
               [src]="themeConfiguration.companyLogoColor"
               [alt]="themeConfiguration.companyName"
             />
@@ -463,9 +464,9 @@
             class="w-full px-4 py-3 text-sm text-secondary-600 flex items-center justify-between hover:bg-secondary-50"
             role="button"
             tabindex="0"
-            (click)="electronService.openExternalUrl('https://specifai.io/current')"
+            (click)="electronService.openExternalUrl('https://github.com/Jason-L-Cen/specif-ai/blob/dev-JasonCen/README.zh-CN.md')"
           >
-            <span class="text-sm text-secondary-900">Specifai 使用指南</span>
+            <span class="text-sm text-secondary-900">Ace PDA 使用指南</span>
             <svg
               width="20"
               height="20"

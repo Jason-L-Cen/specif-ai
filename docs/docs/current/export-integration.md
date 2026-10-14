@@ -1,6 +1,6 @@
 # Export & Integration Options 📤
 
-Specifai provides seamless options to share and integrate your generated requirements with all stakeholders and development teams. This guide covers the various export and integration capabilities available.
+Ace PDA provides seamless options to share and integrate your generated requirements with all stakeholders and development teams. This guide covers the various export and integration capabilities available.
 
 ## Export Options
 
@@ -33,13 +33,13 @@ Specifai provides seamless options to share and integrate your generated require
 ## Integration Options
 
 ### 1. Jira Sync
-Specifai provides robust bidirectional integration with Jira to synchronize your requirements and work items.
+Ace PDA provides robust bidirectional integration with Jira to synchronize your requirements and work items.
 
 #### Features:
 * **Push to Jira**: Send user stories, tasks, and requirements directly to Jira
-* **Pull from Jira**: Import existing Jira items into Specifai
+* **Pull from Jira**: Import existing Jira items into Ace PDA
 * **Maintain Hierarchy**: Preserve parent-child relationships between requirements
-* **Field Mapping**: Configurable mapping between Specifai and Jira fields
+* **Field Mapping**: Configurable mapping between Ace PDA and Jira fields
 
 #### How to Set Up:
 1. Configure Jira connection in Settings
@@ -57,7 +57,7 @@ Seamlessly synchronize your requirements with Azure DevOps projects.
 * **Push to ADO**: Send requirements, user stories, and tasks to Azure DevOps
 * **Pull from ADO**: Import existing work items from Azure DevOps
 * **Hierarchical Structure**: Automatically creates Features, Platform Features, and User Stories with proper relationships
-* **Customizable Field Mapping**: Map Specifai fields to your ADO instance configuration
+* **Customizable Field Mapping**: Map Ace PDA fields to your ADO instance configuration
 
 #### How to Set Up:
 1. Configure ADO connection in Settings
@@ -73,8 +73,8 @@ For detailed setup instructions, refer to our [Detailed Azure DevOps Setup](ADO-
 ## Best Practices for Integration
 
 ### 1. Regular Synchronization
-* Set up a regular schedule for synchronizing requirements between Specifai and integrated systems
-* Update Specifai before major planning sessions to ensure all systems reflect current state
+* Set up a regular schedule for synchronizing requirements between Ace PDA and integrated systems
+* Update Ace PDA before major planning sessions to ensure all systems reflect current state
 
 ### 2. Consistent Field Usage
 * Establish conventions for field usage to ensure consistent mapping
@@ -93,19 +93,19 @@ For detailed setup instructions, refer to our [Detailed Azure DevOps Setup](ADO-
 ## Integration Workflow Examples
 
 ### Agile Sprint Planning
-1. Generate user stories in Specifai
+1. Generate user stories in Ace PDA
 2. Refine and enhance stories with AI assistance
 3. Push selected stories to Jira/ADO for sprint planning
 4. Update story points and assignments in Jira/ADO
-5. Sync back to Specifai to maintain alignment
+5. Sync back to Ace PDA to maintain alignment
 
 ### Requirements Traceability
-1. Create BRDs and PRDs in Specifai
+1. Create BRDs and PRDs in Ace PDA
 2. Generate user stories from PRDs
 3. Push to Jira/ADO with maintained relationships
 4. Update implementation status in Jira/ADO
-5. Pull status updates back to Specifai for executive reporting
+5. Pull status updates back to Ace PDA for executive reporting
 
 ---
 
-For more information on creating and managing content in Specifai, see [Solution Creation & Management](solution-creation-management.md).
+For more information on creating and managing content in Ace PDA, see [Solution Creation & Management](solution-creation-management.md).

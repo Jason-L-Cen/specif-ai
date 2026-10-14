@@ -1,11 +1,11 @@
-# Core Features of Specifai 🌟
+# Core Features of Ace PDA 🌟
 
-This overview provides a high-level map of Specifai's core features and how they relate to each other.
+This overview provides a high-level map of Ace PDA's core features and how they relate to each other.
 
 ## Core Features at a Glance
 
 ### [1. Solution Creation & Management](solution-creation-management.md)
-The foundation of Specifai where you create, structure, and manage solutions.
+The foundation of Ace PDA where you create, structure, and manage solutions.
 - **Key Components**: Solution creation workflow, folder structure management, requirement organization tools
 - **When to Use**: At the beginning of a project or when structuring existing work
 
@@ -20,7 +20,7 @@ Tools for creating visual representations of business processes.
 - **Benefits**: Clarity, collaboration, process optimization, documentation
 
 ### [4. Intelligent Requirement Interaction](ai-interaction.md) ✨
-Natural language interfaces for interacting with Specifai.
+Natural language interfaces for interacting with Ace PDA.
 - **AI Chat**: Context-aware assistant for navigating and enhancing requirements
 - **Inline Editing**: AI-powered text improvement for any editable field
 
@@ -30,7 +30,7 @@ Automated generation of various document types using AI.
 - **Time-Saving**: Reduce manual effort while maintaining quality and consistency
 
 ### [6. Export & Integration Options](export-integration.md)
-Connect Specifai with your existing tools and workflows.
+Connect Ace PDA with your existing tools and workflows.
 - **Export Formats**: JSON, Excel
 - **Integrations**: JIRA, Azure DevOps
 - **Benefits**: Seamless workflow across tools, reduced duplication of effort
@@ -47,7 +47,7 @@ Connect Specifai with your existing tools and workflows.
 
 ## 🎉 Next Steps
 
-Ready to explore more with Specifai?
+Ready to explore more with Ace PDA?
 1.  Set up [integrations](integrations-setup.md) with your existing tools to connect your workflows.
-2.  Discover [advanced features](advanced-features.md) for power users who want to push Specifai to its limits.
-3.  Join our [community](https://github.com/presidio-oss/specif-ai/discussions) to ask questions, share feedback, and connect with other users.
+2.  Discover [advanced features](advanced-features.md) for power users who want to push Ace PDA to its limits.
+3.  Join our [community](https://github.com/Jason-L-Cen/specif-ai/discussions) to ask questions, share feedback, and connect with other users.

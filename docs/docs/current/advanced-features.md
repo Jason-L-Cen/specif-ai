@@ -1,6 +1,6 @@
-# Advanced Architecture of Specifai 🏗️
+# Advanced Architecture of Ace PDA 🏗️
 
-Understand the advanced architectural components and intelligent workflows that power Specifai's requirement generation.
+Understand the advanced architectural components and intelligent workflows that power Ace PDA's requirement generation.
 
 ---
 
@@ -18,12 +18,12 @@ This guide covers:
 
 ## 🏛️ Application Architecture
 
-Specifai is built as a robust Electron application, combining a modern frontend with a powerful backend.
+Ace PDA is built as a robust Electron application, combining a modern frontend with a powerful backend.
 
 <div align="center">
 
 ![Application Architecture](../../static/img/specifai-architecture.png)
-*Specifai's core architectural components*
+*Ace PDA's core architectural components*
 
 </div>
 
@@ -49,7 +49,7 @@ Specifai is built as a robust Electron application, combining a modern frontend 
 
 ## 🔄 Solution Creation Workflow
 
-Specifai's solution creation leverages an advanced agentic workflow, intelligently orchestrating data processing and document generation.
+Ace PDA's solution creation leverages an advanced agentic workflow, intelligently orchestrating data processing and document generation.
 
 <div align="center">
 
@@ -89,7 +89,7 @@ Within the Node.js backend, specialized agents collaborate to enhance context, r
 
 ## 📝 User Story Generation Process
 
-User Story generation in Specifai also follows a sophisticated agentic workflow, ensuring high-quality, contextually relevant outputs.
+User Story generation in Ace PDA also follows a sophisticated agentic workflow, ensuring high-quality, contextually relevant outputs.
 
 ### Flow Components
 
@@ -123,7 +123,7 @@ Test case generation ensures comprehensive coverage through intelligent AI agent
 
 ## 🎯 Strategic Initiative Workflow
 
-Strategic Initiative generation in Specifai leverages an advanced two-phase agentic workflow to create high-level organizational objectives that align technical efforts with business goals.
+Strategic Initiative generation in Ace PDA leverages an advanced two-phase agentic workflow to create high-level organizational objectives that align technical efforts with business goals.
 
 ### Workflow Architecture
 
@@ -165,7 +165,7 @@ The Strategic Initiative workflow includes support for external research URLs:
 
 ## 🛡️ Security and Safety
 
-Specifai integrates **hai-guardrails** throughout its architecture to ensure robust security and content safety, particularly within AI-driven workflows.
+Ace PDA integrates **hai-guardrails** throughout its architecture to ensure robust security and content safety, particularly within AI-driven workflows.
 
 ### Hai-Guardrails Integration
 
