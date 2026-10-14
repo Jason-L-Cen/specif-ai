@@ -450,6 +450,11 @@
   </div>
 
   <!-- Footer -->
+  <label *ngIf="data.pmoType === 'zentao' && action() === 'push' && connectionStatus().isConnected"
+    class="flex items-start gap-3 px-8 py-4 border-t border-gray-100 text-sm text-secondary-700">
+    <input type="checkbox" class="mt-1" [checked]="includeTestCases" (change)="includeTestCases = !includeTestCases" />
+    <span>同时推送所选用户故事下的测试用例，关联到禅道子需求。<small class="block text-secondary-500">仅同步用例设计，不执行测试。</small></span>
+  </label>
   <div
     class="flex flex-col sm:flex-row justify-end gap-3 px-8 py-6 border-t border-gray-100 bg-gray-50 rounded-b-2xl"
   >

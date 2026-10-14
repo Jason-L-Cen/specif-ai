@@ -15,6 +15,7 @@ import {
 } from "./handlers/content-generation-handler";
 import { setupJiraHandlers } from "./handlers/jira-handler";
 import { setupAdoHandlers } from "./handlers/ado-handler";
+import { setupZentaoHandlers } from "./handlers/zentao-handler";
 import { setupAppUpdateHandler } from "./handlers/app-update-handler";
 import { setupMcpHandlers } from "./handlers/mcp-handler";
 import { setupWorkflowHandlers } from "./handlers/workflow-handler";
@@ -354,6 +355,7 @@ app.whenReady().then(async () => {
     setupUIHandlers(indexPath, themeConfiguration);
     setupJiraHandlers(mainWindow);
     setupAdoHandlers();
+    setupZentaoHandlers();
     setupCoreHandlers();
     setupRequirementHandlers();
     setupVisualizationHandlers();

@@ -50,7 +50,7 @@ export class ExportDropdownComponent {
   @Input() disabled: boolean = false;
   @Input() options: DropdownOption[] = [];
   @Input() groupedOptions: DropdownOptionGroup[] = [];
-  @Input() buttonLabel: string = 'Options';  
+  @Input() buttonLabel: string = '更多操作';
 
   isOpen = false;
 

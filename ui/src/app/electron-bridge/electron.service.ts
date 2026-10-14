@@ -530,6 +530,14 @@ export class ElectronService {
     throw new Error('Electron 环境不可用');
   }
 
+  async zentao(channel: 'login' | 'disconnect' | 'operation', params: unknown): Promise<any> {
+    if (!this.electronAPI) throw new Error('Electron 环境不可用');
+    // Credentials go directly to the main process, outside request logging.
+    const result = await this.electronAPI.invoke(`zentao:${channel}`, params);
+    if (result?.error) throw new Error(result.error);
+    return result;
+  }
+
   async openDirectory(): Promise<Array<string>> {
     if (this.electronAPI) {
       return await this.electronAPI.openDirectory();

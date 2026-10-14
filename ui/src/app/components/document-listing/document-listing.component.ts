@@ -53,6 +53,7 @@ import {
 import { PmoIntegrationModalComponent } from '../pmo-integration-modal/pmo-integration-modal.component';
 import { AdoService } from '../../integrations/ado/ado.service';
 import { JiraService } from '../../integrations/jira/jira.service';
+import { ZentaoService } from '../../integrations/zentao/zentao.service';
 import { ElectronService } from 'src/app/electron-bridge/electron.service';
 import {
   heroArrowTopRightOnSquare,
@@ -143,6 +144,7 @@ export class DocumentListingComponent
     private dialog: MatDialog,
     private adoService: AdoService,
     private jiraService: JiraService,
+    private zentaoService: ZentaoService,
     private pmoUrlService: PmoUrlService,
   ) {
     this.currentRoute = this.router.url;
@@ -398,7 +400,7 @@ export class DocumentListingComponent
   private openPmoIntegrationModal(
     folderName: string,
     action: 'pull' | 'push',
-    pmoType: 'ado' | 'jira',
+    pmoType: 'ado' | 'jira' | 'zentao',
   ) {
     // Use the project ID from appInfo which is set from the folder metadata
     const projectId = this.appInfo?.id;
@@ -436,6 +438,8 @@ export class DocumentListingComponent
               result.selectedItems,
               this.appInfo,
             );
+          } else if (pmoType === 'zentao') {
+            void this.zentaoService.processZentaoSelectedItems(folderName, action, result.selectedItems, this.appInfo, result.includeTestCases);
           }
         }
       } else if (result?.configure) {
@@ -443,6 +447,8 @@ export class DocumentListingComponent
           this.adoService.navigateToAdoConfiguration(this.appInfo);
         } else if (pmoType === 'jira') {
           this.jiraService.navigateToJiraConfiguration(this.appInfo);
+        } else if (pmoType === 'zentao') {
+          this.zentaoService.navigateToPmoConfiguration(this.appInfo, 'zentao');
         }
       }
     });
@@ -477,6 +483,8 @@ export class DocumentListingComponent
       return 'assets/img/logo/azure_devops_logo.svg';
     } else if (selectedPmoTool === 'jira') {
       return 'assets/img/logo/mark_gradient_blue_jira.svg';
+    } else if (selectedPmoTool === 'zentao') {
+      return 'assets/img/logo/zentao.svg';
     }
 
     return null;
@@ -499,7 +507,7 @@ export class DocumentListingComponent
       );
     } catch (error) {
       this.toast.showError(
-        `无法打开 ${selectedPmoTool === 'ado' ? 'Azure DevOps' : 'Jira'} 工作项：${pmoId}`,
+        `无法打开 ${selectedPmoTool === 'ado' ? 'Azure DevOps' : selectedPmoTool === 'zentao' ? '禅道' : 'Jira'} 工作项：${pmoId}`,
       );
     }
   }
@@ -510,7 +518,8 @@ export class DocumentListingComponent
       return [];
     }
 
-    if (this.exportedFolderName === folderName) {
+    const cacheKey = `${folderName}:${this.appInfo?.integration?.selectedPmoTool || ''}`;
+    if (this.exportedFolderName === cacheKey) {
       return this.exportOptions;
     }
 
@@ -538,7 +547,7 @@ export class DocumentListingComponent
       this.pushToJira(folderName);
     };
 
-    this.exportedFolderName = folderName;
+    this.exportedFolderName = cacheKey;
     this.exportOptions = [
       {
         groupName: '导出',
@@ -604,6 +613,12 @@ export class DocumentListingComponent
           },
         ],
       });
+    }
+    if (this.appInfo?.integration?.selectedPmoTool === 'zentao' && this.selectedFolder.title === 'PRD') {
+      this.exportOptions.push({ groupName: '禅道', options: [
+        { label: '从禅道拉取', callback: () => this.openPmoIntegrationModal(folderName, 'pull', 'zentao'), icon: 'heroArrowDownTray', isTimestamp: true },
+        { label: '推送到禅道', callback: () => this.openPmoIntegrationModal(folderName, 'push', 'zentao'), icon: 'heroArrowUpTray', isTimestamp: true },
+      ] });
     }
     return this.exportOptions;
   }

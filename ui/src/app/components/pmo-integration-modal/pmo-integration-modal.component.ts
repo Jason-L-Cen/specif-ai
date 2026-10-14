@@ -33,7 +33,7 @@ import {
 interface PmoIntegrationData {
   projectId: string;
   folderName: string;
-  pmoType: 'ado' | 'jira';
+  pmoType: 'ado' | 'jira' | 'zentao';
   action?: 'pull' | 'push';
 }
 
@@ -87,6 +87,7 @@ export class PmoIntegrationModalComponent implements OnInit {
 
   // Select all state
   allItemsSelected = signal<boolean>(false);
+  includeTestCases = false;
 
   selectedCount = computed(
     () =>
@@ -325,6 +326,7 @@ export class PmoIntegrationModalComponent implements OnInit {
           folderName: this.data.folderName,
           selectedItems,
           pmoType: this.data.pmoType,
+          includeTestCases: this.includeTestCases,
         });
       } catch (error) {
         console.error('Error processing selected items:', error);

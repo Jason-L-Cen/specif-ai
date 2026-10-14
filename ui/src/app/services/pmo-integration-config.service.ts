@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { PmoIntegrationConfig } from '../types/pmo-integration.types';
 import { JiraIntegrationComponent } from '../components/pmo-integration/jira-integration/jira-integration.component';
 import { AdoIntegrationComponent } from '../components/pmo-integration/ado-integration/ado-integration.component';
+import { ZentaoIntegrationComponent } from '../components/pmo-integration/zentao-integration/zentao-integration.component';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,11 @@ export class PmoIntegrationConfigService {
       component: AdoIntegrationComponent,
       isEnabled: true,
       order: 2,
+    },
+    {
+      id: 'zentao', name: 'zentao', displayName: '禅道',
+      logoPath: './assets/img/logo/zentao.svg', component: ZentaoIntegrationComponent,
+      isEnabled: true, order: 3,
     },
   ];
 

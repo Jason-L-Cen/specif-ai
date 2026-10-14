@@ -1,6 +1,6 @@
 {
   "name": "ui",
-  "version": "2.8.2-zh.7",
+  "version": "2.8.2-zh.8",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,6 +9,7 @@
     "test:localization": "ng test --watch=false --browsers=ChromeHeadless --include=src/app/utils/requirement.utils.spec.ts --ts-config=tsconfig.localization-spec.json",
     "test:tech-stack": "ng test --watch=false --browsers=ChromeHeadless --include=src/app/pages/create-solution/technical-stack.spec.ts --ts-config=tsconfig.tech-stack-spec.json",
     "test:solution-form": "ng test --watch=false --browsers=ChromeHeadless --include=src/app/pages/create-solution/technical-stack.spec.ts --include=src/app/components/multi-upload/multi-upload.component.spec.ts --include=src/app/components/core/list-item/list-item.component.spec.ts --ts-config=tsconfig.tech-stack-spec.json",
+    "test:zentao": "ng test --watch=false --browsers=ChromeHeadless --include=src/app/integrations/zentao/zentao.service.spec.ts --ts-config=tsconfig.tech-stack-spec.json",
     "build:prod": "ng build --configuration production",
     "build:qa": "ng build --configuration qa",
     "build:dev": "ng build --configuration dev --base-href=./",

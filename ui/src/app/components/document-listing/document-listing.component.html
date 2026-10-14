@@ -85,7 +85,7 @@
                     '在 ' +
                     (appInfo?.integration?.selectedPmoTool === 'ado'
                       ? 'Azure DevOps'
-                      : 'Jira') + ' 中打开'
+                      : appInfo?.integration?.selectedPmoTool === 'zentao' ? '禅道' : 'Jira') + ' 中打开'
                   "
                 >
                   <img

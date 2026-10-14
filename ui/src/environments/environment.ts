@@ -5,7 +5,7 @@ export const environment = {
   ENABLE_SENTRY: false,
   DEBUG_MODE: true,
   JIRA_RATE_LIMIT_CONFIG: 9,
-  APP_VERSION: '2.8.2-zh.7',
+  APP_VERSION: '2.8.2-zh.8',
   ENABLE_POSTHOG: false,
   POSTHOG_KEY: '',
   POSTHOG_HOST: '',

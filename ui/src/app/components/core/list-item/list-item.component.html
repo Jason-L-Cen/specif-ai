@@ -17,7 +17,7 @@
               '在 ' +
               (payload.metadata?.integration?.selectedPmoTool === 'ado'
                 ? 'Azure DevOps'
-                : 'Jira') + ' 中打开'
+                : payload.metadata?.integration?.selectedPmoTool === 'zentao' ? '禅道' : 'Jira') + ' 中打开'
             "
           >
             <img

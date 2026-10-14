@@ -4,6 +4,7 @@
     "src/app/pages/create-solution/technical-stack.spec.ts",
     "src/app/components/multi-upload/multi-upload.component.spec.ts",
     "src/app/components/core/list-item/list-item.component.spec.ts",
+    "src/app/integrations/zentao/zentao.service.spec.ts",
     "src/**/*.d.ts"
   ]
 }

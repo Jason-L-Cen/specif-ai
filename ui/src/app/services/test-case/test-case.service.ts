@@ -8,7 +8,7 @@ import { joinPaths } from '../../utils/path.utils';
 import { Observable, from, map, of, throwError, firstValueFrom, BehaviorSubject } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
-import { UpdateFile, ArchiveFile } from '../../store/projects/projects.actions';
+import { ArchiveFile } from '../../store/projects/projects.actions';
 import { RequirementIdService } from '../requirement-id.service';
 import { IUserStory } from '../../model/interfaces/IUserStory';
 import { CardStatusIndicator, CardBadge } from '../../components/unified-card/unified-card.component';
@@ -261,8 +261,9 @@ export class TestCaseService {
    * @returns An observable that completes when the test case is updated
    */
   private updateTestCase(projectId: string, userStoryId: string, testCase: ITestCase): Observable<void> {
-    const path = joinPaths(REQUIREMENT_TYPE.TC, userStoryId, `${testCase.id}-base.json`);
-    return this.store.dispatch(new UpdateFile(path, testCase)).pipe(
+    const path = this.getTestCaseFilePath(projectId, userStoryId, testCase.id);
+    return this.getTestCase(projectId, userStoryId, testCase.id).pipe(
+      switchMap(existing => from(this.appSystemService.createFileWithContent(path, JSON.stringify({ ...existing, ...testCase })))),
       map(() => {}),
       catchError(error => {
         this.logger.error(`Error updating test case ${testCase.id}:`, error);

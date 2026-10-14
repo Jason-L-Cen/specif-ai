@@ -11,6 +11,7 @@ import { NGXLogger } from 'ngx-logger';
 const PMO_TYPES = {
   JIRA: 'jira',
   ADO: 'ado',
+  ZENTAO: 'zentao',
 } as const;
 
 type PmoType = (typeof PMO_TYPES)[keyof typeof PMO_TYPES];
@@ -24,7 +25,7 @@ interface UrlGenerator {
   providedIn: 'root',
 })
 export class PmoUrlService {
-  private readonly urlGenerators: Record<PmoType, UrlGenerator> = {
+  private readonly urlGenerators: Partial<Record<PmoType, UrlGenerator>> = {
     [PMO_TYPES.JIRA]: {
       validateCredentials: (credentials: JiraCredentials) =>
         Boolean(credentials?.baseUrl?.trim()),
@@ -65,6 +66,16 @@ export class PmoUrlService {
     }
 
     try {
+      if (pmoType === 'zentao') {
+        const match = pmoId.match(/^ZT-([STC])([1-9]\d*)$/);
+        const baseUrl = projectMetadata.integration?.zentao?.baseUrl;
+        if (!match || !baseUrl) return null;
+        const url = new URL(`${baseUrl.replace(/\/$/, '')}/index.php`);
+        if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) return null;
+        const module = ({ S: 'story', T: 'task', C: 'testcase' } as Record<string, string>)[match[1]];
+        url.search = new URLSearchParams({ m: module, f: 'view', [`${module === 'testcase' ? 'case' : module}ID`]: match[2] }).toString();
+        return url.toString();
+      }
       const credentials = await this.getCredentials(pmoType, projectMetadata);
       return this.buildUrlFromCredentials(pmoType, credentials, pmoId);
     } catch (error) {
@@ -115,6 +126,7 @@ export class PmoUrlService {
     projectMetadata: IProjectMetadata,
   ): Promise<boolean> {
     try {
+      if (pmoType === 'zentao') return Boolean(projectMetadata.integration?.zentao?.baseUrl);
       const credentials = await this.getCredentials(pmoType, projectMetadata);
       const generator = this.urlGenerators[pmoType];
       return generator?.validateCredentials(credentials) ?? false;
@@ -147,6 +159,7 @@ export class PmoUrlService {
     pmoType: PmoType,
     projectMetadata: IProjectMetadata,
   ): Promise<JiraCredentials | AdoCredentials | null> {
+    if (pmoType === 'zentao') return null;
     return this.integrationCredService.getCredentials(
       projectMetadata.name,
       projectMetadata.id,

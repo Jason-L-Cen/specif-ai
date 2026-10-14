@@ -44,6 +44,8 @@ export class ListItemComponent {
       return 'assets/img/logo/azure_devops_logo.svg';
     } else if (selectedPmoTool === 'jira') {
       return 'assets/img/logo/mark_gradient_blue_jira.svg';
+    } else if (selectedPmoTool === 'zentao') {
+      return 'assets/img/logo/zentao.svg';
     }
 
     return null;
@@ -62,12 +64,12 @@ export class ListItemComponent {
     try {
       await this.pmoUrlService.openPmoItem(
         pmoId,
-        selectedPmoTool as 'jira' | 'ado',
+        selectedPmoTool as 'jira' | 'ado' | 'zentao',
         this.payload.metadata,
       );
     } catch (error) {
       this.toast.showError(
-        `无法打开 ${selectedPmoTool === 'ado' ? 'Azure DevOps' : 'Jira'} 工作项：${pmoId}`,
+        `无法打开 ${selectedPmoTool === 'ado' ? 'Azure DevOps' : selectedPmoTool === 'zentao' ? '禅道' : 'Jira'} 工作项：${pmoId}`,
       );
     }
   }

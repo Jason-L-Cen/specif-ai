@@ -37,6 +37,8 @@ export interface ITestCaseStep {
 }
 
 export interface ITestCase {
+  pmoId?: string;
+  pmoIssueType?: string;
   id: string;
   title: string;
   description: string;

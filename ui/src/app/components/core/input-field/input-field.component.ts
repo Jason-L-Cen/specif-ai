@@ -33,6 +33,7 @@ export class InputFieldComponent implements ControlValueAccessor {
   isDisabled: boolean = false;
 
   onChange(target: any) {
+    this.value = target.value;
     this.onValueChangeFn(target.value);
     this.onTouchFn();
   }

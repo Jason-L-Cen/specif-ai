@@ -1,6 +1,6 @@
 {
   "name": "specif_ai",
-  "version": "2.8.2-zh.7",
+  "version": "2.8.2-zh.8",
   "description": "Ace Product Development Assistant（Ace PDA）— 爱思 产品研发助手，支持 DeepSeek 的中文 AI 需求管理平台",
   "productName": "Ace PDA",
   "main": "build/app.js",

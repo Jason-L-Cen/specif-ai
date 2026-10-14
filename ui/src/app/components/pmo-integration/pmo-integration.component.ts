@@ -14,6 +14,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AccordionComponent } from '../accordion/accordion.component';
 import { JiraIntegrationComponent } from './jira-integration/jira-integration.component';
 import { AdoIntegrationComponent } from './ado-integration/ado-integration.component';
+import { ZentaoIntegrationComponent } from './zentao-integration/zentao-integration.component';
 import { PmoIntegrationConfigService } from '../../services/pmo-integration-config.service';
 import {
   PmoIntegrationConfig,
@@ -34,6 +35,7 @@ import { IProjectMetadata } from '../../model/interfaces/projects.interface';
     AccordionComponent,
     JiraIntegrationComponent,
     AdoIntegrationComponent,
+    ZentaoIntegrationComponent,
   ],
 })
 export class PmoIntegrationComponent implements OnInit, OnDestroy {

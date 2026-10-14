@@ -42,6 +42,16 @@ export interface AdoIntegrationConfig extends Partial<AdoCredentials> {
   readonly workItemTypeMapping: WorkItemTypeMapping;
 }
 
+export interface ZentaoIntegrationConfig {
+  baseUrl: string;
+  account: string;
+  productId: number;
+  productName: string;
+  executionId: number;
+  executionName: string;
+  reviewer: string;
+}
+
 export interface IProjectMetadata {
   id: string;
   name: string;
@@ -63,6 +73,7 @@ export interface IProjectMetadata {
     selectedPmoTool?: string;
     jira?: JiraIntegrationConfig;
     ado?: AdoIntegrationConfig;
+    zentao?: ZentaoIntegrationConfig;
   };
   isFailed?: boolean;
   failureInfo?: WorkflowErrorEvent;
