@@ -1,6 +1,6 @@
 {
   "name": "specif_ai",
-  "version": "2.8.2-zh.3",
+  "version": "2.8.2-zh.5",
   "description": "支持 DeepSeek 的中文 AI 需求管理与规格说明平台",
   "productName": "Specif AI",
   "main": "build/app.js",
@@ -20,7 +20,7 @@
     "watch:ui": "concurrently \"npm run build-watch:ui\" \"onchange '../ui/dist/**/*' -- cp -r ../ui/dist/* ./\""
   },
   "engines": {
-    "node": ">=18.17"
+    "node": ">=22.13"
   },
   "author": "presidio",
   "license": "ISC",
@@ -75,7 +75,9 @@
     "mammoth": "^1.9.1",
     "node-fetch": "^3.3.2",
     "openai": "^4.87.4",
+    "pdfjs-dist": "6.4.299",
     "shell-path": "^3.0.0",
+    "unpdf": "1.8.1",
     "zod": "^3.24.2"
   },
   "build": {

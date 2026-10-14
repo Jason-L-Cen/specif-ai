@@ -61,20 +61,25 @@
             ></label
           >
           <p class="text-xs leading-6 text-muted-foreground">
-            用几句话描述你的想法
+            手动填写，或添加多份文件作为描述，可同时使用
           </p>
         </div>
         <div class="mt-2 sm:col-span-2 sm:mt-0">
           <app-textarea-field
-            formControlName="description"
+            [formControl]="descriptionText"
             elementId="solution-description"
             elementName="解决方案描述"
-            elementPlaceHolder="解决方案描述"
+            elementPlaceHolder="填写解决方案概述，或使用下方文件提供描述"
             [showLabel]="false"
             [rows]="4"
-            [required]="true"
+            [required]="false"
           />
           <app-error-message [errorControl]="solutionForm.get('description')" />
+          <app-multi-upload [documents]="true" (fileContent)="onDescriptionFiles($event)"
+            (loadingChange)="descriptionImporting = $event" />
+          <p id="description-size" class="mt-2 text-xs leading-5 text-muted-foreground">用于生成的描述：{{ descriptionCharacterCount }} 字符</p>
+          <p *ngIf="descriptionCharacterCount > 10000" id="description-length-hint" role="status"
+            class="text-xs leading-5 text-amber-700">正文较长，生成可能较慢。Demo 建议使用精简材料，保留核心业务和关键规则。</p>
         </div>
       </div>
 

@@ -209,6 +209,44 @@ describe('技术细节填写与提交', () => {
     expect(component.technicalStackForm.controls.framework.value).toBe('');
     expect(component.isCreateSolutionDisabled).toBeTrue();
   });
+
+  it('仅上传文件也能提供描述，实际请求保留各份正文和来源文件名', async () => {
+    component.setTechnicalDetailsMode('none');
+    component.onDescriptionFiles('业务需求.docx\n\n支持审批与审计。\n\n流程说明.pdf\n\n审批通过后通知申请人。');
+    expect(component.isCreateSolutionDisabled).toBeFalse();
+    await component.createSolution();
+    const description = createProject.calls.mostRecent().args[0].projectData.description;
+    expect(description).toContain('业务需求.docx');
+    expect(description).toContain('支持审批与审计。');
+    expect(description).toContain('流程说明.pdf');
+    expect(description).toContain('审批通过后通知申请人。');
+  });
+
+  it('添加和移除附件不会改写手动输入，移除最后一份后正确校验描述', () => {
+    component.setTechnicalDetailsMode('none');
+    const manual = '补充说明\n保留原有业务规则。';
+    component.descriptionText.setValue(manual);
+    component.onDescriptionFiles('需求.md\n\n文件正文');
+    expect(component.solutionForm.get('description')?.value).toContain(manual);
+    expect(component.descriptionText.value).toBe(manual);
+    component.onDescriptionFiles('');
+    expect(component.solutionForm.get('description')?.value).toBe(manual);
+    expect(component.isCreateSolutionDisabled).toBeFalse();
+    component.descriptionText.setValue('   ');
+    expect(component.isCreateSolutionDisabled).toBeTrue();
+  });
+
+  it('读取期间禁止创建，读取完成后使用完整文件正文', async () => {
+    chooseWebStack();
+    component.descriptionImporting = true;
+    expect(component.isCreateSolutionDisabled).toBeTrue();
+    await component.createSolution();
+    expect(createProject).not.toHaveBeenCalled();
+    component.onDescriptionFiles('需求.txt\n\n完整正文');
+    component.descriptionImporting = false;
+    await component.createSolution();
+    expect(createProject.calls.mostRecent().args[0].projectData.description).toContain('完整正文');
+  });
 });
 
 describe('级联菜单与输入框交互', () => {
@@ -228,6 +266,17 @@ describe('级联菜单与输入框交互', () => {
     const fixture = TestBed.createComponent(CreateSolutionComponent);
     fixture.detectChanges();
     const component = fixture.componentInstance;
+    component.descriptionText.setValue('手写说明');
+    component.onDescriptionFiles('需求.txt\n\n' + '长'.repeat(10001));
+    fixture.detectChanges();
+    const description: HTMLTextAreaElement = fixture.nativeElement.querySelector('#solution-description');
+    expect(description.required).toBeFalse();
+    expect(fixture.nativeElement.querySelector('#description-size').textContent).toContain(String(component.solutionForm.get('description')?.value.length));
+    expect(fixture.nativeElement.querySelector('#description-length-hint').textContent).toContain('生成可能较慢');
+    component.onDescriptionFiles('');
+    fixture.detectChanges();
+    expect(description.value).toBe('手写说明');
+    expect(fixture.nativeElement.querySelector('#description-length-hint')).toBeNull();
     const menu = await TestbedHarnessEnvironment.loader(fixture).getHarness(MatMenuHarness.with({ selector: '#technical-stack-selector' }));
     await menu.open();
     const architecture = (await menu.getItems({ text: '移动 App' }))[0];
