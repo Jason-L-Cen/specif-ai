@@ -37,8 +37,7 @@ jobs:
       - name: Rename files with consistent naming convention
         run: |
           VERSION="${{ inputs.version }}"
-          APP_NAME="Specif-AI"
-          APP_SETUP_NAME="${APP_NAME}-Setup"
+          APP_NAME="Ace PDA"
           echo "Creating consistently named assets for version $VERSION"
 
           # Create directory for renamed files
@@ -56,8 +55,8 @@ jobs:
           # Move Windows exe file
           WIN_EXE=$(find release-assets/windows -name "*Setup*.exe" -type f | head -1)
           if [[ -n "$WIN_EXE" ]]; then
-            cp "$WIN_EXE" "renamed-assets/${APP_SETUP_NAME}-${VERSION}.exe"
-            echo "✅ Created Windows installer: ${APP_SETUP_NAME}-${VERSION}.exe"
+            cp "$WIN_EXE" "renamed-assets/$(basename "$WIN_EXE")"
+            echo "✅ Copied Windows installer: $(basename "$WIN_EXE")"
           else
             echo "❌ No Windows installer found"
           fi
@@ -65,8 +64,8 @@ jobs:
           # Move Windows blockmap file
           WIN_BLOCKMAP=$(find release-assets/windows -name "*Setup*.exe.blockmap" -type f | head -1)
           if [[ -n "$WIN_BLOCKMAP" ]]; then
-            cp "$WIN_BLOCKMAP" "renamed-assets/${APP_SETUP_NAME}-${VERSION}.exe.blockmap"
-            echo "✅ Created Windows blockmap: ${APP_SETUP_NAME}-${VERSION}.exe.blockmap"
+            cp "$WIN_BLOCKMAP" "renamed-assets/$(basename "$WIN_BLOCKMAP")"
+            echo "✅ Copied Windows blockmap: $(basename "$WIN_BLOCKMAP")"
           else
             echo "❌ No Windows blockmap found"
           fi
@@ -78,8 +77,8 @@ jobs:
           shopt -s nullglob
 
           for dir in release-assets/macos-intel release-assets/macos-arm64; do
-              for file in "$dir"/Specif\ AI-*; do
-                  new_name="renamed-assets/$(basename "$file" | sed "s/Specif AI/${APP_NAME}/g")"
+              for file in "$dir"/Ace\ PDA-*; do
+                  new_name="renamed-assets/$(basename "$file")"
                   mv "$file" "$new_name"
                   echo "Moved and Renamed: $file → $new_name"
               done

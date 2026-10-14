@@ -201,7 +201,7 @@ jobs:
                             },
                             {
                               \"type\": \"TextBlock\",
-                              \"text\": \"Specifai v${BUILD_VERSION}\",
+                              \"text\": \"Ace PDA v${BUILD_VERSION}\",
                               \"size\": \"Small\",
                               \"isSubtle\": true
                             }
