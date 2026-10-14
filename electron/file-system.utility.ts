@@ -2,6 +2,7 @@ import { t as appText } from "./services/language";
 import * as fs from "fs";
 import * as pathModule from "path";
 import { promises as fsPromise } from "fs";
+import { StringDecoder } from "string_decoder";
 
 interface DirectoryMetadata {
   [key: string]: any;
@@ -266,6 +267,7 @@ function readFileChunk(
   const { path, filterString } = param;
   const CHUNK_SIZE = 600;
   const buffer = Buffer.alloc(CHUNK_SIZE);
+  const decoder = new StringDecoder('utf8');
   let accumulatedData = "";
   let dataExtracted: FileChunk = { requirement: null, title: null, pmoId: null };
   const fileName = path.split("/").pop() || "";
@@ -337,7 +339,7 @@ function readFileChunk(
             return;
           }
 
-          const chunk = buffer.slice(0, nread).toString();
+          const chunk = decoder.write(buffer.subarray(0, nread));
           accumulatedData += chunk;
           tryParse();
 
