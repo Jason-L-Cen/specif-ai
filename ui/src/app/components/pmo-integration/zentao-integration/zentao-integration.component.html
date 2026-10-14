@@ -1,44 +1,44 @@
 <form [formGroup]="form" class="space-y-6" novalidate (submit)="$event.preventDefault()">
-  <p class="text-sm text-secondary-500">连接本地或远程禅道，将选定的需求、用户故事和任务同步到产品与执行中。支持禅道 API v2。</p>
+  <p class="text-sm text-secondary-500">{{ "连接本地或远程禅道，将选定的需求、用户故事和任务同步到产品与执行中。支持禅道 API v2。" | i18n }}</p>
   <div class="rounded-lg border border-secondary-200 bg-secondary-50 p-4 text-sm text-secondary-700 space-y-2">
-    <p>产品需求 → 父软件需求　／　用户故事 → 子软件需求　／　任务 → 执行任务</p>
-    <p>勾选“同时推送测试用例”后，用例将关联到对应的子软件需求。同步用例设计，不执行测试。</p>
+    <p>{{ "产品需求 → 父软件需求 ／ 用户故事 → 子软件需求 ／ 任务 → 执行任务" | i18n }}</p>
+    <p>{{ "勾选“同时推送测试用例”后，用例将关联到对应的子软件需求。同步用例设计，不执行测试。" | i18n }}</p>
   </div>
-  <app-input-field formControlName="baseUrl" elementId="zentaoBaseUrl" elementName="禅道服务器地址" elementPlaceHolder="如 https://zentao.example.com 或 http://zentao.localhost:1355" [required]="true" />
-  <p class="text-xs text-secondary-500">填写站点根地址；安装在子目录时需保留子目录。远程服务器建议使用 HTTPS。</p>
+  <app-input-field formControlName="baseUrl" elementId="zentaoBaseUrl" [elementName]="&quot;禅道服务器地址&quot; | i18n" [elementPlaceHolder]="&quot;如 https://zentao.example.com 或 http://zentao.localhost:1355&quot; | i18n" [required]="true" />
+  <p class="text-xs text-secondary-500">{{ "填写站点根地址；安装在子目录时需保留子目录。远程服务器建议使用 HTTPS。" | i18n }}</p>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <app-input-field formControlName="account" elementId="zentaoAccount" elementName="禅道账号" elementPlaceHolder="具有产品、需求、任务及用例权限的账号" [required]="true" />
-    <app-input-field formControlName="password" elementId="zentaoPassword" elementName="密码" elementType="password" elementPlaceHolder="仅用于登录，不写入项目文件" />
+    <app-input-field formControlName="account" elementId="zentaoAccount" [elementName]="&quot;禅道账号&quot; | i18n" [elementPlaceHolder]="&quot;具有产品、需求、任务及用例权限的账号&quot; | i18n" [required]="true" />
+    <app-input-field formControlName="password" elementId="zentaoPassword" [elementName]="&quot;密码&quot; | i18n" elementType="password" [elementPlaceHolder]="&quot;仅用于登录，不写入项目文件&quot; | i18n" />
   </div>
   <div *ngIf="!isConnected()" class="flex justify-end">
-    <app-button buttonContent="登录并加载产品" size="sm" theme="secondary" [disabled]="isProcessing()" (click)="onLogin()" />
+    <app-button [buttonContent]="&quot;登录并加载产品&quot; | i18n" size="sm" theme="secondary" [disabled]="isProcessing()" (click)="onLogin()" />
   </div>
   <div *ngIf="loggedIn() || saved" class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label for="zentaoProduct" class="block text-sm font-medium text-secondary-700 mb-2">禅道产品 <span class="text-red-500">*</span></label>
+      <label for="zentaoProduct" class="block text-sm font-medium text-secondary-700 mb-2">{{ "禅道产品" | i18n }} <span class="text-red-500">*</span></label>
       <select id="zentaoProduct" formControlName="productId" class="w-full rounded-lg border border-secondary-200 p-3 bg-white disabled:bg-secondary-50">
-        <option [ngValue]="0">请选择产品</option>
+        <option [ngValue]="0">{{ "请选择产品" | i18n }}</option>
         <option *ngFor="let product of products" [ngValue]="product.id">{{ product.name }}（{{ product.id }}）</option>
       </select>
-      <p *ngIf="loggedIn() && !products.length" class="mt-2 text-sm text-amber-700">禅道中暂无可选产品，请先在禅道创建产品，再重新登录加载。</p>
+      <p *ngIf="loggedIn() && !products.length" class="mt-2 text-sm text-amber-700">{{ "禅道中暂无可选产品，请先在禅道创建产品，再重新登录加载。" | i18n }}</p>
     </div>
     <div>
-      <label for="zentaoExecution" class="block text-sm font-medium text-secondary-700 mb-2">禅道执行（同步任务时需要）</label>
+      <label for="zentaoExecution" class="block text-sm font-medium text-secondary-700 mb-2">{{ "禅道执行（同步任务时需要）" | i18n }}</label>
       <select id="zentaoExecution" formControlName="executionId" class="w-full rounded-lg border border-secondary-200 p-3 bg-white disabled:bg-secondary-50">
-        <option [ngValue]="0">暂不指定执行，仅同步需求和用例</option>
+        <option [ngValue]="0">{{ "暂不指定执行，仅同步需求和用例" | i18n }}</option>
         <option *ngFor="let execution of executions" [ngValue]="execution.id">{{ execution.name }}（{{ execution.id }}）</option>
       </select>
-      <p class="mt-2 text-xs text-secondary-500">所选执行须已在禅道中关联上方产品。</p>
+      <p class="mt-2 text-xs text-secondary-500">{{ "所选执行须已在禅道中关联上方产品。" | i18n }}</p>
     </div>
   </div>
   <div *ngIf="loggedIn() || saved">
-    <app-input-field formControlName="reviewer" elementId="zentaoReviewer" elementName="需求评审人（禅道账号）" elementPlaceHolder="默认使用登录账号，可填写实际评审人账号" [required]="true" />
-    <p class="text-xs text-secondary-500">新需求以草稿创建；后续变更遵循禅道的评审设置。</p>
+    <app-input-field formControlName="reviewer" elementId="zentaoReviewer" [elementName]="&quot;需求评审人（禅道账号）&quot; | i18n" [elementPlaceHolder]="&quot;默认使用登录账号，可填写实际评审人账号&quot; | i18n" [required]="true" />
+    <p class="text-xs text-secondary-500">{{ "新需求以草稿创建；后续变更遵循禅道的评审设置。" | i18n }}</p>
   </div>
-  <p *ngIf="saved" class="text-xs text-secondary-500">该解决方案已绑定此服务器、产品和执行；重新登录保留绑定，避免已有工作项关联到其他位置。</p>
+  <p *ngIf="saved" class="text-xs text-secondary-500">{{ "该解决方案已绑定此服务器、产品和执行；重新登录保留绑定，避免已有工作项关联到其他位置。" | i18n }}</p>
   <p *ngIf="error()" role="alert" class="text-sm text-red-600">{{ error() }}</p>
   <div class="flex justify-end">
-    <app-button *ngIf="isConnected()" buttonContent="断开连接" theme="danger" size="sm" [disabled]="isProcessing()" (click)="onDisconnect()" />
-    <app-button *ngIf="!isConnected() && loggedIn() && !saved" buttonContent="保存连接" size="sm" [disabled]="isProcessing() || !form.valid" (click)="onConnect()" />
+    <app-button *ngIf="isConnected()" [buttonContent]="&quot;断开连接&quot; | i18n" theme="danger" size="sm" [disabled]="isProcessing()" (click)="onDisconnect()" />
+    <app-button *ngIf="!isConnected() && loggedIn() && !saved" [buttonContent]="&quot;保存连接&quot; | i18n" size="sm" [disabled]="isProcessing() || !form.valid" (click)="onConnect()" />
   </div>
 </form>

@@ -1,4 +1,4 @@
-import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../context/markdown-rules";
+import { getOutputLanguageInstructions } from "../../context/markdown-rules";
 interface EvaluatePromptParams {
   reqName: string;
   reqDesc: string;
@@ -10,7 +10,7 @@ export function evaluatePrompt({
   reqDesc,
   features
 }: EvaluatePromptParams): string {
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
 # INSTRUCTIONS
 As a Business Analyst, your task is to evaluate the following feature names against the original requirements and decide whether the feedback is needed.

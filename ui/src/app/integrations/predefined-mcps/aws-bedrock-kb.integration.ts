@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import {
   PredefinedMCPIntegration,
   FormField,
@@ -8,29 +9,29 @@ import { McpServerOptionsSchema } from '../../shared/mcp-schemas';
 const awsBedrockKbFormFields: FormField[] = [
   {
     type: 'text',
-    label: 'AWS 配置名称',
+    label: uiText("AWS 配置名称"),
     name: 'awsProfile',
     id: 'aws-profile',
-    helpText: 'AWS 凭据文件中的配置名称。',
+    helpText: uiText("AWS 凭据文件中的配置名称。"),
     required: true,
   },
   {
     type: 'text',
-    label: 'AWS 区域',
+    label: uiText("AWS 区域"),
     name: 'awsRegion',
     id: 'aws-region',
     helpText:
-      'Bedrock 知识库所在的 AWS 区域，例如 us-east-1。',
+      uiText("Bedrock 知识库所在的 AWS 区域，例如 us-east-1。"),
     required: true,
     default: 'us-east-1',
   },
   {
     type: 'text',
-    label: '知识库筛选标签键',
+    label: uiText("知识库筛选标签键"),
     name: 'kbInclusionTagKey',
     id: 'kb-inclusion-tag-key',
     helpText:
-      '指定标签键，用于筛选允许访问的知识库。',
+      uiText("指定标签键，用于筛选允许访问的知识库。"),
     required: true,
     default: 'specif-mcp-rag-kb',
   },
@@ -40,8 +41,8 @@ export const AWS_BEDROCK_KB_INTEGRATION: PredefinedMCPIntegration<
   typeof awsBedrockKbFormFields
 > = {
   id: 'specif_awslabs.bedrock-kb-retrieval-mcp-server',
-  title: 'AWS Bedrock 知识库',
-  description: '连接到 AWS Bedrock 知识库检索服务器。',
+  title: uiText("AWS Bedrock 知识库"),
+  description: uiText("连接到 AWS Bedrock 知识库检索服务器。"),
   iconPath: './assets/img/logo/aws_dark_bg_transparent_logo.svg',
   readmeUrl: 'https://github.com/awslabs/mcp/tree/main/src/bedrock-kb-retrieval-mcp-server',
   formFields: awsBedrockKbFormFields,
@@ -61,7 +62,7 @@ export const AWS_BEDROCK_KB_INTEGRATION: PredefinedMCPIntegration<
       env: envVars,
       disabled: false,
       metadata: {},
-      name: "AWS Bedrock 知识库"
+      name: uiText("AWS Bedrock 知识库")
     };
 
     // Validate the constructed config against the schema
@@ -74,7 +75,7 @@ export const AWS_BEDROCK_KB_INTEGRATION: PredefinedMCPIntegration<
       );
 
       throw new Error(
-        '生成的 AWS Bedrock 知识库 MCP 配置无效。',
+        uiText("生成的 AWS Bedrock 知识库 MCP 配置无效。"),
       );
     }
 

@@ -1,3 +1,4 @@
+import { t as appText } from "../../services/language";
 import { IpcMainInvokeEvent } from "electron";
 import { v4 as uuidv4 } from "uuid";
 import { InlineEditPayload, InlineEditResponse } from "../../schema/core/inline-edit.schema";
@@ -27,7 +28,7 @@ export async function inlineEditWithAI(
     // Get LLM configuration
     const llmConfig = store.get<LLMConfigModel>('llmConfig');
     if (!llmConfig) {
-      throw new Error('未找到大语言模型配置');
+      throw new Error(appText("未找到大语言模型配置"));
     }
     
     // Create the model provider
@@ -97,7 +98,7 @@ export async function inlineEditWithAI(
       requestId: payload.requestId || uuidv4(),
       editedText: "",
       success: false,
-      error: error.message || "无法生成修改后的文本",
+      error: error.message || appText("无法生成修改后的文本"),
     };
   }
 }

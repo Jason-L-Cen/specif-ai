@@ -1,3 +1,4 @@
+import { t as appText } from "../../services/language";
 import { chatUpdateRequirementSchema, type ChatUpdateRequirementResponse } from '../../schema/requirement/chat.schema';
 import { LLMUtils } from '../../services/llm/llm-utils';
 import { buildLLMHandler } from '../../services/llm';
@@ -14,7 +15,7 @@ export async function chatUpdateRequirement(event: IpcMainInvokeEvent, data: unk
   try {
     const llmConfig = store.get<LLMConfigModel>('llmConfig');
     if (!llmConfig) {
-      throw new Error('未找到大语言模型配置');
+      throw new Error(appText("未找到大语言模型配置"));
     }
 
     console.log('[chat-update-requirement] Using LLM config:', llmConfig);
@@ -48,7 +49,7 @@ export async function chatUpdateRequirement(event: IpcMainInvokeEvent, data: unk
     let basePrompt = prompt;
     if (knowledgeBase) {
       if (!bedrockConfig) {
-        throw new Error('使用知识库时需要配置 Bedrock');
+        throw new Error(appText("使用知识库时需要配置 Bedrock"));
       }
       basePrompt = await LLMUtils.generateKnowledgeBasePromptConstraint(
         knowledgeBase,
@@ -76,12 +77,12 @@ export async function chatUpdateRequirement(event: IpcMainInvokeEvent, data: unk
       const cleanedResponse = repairJSON(response);
       const parsed = JSON.parse(cleanedResponse);
       if (!parsed.response) {
-        throw new Error('响应结构无效');
+        throw new Error(appText("响应结构无效"));
       }
       result = parsed;
     } catch (error) {
       console.error('[chat-update-requirement] Error parsing LLM response:', error);
-      throw new Error('无法将大语言模型的响应解析为 JSON');
+      throw new Error(appText("无法将大语言模型的响应解析为 JSON"));
     }
 
     return {
@@ -92,10 +93,10 @@ export async function chatUpdateRequirement(event: IpcMainInvokeEvent, data: unk
     if (error instanceof GuardrailsShouldBlock) {
       console.log("[chat-update-requirement] Injection or Leaking detected");
       return {
-        response: "请求未能处理",
+        response: appText("请求未能处理"),
         blocked: true,
         blockedReason:
-          "提示词包含违反安全策略的恶意内容。",
+          appText("提示词包含违反安全策略的恶意内容。"),
       };
     }
     throw error;

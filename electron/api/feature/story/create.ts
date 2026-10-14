@@ -1,3 +1,4 @@
+import { t as appText } from "../../../services/language";
 import { createStorySchema, type CreateStoryResponse } from '../../../schema/feature/story/create.schema';
 import { store } from '../../../services/store';
 import type { IpcMainInvokeEvent } from 'electron';
@@ -20,7 +21,7 @@ export async function createStories(event: IpcMainInvokeEvent, data: unknown): P
     const trace = o11y.createTrace('create-stories');
 
     if (!llmConfig) {
-      throw new Error('未找到大语言模型配置');
+      throw new Error(appText("未找到大语言模型配置"));
     }
 
     console.log('[create-stories] Using LLM config:', llmConfig);
@@ -89,7 +90,7 @@ export async function createStories(event: IpcMainInvokeEvent, data: unknown): P
             "tools_end",
             WorkflowEventType.Mcp,
             {
-              title: `已执行 MCP 工具：${name}`,
+              title: appText("已执行 MCP 工具：{0}", [name]),
               input: data?.input,
               output: data?.output?.content,
             }
@@ -111,7 +112,7 @@ export async function createStories(event: IpcMainInvokeEvent, data: unknown): P
     try {
       const transformedFeatures = stories.map((feature: any) => {
         if (!feature.id || !feature.title || !feature.description) {
-          throw new Error(`用户故事结构无效，缺少必填字段：${JSON.stringify(feature)}`);
+          throw new Error(appText("用户故事结构无效，缺少必填字段：{0}", [JSON.stringify(feature)]));
         }
         
         const transformedFeature: { id: string; [key: string]: string } = {

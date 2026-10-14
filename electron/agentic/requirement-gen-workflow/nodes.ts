@@ -1,3 +1,4 @@
+import { withOutputLanguage } from "../../services/llm/language-messages";
 import { HumanMessage, isAIMessage } from "@langchain/core/messages";
 import { z } from "zod";
 import { LangChainModelProvider } from "../../services/llm/langchain-providers/base";
@@ -22,7 +23,7 @@ export const buildLLMNode = (modelProvider: LangChainModelProvider) => {
 
     try {
       // TODO: we can try using structured output here
-      const response = await model.invoke(state.messages, {
+      const response = await model.invoke(withOutputLanguage(state.messages), {
         signal: runnableConfig?.signal,
       });
 

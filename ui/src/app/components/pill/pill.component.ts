@@ -1,3 +1,4 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -8,7 +9,7 @@ import { heroXMark } from '@ng-icons/heroicons/outline';
   templateUrl: './pill.component.html',
   styleUrls: ['./pill.component.scss'],
   standalone: true,
-  imports: [NgIf, NgIcon, NgClass, CommonModule],
+  imports: [NgIf, NgIcon, NgClass, CommonModule, I18nPipe],
   providers: [
     provideIcons({
       heroXMark,

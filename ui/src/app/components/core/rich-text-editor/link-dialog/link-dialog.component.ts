@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../../../i18n/i18n.pipe";
+import { t as uiText } from "../../../../i18n/translate";
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +15,7 @@ import { ButtonComponent } from '../../../core/button/button.component';
     NgIf,
     ButtonComponent,
     MatDialogModule
-  ]
+  , I18nPipe]
 })
 export class LinkDialogComponent {
   urlError: string | null = null;
@@ -39,7 +41,7 @@ export class LinkDialogComponent {
     if (this.data.url && this.isValidUrl(this.data.url)) {
       this.dialogRef.close(this.data);
     } else {
-      this.urlError = '请输入有效的 URL';
+      this.urlError = uiText("请输入有效的 URL");
     }
   }
 }

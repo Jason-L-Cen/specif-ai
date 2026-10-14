@@ -1,4 +1,4 @@
-import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../prompts/context/markdown-rules";
+import { getOutputLanguageInstructions } from "../../prompts/context/markdown-rules";
 /**
  * Prompts for the test case workflow
  */
@@ -17,7 +17,7 @@ export const buildResearchPrompt = (
   prdTitle: string,
   prdDescription: string
 ): string => {
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
 Please analyze this user story and gather relevant information for test case generation:
 Story Title: ${userStoryTitle}
@@ -119,7 +119,7 @@ Strictly Return the test cases in the following JSON format:
 
 Strictly do not include any explanatory text, markdown formatting, or code blocks. The response must be a raw JSON object only.`;
 
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}\n\n${prompt}`;
+  return `${getOutputLanguageInstructions()}\n\n${prompt}`;
 };
 
 /**
@@ -135,7 +135,7 @@ export const buildEvaluateTestCasesPrompt = (
   prdTitle: string,
   prdDescription: string
 ): string => {
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
 Evaluate the following test cases for quality and completeness:
 

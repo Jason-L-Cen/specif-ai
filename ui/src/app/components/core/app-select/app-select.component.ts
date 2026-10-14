@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../../i18n/i18n.pipe";
+import { t as uiText } from "../../../i18n/translate";
 import { Component, Input, Output, EventEmitter, forwardRef, HostListener, OnChanges } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
@@ -13,7 +15,7 @@ export interface SelectOption {
   selector: 'app-select',
   templateUrl: './app-select.component.html',
   standalone: true,
-  imports: [NgForOf, NgIf, NgIconComponent, NgClass],
+  imports: [NgForOf, NgIf, NgIconComponent, NgClass, I18nPipe],
   providers: [
     provideIcons({ heroXMark }),
     {
@@ -25,7 +27,7 @@ export interface SelectOption {
 })
 export class AppSelectComponent implements ControlValueAccessor, OnChanges {
   @Input() options: SelectOption[] = [];
-  @Input() placeholder: string = '请选择';
+  @Input() placeholder: string = uiText("请选择");
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() searchable: boolean = false;
@@ -61,6 +63,7 @@ export class AppSelectComponent implements ControlValueAccessor, OnChanges {
   }
 
   ngOnChanges(): void {
+    if (this.disabled) this.showDropdown = false;
     this.writeValue(this.value);
   }
 
@@ -118,6 +121,7 @@ export class AppSelectComponent implements ControlValueAccessor, OnChanges {
   }
 
   selectOption(option: SelectOption): void {
+    if (this.disabled) return;
     this.value = option.value;
     this.selectedOption = option;
     this.searchText = option.label;

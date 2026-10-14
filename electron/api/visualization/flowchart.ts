@@ -1,3 +1,4 @@
+import { t as appText } from "../../services/language";
 import { flowchartSchema, type FlowchartResponse } from '../../schema/visualization/flowchart.schema';
 import { LLMUtils } from '../../services/llm/llm-utils';
 import { buildLLMHandler } from '../../services/llm';
@@ -12,7 +13,7 @@ export async function createFlowchart(event: IpcMainInvokeEvent, data: unknown):
   try {
     const llmConfig = store.get<LLMConfigModel>('llmConfig');
     if (!llmConfig) {
-      throw new Error('未找到大语言模型配置');
+      throw new Error(appText("未找到大语言模型配置"));
     }
 
     console.log('[create-flowchart] Using LLM config:', llmConfig);

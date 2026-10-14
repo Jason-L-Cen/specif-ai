@@ -1,3 +1,4 @@
+import { handleLanguageTask } from "./language-handler";
 import { verifyConfig } from "../api/core/verify-config";
 import { verifyLangfuseConfig } from "../services/observability/verify-langfuse-config";
 import { getSuggestions } from "../api/core/get-suggestions";
@@ -7,7 +8,7 @@ import { inlineEditWithAI } from "../api/core/inline-edit";
 import { ipcMain, IpcMainInvokeEvent } from "electron";
 
 export function setupCoreHandlers() {
-  ipcMain.handle('core:getSuggestions', async (_event, data: any) => {
+  handleLanguageTask('core:getSuggestions', async (_event, data: any) => {
     try {
       const result = await getSuggestions(_event, data);
       return result;
@@ -17,7 +18,7 @@ export function setupCoreHandlers() {
     }
   });
 
-  ipcMain.handle('core:verifyLLMConfig', async (_event, data: any) => {
+  handleLanguageTask('core:verifyLLMConfig', async (_event, data: any) => {
     try {
       const result = await verifyConfig(_event, data);
       return result;
@@ -37,7 +38,7 @@ export function setupCoreHandlers() {
     }
   });
 
-  ipcMain.handle('core:chat', async (_event: IpcMainInvokeEvent, data: any) => {
+  handleLanguageTask('core:chat', async (_event: IpcMainInvokeEvent, data: any) => {
     try {
       const result = await chatWithAI(_event, data);
       return result;
@@ -57,7 +58,7 @@ export function setupCoreHandlers() {
     }
   });
 
-  ipcMain.handle('core:inline-edit', async (_event: IpcMainInvokeEvent, data: any) => {
+  handleLanguageTask('core:inline-edit', async (_event: IpcMainInvokeEvent, data: any) => {
     try {
       const result = await inlineEditWithAI(_event, data);
       return result;

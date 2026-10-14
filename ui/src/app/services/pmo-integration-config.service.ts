@@ -1,3 +1,4 @@
+import { t as uiText } from "../i18n/translate";
 import { Injectable } from '@angular/core';
 import { PmoIntegrationConfig } from '../types/pmo-integration.types';
 import { JiraIntegrationComponent } from '../components/pmo-integration/jira-integration/jira-integration.component';
@@ -28,7 +29,7 @@ export class PmoIntegrationConfigService {
       order: 2,
     },
     {
-      id: 'zentao', name: 'zentao', displayName: '禅道',
+      id: 'zentao', name: 'zentao', displayName: uiText("禅道"),
       logoPath: './assets/img/logo/zentao.svg', component: ZentaoIntegrationComponent,
       isEnabled: true, order: 3,
     },

@@ -1,3 +1,5 @@
+import { t as appText } from "../services/language";
+import { handleLanguageTask } from "./language-handler";
 import { ipcMain, safeStorage } from "electron";
 import { z } from "zod";
 import { store } from "../services/store";
@@ -21,7 +23,7 @@ export function setupZentaoHandlers() {
       }
       return { baseUrl: client.baseUrl, ...resources, remembered: canRemember() };
     } catch (error) {
-      return { error: error instanceof z.ZodError ? "禅道连接信息格式有误。" : error instanceof Error ? error.message : "禅道登录失败。" };
+      return { error: error instanceof z.ZodError ? appText("禅道连接信息格式有误。") : error instanceof Error ? error.message : appText("禅道登录失败。") };
     }
   });
   ipcMain.handle("zentao:disconnect", async (_event, projectId: unknown) => {
@@ -30,7 +32,7 @@ export function setupZentaoHandlers() {
     store.delete(`zentao-token-${id}`);
     return true;
   });
-  ipcMain.handle("zentao:operation", async (_event, params: unknown) => {
+  handleLanguageTask("zentao:operation", async (_event, params: unknown) => {
     try {
       const input = z.object({ projectId: projectIdSchema, operation: z.enum(["resources", "validate", "hierarchy", "upsert"]), baseUrl: z.string().max(2048), config: zentaoConfigSchema.optional(), item: zentaoItemSchema.optional() }).parse(params);
       let session = sessions.get(input.projectId);
@@ -38,16 +40,16 @@ export function setupZentaoHandlers() {
         const saved = store.get<{ baseUrl: string; token: string }>(`zentao-token-${input.projectId}`);
         if (saved) session = { baseUrl: saved.baseUrl, token: safeStorage.decryptString(Buffer.from(saved.token, "base64")) };
       }
-      if (!session || session.baseUrl !== normalizeZentaoUrl(input.baseUrl)) throw new Error("请先登录当前禅道服务器。");
+      if (!session || session.baseUrl !== normalizeZentaoUrl(input.baseUrl)) throw new Error(appText("请先登录当前禅道服务器。"));
       const client = new ZentaoClient(session.baseUrl, session.token);
       if (input.operation === "resources") return await client.resources();
       const config = zentaoConfigSchema.parse(input.config);
-      if (config.baseUrl !== session.baseUrl) throw new Error("禅道服务器地址与登录地址不一致。");
+      if (config.baseUrl !== session.baseUrl) throw new Error(appText("禅道服务器地址与登录地址不一致。"));
       if (input.operation === "validate") { await client.validate(config); return { isValid: true }; }
       if (input.operation === "hierarchy") return { tickets: await client.hierarchy(config) };
       return await client.upsert(config, zentaoItemSchema.parse(input.item));
     } catch (error) {
-      return { error: error instanceof z.ZodError ? "禅道同步参数格式有误。" : error instanceof Error ? error.message : "禅道操作失败。" };
+      return { error: error instanceof z.ZodError ? appText("禅道同步参数格式有误。") : error instanceof Error ? error.message : appText("禅道操作失败。") };
     }
   });
 }

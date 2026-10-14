@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import { Injectable } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
 import { REQUIREMENT_TYPE } from 'src/app/constants/app.constants';
@@ -79,7 +80,7 @@ export class RequirementExportStrategyManager {
         );
       }
       default: {
-        throw new Error(`不支持导出 ${requirementType}`);
+        throw new Error(uiText("不支持导出 {0}", [requirementType]));
       }
     }
   }

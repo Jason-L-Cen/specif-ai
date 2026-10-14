@@ -1,3 +1,4 @@
+import { t as appText } from "../services/language";
 import {
   GuardrailsEngine,
   GuardrailsEngineResult,
@@ -87,7 +88,7 @@ export const generateLLMMessage = (messages: string | any[]): LLMMessage[] => {
     });
   }
 
-  throw new Error("消息格式无效");
+  throw new Error(appText("消息格式无效"));
 };
 
 type ProxyHandler<T extends LLMHandler> = {
@@ -116,7 +117,7 @@ export async function validateGuardrails(messages: string | any[]): Promise<LLMM
   for (const message of messagesToValidate) {
     const guardResult = await guardrailsEngine.run([message]);
     if (isBlockedByGuard(guardResult)) {
-      throw new GuardrailsShouldBlock("安全护栏已拦截响应");
+      throw new GuardrailsShouldBlock(appText("安全护栏已拦截响应"));
     }
     message.content = guardResult.messages[0].content;
   }
@@ -139,7 +140,7 @@ export const langChainGuardrailsHandler = {
         ? input.map(coerceMessageLikeToMessage)
         : input.toChatMessages();
     const guardResult = await engine.run(generateLLMMessage(messages));
-    if (isBlockedByGuard(guardResult)) throw new GuardrailsShouldBlock('安全护栏已拦截此请求');
+    if (isBlockedByGuard(guardResult)) throw new GuardrailsShouldBlock(appText("安全护栏已拦截此请求"));
     const stored = messages.map((message: any) => message.toDict());
     for (const [index, message] of stored.entries()) {
       if (typeof message.data.content === 'string') {
@@ -148,7 +149,7 @@ export const langChainGuardrailsHandler = {
         message.data.content = await Promise.all(message.data.content.map(async (part: any) => {
           if (part.type !== 'text') return part;
           const result = await engine.run([{ role: guardResult.messages[index].role, content: part.text }]);
-          if (isBlockedByGuard(result)) throw new GuardrailsShouldBlock('安全护栏已拦截此请求');
+          if (isBlockedByGuard(result)) throw new GuardrailsShouldBlock(appText("安全护栏已拦截此请求"));
           return { ...part, text: result.messages[0].content };
         }));
       }

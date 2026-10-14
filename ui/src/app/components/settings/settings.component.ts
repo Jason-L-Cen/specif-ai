@@ -1,3 +1,4 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
 import {
   Component,
   OnInit,
@@ -6,7 +7,7 @@ import {
   inject,
 } from '@angular/core';
 import { LLMConfigState } from 'src/app/store/llm-config/llm-config.state';
-import { distinctUntilChanged, Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, exhaustMap, Observable, Subscription, timer } from 'rxjs';
 import { LLMConfigModel } from '../../model/interfaces/ILLMConfig';
 import { Store } from '@ngxs/store';
 import { AvailableProviders } from '../../constants/llm.models.constants';
@@ -39,6 +40,7 @@ import { CoreService, AppConfig } from 'src/app/services/core/core.service';
 import { LangfuseConfigService } from 'src/app/services/analytics/observability/langfuse-config.service';
 import { heroExclamationTriangle } from '@ng-icons/heroicons/outline';
 import { LANGFUSE_CONFIG_STORE_KEY, LangfuseConfigStore } from 'src/app/services/analytics/observability/langfuse-config-type';
+import { getUILanguage, t as uiText } from '../../i18n/translate';
 
 @Component({
   selector: 'app-settings',
@@ -52,7 +54,7 @@ import { LANGFUSE_CONFIG_STORE_KEY, LangfuseConfigStore } from 'src/app/services
     NgIf,
     ButtonComponent,
     AppSelectComponent,
-  ],
+   I18nPipe,],
   providers: [
     provideIcons({
       heroExclamationTriangle
@@ -82,6 +84,14 @@ export class SettingsComponent implements OnInit, OnDestroy {
   errorMessage: string = '';
   langfuseErrorMessage: string = '';
   hasChanges: boolean = false;
+  language = getUILanguage();
+  languageControl = new FormControl(getUILanguage(), { nonNullable: true });
+  languageBusy = true;
+  languageChanging = false;
+  languageOptions = [
+    { value: 'zh-CN', label: uiText("简体中文") },
+    { value: 'en', label: 'English' },
+  ];
   workingDir: string | null;
   appName = environment.ThemeConfiguration.appName;
   private subscriptions: Subscription = new Subscription();
@@ -211,10 +221,17 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.subscriptions.add(timer(0, 500).pipe(
+      exhaustMap(() => this.electronService.electronAPI?.invoke('language:status')
+        ?? Promise.resolve({ busy: false })),
+    ).subscribe({
+      next: (status) => { this.languageBusy = status.busy; this.cdr.markForCheck(); },
+      error: () => { this.languageBusy = true; this.cdr.markForCheck(); },
+    }));
     this.store.dispatch(
       new AddBreadcrumbs([
         {
-        label: '设置',
+        label: uiText("设置"),
           url: '/settings'
         }
       ])
@@ -305,10 +322,31 @@ export class SettingsComponent implements OnInit, OnDestroy {
     return isConfigFormValid && isLangfuseValid;
   }
 
+  async onLanguageChange(value: string | null): Promise<void> {
+    if (!value || value === this.language || this.languageBusy || this.languageChanging || this.hasChanges) {
+      this.languageControl.setValue(this.language, { emitEvent: false });
+      return;
+    }
+    this.languageChanging = true;
+    try {
+      if (this.electronService.electronAPI) {
+        await this.electronService.electronAPI.setStoreValue('language', value);
+      } else {
+        localStorage.setItem('acePda.language', value);
+      }
+      window.location.reload();
+    } catch (error) {
+      this.languageControl.setValue(this.language, { emitEvent: false });
+      this.toasterService.showError(uiText('切换语言失败，请重试。'));
+      this.languageChanging = false;
+      this.cdr.markForCheck();
+    }
+  }
+
   private async validateLangfuseConfig(): Promise<boolean> {
     if (!this.useLangfuseCustomConfig.value) return true;
     if (!this.langfuseForm.valid) {
-      this.langfuseErrorMessage = '请填写所有必填的 Langfuse 配置项。';
+      this.langfuseErrorMessage = uiText("请填写所有必填的 Langfuse 配置项。");
       return false;
     }
 
@@ -320,7 +358,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
       }
       return true;
     } catch (error) {
-      this.langfuseErrorMessage = '验证 Langfuse 配置失败。';
+      this.langfuseErrorMessage = uiText("验证 Langfuse 配置失败。");
       return false;
     }
   }
@@ -379,7 +417,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
               this.availableProviders.find((p) => p.key === provider)
                 ?.displayName || provider;
             this.toasterService.showSuccess(
-          `${providerDisplayName} 配置验证成功。`,
+          uiText("{0} 配置验证成功。", [providerDisplayName]),
             );
             this.router.navigate(['/apps']);
             this.analyticsTracker.trackEvent(AnalyticsEvents.LLM_CONFIG_SAVED, {
@@ -393,7 +431,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         });
       } else {
         // Show error but keep the form values for correction
-        this.errorMessage = '连接失败，请检查模型服务商的凭据。';
+        this.errorMessage = uiText("连接失败，请检查模型服务商的凭据。");
         this.analyticsTracker.trackEvent(AnalyticsEvents.LLM_CONFIG_SAVED, {
           provider: provider,
           model: latestConfigValues.model || latestConfigValues.deployment,
@@ -404,7 +442,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       }
     }).catch((error) => {
-      this.errorMessage = '验证大语言模型配置失败，请检查凭据。';
+      this.errorMessage = uiText("验证大语言模型配置失败，请检查凭据。");
       this.cdr.markForCheck();
       this.analyticsTracker.trackEvent(AnalyticsEvents.LLM_CONFIG_SAVED, {
         provider: provider,
@@ -576,10 +614,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
   resetApp() {
     this.dialogService
       .confirm({
-        title: '重置设置',
-        description: '确定要重置设置吗？所有设置和配置都将被清除。',
-        cancelButtonText: '取消',
-        confirmButtonText: '重置设置',
+        title: uiText("重置设置"),
+        description: uiText("确定要重置设置吗？所有设置和配置都将被清除。"),
+        cancelButtonText: uiText("取消"),
+        confirmButtonText: uiText("重置设置"),
       })
       .subscribe((confirmed: boolean) => {
         if (confirmed) {
@@ -618,13 +656,13 @@ export class SettingsComponent implements OnInit, OnDestroy {
       this.autoUpdateEnabled.setValue(true);
       this.useLangfuseCustomConfig.setValue(false);
 
-      this.toasterService.showSuccess('设置已重置，正在返回登录页面…');
+      this.toasterService.showSuccess(uiText("设置已重置，正在返回登录页面…"));
       
       this.startupService.logout()
       
     } catch (error) {
       this.logger.error('Error during app reset:', error);
-      this.toasterService.showError('重置应用失败，请重试。');
+      this.toasterService.showError(uiText("重置应用失败，请重试。"));
     }
   }
 

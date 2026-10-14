@@ -17,7 +17,7 @@
         class="flex justify-between items-center p-4 border-b border-secondary-200"
       >
         <h1 class="text-normal font-semibold">
-          {{ mode === "add" ? "添加任务" : existingTask.id }}
+          {{ mode === "add" ? ("添加任务" | i18n) : existingTask.id }}
         </h1>
 
         <div *ngIf="mode === 'edit'">
@@ -28,7 +28,7 @@
             size="sm"
             rounded="md"
             (click)="deleteTask()"
-            matTooltip="删除"
+            [matTooltip]="&quot;删除&quot; | i18n"
           ></app-button>
         </div>
       </header>
@@ -42,9 +42,9 @@
           <div class="flex flex-col">
             <app-input-field
               [required]="true"
-              elementPlaceHolder="任务名称"
+              [elementPlaceHolder]="&quot;任务名称&quot; | i18n"
               elementId="add-task-name"
-              elementName="任务名称"
+              [elementName]="&quot;任务名称&quot; | i18n"
               formControlName="list"
             />
             <ng-container *ngIf="taskForm.get('list')?.touched">
@@ -52,7 +52,7 @@
                 *ngIf="taskForm.get('list')?.errors?.['required']"
                 class="text-red-500 text-sm"
               >
-                请输入任务名称
+                {{ "请输入任务名称" | i18n }}
               </span>
             </ng-container>
           </div>
@@ -61,7 +61,7 @@
               for="elementId"
               class="block text-sm font-medium text-secondary-500"
             >
-              任务描述
+              {{ "任务描述" | i18n }}
               <span class="text-red-500 text-xs">*</span>
             </label>
             <div class="flex flex-col gap-1.5">
@@ -81,7 +81,7 @@
                   *ngIf="taskForm.get('acceptance')?.errors?.['required']"
                   class="text-red-500 text-sm"
                 >
-                  请输入任务描述
+                  {{ "请输入任务描述" | i18n }}
                 </span>
               </ng-container>
             </div>
@@ -94,7 +94,7 @@
 
         <div class="flex justify-end gap-2 p-4 border-t border-secondary-200">
           <app-button
-            buttonContent="使用 AI 优化"
+            [buttonContent]="&quot;使用 AI 优化&quot; | i18n"
             icon="heroSparklesSolid"
             theme="secondary_outline"
             size="sm"
@@ -103,7 +103,7 @@
             [disabled]="taskForm.invalid"
           ></app-button>
           <app-button
-            buttonContent="更新"
+            [buttonContent]="&quot;更新&quot; | i18n"
             theme="primary"
             size="sm"
             rounded="md"
@@ -112,7 +112,7 @@
             [disabled]="taskForm.invalid"
           />
           <app-button
-            buttonContent="添加"
+            [buttonContent]="&quot;添加&quot; | i18n"
             theme="primary"
             size="sm"
             rounded="md"

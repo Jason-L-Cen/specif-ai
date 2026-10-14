@@ -1,3 +1,4 @@
+import { t as appText } from "../services/language";
 import type { LLMConfigModel } from "../services/llm/llm-types";
 import { store } from "../services/store";
 import { MCPHub } from "./mcp-hub";
@@ -5,7 +6,7 @@ import { MCPHub } from "./mcp-hub";
 export const getMcpToolsForActiveProvider = async () => {
   const llmConfig = store.get<LLMConfigModel>("llmConfig");
   if (!llmConfig) {
-    throw new Error("未找到大语言模型配置");
+    throw new Error(appText("未找到大语言模型配置"));
   }
 
   return getMcpToolsForProvider(llmConfig.activeProvider);

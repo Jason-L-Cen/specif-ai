@@ -1,3 +1,4 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NgIconComponent } from '@ng-icons/core';
@@ -8,7 +9,7 @@ import { ElectronService } from 'src/app/electron-bridge/electron.service';
   selector: 'app-port-error-dialog',
   templateUrl: './port-error-dialog.component.html',
   standalone: true,
-  imports: [NgIconComponent]
+  imports: [NgIconComponent, I18nPipe]
 })
 export class PortErrorDialogComponent {
   constructor(

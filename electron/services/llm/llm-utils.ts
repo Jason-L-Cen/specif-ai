@@ -1,5 +1,6 @@
+import { t as appText } from "../language";
 import { AmazonKnowledgeBaseRetriever } from '@langchain/aws';
-import { OUTPUT_LANGUAGE_INSTRUCTIONS } from '../../prompts/context/markdown-rules';
+import { getOutputLanguageInstructions } from '../../prompts/context/markdown-rules';
 
 interface ChatMessage {
     role: string;
@@ -29,7 +30,7 @@ export class LLMUtils {
 
         // Validate the prompt input
         if (!prompt || typeof prompt !== 'string') {
-            throw new Error("提示词无效");
+            throw new Error(appText("提示词无效"));
         }
 
         // If chat history exists and is valid, format it appropriately
@@ -42,7 +43,7 @@ export class LLMUtils {
         }
 
         // Append the current user query to the message list
-        messages.push({ role: "user", content: `${prompt}\n\n${OUTPUT_LANGUAGE_INSTRUCTIONS}` });
+        messages.push({ role: "user", content: `${prompt}\n\n${getOutputLanguageInstructions()}` });
 
         console.info("Exited <LLMUtils.prepareMessages>");
         return messages;
@@ -62,13 +63,13 @@ export class LLMUtils {
         // Validate the knowledge base ID
         knowledgeBaseId = knowledgeBaseId.trim();
         if (!knowledgeBaseId) {
-            throw new Error('知识库 ID 不能为空');
+            throw new Error(appText("知识库 ID 不能为空"));
         }
 
         // Validate the user query
         prompt = prompt.trim();
         if (!prompt) {
-            throw new Error('提示词不能为空');
+            throw new Error(appText("提示词不能为空"));
         }
 
         try {

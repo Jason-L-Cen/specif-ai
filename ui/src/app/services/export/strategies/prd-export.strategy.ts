@@ -1,3 +1,4 @@
+import { t as uiText } from "../../../i18n/translate";
 import { NGXLogger } from 'ngx-logger';
 import { IUserStory } from 'src/app/model/interfaces/IUserStory';
 import {
@@ -158,7 +159,7 @@ export class PRDExportStrategy implements ExportStrategy {
           break;
         }
         default: {
-          throw new Error(`不支持 ${exportFormat} 格式`);
+          throw new Error(uiText("不支持 {0} 格式", [exportFormat]));
         }
       }
   

@@ -1,3 +1,4 @@
+import { t as appText } from "../services/language";
 import { jsonrepair } from "jsonrepair";
 
 /**
@@ -60,7 +61,7 @@ export function extractRequirementsFromResponse(
     return [
       {
         id: `${requirementType.toUpperCase()}1`,
-        title: `已生成的 ${requirementType.toUpperCase()} 内容`,
+        title: appText("已生成的 {0} 内容", [requirementType.toUpperCase()]),
         requirement: response,
       },
     ];

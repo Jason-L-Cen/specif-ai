@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgIconComponent } from '@ng-icons/core';
@@ -17,7 +19,7 @@ import { ToasterService } from 'src/app/services/toaster/toaster.service';
     ButtonComponent,
     TimeZonePipe,
     RichTextEditorComponent
-  ]
+  , I18nPipe]
 })
 export class AutoUpdateModalComponent {
   constructor(
@@ -36,7 +38,7 @@ export class AutoUpdateModalComponent {
     }).catch((err) => {
       console.error('Error occurred during newer version download: ', err);
       this.loadingService.setLoading(false);
-      this.toasterService.showError('发生错误。');
+      this.toasterService.showError(uiText("发生错误。"));
     });
   }
 

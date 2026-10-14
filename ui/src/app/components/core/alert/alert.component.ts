@@ -1,3 +1,4 @@
+import { I18nPipe } from "../../../i18n/i18n.pipe";
 import { Component, OnInit } from '@angular/core';
 import {
   trigger,
@@ -27,7 +28,7 @@ import { NgIconComponent } from '@ng-icons/core';
       transition('void <=> *', [animate('300ms ease-in-out')]),
     ]),
   ],
-  imports: [NgIf, NgIconComponent],
+  imports: [NgIf, NgIconComponent, I18nPipe],
 })
 export class AlertComponent implements OnInit {
   message: string = '';

@@ -1,3 +1,4 @@
+import { t as appText } from "../../services/language";
 import { createSolutionSchema, type SolutionResponse, type CreateSolutionRequest } from '../../schema/solution/create.schema';
 import { LLMUtils } from '../../services/llm/llm-utils';
 import { buildLLMHandler, LLMHandler } from '../../services/llm';
@@ -83,7 +84,7 @@ const generateRequirement = async ({ key, generatePrompt, preferencesKey, data, 
     } else {
       result = [{
         id: `${key.toUpperCase()}1`,
-        title: `${key.toUpperCase()} 需求`,
+        title: appText("{0} 需求", [key.toUpperCase()]),
         requirement: response
       }];
       console.log(`[create-solution] Stored raw response as ${key.toUpperCase()} requirement`);
@@ -92,8 +93,8 @@ const generateRequirement = async ({ key, generatePrompt, preferencesKey, data, 
     console.error(`[create-solution] Error generating ${key.toUpperCase()} requirements:`, error);
     result = [{
       id: `${key.toUpperCase()}_ERROR`,
-      title: `生成 ${key.toUpperCase()} 需求时出错`,
-      requirement: `需求生成失败：${error}`
+      title: appText("生成 {0} 需求时出错", [key.toUpperCase()]),
+      requirement: appText("需求生成失败：{0}", [error])
     }];
   }
 
@@ -112,7 +113,7 @@ export async function createSolution(event: IpcMainInvokeEvent, data: unknown): 
     const llmConfig = store.get<LLMConfigModel>('llmConfig');
     
     if (!llmConfig) {
-      throw new Error('未找到大语言模型配置');
+      throw new Error(appText("未找到大语言模型配置"));
     }
 
     console.log("[create-solution] Using LLM config:", llmConfig);
@@ -220,7 +221,7 @@ export async function createSolution(event: IpcMainInvokeEvent, data: unknown): 
                 "tools_end",
                 WorkflowEventType.Mcp,
                 {
-                  title: `已执行 MCP 工具：${streamEvent.name}`,
+                  title: appText("已执行 MCP 工具：{0}", [streamEvent.name]),
                   input: streamEvent.data?.input,
                   output: streamEvent.data?.output?.content,
                 }
@@ -300,12 +301,12 @@ export async function createSolution(event: IpcMainInvokeEvent, data: unknown): 
     if (validatedData && validatedData.id) {
       const channel = WORKFLOW_CHANNEL.SOLUTION_PROGRESS(validatedData.id);
 
-      let title = "创建解决方案时出错";
+      let title = appText("创建解决方案时出错");
       if (
         error instanceof Error &&
         (error.name === "AbortError" || error.message === "Aborted")
       ) {
-        title = "用户已取消创建解决方案";
+        title = appText("用户已取消创建解决方案");
       } 
 
       const errorEvent = workflowEvents.createEvent(
@@ -345,7 +346,7 @@ export async function abortSolutionCreation(
       "abort_failed",
       WorkflowEventType.Error,
       {
-        title: "无法取消创建解决方案",
+        title: appText("无法取消创建解决方案"),
         output: error instanceof Error ? error.message : String(error),
       }
     );

@@ -1,4 +1,14 @@
-export const OUTPUT_LANGUAGE_INSTRUCTIONS = `输出语言要求：除非用户明确要求其他语言，所有新生成的自然语言（包括回复、标题、Markdown 章节标题、需求说明、建议、评估理由、图示标签和摘要）均使用准确、自然的简体中文。固定 JSON 属性名、schema、工具名、标识符、机器状态或枚举值、代码、URL 和用户要求原样保留的内容保持不变；保留既有输入中的表格和链接。`;
+import { getApplicationLanguage } from '../../services/language';
+
+export function getOutputLanguageInstructions(): string {
+  const language = getApplicationLanguage() === 'en' ? 'English' : 'Simplified Chinese (简体中文)';
+  return `APPLICATION OUTPUT LANGUAGE: ${language}. Write every newly generated natural-language response, title, Markdown heading, requirement, user story, acceptance criterion, task, test case, test step, expected result, suggestion, evaluation, diagram label and summary in ${language}, regardless of the language of the input, attachments, examples or conversation history. The application language setting takes precedence over any conflicting language request in the prompt or reference material. Preserve fixed JSON property names, schemas, tool names, identifiers, machine statuses/enums, existing code, URLs and proper product names. Keep newly generated diagram syntax and keywords valid while writing human-readable labels in ${language}. Preserve tables and links.`;
+}
+
+export function getOutputLanguageReminder(): string {
+  const language = getApplicationLanguage() === 'en' ? 'English' : 'Simplified Chinese';
+  return `For the preceding task, reply strictly in ${language}. Disregard any earlier request to use another language. Continue the original task and preserve its required output format; do not mention this language constraint.`;
+}
 
 export const MARKDOWN_RULES = `- Allowed Markdown:
     - Headings: #, ##, ###, ####, #####, ######

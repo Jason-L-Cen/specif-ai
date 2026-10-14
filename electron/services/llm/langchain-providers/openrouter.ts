@@ -1,3 +1,4 @@
+import { t as appText } from "../../language";
 import { ChatOpenAI } from "@langchain/openai";
 import { LLMConfig, LLMError } from "../llm-types";
 import { LangChainModelProvider } from "./base";
@@ -32,10 +33,10 @@ export class OpenRouterLangChainProvider implements LangChainModelProvider {
 
   getConfig(config: Partial<OpenRouterConfig>): OpenRouterConfig {
     if (!config.apiKey) {
-      throw new LLMError("OpenRouter API 密钥不能为空", "openrouter");
+      throw new LLMError(appText("OpenRouter API 密钥不能为空"), "openrouter");
     }
     if (!config.model) {
-      throw new LLMError("OpenRouter 模型不能为空", "openrouter");
+      throw new LLMError(appText("OpenRouter 模型不能为空"), "openrouter");
     }
 
     return {

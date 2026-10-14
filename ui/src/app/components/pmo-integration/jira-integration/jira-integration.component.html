@@ -7,10 +7,10 @@
 <form [formGroup]="jiraForm" class="space-y-6" novalidate>
   <div class="mt-6 p-4 bg-gray-50 rounded-lg border">
     <h4 class="text-sm font-semibold text-gray-900 mb-4">
-      工作项类型映射
+      {{ "工作项类型映射" | i18n }}
     </h4>
     <p class="text-xs text-gray-600 mb-4">
-      配置 Ace PDA 需求类型与 Jira 事项类型的对应关系
+      {{ "配置 Ace PDA 需求类型与 Jira 事项类型的对应关系" | i18n }}
     </p>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -18,13 +18,13 @@
         <app-input-field
           formControlName="prdWorkItemType"
           elementId="prdWorkItemType"
-          elementName="产品需求文档（PRD）对应的事项类型"
-          elementPlaceHolder="例如：Epic（请输入 Jira 中的实际名称）"
+          [elementName]="&quot;产品需求文档（PRD）对应的事项类型&quot; | i18n"
+          [elementPlaceHolder]="&quot;例如：Epic（请输入 Jira 中的实际名称）&quot; | i18n"
           [required]="true"
           aria-describedby="prd-type-help"
         />
         <small id="prd-type-help" class="text-xs text-gray-500 mt-1 block">
-          产品需求对应的 Jira 事项类型（例如：Epic）
+          {{ "产品需求对应的 Jira 事项类型（例如：Epic）" | i18n }}
         </small>
       </div>
 
@@ -32,13 +32,13 @@
         <app-input-field
           formControlName="userStoryWorkItemType"
           elementId="userStoryWorkItemType"
-          elementName="用户故事对应的事项类型"
-          elementPlaceHolder="例如：Story（请输入 Jira 中的实际名称）"
+          [elementName]="&quot;用户故事对应的事项类型&quot; | i18n"
+          [elementPlaceHolder]="&quot;例如：Story（请输入 Jira 中的实际名称）&quot; | i18n"
           [required]="true"
           aria-describedby="story-type-help"
         />
         <small id="story-type-help" class="text-xs text-gray-500 mt-1 block">
-          用户故事对应的 Jira 事项类型（例如：Story）
+          {{ "用户故事对应的 Jira 事项类型（例如：Story）" | i18n }}
         </small>
       </div>
 
@@ -46,13 +46,13 @@
         <app-input-field
           formControlName="taskWorkItemType"
           elementId="taskWorkItemType"
-          elementName="任务对应的事项类型"
-          elementPlaceHolder="例如：Sub-task（请输入 Jira 中的实际名称）"
+          [elementName]="&quot;任务对应的事项类型&quot; | i18n"
+          [elementPlaceHolder]="&quot;例如：Sub-task（请输入 Jira 中的实际名称）&quot; | i18n"
           [required]="true"
           aria-describedby="task-type-help"
         />
         <small id="task-type-help" class="text-xs text-gray-500 mt-1 block">
-          任务对应的 Jira 事项类型（例如：Sub-task）
+          {{ "任务对应的 Jira 事项类型（例如：Sub-task）" | i18n }}
         </small>
       </div>
     </div>
@@ -63,13 +63,13 @@
       <app-input-field
         formControlName="jiraProjectKey"
         elementId="jiraProjectKey"
-        elementName="Jira 项目键"
-        elementPlaceHolder="请输入 Jira 项目键"
+        [elementName]="&quot;Jira 项目键&quot; | i18n"
+        [elementPlaceHolder]="&quot;请输入 Jira 项目键&quot; | i18n"
         [required]="true"
         aria-describedby="project-key-help"
       />
       <small id="project-key-help" class="sr-only">
-        请输入 Jira 项目键
+        {{ "请输入 Jira 项目键" | i18n }}
       </small>
     </div>
 
@@ -77,14 +77,14 @@
       <app-input-field
         formControlName="clientId"
         elementId="clientId"
-        elementName="Jira 应用客户端 ID"
-        elementPlaceHolder="请输入 Jira 客户端 ID"
+        [elementName]="&quot;Jira 应用客户端 ID&quot; | i18n"
+        [elementPlaceHolder]="&quot;请输入 Jira 客户端 ID&quot; | i18n"
         elementType="password"
         [required]="true"
         aria-describedby="client-id-help"
       />
       <small id="client-id-help" class="sr-only">
-        请输入 Jira 应用的客户端 ID
+        {{ "请输入 Jira 应用的客户端 ID" | i18n }}
       </small>
     </div>
   </div>
@@ -94,14 +94,14 @@
       <app-input-field
         formControlName="clientSecret"
         elementId="clientSecret"
-        elementName="Jira 应用客户端密钥"
-        elementPlaceHolder="请输入客户端密钥"
+        [elementName]="&quot;Jira 应用客户端密钥&quot; | i18n"
+        [elementPlaceHolder]="&quot;请输入客户端密钥&quot; | i18n"
         elementType="password"
         [required]="true"
         aria-describedby="client-secret-help"
       />
       <small id="client-secret-help" class="sr-only">
-        请输入 Jira 应用的客户端密钥
+        {{ "请输入 Jira 应用的客户端密钥" | i18n }}
       </small>
     </div>
 
@@ -109,13 +109,13 @@
       <app-input-field
         formControlName="redirectUrl"
         elementId="redirectUrl"
-        elementName="重定向地址"
-        elementPlaceHolder="请输入重定向地址"
+        [elementName]="&quot;重定向地址&quot; | i18n"
+        [elementPlaceHolder]="&quot;请输入重定向地址&quot; | i18n"
         [required]="true"
         aria-describedby="redirect-url-help"
       />
       <small id="redirect-url-help" class="sr-only">
-        请输入 Jira 应用的 OAuth 重定向地址
+        {{ "请输入 Jira 应用的 OAuth 重定向地址" | i18n }}
       </small>
     </div>
   </div>
@@ -128,7 +128,10 @@
       (click)="isConnected() ? onDisconnect() : onConnect()"
       [disabled]="buttonDisabled()"
       [attr.aria-label]="
-        isConnected() ? '断开与 Jira 的连接' : '连接 Jira'
+
+
+
+        isConnected() ? (&quot;断开与 Jira 的连接&quot; | i18n) : (&quot;连接 Jira&quot; | i18n)
       "
     >
     </app-button>

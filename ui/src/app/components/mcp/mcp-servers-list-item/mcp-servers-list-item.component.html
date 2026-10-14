@@ -7,8 +7,7 @@
             {{ server.name ?? server.id }}
           </h4>
           <p class="text-xs text-secondary-500" *ngIf="server.name">
-            标识：{{ server.id }}
-          </p>
+            {{ ("标识：{0}" | i18n: [server.id]) }}</p>
         </div>
       </div>
       <div class="flex items-center gap-2">
@@ -20,7 +19,7 @@
           "
           class="px-2 py-1 text-xs font-medium rounded"
         >
-          {{ server.status === 'connected' ? '已连接' : '连接错误' }}
+          {{ server.status === 'connected' ? ("已连接" | i18n) : ("连接错误" | i18n) }}
         </span>
       </div>
     </div>
@@ -42,18 +41,18 @@
         <ng-container
           [ngTemplateOutlet]="tabTrigger"
           [ngTemplateOutletContext]="{
-            label: '工具',
-            isTabActive: activeTab === 'tools',
-            tabId: 'tools',
+            label: (&quot;工具&quot; | i18n),
+            isTabActive: activeTab === &#39;tools&#39;,
+            tabId: &#39;tools&#39;,
           }"
         >
         </ng-container>
         <ng-container
           [ngTemplateOutlet]="tabTrigger"
           [ngTemplateOutletContext]="{
-            label: '资源',
-            isTabActive: activeTab === 'resources',
-            tabId: 'resources',
+            label: (&quot;资源&quot; | i18n),
+            isTabActive: activeTab === &#39;resources&#39;,
+            tabId: &#39;resources&#39;,
           }"
         >
         </ng-container>
@@ -85,7 +84,7 @@
           </div>
         </div>
         <ng-template #noTools>
-          <p class="text-center text-secondary-500 py-4">暂无可用工具</p>
+          <p class="text-center text-secondary-500 py-4">{{ "暂无可用工具" | i18n }}</p>
         </ng-template>
       </div>
 
@@ -108,8 +107,7 @@
                   {{ resource.name }}
                 </h6>
                 <p class="text-xs text-secondary-500">
-                  资源标识符（URI）：{{ resource.uri }}
-                </p>
+                  {{ ("资源标识符（URI）：{0}" | i18n: [resource.uri]) }}</p>
                 <p
                   *ngIf="resource.description"
                   class="text-sm text-secondary-600 line-clamp-2"
@@ -122,7 +120,7 @@
         </div>
         <ng-template #noResources>
           <p class="text-center text-secondary-500 py-4">
-            暂无可用资源
+            {{ "暂无可用资源" | i18n }}
           </p>
         </ng-template>
       </div>

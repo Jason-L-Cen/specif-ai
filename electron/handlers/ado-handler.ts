@@ -1,3 +1,4 @@
+import { t as appText } from "../services/language";
 import { ipcMain } from "electron";
 import axios from "axios";
 
@@ -31,7 +32,7 @@ export function setupAdoHandlers() {
       });
 
       if (response.status !== 200) {
-        throw new Error(`响应状态异常：${response.status}`);
+        throw new Error(appText("响应状态异常：{0}", [response.status]));
       }
 
       return {

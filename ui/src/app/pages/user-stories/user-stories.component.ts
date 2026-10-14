@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NGXLogger } from 'ngx-logger';
@@ -86,7 +88,7 @@ import { ElectronService } from 'src/app/electron-bridge/electron.service';
     ExportDropdownComponent,
     MatTooltipModule,
     WorkflowProgressDialogComponent,
-  ],
+   I18nPipe,],
   providers: [
     provideIcons({
       heroArrowRight,
@@ -200,8 +202,8 @@ export class UserStoriesComponent implements OnInit, OnDestroy {
     );
     this.store.dispatch(
       new AddBreadcrumb({
-        label: `${this.navigation.fileName.split('-')[0] ?? ''} - 用户故事`,
-        tooltipLabel: `${this.navigation.fileName.split('-')[0]}:  ${this.navigation.selectedRequirement.title} - 用户故事`,
+        label: uiText("{0} - 用户故事", [this.navigation.fileName.split('-')[0] ?? '']),
+        tooltipLabel: uiText("{0}:  {1} - 用户故事", [this.navigation.fileName.split('-')[0], this.navigation.selectedRequirement.title]),
         url: `/user-stories/${this.navigation.projectId}`,
         state: {
           data: this.navigation.data,
@@ -280,7 +282,7 @@ export class UserStoriesComponent implements OnInit, OnDestroy {
   navigateToEditPRD() {
     this.store.dispatch(
       new DeleteBreadcrumb(
-        `${this.navigation.fileName.split('-')[0] ?? ''} - 用户故事`,
+        uiText("{0} - 用户故事", [this.navigation.fileName.split('-')[0] ?? '']),
       ),
     );
     this.router.navigate(['/edit'], {
@@ -430,7 +432,7 @@ export class UserStoriesComponent implements OnInit, OnDestroy {
           WorkflowType.Story,
           {
             timestamp: new Date().toISOString(),
-            reason: error?.message || '生成用户故事失败',
+            reason: error?.message || uiText("生成用户故事失败"),
           },
         );
         this.toast.showError(
@@ -486,7 +488,7 @@ export class UserStoriesComponent implements OnInit, OnDestroy {
         WorkflowType.Task,
         {
           timestamp: new Date().toISOString(),
-          reason: error?.message || '生成任务失败',
+          reason: error?.message || uiText("生成任务失败"),
         },
       );
       throw error;
@@ -610,11 +612,11 @@ export class UserStoriesComponent implements OnInit, OnDestroy {
           if (hasLinkedTestCases) {
             this.dialogService
               .confirm({
-                title: '警告：将删除测试用例',
+                title: uiText("警告：将删除测试用例"),
                 description:
-                  '重新生成用户故事将删除所有关联的测试用例。确定要继续吗？',
-                cancelButtonText: '取消',
-                confirmButtonText: '继续',
+                  uiText("重新生成用户故事将删除所有关联的测试用例。确定要继续吗？"),
+                cancelButtonText: uiText("取消"),
+                confirmButtonText: uiText("继续"),
               })
               .subscribe((confirmed) => {
                 if (confirmed) {
@@ -636,10 +638,10 @@ export class UserStoriesComponent implements OnInit, OnDestroy {
       .createBuilder()
       .forComponent(ModalDialogCustomComponent)
       .withData({
-        title: '生成用户故事',
+        title: uiText("生成用户故事"),
         description:
-          '补充上下文，以生成符合需求的用户故事',
-        placeholder: '为用户故事补充上下文',
+          uiText("补充上下文，以生成符合需求的用户故事"),
+        placeholder: uiText("为用户故事补充上下文"),
       })
       .withWidth('600px')
       .open()
@@ -732,29 +734,29 @@ export class UserStoriesComponent implements OnInit, OnDestroy {
     if (this.userStoriesInState.length > 0) {
       this.exportOptions.push(
         {
-          groupName: 'AI 操作',
+          groupName: uiText("AI 操作"),
           options: [
             {
-              label: '重新生成',
+              label: uiText("重新生成"),
               callback: addMoreContext.bind(this),
               icon: 'heroDocument',
-              additionalInfo: '用户故事与任务',
+              additionalInfo: uiText("用户故事与任务"),
               isTimestamp: false,
             },
           ],
         },
         {
-          groupName: '导出',
+          groupName: uiText("导出"),
           options: [
             {
-              label: '复制到剪贴板',
+              label: uiText("复制到剪贴板"),
               callback: exportJson.bind(this),
               icon: 'heroPaperClip',
-              additionalInfo: 'JSON 格式',
+              additionalInfo: uiText("JSON 格式"),
               isTimestamp: false,
             },
             {
-              label: '下载',
+              label: uiText("下载"),
               callback: exportExcel.bind(this),
               icon: 'heroDocumentText',
               additionalInfo: 'Excel (.xlsx)',

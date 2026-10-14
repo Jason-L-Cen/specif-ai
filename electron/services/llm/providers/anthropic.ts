@@ -1,3 +1,4 @@
+import { t as appText } from "../../language";
 import Anthropic from "@anthropic-ai/sdk";
 import LLMHandler from "../llm-handler";
 import { Message, ModelInfo, LLMConfig, LLMError } from "../llm-types";
@@ -56,12 +57,12 @@ export class AnthropicHandler extends LLMHandler {
 
   getConfig(config: Partial<AnthropicConfig>): AnthropicConfig {
     if (!config.apiKey && !process.env.ANTHROPIC_API_KEY) {
-      throw new LLMError("Anthropic API 密钥不能为空", "anthropic");
+      throw new LLMError(appText("Anthropic API 密钥不能为空"), "anthropic");
     }
 
     const model = config.model || this.defaultModel;
     if (!Object.values(AnthropicModel).includes(model)) {
-      throw new LLMError(`无效的模型 ID：${model}`, "anthropic");
+      throw new LLMError(appText("无效的模型 ID：{0}", [model]), "anthropic");
     }
 
     return {
@@ -73,7 +74,7 @@ export class AnthropicHandler extends LLMHandler {
   }
 
   @withRetry({ retryAllErrors: true })
-  async invoke(messages: Message[], systemPrompt: string | null = null, operation: string = "llm:invoke"): Promise<string> {
+  protected async invokeModel(messages: Message[], systemPrompt: string | null = null, operation: string = "llm:invoke"): Promise<string> {
     const modelInfo = MODEL_CONFIGS[this.configData.model];
 
     // Convert messages to Anthropic's format
@@ -107,7 +108,7 @@ export class AnthropicHandler extends LLMHandler {
 
     const content = response.content?.[0];
     if (!content || content.type !== 'text' || !('text' in content)) {
-      throw new LLMError("Anthropic API 未返回有效文本内容", "anthropic");
+      throw new LLMError(appText("Anthropic API 未返回有效文本内容"), "anthropic");
     }
 
     return content.text;

@@ -1,3 +1,5 @@
+import { t as appText } from "../services/language";
+import { handleLanguageTask } from "./language-handler";
 import { ipcMain } from "electron";
 import { createTestCaseWorkflow } from "../agentic/test-case-workflow";
 import { contentGenerationManager } from "../services/content-generation/content-generation.service";
@@ -16,7 +18,7 @@ import { WorkflowEventsService } from "../services/events/workflow-events.servic
 const workflowEvents = new WorkflowEventsService("test-case");
 
 export function setupWorkflowHandlers() {
-  ipcMain.handle("workflow:invoke", async (_event, workflowState) => {
+  handleLanguageTask("workflow:invoke", async (_event, workflowState) => {
     try {
       const { type, userStoryId } = workflowState;
 
@@ -31,7 +33,7 @@ export function setupWorkflowHandlers() {
           const trace = o11y.createTrace('generate-test-cases');
           const llmConfig = store.get<LLMConfigModel>('llmConfig');
           if (!llmConfig) {
-            throw new Error('未找到大语言模型配置');
+            throw new Error(appText("未找到大语言模型配置"));
           }
           
           const llm = buildLangchainModelProvider(
@@ -60,7 +62,7 @@ export function setupWorkflowHandlers() {
           await workflowEvents.dispatchThinking(
             "generate-test-cases",
             {
-              title: "正在根据用户故事生成测试用例",
+              title: appText("正在根据用户故事生成测试用例"),
             },
             config,
             generateCorrelationId
@@ -89,7 +91,7 @@ export function setupWorkflowHandlers() {
                   node: "tools_end",
                   type: "mcp",
                   message: {
-                    title: `工具已执行完成：${name}`,
+                    title: appText("工具已执行完成：{0}", [name]),
                     input: data?.input,
                     output: data?.output?.content,
                   },
@@ -110,7 +112,7 @@ export function setupWorkflowHandlers() {
           await workflowEvents.dispatchAction(
             "generate-test-cases",
             {
-              title: `已成功生成 ${result.values.testCases?.length || 0} 个测试用例`,
+              title: appText("已成功生成 {0} 个测试用例", [result.values.testCases?.length || 0]),
               output: JSON.stringify(result.values.testCases || []),
             },
             config,
@@ -126,7 +128,7 @@ export function setupWorkflowHandlers() {
           return result.values;
         }
         default:
-          throw new Error(`未知的工作流类型：${type}`);
+          throw new Error(appText("未知的工作流类型：{0}", [type]));
       }
     } catch (error) {
       console.error("Error in workflow handler:", error);

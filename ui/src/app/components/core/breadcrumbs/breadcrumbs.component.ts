@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../../i18n/i18n.pipe";
+import { t as uiText } from "../../../i18n/translate";
 import { Component, inject, OnInit } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
@@ -20,7 +22,7 @@ import { heroArrowLeft, heroHome } from '@ng-icons/heroicons/outline';
     NgIf,
     AsyncPipe,
     MatTooltipModule,
-  ],
+   I18nPipe,],
   viewProviders: [provideIcons({ heroArrowLeft, heroHome })],
 })
 export class BreadcrumbsComponent implements OnInit {
@@ -32,7 +34,7 @@ export class BreadcrumbsComponent implements OnInit {
 
   ngOnInit() {
     this.breadcrumbs$.subscribe((pages) => {
-      this.pageHistory = [{ label: '应用', url: '/apps', state: {} }, ...pages];
+      this.pageHistory = [{ label: uiText("应用"), url: '/apps', state: {} }, ...pages];
     });
   }
 

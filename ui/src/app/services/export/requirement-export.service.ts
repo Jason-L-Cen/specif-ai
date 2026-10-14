@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import { Injectable } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
 import { ExportRequirementDataOptions } from 'src/app/model/interfaces/exports.interface';
@@ -48,22 +49,22 @@ export class RequirementExportService {
         if (result.error) throw result.error;
         if (options.type === 'json') {
           throw new Error(
-            `复制${REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]}失败。`,
+            uiText("复制{0}失败。", [REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]]),
           );
         }
         throw new Error(
-          `导出${REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]}失败。`,
+          uiText("导出{0}失败。", [REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]]),
         );
       }
     } catch (error) {
       this.logger.error('Export failed:', error);
       if (options.type === 'json') {
         this.toast.showError(
-          `复制数据失败：${error instanceof Error ? error.message : '未知错误'}`,
+          uiText("复制数据失败：{0}", [error instanceof Error ? error.message : uiText("未知错误")]),
         );
       } else {
         this.toast.showError(
-          `导出数据失败：${error instanceof Error ? error.message : '未知错误'}`,
+          uiText("导出数据失败：{0}", [error instanceof Error ? error.message : uiText("未知错误")]),
         );
       }
       throw error;

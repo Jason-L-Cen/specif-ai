@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../../i18n/i18n.pipe";
+import { t as uiText } from "../../../i18n/translate";
 import {
   Component,
   Input,
@@ -40,7 +42,7 @@ import { environment } from '../../../../environments/environment';
   selector: 'app-ado-integration',
   templateUrl: './ado-integration.component.html',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, InputFieldComponent, ButtonComponent],
+  imports: [NgIf, ReactiveFormsModule, InputFieldComponent, ButtonComponent, I18nPipe],
 })
 export class AdoIntegrationComponent implements PmoIntegrationBase, OnInit {
   @Input({ required: true }) projectId!: string;
@@ -248,7 +250,7 @@ export class AdoIntegrationComponent implements PmoIntegrationBase, OnInit {
         'Error validating ADO credentials during connect:',
         error,
       );
-      this.toast.showError('验证 Azure DevOps 凭据失败');
+      this.toast.showError(uiText("验证 Azure DevOps 凭据失败"));
       this.isProcessing.set(false);
     }
   }
@@ -274,8 +276,8 @@ export class AdoIntegrationComponent implements PmoIntegrationBase, OnInit {
 
   getButtonText(): string {
     if (this.isProcessing()) {
-      return this.isConnected() ? '正在断开连接…' : '正在连接…';
+      return this.isConnected() ? uiText("正在断开连接…") : uiText("正在连接…");
     }
-    return this.isConnected() ? '断开连接' : '连接';
+    return this.isConnected() ? uiText("断开连接") : uiText("连接");
   }
 }

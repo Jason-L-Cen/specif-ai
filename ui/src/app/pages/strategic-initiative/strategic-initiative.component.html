@@ -4,10 +4,10 @@
     [projectId]="projectId"
     [workflowType]="WorkflowType.StrategicInitiative"
     [isCompleted]="strategicInitiativeGenerationComplete"
-    initialTitle="正在生成战略举措…"
-    completedTitle="战略举措生成成功！"
-    subtitle="正在创建完整的业务提案…"
-    completionButtonText="查看已生成的提案"
+    [initialTitle]="&quot;正在生成战略举措…&quot; | i18n"
+    [completedTitle]="&quot;战略举措生成成功！&quot; | i18n"
+    [subtitle]="&quot;正在创建完整的业务提案…&quot; | i18n"
+    [completionButtonText]="&quot;查看已生成的提案&quot; | i18n"
     [showCancelButton]="false"
     (closeDialog)="closeProgressDialog()"
   />
@@ -64,12 +64,12 @@
               strategicInitiativeForm.get('status')?.value === 'COMPLETE',
           }"
         >
-          {{ strategicInitiativeForm.get('status')?.value === 'DRAFT' ? '草稿' : strategicInitiativeForm.get('status')?.value === 'COMPLETE' ? '已完成' : strategicInitiativeForm.get('status')?.value }}
+          {{ strategicInitiativeForm.get('status')?.value === 'DRAFT' ? ("草稿" | i18n) : strategicInitiativeForm.get('status')?.value === 'COMPLETE' ? ("已完成" | i18n) : strategicInitiativeForm.get('status')?.value }}
         </div>
         <app-export-dropdown
           *ngIf="mode === 'edit'"
           [groupedOptions]="documentActionOptions"
-          buttonLabel="操作"
+          [buttonLabel]="&quot;操作&quot; | i18n"
         ></app-export-dropdown>
       </div>
     </header>
@@ -85,9 +85,9 @@
         <div class="flex flex-col gap-4">
           <div>
             <app-input-field
-              elementPlaceHolder="标题"
+              [elementPlaceHolder]="&quot;标题&quot; | i18n"
               elementId="title"
-              elementName="标题"
+              [elementName]="&quot;标题&quot; | i18n"
               formControlName="title"
               [required]="true"
             />
@@ -98,7 +98,7 @@
               "
               class="text-danger-500 text-sm"
             >
-              请输入标题
+              {{ "请输入标题" | i18n }}
             </div>
           </div>
 
@@ -106,13 +106,13 @@
           <div class="w-full">
             <div class="flex justify-between items-center mb-1">
               <label class="text-sm font-medium text-secondary-500">
-                调研链接
+                {{ "调研链接" | i18n }}
                 <span class="text-xs text-secondary-400"
-                  >（可选：添加链接作为调研参考）</span
+                  >{{ "（可选：添加链接作为调研参考）" | i18n }}</span
                 >
               </label>
               <app-button
-                buttonContent="添加调研链接"
+                [buttonContent]="&quot;添加调研链接&quot; | i18n"
                 theme="secondary_outline"
                 size="sm"
                 rounded="md"
@@ -158,7 +158,7 @@
         <div *ngIf="mode === 'add'" class="flex-1 p-4 overflow-y-auto bg-white">
           <div class="flex flex-col gap-1.5">
             <label class="block text-sm font-medium text-secondary-500">
-              详细信息
+              {{ "详细信息" | i18n }}
               <span class="text-red-500 text-xs">*</span>
             </label>
             <div class="flex-1 min-h-[400px]">
@@ -178,7 +178,7 @@
                   "
                   class="text-red-500 text-sm"
                 >
-                  请输入需求内容
+                  {{ "请输入需求内容" | i18n }}
                 </span>
               </ng-container>
             </div>
@@ -220,7 +220,7 @@
                     name="heroSparklesSolid"
                     class="text-primary-500"
                   ></ng-icon>
-                  与 Ace 对话
+                  {{ "与 Ace 对话" | i18n }}
                 </h3>
                 <button
                   class="text-secondary-500 hover:text-secondary-700 ml-auto"
@@ -264,7 +264,7 @@
       >
         <div>
           <app-button
-            buttonContent="取消"
+            [buttonContent]="&quot;取消&quot; | i18n"
             theme="secondary_outline"
             size="sm"
             rounded="md"
@@ -275,7 +275,10 @@
         <div class="flex gap-2">
           <app-button
             [buttonContent]="
-              mode === 'edit' ? '重新生成草稿' : '生成草稿'
+
+
+
+              mode === &#39;edit&#39; ? (&quot;重新生成草稿&quot; | i18n) : (&quot;生成草稿&quot; | i18n)
             "
             theme="secondary"
             size="sm"
@@ -284,7 +287,7 @@
             (click)="generateStrategicInitiativeDraft()"
           />
           <app-button
-            buttonContent="更新"
+            [buttonContent]="&quot;更新&quot; | i18n"
             theme="primary"
             size="sm"
             rounded="md"
@@ -293,7 +296,7 @@
             [disabled]="checkFormValidity()"
           />
           <app-button
-            buttonContent="添加"
+            [buttonContent]="&quot;添加&quot; | i18n"
             theme="primary"
             size="sm"
             rounded="md"

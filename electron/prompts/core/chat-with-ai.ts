@@ -1,4 +1,4 @@
-import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../context/markdown-rules";
+import { getOutputLanguageInstructions } from "../context/markdown-rules";
 import { STRATEGIC_INITIATIVE_DEFINITION_CONTEXT } from "../context/strategic-initiative";
 import { REQUIREMENT_DISPLAY_NAME_MAP, REQUIREMENT_TYPE } from "../../constants/requirement.constants";
 import { BP_DEFINITION_CONTEXT } from "../../prompts/context/bp";
@@ -13,7 +13,7 @@ export const chatWithAIPrompt = (params: ChatWithAIParams) => {
   const { requirementAbbr, project, recursionLimit } = params;
   const persona = getPersona(requirementAbbr);
 
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
 You are Ace, a ${persona} with exceptional technical expertise and research capabilities. You're collaborating on this solution requirement construction within Ace Product Development Assistant (Ace PDA):
 

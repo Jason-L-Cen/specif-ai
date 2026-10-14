@@ -1,3 +1,4 @@
+import { t as appText } from "../../services/language";
 import {
   AIMessage,
   HumanMessage,
@@ -87,7 +88,7 @@ export const chatWithAI = async (_: IpcMainInvokeEvent, data: unknown) => {
     const llmConfig = store.get<LLMConfigModel>("llmConfig");
 
     if (!llmConfig) {
-      throw new Error("未找到大语言模型配置");
+      throw new Error(appText("未找到大语言模型配置"));
     }
 
     const model = buildLangchainModelProvider(
@@ -182,12 +183,12 @@ export const chatWithAI = async (_: IpcMainInvokeEvent, data: unknown) => {
     const errorResponse =
       error instanceof GuardrailsShouldBlock
         ? {
-            response: "请求已被安全护栏拦截",
+            response: appText("请求已被安全护栏拦截"),
             blocked: true,
             blockedReason: APP_MESSAGES.BLOCKED_REASON,
           }
         : {
-            response: "请求未能处理",
+            response: appText("请求未能处理"),
             blocked: true,
             blockedReason: APP_MESSAGES.RESPONSE_NOT_PROCESSES,
           };
@@ -241,7 +242,7 @@ const buildToolsForRequirement = async (data: ChatWithAIParams) => {
 
   const addToRequirementDescription = tool(
     ({}: { contentToAdd: string }): string => {
-      return "工具调用成功，已通知用户审阅你建议添加到描述中的内容";
+      return appText("工具调用成功，已通知用户审阅你建议添加到描述中的内容");
     },
     {
       name: "update_requirement_description",
@@ -264,7 +265,7 @@ const buildToolsForRequirement = async (data: ChatWithAIParams) => {
       if (!searchBlock) {
         return JSON.stringify({
           success: false,
-          error: "searchBlock 不能为空",
+          error: appText("searchBlock 不能为空"),
         });
       }
 
@@ -276,7 +277,7 @@ const buildToolsForRequirement = async (data: ChatWithAIParams) => {
       } else {
         return JSON.stringify({
           success: false,
-          error: "未在文档中找到要替换的文本块",
+          error: appText("未在文档中找到要替换的文本块"),
         });
       }
 
@@ -295,7 +296,7 @@ const buildToolsForRequirement = async (data: ChatWithAIParams) => {
       console.log("[replaceTextBlock] Update request created:", updateRequest);
       return JSON.stringify({
         success: true,
-        message: `已创建文本块替换请求，将使用新内容替换指定文本块。`,
+        message: appText("已创建文本块替换请求，将使用新内容替换指定文本块。"),
         updateRequest,
       });
     },

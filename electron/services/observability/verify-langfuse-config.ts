@@ -1,3 +1,4 @@
+import { t as appText } from "../language";
 import type { IpcMainInvokeEvent } from 'electron';
 import { verifyLangfuseConfigSchema, VerifyLangfuseConfigResponse } from '../../schema/core/verify-langfuse-config.schema';
 import { Langfuse } from 'langfuse';
@@ -19,8 +20,8 @@ export async function verifyLangfuseConfig(event: IpcMainInvokeEvent, data: any)
 
     if (!response.ok) {
       throw new Error(response.status === 401 ? 
-        'Langfuse 身份验证凭据无效' :
-        `无法验证 Langfuse 配置：${response.statusText}`);
+        appText("Langfuse 身份验证凭据无效") :
+        appText("无法验证 Langfuse 配置：{0}", [response.statusText]));
     }
 
     console.log('[verify-langfuse-config] Authentication successful');
@@ -40,7 +41,7 @@ export async function verifyLangfuseConfig(event: IpcMainInvokeEvent, data: any)
 
     return {
       status: 'success',
-      message: 'Langfuse 配置验证成功'
+      message: appText("Langfuse 配置验证成功")
     };
 
   } catch (error: any) {
@@ -48,7 +49,7 @@ export async function verifyLangfuseConfig(event: IpcMainInvokeEvent, data: any)
     
     return {
       status: 'failed',
-      message: 'Langfuse 配置无效，请检查密钥和主机 URL。',
+      message: appText("Langfuse 配置无效，请检查密钥和主机 URL。"),
     };
   }
 }

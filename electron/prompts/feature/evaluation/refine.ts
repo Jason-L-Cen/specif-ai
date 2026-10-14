@@ -1,4 +1,4 @@
-import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../context/markdown-rules";
+import { getOutputLanguageInstructions } from "../../context/markdown-rules";
 interface RefinePromptParams {
   reqName: string;
   reqDesc: string;
@@ -18,7 +18,7 @@ export function refinePrompt({
   extraContext,
   referenceInformation,
 }: RefinePromptParams): string {
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
   # REQUIREMENTS
   **Name:** ${reqName}

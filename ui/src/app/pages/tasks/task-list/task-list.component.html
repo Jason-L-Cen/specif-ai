@@ -4,10 +4,10 @@
     [projectId]="config.projectId"
     [workflowType]="WorkflowType.Task"
     [isCompleted]="taskGenerationComplete"
-    initialTitle="正在生成任务…"
-    completedTitle="任务生成成功！"
-    subtitle="正在为用户故事创建任务…"
-    completionButtonText="查看已生成的任务"
+    [initialTitle]="&quot;正在生成任务…&quot; | i18n"
+    [completedTitle]="&quot;任务生成成功！&quot; | i18n"
+    [subtitle]="&quot;正在为用户故事创建任务…&quot; | i18n"
+    [completionButtonText]="&quot;查看已生成的任务&quot; | i18n"
     [showCancelButton]="false"
     (closeDialog)="closeProgressDialog()"
   />
@@ -44,7 +44,7 @@
       <div class="py-4 sticky top-0 z-10 bg-white">
         <div class="flex items-center justify-between gap-4">
           <div class="flex items-center">
-            <h2 class="text-md font-semibold text-secondary-600">任务</h2>
+            <h2 class="text-md font-semibold text-secondary-600">{{ "任务" | i18n }}</h2>
             <ng-icon
               name="heroInformationCircle"
               (click)="electronService.openExternalUrl(docUrl)"
@@ -59,7 +59,10 @@
             <ng-container *ngIf="taskList$ | async as taskList">
               <app-button
                 [buttonContent]="
-                  taskList.length > 0 ? '重新生成任务' : '生成任务'
+
+
+
+                  taskList.length > 0 ? (&quot;重新生成任务&quot; | i18n) : (&quot;生成任务&quot; | i18n)
                 "
                 theme="secondary"
                 size="sm"
@@ -69,7 +72,7 @@
             </ng-container>
 
             <app-button
-              buttonContent="新增"
+              [buttonContent]="&quot;新增&quot; | i18n"
               theme="primary"
               size="sm"
               rounded="lg"
@@ -80,7 +83,7 @@
 
         <app-search-input
           *ngIf="taskList$ | async as taskList"
-          placeholder="搜索…"
+          [placeholder]="&quot;搜索…&quot; | i18n"
           (searchChange)="onSearch($event)"
         ></app-search-input>
       </div>
@@ -109,7 +112,7 @@
               [isIconButton]="true"
               icon="heroDocumentDuplicate"
               (click)="copyTaskContent($event, task)"
-              matTooltip="复制"
+              [matTooltip]="&quot;复制&quot; | i18n"
             />
           </div>
         </app-list-item>
@@ -118,7 +121,7 @@
           *ngIf="taskList.length === 0"
         >
           <h1 class="font-semibold w-full text-center mt-3">
-            暂无任务。
+            {{ "暂无任务。" | i18n }}
           </h1>
         </div>
       </ng-container>

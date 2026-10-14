@@ -1,3 +1,4 @@
+import { t as appText } from "../../services/language";
 import { HumanMessage } from "@langchain/core/messages";
 import { BaseCheckpointSaver } from "@langchain/langgraph-checkpoint";
 import { z } from "zod";
@@ -40,7 +41,7 @@ export const buildResearchNode = ({
       span?.end({ statusMessage: "No tools are passed so skipping research phase" });
       await workflowEvents.dispatchAction(
         "research",
-        { title: "没有可用工具，已跳过调研阶段" },
+        { title: appText("没有可用工具，已跳过调研阶段") },
         runnableConfig
       );
       return { referenceInformation: "" };
@@ -49,7 +50,7 @@ export const buildResearchNode = ({
     const researchCorrelationId = uuid();
     await workflowEvents.dispatchThinking(
       "research",
-      { title: "正在根据业务提案背景进行调研" },
+      { title: appText("正在根据业务提案背景进行调研") },
       runnableConfig,
       researchCorrelationId
     );
@@ -103,14 +104,14 @@ export const buildResearchNode = ({
       if (usefulParts.length > 100) {
         referenceInformation = usefulParts;
       } else {
-        referenceInformation = `请根据“${state.requirement?.title || state.project.description}”的已有信息，继续生成完整的业务提案。`;
+        referenceInformation = appText("请根据“{0}”的已有信息，继续生成完整的业务提案。", [state.requirement?.title || state.project.description]);
       }
     }
     
     await workflowEvents.dispatchAction(
       "research",
       {
-        title: "调研已完成，已整理战略举措生成所需的摘要",
+        title: appText("调研已完成，已整理战略举措生成所需的摘要"),
         output: referenceInformation,
       },
       runnableConfig,
@@ -142,7 +143,7 @@ export const buildStrategicInitiativeGenerationNode = ({
       const strategicInitiativeGenerationCorrelationId = uuid();
       await workflowEvents.dispatchThinking(
         "strategic-initiative-generation",
-        { title: "正在生成战略举措提案" },
+        { title: appText("正在生成战略举措提案") },
         runnableConfig,
         strategicInitiativeGenerationCorrelationId
       );
@@ -199,7 +200,7 @@ export const buildStrategicInitiativeGenerationNode = ({
       await workflowEvents.dispatchAction(
         "strategic-initiative-generation",
         {
-          title: "战略举措提案已成功生成",
+          title: appText("战略举措提案已成功生成"),
           output: {
             title: response.structuredResponse.title,
             requirement: response.structuredResponse.requirement,
@@ -220,8 +221,8 @@ export const buildStrategicInitiativeGenerationNode = ({
       span?.end({ level: "ERROR" });
       return {
         strategicInitiativeDraft: {
-          title: state.requirement?.title || "生成战略举措时出错",
-          requirement: `生成战略举措提案时出错：${error}`,
+          title: state.requirement?.title || appText("生成战略举措时出错"),
+          requirement: appText("生成战略举措提案时出错：{0}", [error]),
         },
       };
     }

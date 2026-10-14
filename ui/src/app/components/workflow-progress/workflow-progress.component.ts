@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import {
   Component,
   Input,
@@ -64,7 +66,7 @@ interface ProcessedProgressEvent extends WorkflowProgressEvent {
     ButtonComponent,
     NgTemplateOutlet,
     ThreeBounceLoaderComponent,
-  ],
+   I18nPipe,],
   providers: [
     provideIcons({
       heroSparkles,
@@ -82,9 +84,9 @@ export class WorkflowProgressComponent implements OnInit, OnDestroy {
   @Input() workflowType!: WorkflowType;
   @Input() isVisible: boolean = false;
   @Input() isCompleted: boolean = false;
-  @Input() initialTitle: string = '正在创建解决方案…';
-  @Input() subtitle: string = '请稍候，Ace PDA 正在完成后续处理…';
-  @Input() completedTitle: string = '处理已完成';
+  @Input() initialTitle: string = uiText("正在创建解决方案…");
+  @Input() subtitle: string = uiText("请稍候，Ace PDA 正在完成后续处理…");
+  @Input() completedTitle: string = uiText("处理已完成");
   @Input() maxHeight: string = 'none';
   @Input() showCancelButton: boolean = true;
   @Input() showHeader: boolean = true;
@@ -299,10 +301,10 @@ export class WorkflowProgressComponent implements OnInit, OnDestroy {
 
     this.dialogService
       .confirm({
-        title: '取消处理',
-        description: '确定要取消当前创建操作吗？此操作无法撤销。',
-        confirmButtonText: '确认取消',
-        cancelButtonText: '继续处理',
+        title: uiText("取消处理"),
+        description: uiText("确定要取消当前创建操作吗？此操作无法撤销。"),
+        confirmButtonText: uiText("确认取消"),
+        cancelButtonText: uiText("继续处理"),
       })
       .subscribe((result: boolean) => {
         if (result) {
@@ -322,13 +324,13 @@ export class WorkflowProgressComponent implements OnInit, OnDestroy {
 
       if (!success) {
         this.toasterService.showWarning(
-          '无法取消创建操作，处理可能已经完成。',
+          uiText("无法取消创建操作，处理可能已经完成。"),
         );
       }
     } catch (error) {
       console.error(`Error cancelling ${this.workflowType} creation:`, error);
       this.toasterService.showError(
-        '取消创建操作时发生错误，请重试。',
+        uiText("取消创建操作时发生错误，请重试。"),
       );
     } finally {
       this.isAborting.set(false);

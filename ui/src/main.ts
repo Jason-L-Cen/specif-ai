@@ -1,6 +1,6 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import { AppModule } from './app/app.module';
+import { initializeUILanguage } from './app/i18n/translate';
 import * as Sentry from '@sentry/angular';
 import { environment } from './environments/environment';
 import { registerLocaleData } from '@angular/common';
@@ -35,6 +35,7 @@ if (environment.ENABLE_SENTRY) {
   console.log('Disabling sentry based on the environment configuration.');
 }
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule)
+initializeUILanguage()
+  .then(() => import('./app/app.module'))
+  .then(({ AppModule }) => platformBrowserDynamic().bootstrapModule(AppModule))
   .catch((err) => console.error(err));

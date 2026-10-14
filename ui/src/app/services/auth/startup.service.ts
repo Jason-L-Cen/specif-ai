@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -32,7 +33,7 @@ export class StartupService {
         },
         error: () => {
           this.userState.logout(
-            '初始化大语言模型配置失败，请重试。',
+            uiText("初始化大语言模型配置失败，请重试。"),
           );
         },
       });
@@ -50,7 +51,7 @@ export class StartupService {
           return this.store.dispatch(new VerifyLLMConfig());
         } else {
           this.toasterService.showError(
-            '请先在设置中添加 AI 配置后再继续。',
+            uiText("请先在设置中添加 AI 配置后再继续。"),
           );
           return of(null);
         }

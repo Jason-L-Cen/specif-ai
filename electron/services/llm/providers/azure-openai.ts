@@ -1,3 +1,4 @@
+import { t as appText } from "../../language";
 import { AzureOpenAI } from "openai";
 import LLMHandler from "../llm-handler";
 import { Message, ModelInfo, LLMConfig, LLMError } from "../llm-types";
@@ -41,13 +42,13 @@ export class AzureOpenAIHandler extends LLMHandler {
 
   getConfig(config: Partial<AzureOpenAIConfig>): AzureOpenAIConfig {
     if (!config.apiKey) {
-      throw new LLMError("Azure OpenAI API 密钥不能为空", "openai");
+      throw new LLMError(appText("Azure OpenAI API 密钥不能为空"), "openai");
     }
     if (!config.endpoint) {
-      throw new LLMError("Azure OpenAI 服务端点不能为空", "openai");
+      throw new LLMError(appText("Azure OpenAI 服务端点不能为空"), "openai");
     }
     if (!config.deployment) {
-      throw new LLMError("Azure OpenAI 部署 ID 不能为空", "openai");
+      throw new LLMError(appText("Azure OpenAI 部署 ID 不能为空"), "openai");
     }
 
     return {
@@ -59,7 +60,7 @@ export class AzureOpenAIHandler extends LLMHandler {
   }
 
   @withRetry({ retryAllErrors: true })
-  async invoke(
+  protected async invokeModel(
     messages: Message[],
     systemPrompt: string | null = null,
     operation: string = "llm:invoke"
@@ -96,7 +97,7 @@ export class AzureOpenAIHandler extends LLMHandler {
 
     if (!response.choices?.[0]?.message?.content) {
       throw new LLMError(
-        "Azure OpenAI API 未返回回答内容",
+        appText("Azure OpenAI API 未返回回答内容"),
         "azure-openai"
       );
     }

@@ -1,3 +1,4 @@
+import { t as uiText } from "../i18n/translate";
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { UserStateService } from '../services/auth/user-state.service';
@@ -10,7 +11,7 @@ export const UserGuard: CanActivateFn = (route, state) => {
 
   if (!userState.isWorkingDirSet()) {
     userState.logout(
-      '请选择保存目录后继续登录。',
+      uiText("请选择保存目录后继续登录。"),
     );
     return false;
   }

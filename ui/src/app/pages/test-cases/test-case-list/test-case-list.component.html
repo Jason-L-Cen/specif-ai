@@ -8,12 +8,10 @@
         <h1
           class="text-lg font-bold text-secondary-800 truncate max-w-full pr-8"
         >
-          {{ navigation.selectedRequirement?.id }} 的测试用例：
-          {{ navigation.selectedRequirement?.name }}
-        </h1>
+          {{ ("{0} 的测试用例： {1}" | i18n: [navigation.selectedRequirement?.id, navigation.selectedRequirement?.name]) }}</h1>
 
         <div class="flex items-center">
-          <h2 class="text-md font-semibold text-secondary-600">测试用例</h2>
+          <h2 class="text-md font-semibold text-secondary-600">{{ "测试用例" | i18n }}</h2>
             <ng-icon
               name="heroInformationCircle"
               (click)="electronService.openExternalUrl(docUrl)"
@@ -27,23 +25,26 @@
         <div class="flex gap-2">
           <app-button
             [buttonContent]="
+
+
+
               testCases.length === 0
-                ? '生成测试用例'
-                : '重新生成测试用例'
+                ? (&quot;生成测试用例&quot; | i18n)
+                : (&quot;重新生成测试用例&quot; | i18n)
             "
             theme="secondary"
             size="sm"
             (click)="addMoreContext(testCases.length > 0)"
             rounded="lg"
-            matTooltip="补充界面和上下文信息，以生成测试用例"
+            [matTooltip]="&quot;补充界面和上下文信息，以生成测试用例&quot; | i18n"
           />
           <app-button
-            buttonContent="添加测试用例"
+            [buttonContent]="&quot;添加测试用例&quot; | i18n"
             theme="primary"
             size="sm"
             (click)="navigateToAddTestCase()"
             rounded="lg"
-            matTooltip="手动添加测试用例"
+            [matTooltip]="&quot;手动添加测试用例&quot; | i18n"
           />
         </div>
         <!-- TODO export feature -->
@@ -57,7 +58,7 @@
     <!-- Search and filters -->
     <div *ngIf="testCases.length > 0" class="mb-4">
       <app-search-input
-        placeholder="搜索…"
+        [placeholder]="&quot;搜索…&quot; | i18n"
         (searchChange)="onSearch($event)"
         class="mb-6"
       ></app-search-input>
@@ -66,7 +67,7 @@
         <!-- Priority filter -->
         <app-select
           [options]="priorityOptions"
-          [placeholder]="'按优先级筛选'"
+          [placeholder]="(&quot;按优先级筛选&quot; | i18n)"
           (selectionChange)="onPriorityFilterChange($event)"
           [clearable]="true"
         ></app-select>
@@ -74,7 +75,7 @@
         <!-- Type filter -->
         <app-select
           [options]="typeOptions"
-          [placeholder]="'按类型筛选'"
+          [placeholder]="(&quot;按类型筛选&quot; | i18n)"
           (selectionChange)="onTypeFilterChange($event)"
           [clearable]="true"
         ></app-select>
@@ -82,7 +83,7 @@
         <!-- Steps count filter -->
         <app-select
           [options]="stepsCountOptions"
-          [placeholder]="'按步骤数量筛选'"
+          [placeholder]="(&quot;按步骤数量筛选&quot; | i18n)"
           (selectionChange)="onStepsCountFilterChange($event)"
           [clearable]="true"
         ></app-select>
@@ -103,8 +104,8 @@
         [borderClass]="getTestCaseBorderClass(testCase)"
         [statusIndicator]="getTestCaseStatusIndicator(testCase)"
         [badges]="getTestCaseBadges(testCase)"
-        [actionButtonText]="'查看详情'"
-        [copyTooltip]="'复制测试用例内容'"
+        [actionButtonText]="(&quot;查看详情&quot; | i18n)"
+        [copyTooltip]="(&quot;复制测试用例内容&quot; | i18n)"
         (viewItem)="navigateToEditTestCase(testCase)"
         (copyContent)="copyTestCaseContent($event, testCase)"
       ></app-unified-card>
@@ -117,14 +118,14 @@
       >
         <img
           src="assets/img/empty-states/no-data.svg"
-          alt="暂无测试用例"
+          [alt]="&quot;暂无测试用例&quot; | i18n"
           class="w-80 h-80 mx-auto"
         />
         <h1 class="font-semibold text-secondary-700 text-xl mb-2">
-          未找到测试用例
+          {{ "未找到测试用例" | i18n }}
         </h1>
         <p class="text-secondary-500 text-sm">
-          点击<strong>“生成测试用例”</strong>按钮即可生成测试用例。
+          {{ "点击" | i18n }}<strong>{{ "“生成测试用例”" | i18n }}</strong>{{ "按钮即可生成测试用例。" | i18n }}
         </p>
       </div>
     </ng-template>
@@ -137,9 +138,9 @@
   [workflowType]="WorkflowType.TestCase"
   [isCompleted]="testCaseGenerationComplete"
   [initialTitle]="thinkingProcessConfig.title"
-  [completedTitle]="'测试用例生成成功！'"
+  [completedTitle]="(&quot;测试用例生成成功！&quot; | i18n)"
   [subtitle]="thinkingProcessConfig.subtitle"
-  completionButtonText="查看已生成的测试用例"
+  [completionButtonText]="&quot;查看已生成的测试用例&quot; | i18n"
   completionButtonIcon="heroArrowRight"
   [showCancelButton]="false"
   (closeDialog)="closeProgressDialog()"

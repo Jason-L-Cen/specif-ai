@@ -30,7 +30,7 @@
     class="flex flex-col h-screen w-screen items-center justify-center space-y-12 relative"
   >
     <div class="flex items-center gap-3">
-      <img id="app-logo" [src]="themeConfiguration.appLogo" class="h-12 w-auto" alt="Ace PDA 标志" />
+      <img id="app-logo" [src]="themeConfiguration.appLogo" class="h-12 w-auto" [alt]="&quot;Ace PDA 标志&quot; | i18n" />
       <div>
         <p class="font-semibold text-xl text-white">{{ themeConfiguration.appName }}</p>
         <p class="text-sm text-secondary-300">{{ themeConfiguration.appEnglishName }}</p>
@@ -51,8 +51,8 @@
           <div>
             <app-input-field
               formControlName="username"
-              elementPlaceHolder="请输入用户名"
-              elementName="用户名"
+              [elementPlaceHolder]="&quot;请输入用户名&quot; | i18n"
+              [elementName]="&quot;用户名&quot; | i18n"
               [required]="true"
             />
             <app-error-message [errorControl]="loginForm.get('username')" />
@@ -61,14 +61,14 @@
             <label
               for="directory-path"
               class="block mb-1.5 text-sm font-medium text-secondary-500"
-              >选择保存目录
+              >{{ "选择保存目录" | i18n }}
               <span class="text-danger-500 text-xs ml-1">*</span>
             </label>
             <div class="flex w-full">
               <input
                 type="text"
                 id="directory-path"
-                placeholder="选择保存目录"
+                [placeholder]="&quot;选择保存目录&quot; | i18n"
                 formControlName="directoryPath"
                 class="bg-secondary-100 border border-secondary-300 text-secondary-400 text-sm rounded-l-lg block w-full p-2"
                 readonly
@@ -80,12 +80,11 @@
                 class="flex items-center justify-center font-medium transition-colors duration-300 text-sm px-5 py-2.5 bg-primary-600 text-white hover:bg-primary-700 rounded-r-lg"
                 (click)="browseFiles()"
               >
-                浏览
+                {{ "浏览" | i18n }}
               </button>
             </div>
             <p class="text-xs mt-2 text-secondary-500">
-              此目录将保存
-              <span id="app-name">{{ themeConfiguration.appName }}</span> 生成的需求
+              {{ '此目录将保存 {0} 生成的需求' | i18n: [themeConfiguration.appName] }}
             </p>
             <app-error-message
               [errorControl]="loginForm.get('directoryPath')"
@@ -93,7 +92,7 @@
           </div>
         </div>
         <app-button
-          buttonContent="开始使用 →"
+          [buttonContent]="&quot;开始使用 →&quot; | i18n"
           [isFullWidth]="true"
           rounded="none"
           (click)="login()"

@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import { Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -19,7 +21,7 @@ import { heroCheck, heroXMark } from '@ng-icons/heroicons/outline';
 @Component({
   selector: 'app-mcp-integration-configurator',
   standalone: true,
-  imports: [CommonModule, NgIcon],
+  imports: [CommonModule, NgIcon, I18nPipe],
   templateUrl: './mcp-integration-configurator.component.html',
   providers: [
     {
@@ -76,7 +78,7 @@ export class McpIntegrationConfiguratorComponent
         this.mcpSettings.mcpServers[integration.id] = result;
         this.onChange(this.mcpSettings);
         this.toasterService.showSuccess(
-          'MCP 服务器配置已更新。',
+          uiText("MCP 服务器配置已更新。"),
         );
       }
     });
@@ -95,11 +97,11 @@ export class McpIntegrationConfiguratorComponent
         this.mcpSettings.mcpServers[result.id] = result;
         this.onChange(this.mcpSettings);
         this.toasterService.showSuccess(
-          '自定义 MCP 服务器配置已更新。',
+          uiText("自定义 MCP 服务器配置已更新。"),
         );
       } else {
         this.toasterService.showInfo(
-          '已取消配置自定义 MCP 服务器。',
+          uiText("已取消配置自定义 MCP 服务器。"),
         );
       }
     });
@@ -123,7 +125,7 @@ export class McpIntegrationConfiguratorComponent
         if (result) {
           this.mcpSettings.mcpServers[result.id] = result;
           this.onChange(this.mcpSettings);
-        this.toasterService.showSuccess('MCP 服务器已添加。');
+        this.toasterService.showSuccess(uiText("MCP 服务器已添加。"));
         }
       },
     );
@@ -160,16 +162,16 @@ export class McpIntegrationConfiguratorComponent
     if (this.mcpSettings.mcpServers[id]) {
       this.dialogService
         .confirm({
-        title: '确认移除',
-        description: `确定要移除 MCP 服务器 ${name ?? id} 吗？`,
-        confirmButtonText: '移除',
-        cancelButtonText: '取消',
+        title: uiText("确认移除"),
+        description: uiText("确定要移除 MCP 服务器 {0} 吗？", [name ?? id]),
+        confirmButtonText: uiText("移除"),
+        cancelButtonText: uiText("取消"),
         })
         .subscribe((confirmed) => {
           if (confirmed) {
             delete this.mcpSettings.mcpServers[id];
             this.onChange(this.mcpSettings);
-          this.toasterService.showSuccess('MCP 服务器已移除。');
+          this.toasterService.showSuccess(uiText("MCP 服务器已移除。"));
           }
         });
     }

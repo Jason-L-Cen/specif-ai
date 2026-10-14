@@ -1,3 +1,4 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
 import {
   Component,
   EventEmitter,
@@ -16,7 +17,7 @@ import { ButtonComponent } from '../core/button/button.component';
   templateUrl: './modal-dialog.component.html',
   styleUrls: ['./modal-dialog.component.scss'],
   standalone: true,
-  imports: [TextareaFieldComponent, ReactiveFormsModule, ButtonComponent],
+  imports: [TextareaFieldComponent, ReactiveFormsModule, ButtonComponent, I18nPipe],
 })
 export class ModalDialogCustomComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}

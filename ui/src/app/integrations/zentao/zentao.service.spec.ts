@@ -15,6 +15,7 @@ import { IntegrationCredentialsService } from '../../services/integration-creden
 import { InputFieldComponent } from '../../components/core/input-field/input-field.component';
 import { TestCaseService } from '../../services/test-case/test-case.service';
 import { RequirementIdService } from '../../services/requirement-id.service';
+import { initializeUILanguage } from '../../i18n/translate';
 
 describe('禅道同步与本地数据保护', () => {
   const folder = '宿舍 Demo';
@@ -82,6 +83,25 @@ describe('禅道同步与本地数据保护', () => {
     failTask = false; calls = [];
     await service.processZentaoSelectedItems('PRD', 'push', selected, metadata);
     expect(calls[0].id).toBe(10); expect(calls[1].id).toBe(20);
+  });
+
+  it('英文界面原样推送已保存的中文需求与测试用例', async () => {
+    const previous = localStorage.getItem('acePda.language');
+    localStorage.setItem('acePda.language', 'en');
+    await initializeUILanguage();
+    try {
+      const selected = { prds: [ticket('PRD01', 'PRD', null)], userStories: [ticket('US1', 'User Story', 'PRD01')], tasks: [] };
+      await service.processZentaoSelectedItems('PRD', 'push', selected, metadata, true);
+      expect(calls[0].description).toContain('中文验收描述');
+      const testCase = calls.find(item => item.kind === 'Test Case');
+      expect(testCase.title).toBe('录取唯一性');
+      expect(JSON.stringify(testCase)).toContain('再次接受');
+      expect(get('PRD/PRD01-base.json').requirement).toBe('原描述');
+      expect(get('TC/US1/TC01-base.json').title).toBe('录取唯一性');
+    } finally {
+      if (previous === null) localStorage.removeItem('acePda.language'); else localStorage.setItem('acePda.language', previous);
+      await initializeUILanguage();
+    }
   });
 
   it('拉取更新保留 BRD 关联、聊天、本地未选中故事和原测试用例', async () => {

@@ -1,3 +1,4 @@
+import { t as appText } from "../language";
 import { LangChainModelProvider } from "./langchain-providers/base";
 import { DEEPSEEK_BASE_URL, LLMError, LLMProvider } from "./llm-types";
 
@@ -41,9 +42,9 @@ export function buildLangchainModelProvider(
       return new OpenRouterLangChainProvider(config);
     default:
       throw new LLMError(
-        `无效的模型服务商：${provider}。可用服务商： ${Object.values(
+        appText("无效的模型服务商：{0}。可用服务商： {1}", [provider, Object.values(
           LLMProvider
-        ).join(", ")}`,
+        ).join(", ")]),
         "builder"
       );
   }

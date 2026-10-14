@@ -1,3 +1,4 @@
+import { t as appText } from "../../../services/language";
 import { addBusinessProcessSchema, type AddBusinessProcessResponse } from '../../../schema/requirement/business-process/add.schema';
 import { LLMUtils } from '../../../services/llm/llm-utils';
 import { buildLLMHandler } from '../../../services/llm';
@@ -19,7 +20,7 @@ export async function addBusinessProcess(event: IpcMainInvokeEvent, data: any): 
     const trace = o11y.createTrace('add-business-process');
 
     if (!llmConfig) {
-      throw new Error('未找到大语言模型配置');
+      throw new Error(appText("未找到大语言模型配置"));
     }
 
     console.log('[add-business-process] Using LLM config:', llmConfig);

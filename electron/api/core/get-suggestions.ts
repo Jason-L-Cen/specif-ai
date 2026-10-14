@@ -1,3 +1,4 @@
+import { t as appText } from "../../services/language";
 import { IpcMainInvokeEvent } from 'electron';
 import { getSuggestionsSchema } from '../../schema/core/get-suggestions.schema';
 import { store } from '../../services/store';
@@ -18,7 +19,7 @@ export async function getSuggestions(_: IpcMainInvokeEvent, data: unknown): Prom
     const trace = o11y.createTrace('get-suggestions');
 
     if (!llmConfig) {
-      throw new Error('未找到大语言模型配置');
+      throw new Error(appText("未找到大语言模型配置"));
     }
 
     console.log('[get-suggestions] Using LLM config:', llmConfig);

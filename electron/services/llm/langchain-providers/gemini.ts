@@ -1,3 +1,4 @@
+import { t as appText } from "../../language";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { LLMConfig, LLMError, ModelInfoV1 } from "../llm-types";
 import { LangChainModelProvider } from "./base";
@@ -110,7 +111,7 @@ export class GeminiLangChainProvider implements LangChainModelProvider {
     const apiKey = config.apiKey || process.env.GOOGLE_API_KEY;
 
     if (!apiKey) {
-      throw new LLMError("Google API 密钥不能为空", "gemini");
+      throw new LLMError(appText("Google API 密钥不能为空"), "gemini");
     }
 
     if (!config.model) {
@@ -118,7 +119,7 @@ export class GeminiLangChainProvider implements LangChainModelProvider {
         "[GeminiHandler] No model provided, using default:",
         this.defaultModel
       );
-      throw new LLMError("模型 ID 不能为空", "gemini");
+      throw new LLMError(appText("模型 ID 不能为空"), "gemini");
     }
 
     return {

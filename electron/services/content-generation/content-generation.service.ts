@@ -1,3 +1,4 @@
+import { t as appText } from "../language";
 import {
   ContentGenerationProcess,
   ContentGenerationType,
@@ -9,16 +10,18 @@ class ContentGenerationManager {
   setContentGenerationStatus(
     solutionId: string,
     type: ContentGenerationType,
-    isInProgress: boolean
+    isInProgress: boolean,
+    owner = 'backend'
   ): void {
     const displayNames: Record<ContentGenerationType, string> = {
-      [ContentGenerationType.Solution]: "生成解决方案",
-      [ContentGenerationType.Story]: "生成用户故事",
-      [ContentGenerationType.Task]: "生成任务",
-      [ContentGenerationType.TestCase]: "生成测试用例",
+      [ContentGenerationType.Solution]: appText("生成解决方案"),
+      [ContentGenerationType.Story]: appText("生成用户故事"),
+      [ContentGenerationType.Task]: appText("生成任务"),
+      [ContentGenerationType.TestCase]: appText("生成测试用例"),
     };
 
-    const key = `${solutionId}-${type}`;
+    // The renderer stays active while saving generated files after the backend finishes.
+    const key = `${solutionId}-${type}-${owner}`;
     this.processes.set(key, {
       solutionId,
       type,
@@ -34,9 +37,9 @@ class ContentGenerationManager {
   }
 
   getActiveContentGenerationProcesses(): ContentGenerationProcess[] {
-    return Array.from(this.processes.values()).filter(
-      (process) => process.isInProgress
-    );
+    return [...new Map(Array.from(this.processes.values())
+      .filter(process => process.isInProgress)
+      .map(process => [`${process.solutionId}-${process.type}`, process])).values()];
   }
 
   getActiveContentGenerationProcessNames(): string[] {
@@ -47,6 +50,10 @@ class ContentGenerationManager {
 
   clearAllContentGenerationProcesses(): void {
     this.processes.clear();
+  }
+
+  clearOwner(owner: string): void {
+    for (const key of this.processes.keys()) if (key.endsWith(`-${owner}`)) this.processes.delete(key);
   }
 }
 

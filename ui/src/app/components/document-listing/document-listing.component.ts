@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import {
   Component,
   Input,
@@ -78,7 +80,7 @@ import { PmoUrlService } from '../../services/pmo-url/pmo-url.service';
     NgClass,
     ExportDropdownComponent,
     NgIcon,
-  ],
+   I18nPipe,],
     providers: [
       provideIcons({
         heroArrowTopRightOnSquare,
@@ -294,7 +296,7 @@ export class DocumentListingComponent
               id,
               folderName,
               breadcrumb: {
-                name: '添加文档',
+                name: uiText("添加文档"),
                 link: this.currentRoute,
                 icon: 'add',
               },
@@ -309,7 +311,7 @@ export class DocumentListingComponent
           id,
           folderName,
           breadcrumb: {
-            name: '添加战略举措',
+            name: uiText("添加战略举措"),
             link: this.currentRoute,
             icon: 'add',
           },
@@ -322,7 +324,7 @@ export class DocumentListingComponent
           id,
           folderName,
           breadcrumb: {
-            name: '添加文档',
+            name: uiText("添加文档"),
             link: this.currentRoute,
             icon: 'add',
           },
@@ -406,7 +408,7 @@ export class DocumentListingComponent
     const projectId = this.appInfo?.id;
 
     if (!projectId) {
-      this.toast.showError('尚未选择解决方案');
+      this.toast.showError(uiText("尚未选择解决方案"));
       return;
     }
 
@@ -507,7 +509,7 @@ export class DocumentListingComponent
       );
     } catch (error) {
       this.toast.showError(
-        `无法打开 ${selectedPmoTool === 'ado' ? 'Azure DevOps' : selectedPmoTool === 'zentao' ? '禅道' : 'Jira'} 工作项：${pmoId}`,
+        uiText("无法打开 {0} 工作项：{1}", [selectedPmoTool === 'ado' ? 'Azure DevOps' : selectedPmoTool === 'zentao' ? uiText("禅道") : 'Jira', pmoId]),
       );
     }
   }
@@ -550,17 +552,17 @@ export class DocumentListingComponent
     this.exportedFolderName = cacheKey;
     this.exportOptions = [
       {
-        groupName: '导出',
+        groupName: uiText("导出"),
         options: [
           {
-            label: '复制到剪贴板',
+            label: uiText("复制到剪贴板"),
             callback: exportJson.bind(this),
             icon: 'heroPaperClip',
-            additionalInfo: 'JSON 格式',
+            additionalInfo: uiText("JSON 格式"),
             isTimestamp: false,
           },
           {
-            label: '下载',
+            label: uiText("下载"),
             callback: exportExcel.bind(this),
             icon: 'heroDocumentText',
             additionalInfo: 'Excel (.xlsx)',
@@ -577,13 +579,13 @@ export class DocumentListingComponent
         groupName: 'Azure DevOps',
         options: [
           {
-            label: '从 Azure DevOps 拉取',
+            label: uiText("从 Azure DevOps 拉取"),
             callback: pullFromAdo.bind(this),
             icon: 'heroArrowDownTray',
             isTimestamp: true,
           },
           {
-            label: '推送到 Azure DevOps',
+            label: uiText("推送到 Azure DevOps"),
             callback: pushToAdo.bind(this),
             icon: 'heroArrowUpTray',
             isTimestamp: true,
@@ -600,13 +602,13 @@ export class DocumentListingComponent
         groupName: 'Jira',
         options: [
           {
-            label: '从 Jira 拉取',
+            label: uiText("从 Jira 拉取"),
             callback: pullFromJira.bind(this),
             icon: 'heroArrowDownTray',
             isTimestamp: true,
           },
           {
-            label: '推送到 Jira',
+            label: uiText("推送到 Jira"),
             callback: pushToJira.bind(this),
             icon: 'heroArrowUpTray',
             isTimestamp: true,
@@ -615,9 +617,9 @@ export class DocumentListingComponent
       });
     }
     if (this.appInfo?.integration?.selectedPmoTool === 'zentao' && this.selectedFolder.title === 'PRD') {
-      this.exportOptions.push({ groupName: '禅道', options: [
-        { label: '从禅道拉取', callback: () => this.openPmoIntegrationModal(folderName, 'pull', 'zentao'), icon: 'heroArrowDownTray', isTimestamp: true },
-        { label: '推送到禅道', callback: () => this.openPmoIntegrationModal(folderName, 'push', 'zentao'), icon: 'heroArrowUpTray', isTimestamp: true },
+      this.exportOptions.push({ groupName: uiText("禅道"), options: [
+        { label: uiText("从禅道拉取"), callback: () => this.openPmoIntegrationModal(folderName, 'pull', 'zentao'), icon: 'heroArrowDownTray', isTimestamp: true },
+        { label: uiText("推送到禅道"), callback: () => this.openPmoIntegrationModal(folderName, 'push', 'zentao'), icon: 'heroArrowUpTray', isTimestamp: true },
       ] });
     }
     return this.exportOptions;

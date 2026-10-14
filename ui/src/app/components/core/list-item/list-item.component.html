@@ -14,16 +14,19 @@
             icon="heroArrowTopRightOnSquare"
             iconPosition="right"
             [tooltip]="
-              '在 ' +
-              (payload.metadata?.integration?.selectedPmoTool === 'ado'
-                ? 'Azure DevOps'
-                : payload.metadata?.integration?.selectedPmoTool === 'zentao' ? '禅道' : 'Jira') + ' 中打开'
+
+
+
+              (&quot;在 &quot; | i18n) +
+              (payload.metadata?.integration?.selectedPmoTool === &#39;ado&#39;
+                ? &#39;Azure DevOps&#39;
+                : payload.metadata?.integration?.selectedPmoTool === &#39;zentao&#39; ? (&quot;禅道&quot; | i18n) : &#39;Jira&#39;) + (&quot; 中打开&quot; | i18n)
             "
           >
             <img
               *ngIf="getPmoLogo()"
               [src]="getPmoLogo()"
-              alt="项目管理工具标志"
+              [alt]="&quot;项目管理工具标志&quot; | i18n"
               class="w-3 h-3 mr-1"
               slot="icon-left"
             />

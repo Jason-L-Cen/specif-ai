@@ -1,3 +1,5 @@
+import { withOutputLanguage } from "../../services/llm/language-messages";
+import { t as appText } from "../../services/language";
 import { HumanMessage } from "@langchain/core/messages";
 import { BaseCheckpointSaver } from "@langchain/langgraph-checkpoint";
 import { z } from "zod";
@@ -150,7 +152,7 @@ export const buildGenerateSuggestionsNode = (
 
       // LLM Call
       const model = modelProvider.getChatModel();
-      const response = await model.invoke(prompt);
+      const response = await model.invoke(withOutputLanguage(prompt));
 
       generation?.end({
         usage: {
@@ -180,7 +182,7 @@ export const buildGenerateSuggestionsNode = (
           level: "ERROR",
           statusMessage: `Error parsing LLM response: ${error}`,
         });
-        throw new Error("无法将大语言模型的响应解析为 JSON");
+        throw new Error(appText("无法将大语言模型的响应解析为 JSON"));
       }
 
       span?.end({

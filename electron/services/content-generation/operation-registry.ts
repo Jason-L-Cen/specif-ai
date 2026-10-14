@@ -1,3 +1,4 @@
+import { t as appText } from "../language";
 class OperationRegistry {
   private static instance: OperationRegistry;
   private operations: Map<string, AbortController> = new Map();
@@ -105,7 +106,7 @@ class OperationRegistry {
    */
   public checkCancellation(operationId: string): void {
     if (this.isCancelled(operationId)) {
-      throw new Error(`操作已取消：${operationId}`);
+      throw new Error(appText("操作已取消：{0}", [operationId]));
     }
   }
 

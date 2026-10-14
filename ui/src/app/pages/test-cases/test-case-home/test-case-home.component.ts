@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../../i18n/i18n.pipe";
+import { t as uiText } from "../../../i18n/translate";
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NGXLogger } from 'ngx-logger';
@@ -66,7 +68,7 @@ interface SummaryCardData {
     ButtonComponent,
     NgIcon,
     ExportDropdownComponent
-],
+, I18nPipe],
   providers: [
     provideIcons({
       heroArrowRight,
@@ -95,19 +97,19 @@ export class TestCaseHomeComponent implements OnInit, OnDestroy {
   summaryCards: SummaryCardData[] = [
     {
       icon: 'heroDocumentText',
-      title: '用户故事总数',
+      title: uiText("用户故事总数"),
       color: 'primary',
       countFn: () => this.getTotalUserStories()
     },
     {
       icon: 'heroClipboardDocumentCheck',
-      title: '已创建测试用例的用户故事',
+      title: uiText("已创建测试用例的用户故事"),
       color: 'warning',
       countFn: () => this.getUserStoriesWithTestCases(),
     },
     {
       icon: 'heroBeaker',
-      title: '测试用例总数',
+      title: uiText("测试用例总数"),
       color: 'success',
       countFn: () => this.getTotalTestCases()
     }
@@ -424,17 +426,17 @@ export class TestCaseHomeComponent implements OnInit, OnDestroy {
   }
   
   ngOnDestroy() {
-    this.store.dispatch(new DeleteBreadcrumb('测试用例'));
+    this.store.dispatch(new DeleteBreadcrumb(uiText("测试用例")));
     this.destroy$.next();
     this.destroy$.complete();
   }
   
   exportOptions: DropdownOptionGroup[] = [
         {
-          groupName: '导出',
+          groupName: uiText("导出"),
           options: [
             {
-              label: '下载',
+              label: uiText("下载"),
               callback: () => {
                 this.exportTestCases(EXPORT_FILE_FORMATS.EXCEL);
               },
@@ -451,7 +453,7 @@ export class TestCaseHomeComponent implements OnInit, OnDestroy {
   }
     async exportTestCases(format: string) {
       if (this.userStories.length === 0) {
-        this.toast.showError('未找到用户故事');
+        this.toast.showError(uiText("未找到用户故事"));
         return;
       }
   
@@ -507,12 +509,12 @@ export class TestCaseHomeComponent implements OnInit, OnDestroy {
         }
   
         if (allTestCaseContents.length === 0) {
-          this.toast.showError('未找到可导出的测试用例');
+          this.toast.showError(uiText("未找到可导出的测试用例"));
           return;
         }
   
         if (skippedUserStories.length > 0) {
-          this.toast.showWarning(`以下用户故事没有测试用例：${skippedUserStories.join('、')}`);
+          this.toast.showWarning(uiText("以下用户故事没有测试用例：{0}", [skippedUserStories.join('、')]));
         }
 
         const exportResult = await this.testCaseExportStrategy.export(
@@ -524,11 +526,11 @@ export class TestCaseHomeComponent implements OnInit, OnDestroy {
         );
   
         if (!exportResult.success) {
-          this.toast.showError('导出测试用例失败');
+          this.toast.showError(uiText("导出测试用例失败"));
         }
       } catch (error) {
         this.logger.error('Error exporting test cases:', error);
-        this.toast.showError('导出测试用例失败');
+        this.toast.showError(uiText("导出测试用例失败"));
       }
     }
 }

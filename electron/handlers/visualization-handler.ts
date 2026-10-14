@@ -1,8 +1,9 @@
+import { handleLanguageTask } from "./language-handler";
 import { ipcMain } from "electron";
 import { createFlowchart } from "../api/visualization/flowchart";
 
 export function setupVisualizationHandlers() {
-  ipcMain.handle('visualization:flowchart', async (_event, data: any) => {
+  handleLanguageTask('visualization:flowchart', async (_event, data: any) => {
     try {
       const result = await createFlowchart(_event, data);
       return result;

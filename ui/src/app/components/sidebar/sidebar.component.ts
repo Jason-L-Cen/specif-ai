@@ -1,3 +1,4 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { NgIconComponent } from '@ng-icons/core';
@@ -23,7 +24,7 @@ import { APP_CONSTANTS } from '../../constants/app.constants';
     ButtonComponent,
     NgIconComponent,
     NgForOf,
-  ],
+   I18nPipe,],
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   @Input() directories: { name: string; children: string[] }[] = [];

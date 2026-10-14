@@ -36,8 +36,8 @@
     <div
       class="bg-white rounded-lg p-3 text-center cursor-pointer w-full border-secondary-300 flex flex-col items-center gap-3.5 border-dashed border"
       (click)="configureNewMCPServer()">
-      <img src="./assets/img/logo/mcp_logo.svg" alt="添加 MCP 服务器" class="h-7 w-auto">
-      <h3 class="text-xs font-medium">新建 MCP 服务器</h3>
+      <img src="./assets/img/logo/mcp_logo.svg" [alt]="&quot;添加 MCP 服务器&quot; | i18n" class="h-7 w-auto">
+      <h3 class="text-xs font-medium">{{ "新建 MCP 服务器" | i18n }}</h3>
     </div>
   </div>
 </div>

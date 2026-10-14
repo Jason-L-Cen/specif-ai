@@ -10,14 +10,12 @@
           class="text-2xl font-bold text-gray-900 tracking-tight"
         >
           {{
-            action() === "pull" ? config.title : "推送至 " + config.serviceName
+            action() === "pull" ? config.title : ("推送至 {0}" | i18n: [config.serviceName])
           }}
         </h2>
         <p class="text-sm text-gray-500 mt-1">
           {{
-            action() === "pull"
-              ? "从 " + config.serviceName + " 导入工作项"
-              : "向 " + config.serviceName + " 导出工作项"
+            (action() === "pull" ? "从 {0} 导入工作项" : "向 {0} 导出工作项") | i18n: [config.serviceName]
           }}
         </p>
       </div>
@@ -25,7 +23,7 @@
     <button
       (click)="onClose()"
       class="text-gray-400 hover:text-red-500 hover:bg-red-50 smooth-transition rounded-full p-3 group"
-      aria-label="关闭弹窗"
+      [attr.aria-label]="&quot;关闭弹窗&quot; | i18n"
     >
       <ng-icon
         name="heroXMark"
@@ -52,13 +50,13 @@
       </div>
       <div class="flex-1">
         <h4 class="text-base font-semibold text-red-800 mb-1">
-          连接错误
+          {{ "连接错误" | i18n }}
         </h4>
         <p class="text-sm text-red-700 leading-relaxed">
           {{ connectionStatus().errorMessage }}
         </p>
         <p class="text-xs text-red-600 mt-3 font-medium">
-          请检查连接设置或重试。
+          {{ "请检查连接设置或重试。" | i18n }}
         </p>
       </div>
     </div>
@@ -74,17 +72,15 @@
         <div>
           <h4 class="font-bold text-gray-900 text-xl mb-1">
             {{
-              action() === "pull"
-                ? config.serviceName + " 中的工作项"
-                : "待推送至 " + config.serviceName + " 的工作项"
+              (action() === "pull" ? "{0} 中的工作项" : "待推送至 {0} 的工作项") | i18n: [config.serviceName]
             }}
           </h4>
           <p class="text-sm text-gray-600 flex items-center">
             <span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
             {{
               action() === "pull"
-                ? config.itemLabels.topLevel + "及其子项"
-                : "选择要推送至 " + config.serviceName + " 的工作项"
+                ? config.itemLabels.topLevel + ("及其子项" | i18n)
+                : ("选择要推送至 {0} 的工作项" | i18n: [config.serviceName])
             }}
           </p>
         </div>
@@ -105,19 +101,18 @@
                   ? 'mixed'
                   : 'false'
             "
-            aria-label="选择所有工作项"
+            [attr.aria-label]="&quot;选择所有工作项&quot; | i18n"
           />
           <label
             for="selectAllItems"
             class="ml-3 text-sm text-gray-800 cursor-pointer font-semibold select-none"
-            >全选</label
+            >{{ "全选" | i18n }}</label
           >
           <span
             *ngIf="selectedCount() > 0"
             class="ml-3 text-xs text-white font-bold bg-gradient-to-r from-blue-500 to-blue-600 rounded-full px-3 py-1 shadow-sm"
           >
-            已选择 {{ selectedCount() }} 项
-          </span>
+            {{ ("已选择 {0} 项" | i18n: [selectedCount()]) }}</span>
         </div>
       </div>
 
@@ -136,10 +131,10 @@
           ></ng-icon>
         </div>
         <span class="text-gray-700 text-base font-medium mt-4"
-          >正在加载工作项…</span
+          >{{ "正在加载工作项…" | i18n }}</span
         >
         <span class="text-gray-500 text-sm mt-1"
-          >正在获取数据，请稍候</span
+          >{{ "正在获取数据，请稍候" | i18n }}</span
         >
       </div>
 
@@ -152,13 +147,12 @@
           <ng-icon name="heroInbox" class="size-12 text-gray-400"></ng-icon>
         </div>
         <h3 class="text-lg font-semibold text-gray-700 mb-2">
-          未找到工作项
+          {{ "未找到工作项" | i18n }}
         </h3>
         <p class="text-gray-500 text-base max-w-md leading-relaxed">
-          此 {{ config.serviceName }} 项目中没有工作项。
-        </p>
+          {{ ("此 {0} 项目中没有工作项。" | i18n: [config.serviceName]) }}</p>
         <p class="text-sm text-gray-400 mt-2">
-          请尝试刷新或检查项目配置。
+          {{ "请尝试刷新或检查项目配置。" | i18n }}
         </p>
       </div>
 
@@ -183,7 +177,10 @@
               (click)="togglePrdSelection($event, prd.specifaiId)"
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 mr-2 shadow-sm"
               [attr.aria-label]="
-                '选择' + config.itemLabels.topLevel + ' ' + prd.title
+
+
+
+                (&quot;选择&quot; | i18n) + config.itemLabels.topLevel + &#39; &#39; + prd.title
               "
             />
             <ng-icon
@@ -203,7 +200,7 @@
                   <ng-icon
                     name="heroDocumentCheck"
                     class="w-5 h-5 text-amber-600 mr-1"
-                    title="更新现有文件：此项将更新已有工作项"
+                    [title]="&quot;更新现有文件：此项将更新已有工作项&quot; | i18n"
                   ></ng-icon>
                 </span>
                 <ng-template #newPrd>
@@ -211,7 +208,7 @@
                     <ng-icon
                       name="heroDocumentPlus"
                       class="w-5 h-5 text-green-600 mr-1"
-                      title="添加新文件：此项将创建工作项"
+                      [title]="&quot;添加新文件：此项将创建工作项&quot; | i18n"
                     ></ng-icon>
                   </span>
                 </ng-template>
@@ -242,7 +239,7 @@
               class="py-3 text-center"
             >
               <span class="text-xs text-gray-400"
-                >暂无{{ config.itemLabels.midLevel }}</span
+                >{{ ("暂无{0}" | i18n: [config.itemLabels.midLevel]) }}</span
               >
             </div>
 
@@ -266,9 +263,12 @@
                   "
                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 mr-2 shadow-sm"
                   [attr.aria-label]="
-                    '选择' +
+
+
+
+                    (&quot;选择&quot; | i18n) +
                     config.itemLabels.midLevel +
-                    ' ' +
+                    &#39; &#39; +
                     platformFeature.title
                   "
                 />
@@ -289,7 +289,7 @@
                       <ng-icon
                         name="heroDocumentCheck"
                         class="w-4 h-4 text-amber-600 mr-1"
-                        title="更新现有文件：此项将更新项目管理系统中已有的工作项"
+                        [title]="&quot;更新现有文件：此项将更新项目管理系统中已有的工作项&quot; | i18n"
                       ></ng-icon>
                     </span>
                     <ng-template #newMid>
@@ -297,7 +297,7 @@
                         <ng-icon
                           name="heroDocumentPlus"
                           class="w-4 h-4 text-green-600 mr-1"
-                          title="添加新文件：此项将在项目管理系统中创建工作项"
+                          [title]="&quot;添加新文件：此项将在项目管理系统中创建工作项&quot; | i18n"
                         ></ng-icon>
                       </span>
                     </ng-template>
@@ -332,7 +332,7 @@
                   class="py-3 text-center"
                 >
                   <span class="text-xs text-gray-400"
-                    >暂无{{ config.itemLabels.bottomLevel }}</span
+                    >{{ ("暂无{0}" | i18n: [config.itemLabels.bottomLevel]) }}</span
                   >
                 </div>
 
@@ -352,9 +352,12 @@
                       "
                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 mr-2 shadow-sm"
                       [attr.aria-label]="
-                        '选择' +
+
+
+
+                        (&quot;选择&quot; | i18n) +
                         config.itemLabels.bottomLevel +
-                        ' ' +
+                        &#39; &#39; +
                         userStory.title
                       "
                     />
@@ -367,7 +370,7 @@
                           <ng-icon
                             name="heroDocumentCheck"
                             class="w-4 h-4 text-amber-600 mr-1"
-                            title="更新现有文件：此项将更新已有工作项"
+                            [title]="&quot;更新现有文件：此项将更新已有工作项&quot; | i18n"
                           ></ng-icon>
                         </span>
                         <ng-template #newBottom>
@@ -375,7 +378,7 @@
                             <ng-icon
                               name="heroDocumentPlus"
                               class="w-4 h-4 text-green-600 mr-1"
-                              title="添加新文件：此项将创建工作项"
+                              [title]="&quot;添加新文件：此项将创建工作项&quot; | i18n"
                             ></ng-icon>
                           </span>
                         </ng-template>
@@ -416,12 +419,12 @@
       >
         <div class="flex items-center justify-center">
           <app-button
-            [buttonContent]="isLoadingMore() ? '正在加载…' : '加载更多工作项'"
+            [buttonContent]="isLoadingMore() ? (&quot;正在加载…&quot; | i18n) : (&quot;加载更多工作项&quot; | i18n)"
             theme="secondary"
             size="sm"
             (click)="loadMoreItems()"
             [disabled]="isLoadingMore()"
-            aria-label="加载更多工作项"
+            [attr.aria-label]="&quot;加载更多工作项&quot; | i18n"
           >
             <ng-icon
               *ngIf="isLoadingMore()"
@@ -443,8 +446,7 @@
         class="border-t border-gray-100 px-6 py-3 bg-gray-50 text-center"
       >
         <span class="text-xs text-gray-500">
-          已显示 {{ prdsWithChildren().length }} 项
-        </span>
+          {{ ("已显示 {0} 项" | i18n: [prdsWithChildren().length]) }}</span>
       </div>
     </div>
   </div>
@@ -453,36 +455,36 @@
   <label *ngIf="data.pmoType === 'zentao' && action() === 'push' && connectionStatus().isConnected"
     class="flex items-start gap-3 px-8 py-4 border-t border-gray-100 text-sm text-secondary-700">
     <input type="checkbox" class="mt-1" [checked]="includeTestCases" (change)="includeTestCases = !includeTestCases" />
-    <span>同时推送所选用户故事下的测试用例，关联到禅道子需求。<small class="block text-secondary-500">仅同步用例设计，不执行测试。</small></span>
+    <span>{{ "同时推送所选用户故事下的测试用例，关联到禅道子需求。" | i18n }}<small class="block text-secondary-500">{{ "仅同步用例设计，不执行测试。" | i18n }}</small></span>
   </label>
   <div
     class="flex flex-col sm:flex-row justify-end gap-3 px-8 py-6 border-t border-gray-100 bg-gray-50 rounded-b-2xl"
   >
     <app-button
-      buttonContent="取消"
+      [buttonContent]="&quot;取消&quot; | i18n"
       theme="secondary"
       size="sm"
       (click)="onClose()"
-      aria-label="取消并关闭弹窗"
+      [attr.aria-label]="&quot;取消并关闭弹窗&quot; | i18n"
     ></app-button>
 
     <app-button
       *ngIf="!connectionStatus().isConnected"
-      buttonContent="配置集成"
+      [buttonContent]="&quot;配置集成&quot; | i18n"
       theme="primary"
       size="sm"
       (click)="onConfigureIntegration()"
-      aria-label="配置集成"
+      [attr.aria-label]="&quot;配置集成&quot; | i18n"
     ></app-button>
 
     <app-button
       *ngIf="connectionStatus().isConnected"
-      [buttonContent]="action() === 'pull' ? '拉取工作项' : '推送工作项'"
+      [buttonContent]="action() === &#39;pull&#39; ? (&quot;拉取工作项&quot; | i18n) : (&quot;推送工作项&quot; | i18n)"
       theme="primary"
       size="sm"
       (click)="onProceed()"
       [disabled]="selectedCount() === 0 || isLoading()"
-      aria-label="处理所选工作项"
+      [attr.aria-label]="&quot;处理所选工作项&quot; | i18n"
     ></app-button>
   </div>
 </div>

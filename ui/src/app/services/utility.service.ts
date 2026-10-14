@@ -1,3 +1,4 @@
+import { t as uiText } from "../i18n/translate";
 import { RequirementTypeEnum } from '../model/enum/requirement-type.enum';
 
 export class UtilityService {
@@ -17,15 +18,15 @@ export class UtilityService {
     const [_, prefix, number] = match;
     switch (prefix) {
       case RequirementTypeEnum.BRD:
-        return `业务需求 ${number}`;
+        return uiText("业务需求 {0}", [number]);
       case RequirementTypeEnum.PRD:
-        return `产品需求 ${number}`;
+        return uiText("产品需求 {0}", [number]);
       case RequirementTypeEnum.NFR:
-        return `非功能需求 ${number}`;
+        return uiText("非功能需求 {0}", [number]);
       case RequirementTypeEnum.UIR:
-        return `用户界面需求 ${number}`;
+        return uiText("用户界面需求 {0}", [number]);
       case RequirementTypeEnum.BP:
-        return `业务流程 ${number}`;
+        return uiText("业务流程 {0}", [number]);
       default:
         return `${abbreviation}`;
     }
@@ -73,11 +74,11 @@ export class UtilityService {
     let details = `${productRequirements.trim()}`;
 
     if (screensText && screensText.trim() !== productRequirements.trim()) {
-      details += `<br><br><h3 class="${fontWeight} text-secondary-900 hover:text-secondary-600">界面</h3>${screensText.trim()}`;
+      details += uiText("<br><br><h3 class=\"{0} text-secondary-900 hover:text-secondary-600\">界面</h3>{1}", [fontWeight, screensText.trim()]);
     }
 
     if (personasText && personasText.trim()) {
-      details += `<br><br><h3 class="${fontWeight} text-secondary-900 hover:text-secondary-600">用户画像</h3>${personasText.trim()}`;
+      details += uiText("<br><br><h3 class=\"{0} text-secondary-900 hover:text-secondary-600\">用户画像</h3>{1}", [fontWeight, personasText.trim()]);
     }
 
     return details;

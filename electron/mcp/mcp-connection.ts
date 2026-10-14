@@ -1,3 +1,4 @@
+import { t as appText } from "../services/language";
 import {
   DynamicStructuredTool,
   DynamicStructuredToolInput,
@@ -71,7 +72,7 @@ export class MCPConnection {
         return new SSEClientTransport(new URL(options.url));
       default:
         throw new Error(
-          `不支持的传输类型：${(options as any).transportType}`
+          appText("不支持的传输类型：{0}", [(options as any).transportType])
         );
     }
   }
@@ -102,15 +103,13 @@ export class MCPConnection {
 
     if (!result) {
       throw new Error(
-        `服务器“${this.options.name}”上的 MCP 工具“${toolName}”返回了无效结果`
+        appText("服务器“{0}”上的 MCP 工具“{1}”返回了无效结果", [this.options.name, toolName])
       );
     }
 
     if (result.isError) {
       throw new Error(
-        `服务器“${
-          this.options.name
-        }”上的 MCP 工具“${toolName}”返回错误：${JSON.stringify(result.content)}`
+        appText("服务器“{0}”上的 MCP 工具“{1}”返回错误：{2}", [this.options.name, toolName, JSON.stringify(result.content)])
       );
     }
 
@@ -169,13 +168,13 @@ export class MCPConnection {
 
           if (!result) {
             throw new Error(
-              `服务器“${this.options.name}”上的 MCP 资源“${resource.name}”返回了无效结果`
+              appText("服务器“{0}”上的 MCP 资源“{1}”返回了无效结果", [this.options.name, resource.name])
             );
           }
 
           if (!result.contents || !result.contents.length) {
             throw new Error(
-              `服务器“${this.options.name}”上的 MCP 资源“${resource.name}”未返回内容`
+              appText("服务器“{0}”上的 MCP 资源“{1}”未返回内容", [this.options.name, resource.name])
             );
           }
 
@@ -236,7 +235,7 @@ export class MCPConnection {
           await Promise.race([
             new Promise((_, reject) => {
               timeoutController.signal.addEventListener("abort", () => {
-                reject(new Error("连接超时"));
+                reject(new Error(appText("连接超时")));
               });
             }),
             (async () => {
@@ -269,7 +268,7 @@ export class MCPConnection {
                   );
                   this.resources = resources;
                 } catch (e) {
-                  let errorMessage = `加载 MCP 服务器 ${this.options.name} 的资源时出错`;
+                  let errorMessage = appText("加载 MCP 服务器 {0} 的资源时出错", [this.options.name]);
                   if (e instanceof Error) {
                     errorMessage += `: ${e.message}`;
                   }
@@ -286,7 +285,7 @@ export class MCPConnection {
                   );
                   this.tools = tools;
                 } catch (e) {
-                  let errorMessage = `加载 MCP 服务器 ${this.options.name} 的工具时出错`;
+                  let errorMessage = appText("加载 MCP 服务器 {0} 的工具时出错", [this.options.name]);
                   if (e instanceof Error) {
                     errorMessage += `: ${e.message}`;
                   }
@@ -299,12 +298,12 @@ export class MCPConnection {
           ]);
         } catch (error) {
           // Otherwise it's a connection error
-          let errorMessage = `无法连接到 MCP 服务器 ${this.id}`;
+          let errorMessage = appText("无法连接到 MCP 服务器 {0}", [this.id]);
           if (error instanceof Error) {
             const msg = error.message.toLowerCase();
             if (msg.includes("spawn") && msg.includes("enoent")) {
               const command = msg.split(" ")[1];
-              errorMessage += `，未找到命令“${command}”。请安装 ${command} 命令行工具后使用此 MCP 服务器。`;
+              errorMessage += appText("，未找到命令“{0}”。请安装 {1} 命令行工具后使用此 MCP 服务器。", [command, command]);
             } else {
               errorMessage += ": " + error.message;
             }

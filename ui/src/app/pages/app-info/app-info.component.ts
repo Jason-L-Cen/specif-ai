@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import {
   Component,
   ElementRef,
@@ -106,7 +108,7 @@ import { IntegrationCredentialsService } from '../../services/integration-creden
     PmoIntegrationComponent,
     SidebarComponent,
     TestCaseHomeComponent,
-  ],
+   I18nPipe,],
   providers: [
     provideIcons({
       heroArchiveBox,
@@ -134,7 +136,7 @@ export class AppInfoComponent implements OnInit, OnDestroy {
   tasks: any[] = [];
   haiFolder = Object.keys(FileTypeEnum).map((key) => ({
     key,
-    value: FileTypeEnum[key as keyof typeof FileTypeEnum],
+    value: uiText(FileTypeEnum[key as keyof typeof FileTypeEnum]),
   }));
   haiIcons = Object.keys(IconPairingEnum).map((key) => ({
     key,
@@ -317,7 +319,7 @@ export class AppInfoComponent implements OnInit, OnDestroy {
                   );
 
                   this.toast.showSuccess(
-                    `已将 ${result.migratedTypes.join('、')} 凭据迁移到安全存储`,
+                    uiText("已将 {0} 凭据迁移到安全存储", [result.migratedTypes.join('、')]),
                   );
                 }
               })
@@ -557,7 +559,7 @@ export class AppInfoComponent implements OnInit, OnDestroy {
       );
     } catch (error) {
       this.logger.error('Error loading MCP servers:', error);
-      this.toast.showError('加载 MCP 服务器失败。');
+      this.toast.showError(uiText("加载 MCP 服务器失败。"));
       this.mcpServers = []; // Reset on error
     } finally {
       this.mcpServersLoading = false;
@@ -621,7 +623,7 @@ export class AppInfoComponent implements OnInit, OnDestroy {
             id: this.projectId,
             folderName: 'BP',
             breadcrumb: {
-              name: '添加文档',
+              name: uiText("添加文档"),
               link: this.router.url,
               icon: 'add',
             },
@@ -661,7 +663,7 @@ export class AppInfoComponent implements OnInit, OnDestroy {
             id: this.projectId,
             folderName: folderName,
             breadcrumb: {
-              name: '添加文档',
+              name: uiText("添加文档"),
               link: this.router.url,
               icon: 'add',
             },
@@ -676,7 +678,7 @@ export class AppInfoComponent implements OnInit, OnDestroy {
             id: this.projectId,
             folderName: folderName,
             breadcrumb: {
-              name: '添加文档',
+              name: uiText("添加文档"),
               link: this.router.url,
               icon: 'add',
             },
@@ -742,23 +744,23 @@ export class AppInfoComponent implements OnInit, OnDestroy {
       this.isSavingMcpSettings = true;
       const mcpSettings: MCPSettings = this.mcpForm.get('mcpSettings')?.value;
 
-    this.toast.showInfo('正在更新解决方案的 MCP 设置');
+    this.toast.showInfo(uiText("正在更新解决方案的 MCP 设置"));
 
       this.electronService
         .updateProjectMCPSettings(this.projectId as string, mcpSettings)
         .then((result: { success: boolean; error?: string }) => {
           if (result.success) {
             this.logger.debug('MCP settings updated successfully');
-            this.toast.showSuccess('MCP 设置已保存');
+            this.toast.showSuccess(uiText("MCP 设置已保存"));
             this.isEditingMcpSettings = false;
             this.loadMcpServers();
           } else {
-            throw new Error(result.error || '发生未知错误');
+            throw new Error(result.error || uiText("发生未知错误"));
           }
         })
         .catch((error: Error) => {
           this.logger.error('Error updating MCP settings:', error);
-          this.toast.showError('保存 MCP 设置失败');
+          this.toast.showError(uiText("保存 MCP 设置失败"));
         })
         .finally(() => {
           this.isSavingMcpSettings = false;
@@ -778,13 +780,13 @@ export class AppInfoComponent implements OnInit, OnDestroy {
           if (result.success && result.settings) {
             this.mcpForm.patchValue({ mcpSettings: result.settings });
           } else {
-            throw new Error(result.error || '发生未知错误');
+            throw new Error(result.error || uiText("发生未知错误"));
           }
         },
       )
       .catch((error: Error) => {
         this.logger.error('Error loading MCP settings:', error);
-        this.toast.showError('加载 MCP 设置失败');
+        this.toast.showError(uiText("加载 MCP 设置失败"));
       });
   }
 
@@ -832,7 +834,7 @@ export class AppInfoComponent implements OnInit, OnDestroy {
       });
     } catch (error: any) {
       this.toast.showError(
-        `重试创建解决方案失败：${error.message}`,
+        uiText("重试创建解决方案失败：{0}", [error.message]),
       );
       this.logger.error('Project retry failed:', error);
     }

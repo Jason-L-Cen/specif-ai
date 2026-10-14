@@ -23,6 +23,8 @@
 
 **Ace Product Development Assistant**, abbreviated **Ace PDA**. The AI assistant is named **Ace**.
 
+Settings → Language switches the interface and future AI-generated content between English and Simplified Chinese, regardless of the input language. Switching refreshes the current page and is blocked while tasks are running or generated files are being saved. Existing documents keep their content; Jira and ZenTao synchronization preserves the saved document language.
+
 See the [Chinese usage and build guide](README.zh-CN.md) for this branch, including DeepSeek, document upload, and requirement-to-test-case traceability. The original project copyright and MIT license are preserved in [LICENSE](LICENSE).
 
 **Ace PDA** is an AI-powered platform that transforms the project requirements management. It combines AI technology with intuitive workflows to automate documentation, generate and manage tasks - all while adapting to your team's specific needs.

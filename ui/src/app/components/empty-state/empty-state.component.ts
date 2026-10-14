@@ -1,3 +1,4 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ButtonComponent } from '../core/button/button.component';
@@ -7,7 +8,7 @@ import { ButtonComponent } from '../core/button/button.component';
   templateUrl: './empty-state.component.html',
   styleUrls: ['./empty-state.component.scss'],
   standalone: true,
-  imports: [NgIf, ButtonComponent],
+  imports: [NgIf, ButtonComponent, I18nPipe],
 })
 export class EmptyStateComponent {
   @Input()

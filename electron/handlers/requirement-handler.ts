@@ -1,3 +1,4 @@
+import { handleLanguageTask } from "./language-handler";
 import { ipcMain } from "electron";
 import { updateRequirement } from "../api/requirement/update";
 import { chatUpdateRequirement } from "../api/requirement/chat";
@@ -6,7 +7,7 @@ import { addBusinessProcess } from "../api/requirement/business-process/add";
 import { updateBusinessProcess } from "../api/requirement/business-process/update";
 
 export function setupRequirementHandlers() {
-  ipcMain.handle('requirement:update', async (_event, data: any) => {
+  handleLanguageTask('requirement:update', async (_event, data: any) => {
     try {
       const result = await updateRequirement(_event, data);
       return result;
@@ -16,7 +17,7 @@ export function setupRequirementHandlers() {
     }
   });
 
-  ipcMain.handle('requirement:chat', async (_event, data: any) => {
+  handleLanguageTask('requirement:chat', async (_event, data: any) => {
     try {
       const result = await chatUpdateRequirement(_event, data);
       return result;
@@ -26,7 +27,7 @@ export function setupRequirementHandlers() {
     }
   });
 
-  ipcMain.handle('requirement:add', async (_event, data: any) => {
+  handleLanguageTask('requirement:add', async (_event, data: any) => {
     try {
       const result = await addRequirement(_event, data);
       return result;
@@ -36,7 +37,7 @@ export function setupRequirementHandlers() {
     }
   });
 
-  ipcMain.handle('requirement:bp-add', async (_event, data: any) => {
+  handleLanguageTask('requirement:bp-add', async (_event, data: any) => {
     try {
       const result = await addBusinessProcess(_event, data);
       return result;
@@ -46,7 +47,7 @@ export function setupRequirementHandlers() {
     }
   });
 
-  ipcMain.handle('requirement:bp-update', async (_event, data: any) => {
+  handleLanguageTask('requirement:bp-update', async (_event, data: any) => {
     try {
       const result = await updateBusinessProcess(_event, data);
       return result;

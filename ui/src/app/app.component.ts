@@ -1,3 +1,4 @@
+import { t as uiText } from "./i18n/translate";
 import {
   Component,
   inject,
@@ -65,7 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
         })
         .catch((error) => {
           this.logger.error('Error listening to port', error);
-          alert('监听端口时发生错误。');
+          alert(uiText("监听端口时发生错误。"));
         });
     }
 

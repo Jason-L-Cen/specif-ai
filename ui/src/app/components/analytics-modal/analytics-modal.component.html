@@ -3,24 +3,23 @@
 >
   <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
     <h2 class="text-xl font-semibold text-secondary-800 mb-4">
-      帮助我们改进
+      {{ "帮助我们改进" | i18n }}
     </h2>
     <p class="text-gray-600 mb-6">
-      我们收集使用数据，以改善使用体验并确定新功能的开发优先级。我们不会收集个人信息，
-      也不会向第三方分享你的数据。收集的数据用于使用情况分析和成本统计。是否允许收集？
+      {{ "我们收集使用数据，以改善使用体验并确定新功能的开发优先级。我们不会收集个人信息， 也不会向第三方分享你的数据。收集的数据用于使用情况分析和成本统计。是否允许收集？" | i18n }}
     </p>
     <div class="flex justify-end space-x-4">
       <button
         class="px-4 py-2 bg-primary-500 text-white rounded hover:bg-primary-600"
         (click)="allowAnalytics()"
       >
-        允许
+        {{ "允许" | i18n }}
       </button>
       <button
         class="px-4 py-2 bg-secondary-300 text-secondary-700 rounded hover:bg-secondary-400"
         (click)="denyAnalytics()"
       >
-        拒绝
+        {{ "拒绝" | i18n }}
       </button>
     </div>
   </div>

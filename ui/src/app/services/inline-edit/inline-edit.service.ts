@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ElectronService } from '../../electron-bridge/electron.service';
@@ -93,7 +94,7 @@ export class InlineEditService {
         requestId: uuidv4(),
         editedText: '',
         success: false,
-        error: error instanceof Error ? error.message : '未知错误'
+        error: error instanceof Error ? error.message : uiText("未知错误")
       };
     }
   }

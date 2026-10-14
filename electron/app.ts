@@ -23,9 +23,12 @@ import { MCPHub } from "./mcp/mcp-hub";
 import { APP_MESSAGES, ZH_ERROR_MAP } from "./constants/message.constants";
 import { z } from 'zod';
 import { setupSIHandlers } from "./handlers/strategic-initiative-handler";
+import { setupLanguageHandlers } from "./handlers/language-handler";
+import { getApplicationLanguage, languageEvents, t as appText } from "./services/language";
+import { contentGenerationManager } from './services/content-generation/content-generation.service';
 
-app.commandLine.appendSwitch('lang', 'zh-CN');
-z.setErrorMap(ZH_ERROR_MAP);
+z.setErrorMap((issue, context) => getApplicationLanguage() === 'zh-CN'
+  ? ZH_ERROR_MAP(issue, context) : { message: context.defaultError });
 
 // Keep existing settings and MCP connections when the displayed product name changes.
 app.setPath('userData', app.isPackaged
@@ -77,7 +80,7 @@ function createWindow(indexPath: string, themeConfiguration: any) {
       nodeIntegration: false,
     },
     titleBarStyle: "hiddenInset",
-    title: '爱思 产品研发助手',
+    title: appText("爱思 产品研发助手"),
     icon: getIconPath(themeConfiguration),
   });
 
@@ -130,6 +133,9 @@ function onAppReload(indexPath: string) {
 }
 
 function setupWindowHandlers(window: BrowserWindow, indexPath: string) {
+  window.webContents.on('did-start-navigation', (_event, _url, isInPlace) => {
+    if (!isInPlace) contentGenerationManager.clearOwner(`renderer:${window.webContents.id}`);
+  });
   window.on("enter-full-screen", () => {
     window?.webContents.send("fullscreen-change", true);
   });
@@ -276,9 +282,9 @@ async function confirmQuitDuringActiveProcesses(): Promise<boolean> {
 // MAIN APPLICATION LOGIC
 // ========================
 
-app.whenReady().then(async () => {
+function updateApplicationMenu() {
   app.setAboutPanelOptions({
-    applicationName: '爱思 产品研发助手 · Ace PDA',
+    applicationName: appText("爱思 产品研发助手 · Ace PDA"),
     applicationVersion: app.getVersion(),
     version: 'Ace Product Development Assistant',
     credits: 'Ace Product Development Assistant（Ace PDA）',
@@ -286,41 +292,50 @@ app.whenReady().then(async () => {
   });
   Menu.setApplicationMenu(Menu.buildFromTemplate([
     { label: 'Ace PDA', submenu: [
-      { role: 'about', label: '关于 Ace PDA' },
+      { role: 'about', label: appText("关于 Ace PDA") },
       { type: 'separator' },
-      { role: 'services', label: '服务' },
+      { role: 'services', label: appText("服务") },
       { type: 'separator' },
-      { role: 'hide', label: '隐藏 Ace PDA' },
-      { role: 'hideOthers', label: '隐藏其他应用' },
-      { role: 'unhide', label: '显示所有应用' },
+      { role: 'hide', label: appText("隐藏 Ace PDA") },
+      { role: 'hideOthers', label: appText("隐藏其他应用") },
+      { role: 'unhide', label: appText("显示所有应用") },
       { type: 'separator' },
-      { role: 'quit', label: '退出 Ace PDA' },
+      { role: 'quit', label: appText("退出 Ace PDA") },
     ] },
-    { label: '编辑', submenu: [
-      { role: 'undo', label: '撤销' }, { role: 'redo', label: '重做' },
+    { label: appText("编辑"), submenu: [
+      { role: 'undo', label: appText("撤销") }, { role: 'redo', label: appText("重做") },
       { type: 'separator' },
-      { role: 'cut', label: '剪切' }, { role: 'copy', label: '复制' },
-      { role: 'paste', label: '粘贴' }, { role: 'pasteAndMatchStyle', label: '粘贴并匹配样式' },
-      { role: 'delete', label: '删除' }, { role: 'selectAll', label: '全选' },
+      { role: 'cut', label: appText("剪切") }, { role: 'copy', label: appText("复制") },
+      { role: 'paste', label: appText("粘贴") }, { role: 'pasteAndMatchStyle', label: appText("粘贴并匹配样式") },
+      { role: 'delete', label: appText("删除") }, { role: 'selectAll', label: appText("全选") },
     ] },
-    { label: '视图', submenu: [
-      { role: 'reload', label: '重新加载' }, { role: 'forceReload', label: '强制重新加载' },
-      { role: 'toggleDevTools', label: '开发者工具' }, { type: 'separator' },
-      { role: 'resetZoom', label: '实际大小' }, { role: 'zoomIn', label: '放大' },
-      { role: 'zoomOut', label: '缩小' }, { type: 'separator' },
-      { role: 'togglefullscreen', label: '切换全屏' },
+    { label: appText("视图"), submenu: [
+      { role: 'reload', label: appText("重新加载") }, { role: 'forceReload', label: appText("强制重新加载") },
+      { role: 'toggleDevTools', label: appText("开发者工具") }, { type: 'separator' },
+      { role: 'resetZoom', label: appText("实际大小") }, { role: 'zoomIn', label: appText("放大") },
+      { role: 'zoomOut', label: appText("缩小") }, { type: 'separator' },
+      { role: 'togglefullscreen', label: appText("切换全屏") },
     ] },
-    { label: '窗口', submenu: [
-      { role: 'minimize', label: '最小化' }, { role: 'zoom', label: '缩放窗口' },
-      { role: 'front', label: '前置所有窗口' }, { role: 'close', label: '关闭窗口' },
+    { label: appText("窗口"), submenu: [
+      { role: 'minimize', label: appText("最小化") }, { role: 'zoom', label: appText("缩放窗口") },
+      { role: 'front', label: appText("前置所有窗口") }, { role: 'close', label: appText("关闭窗口") },
     ] },
   ]));
 
+}
+
+app.whenReady().then(async () => {
   // Initialize configuration
   const { indexPath, themeConfiguration } = initializeConfig();
 
   // Setup store
   setupStore();
+  setupLanguageHandlers();
+  updateApplicationMenu();
+  languageEvents.on("changed", () => {
+    updateApplicationMenu();
+    mainWindow?.setTitle(appText("爱思 产品研发助手"));
+  });
 
   // Create main window
   mainWindow = createWindow(indexPath, themeConfiguration);

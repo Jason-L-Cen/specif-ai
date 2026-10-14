@@ -1,3 +1,4 @@
+import { t as uiText } from "../i18n/translate";
 import { REQUIREMENT_TYPE } from "./app.constants";
 
 export const EXPORT_FILE_FORMATS = {
@@ -6,15 +7,15 @@ export const EXPORT_FILE_FORMATS = {
 } as const;
 
 export const SPREADSHEET_HEADER_ROW = {
-  [REQUIREMENT_TYPE.BRD]: ['ID', '标题', '描述'],
-  [REQUIREMENT_TYPE.PRD]: ['ID', '标题', '描述'],
-  [REQUIREMENT_TYPE.NFR]: ['ID', '标题', '描述'],
-  [REQUIREMENT_TYPE.UIR]: ['ID', '标题', '描述'],
-  [REQUIREMENT_TYPE.BP]: ['ID', '标题', '描述'],
-  [REQUIREMENT_TYPE.TC]: ['ID', '用户故事 ID', 'PRD ID', '标题', '描述', '前置条件', '后置条件', '优先级', '类型', '步骤'],
-  [REQUIREMENT_TYPE.SI]: ['ID', '标题', '描述'], // FIXME: Update with actual fields
-  [REQUIREMENT_TYPE.US]: ['ID', '父级 ID', '名称', '描述'],
-  [REQUIREMENT_TYPE.TASK]: ['ID', '父级 ID', '标题', '验收标准'],
+  [REQUIREMENT_TYPE.BRD]: ['ID', uiText("标题"), uiText("描述")],
+  [REQUIREMENT_TYPE.PRD]: ['ID', uiText("标题"), uiText("描述")],
+  [REQUIREMENT_TYPE.NFR]: ['ID', uiText("标题"), uiText("描述")],
+  [REQUIREMENT_TYPE.UIR]: ['ID', uiText("标题"), uiText("描述")],
+  [REQUIREMENT_TYPE.BP]: ['ID', uiText("标题"), uiText("描述")],
+  [REQUIREMENT_TYPE.TC]: ['ID', uiText("用户故事 ID"), 'PRD ID', uiText("标题"), uiText("描述"), uiText("前置条件"), uiText("后置条件"), uiText("优先级"), uiText("类型"), uiText("步骤")],
+  [REQUIREMENT_TYPE.SI]: ['ID', uiText("标题"), uiText("描述")], // FIXME: Update with actual fields
+  [REQUIREMENT_TYPE.US]: ['ID', uiText("父级 ID"), uiText("名称"), uiText("描述")],
+  [REQUIREMENT_TYPE.TASK]: ['ID', uiText("父级 ID"), uiText("标题"), uiText("验收标准")],
 }
 
 export type ExportFileFormat =

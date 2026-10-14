@@ -21,21 +21,21 @@ class StoreService {
 
     public get<T>(key: string): T | undefined {
         if (!this.store) {
-            throw new Error('本地存储尚未初始化');
+            throw new Error("本地存储尚未初始化");
         }
         return this.store.get(key) as T;
     }
 
     public set(key: string, value: any): void {
         if (!this.store) {
-            throw new Error('本地存储尚未初始化');
+            throw new Error("本地存储尚未初始化");
         }
         this.store.set(key, value);
     }
 
     public delete(key: string): void {
         if (!this.store) {
-            throw new Error('本地存储尚未初始化');
+            throw new Error("本地存储尚未初始化");
         }
         this.store.delete(key);
     }

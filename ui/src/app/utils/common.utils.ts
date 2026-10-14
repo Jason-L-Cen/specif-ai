@@ -1,5 +1,6 @@
 import { FileTypeEnum } from '../model/enum/file-type.enum';
 import { Navigation } from '@angular/router';
+import { t as uiText } from '../i18n/translate';
 
 export function getDescriptionFromInput(
   input: string | undefined,
@@ -7,7 +8,7 @@ export function getDescriptionFromInput(
   const enumKey = Object.keys(FileTypeEnum).find(
     (key) => key === input?.toUpperCase().replace(/\s+/g, ''),
   );
-  return enumKey ? FileTypeEnum[enumKey as keyof typeof FileTypeEnum] : null;
+  return enumKey ? uiText(FileTypeEnum[enumKey as keyof typeof FileTypeEnum]) : null;
 }
 
 export function truncateWithEllipsis(

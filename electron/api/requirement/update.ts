@@ -1,3 +1,4 @@
+import { t as appText } from "../../services/language";
 import { updateRequirementSchema, type UpdateRequirementResponse } from '../../schema/requirement/update.schema';
 import { LLMUtils } from '../../services/llm/llm-utils';
 import { buildLLMHandler } from '../../services/llm';
@@ -19,7 +20,7 @@ export async function updateRequirement(event: IpcMainInvokeEvent, data: unknown
     const trace = o11y.createTrace('update-requirement');
 
     if (!llmConfig) {
-      throw new Error('未找到大语言模型配置');
+      throw new Error(appText("未找到大语言模型配置"));
     }
 
     console.log('[update-requirement] Using LLM config:', llmConfig);
@@ -44,7 +45,7 @@ export async function updateRequirement(event: IpcMainInvokeEvent, data: unknown
       return {
         ...validatedData,
         updated: {
-          title: validatedData.title || '更新后的需求',
+          title: validatedData.title || appText("更新后的需求"),
           requirement: `${updatedReqt} ${reqDesc}`
         }
       };
@@ -98,7 +99,7 @@ export async function updateRequirement(event: IpcMainInvokeEvent, data: unknown
       let cleanedResponse = repairJSON(response);
       const parsed = JSON.parse(cleanedResponse);
       if (!parsed.updated || !parsed.updated.title || !parsed.updated.requirement) {
-        throw new Error('响应结构无效');
+        throw new Error(appText("响应结构无效"));
       }
       result = parsed;
     } catch (error) {
@@ -107,7 +108,7 @@ export async function updateRequirement(event: IpcMainInvokeEvent, data: unknown
         level: "ERROR",
         statusMessage: `Error parsing LLM response: ${error}`
       });
-      throw new Error('无法将大语言模型的响应解析为 JSON');
+      throw new Error(appText("无法将大语言模型的响应解析为 JSON"));
     }
 
     return {

@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../../i18n/i18n.pipe";
+import { t as uiText } from "../../../i18n/translate";
 import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
 import {
   FormControl,
@@ -67,7 +69,7 @@ import { Editor } from '@tiptap/core';
     MatTooltipModule,
     RichTextEditorComponent,
     InlineEditDirective
-  ],
+  , I18nPipe],
   providers: [
     provideIcons({
       heroSparklesSolid,
@@ -150,12 +152,12 @@ export class AddTaskComponent implements OnDestroy {
       });
 
     this.createTaskForm(taskId);
-    this.editLabel = this.mode == 'edit' ? '编辑' : '添加';
+    this.editLabel = this.mode == 'edit' ? uiText("编辑") : uiText("添加");
 
     this.store.dispatch(
       new AddBreadcrumb({
-        label: this.config.featureId + ' - 任务',
-        tooltipLabel: `${this.config.featureId} 的任务：${this.config.featureName}`,
+        label: this.config.featureId + uiText(" - 任务"),
+        tooltipLabel: uiText("{0} 的任务：{1}", [this.config.featureId, this.config.featureName]),
         url: `/task-list/${userStoryId}`,
         state: { config: this.config },
       }),
@@ -521,7 +523,7 @@ export class AddTaskComponent implements OnDestroy {
   }
 
   getContentContext(): string {
-    return `${this.userStory?.name || ''} - ${this.userStory?.description || ''} - 任务：${this.existingTask.task || ''}`;
+    return uiText("{0} - {1} - 任务：{2}", [this.userStory?.name || '', this.userStory?.description || '', this.existingTask.task || '']);
   }
 
   handleInlineEditUpdate(newContent: string): void {

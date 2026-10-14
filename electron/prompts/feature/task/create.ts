@@ -1,4 +1,4 @@
-import { MARKDOWN_RULES, OUTPUT_LANGUAGE_INSTRUCTIONS } from '../../context/markdown-rules';
+import { MARKDOWN_RULES, getOutputLanguageInstructions } from '../../context/markdown-rules';
 
 export interface CreateTaskPromptParams {
   name: string;
@@ -9,7 +9,7 @@ export interface CreateTaskPromptParams {
 }
 
 export function createTaskPrompt(params: CreateTaskPromptParams): string {
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
 You are a solution architect tasked with creating granular implementation tasks from the provided user story. The tasks should be specific, actionable and directly tied to the technical details mentioned in the user story.
 

@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import {
   Component,
   Input,
@@ -36,7 +38,7 @@ import { IProjectMetadata } from '../../model/interfaces/projects.interface';
     JiraIntegrationComponent,
     AdoIntegrationComponent,
     ZentaoIntegrationComponent,
-  ],
+   I18nPipe,],
 })
 export class PmoIntegrationComponent implements OnInit, OnDestroy {
   @Input() projectId!: string;
@@ -90,8 +92,8 @@ export class PmoIntegrationComponent implements OnInit, OnDestroy {
   readonly accordionTitle = computed(() => {
     const selectedConfig = this.selectedPmoConfig();
     return selectedConfig
-      ? `${selectedConfig.displayName} 集成`
-      : 'PMO 集成';
+      ? uiText("{0} 集成", [selectedConfig.displayName])
+      : uiText("PMO 集成");
   });
 
   readonly accordionIcon = computed(() => {

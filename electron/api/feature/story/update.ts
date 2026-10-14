@@ -1,3 +1,4 @@
+import { t as appText } from "../../../services/language";
 import { updateStorySchema, type UpdateStoryResponse } from '../../../schema/feature/story/update.schema';
 import { LLMUtils } from '../../../services/llm/llm-utils';
 import { buildLLMHandler } from '../../../services/llm';
@@ -19,7 +20,7 @@ export async function updateStory(event: IpcMainInvokeEvent, data: unknown): Pro
     const trace = o11y.createTrace('update-story');
 
     if (!llmConfig) {
-      throw new Error('未找到大语言模型配置');
+      throw new Error(appText("未找到大语言模型配置"));
     }
 
     console.log('[update-story] Using LLM config:', llmConfig);
@@ -71,7 +72,7 @@ export async function updateStory(event: IpcMainInvokeEvent, data: unknown): Pro
     try {
       const parsedResponse = JSON.parse(cleanFeatures.trim());
       if (!parsedResponse.features || !Array.isArray(parsedResponse.features)) {
-        throw new Error('响应结构无效：缺少 features 数组');
+        throw new Error(appText("响应结构无效：缺少 features 数组"));
       }
 
       return {

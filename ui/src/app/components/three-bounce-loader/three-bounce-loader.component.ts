@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,5 +10,5 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./three-bounce-loader.component.scss']
 })
 export class ThreeBounceLoaderComponent {
-  @Input() loadingSRMessage = '正在加载…';
+  @Input() loadingSRMessage = uiText("正在加载…");
 }

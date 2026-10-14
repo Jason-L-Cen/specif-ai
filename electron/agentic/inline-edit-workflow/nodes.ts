@@ -1,3 +1,4 @@
+import { withOutputLanguage } from "../../services/llm/language-messages";
 import { HumanMessage } from "@langchain/core/messages";
 import { LangChainModelProvider } from "../../services/llm/langchain-providers/base";
 import { getInlineEditPrompt } from "../../prompts/core/inline-edit";
@@ -33,7 +34,7 @@ export const buildInlineEditNode = (modelProvider: LangChainModelProvider) => {
       });
 
       const model = modelProvider.getChatModel();
-      const response = await model.invoke(prompt);
+      const response = await model.invoke(withOutputLanguage(prompt));
 
       generation?.end({
         usage: {

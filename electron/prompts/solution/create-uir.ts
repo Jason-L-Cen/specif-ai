@@ -1,4 +1,4 @@
-import { MARKDOWN_RULES, OUTPUT_LANGUAGE_INSTRUCTIONS } from "../context/markdown-rules";
+import { MARKDOWN_RULES, getOutputLanguageInstructions } from "../context/markdown-rules";
 import { UIR_CONTEXT } from "../context/uir";
 
 interface CreateUIRParams {
@@ -14,7 +14,7 @@ export function createUIRPrompt({
   minCount,
   referenceInformation,
 }: CreateUIRParams): string {
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
 You are a requirements analyst tasked with extracting User Interface Requirements from the provided app description. Below is the description of the app:
 

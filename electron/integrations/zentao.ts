@@ -1,3 +1,4 @@
+import { t as appText } from "../services/language";
 import axios from "axios";
 import { z } from "zod";
 
@@ -26,9 +27,9 @@ export type ZentaoItem = z.infer<typeof zentaoItemSchema>;
 export function normalizeZentaoUrl(value: string): string {
   let url: URL;
   try { url = new URL(value.trim()); }
-  catch { throw new Error("请输入有效的禅道站点地址，例如 https://zentao.example.com。"); }
+  catch { throw new Error(appText("请输入有效的禅道站点地址，例如 https://zentao.example.com。")); }
   if (!["http:", "https:"].includes(url.protocol) || url.username || url.password || url.search || url.hash) {
-    throw new Error("请输入不含账号、密码或查询参数的禅道站点地址。");
+    throw new Error(appText("请输入不含账号、密码或查询参数的禅道站点地址。"));
   }
   url.pathname = url.pathname.replace(/\/(?:index\.php|api\.php(?:\/v[12])?)\/?$/, "").replace(/\/+$/, "");
   return url.toString().replace(/\/$/, "");
@@ -51,26 +52,26 @@ export class ZentaoClient {
         headers: { "Content-Type": "application/json", ...(this.token ? { Token: this.token } : {}) },
         timeout: 20000, maxRedirects: 0, maxContentLength: 20 * 1024 * 1024,
       });
-      if (!response.data || typeof response.data !== "object") throw new Error("站点未返回禅道 API 数据，请检查地址与版本。");
+      if (!response.data || typeof response.data !== "object") throw new Error(appText("站点未返回禅道 API 数据，请检查地址与版本。"));
       if (response.data.status === "fail" || response.data.result === "fail") {
-        if (path === "/users/login") throw new Error("禅道登录失败，请检查账号和密码。");
-        throw new Error("禅道拒绝了操作，请检查权限、必填字段和需求评审设置。");
+        if (path === "/users/login") throw new Error(appText("禅道登录失败，请检查账号和密码。"));
+        throw new Error(appText("禅道拒绝了操作，请检查权限、必填字段和需求评审设置。"));
       }
       return response.data;
     } catch (error) {
       if (!axios.isAxiosError(error)) throw error;
       const status = error.response?.status;
-      if (status === 401 || status === 403) throw new Error("禅道登录已过期或账号权限不足，请重新登录。");
-      if (status && status >= 300 && status < 400) throw new Error("禅道地址发生跳转，请填写跳转后的站点地址。");
-      if (status) throw new Error(`禅道请求失败（HTTP ${status}），请检查权限、必填字段与 API 版本。`);
-      if (method === "POST" && path !== "/users/login") throw new Error("禅道创建结果未确认，请先在禅道核实，再决定是否重试，避免重复创建。");
-      throw new Error("无法连接禅道，请检查服务器地址与网络。");
+      if (status === 401 || status === 403) throw new Error(appText("禅道登录已过期或账号权限不足，请重新登录。"));
+      if (status && status >= 300 && status < 400) throw new Error(appText("禅道地址发生跳转，请填写跳转后的站点地址。"));
+      if (status) throw new Error(appText("禅道请求失败（HTTP {0}），请检查权限、必填字段与 API 版本。", [status]));
+      if (method === "POST" && path !== "/users/login") throw new Error(appText("禅道创建结果未确认，请先在禅道核实，再决定是否重试，避免重复创建。"));
+      throw new Error(appText("无法连接禅道，请检查服务器地址与网络。"));
     }
   }
 
   async login(account: string, password: string): Promise<string> {
     const result = await this.request("POST", "/users/login", { account, password });
-    if (typeof result.token !== "string" || !result.token) throw new Error("禅道登录失败，请检查账号和密码。");
+    if (typeof result.token !== "string" || !result.token) throw new Error(appText("禅道登录失败，请检查账号和密码。"));
     this.token = result.token;
     return result.token;
   }
@@ -79,11 +80,11 @@ export class ZentaoClient {
     const items: any[] = [];
     for (let page = 1; ; page++) {
       const response = await this.request("GET", `${path}${path.includes("?") ? "&" : "?"}recPerPage=100&pageID=${page}`);
-      if (!Array.isArray(response[key])) throw new Error("禅道列表格式不兼容，请使用支持 API v2 的版本。");
+      if (!Array.isArray(response[key])) throw new Error(appText("禅道列表格式不兼容，请使用支持 API v2 的版本。"));
       items.push(...response[key]);
       const total = Number(response.pager?.recTotal);
       if (!response[key].length || (Number.isFinite(total) ? page * Number(response.pager?.recPerPage || 100) >= total : response[key].length < 100)) break;
-      if (page >= 1000) throw new Error("禅道列表超过十万条，请缩小产品或执行范围。");
+      if (page >= 1000) throw new Error(appText("禅道列表超过十万条，请缩小产品或执行范围。"));
     }
     return items;
   }
@@ -101,14 +102,14 @@ export class ZentaoClient {
 
   async validate(config: ZentaoConfig): Promise<void> {
     const { product } = await this.request("GET", `/products/${config.productId}`);
-    if (!product || Number(product.deleted) === 1) throw new Error("所选禅道产品不存在或已删除。");
+    if (!product || Number(product.deleted) === 1) throw new Error(appText("所选禅道产品不存在或已删除。"));
     if (config.executionId) {
       // API v2's execution view omits product links; the v1 view exposes them on 22.7.
       const execution = await this.request("GET", `/executions/${config.executionId}`, undefined, "v1");
-      if (!execution || Number(execution.deleted) === 1) throw new Error("所选禅道执行不存在或已删除。");
+      if (!execution || Number(execution.deleted) === 1) throw new Error(appText("所选禅道执行不存在或已删除。"));
       const linked = Object.values(execution.products || {}) as any[];
       if (!linked.some(p => Number(typeof p === "object" ? p.id : p) === config.productId)) {
-        throw new Error("所选执行未关联该产品，请先在禅道中关联产品。");
+        throw new Error(appText("所选执行未关联该产品，请先在禅道中关联产品。"));
       }
     }
   }
@@ -127,13 +128,13 @@ export class ZentaoClient {
       title: s.title || s.name, description: s.spec || s.desc || "", child: [],
     });
     const roots = [...all.values()].filter(s => !Number(s.parent) || !all.has(Number(s.parent)));
-    if (tasks.some(t => roots.some(s => Number(s.id) === Number(t.story)))) throw new Error("当前执行有任务直接关联父需求；此同步入口要求任务关联子需求，请先在禅道核对层级。");
+    if (tasks.some(t => roots.some(s => Number(s.id) === Number(t.story)))) throw new Error(appText("当前执行有任务直接关联父需求；此同步入口要求任务关联子需求，请先在禅道核对层级。"));
     const result = [];
     for (const root of roots) {
       const prd: any = ticket(root, "PRD", null);
       const children = [...all.values()].filter(s => Number(s.parent) === Number(root.id));
       for (const child of children) {
-        if ([...all.values()].some(s => Number(s.parent) === Number(child.id))) throw new Error("该产品含三层以上软件需求，当前同步仅支持父需求、子需求、任务三层。");
+        if ([...all.values()].some(s => Number(s.parent) === Number(child.id))) throw new Error(appText("该产品含三层以上软件需求，当前同步仅支持父需求、子需求、任务三层。"));
         const detail = (await this.request("GET", `/stories/${child.id}`)).story;
         const us: any = ticket(detail || child, "User Story", Number(root.id));
         us.child = tasks.filter(t => Number(t.story) === Number(child.id)).map(t => ticket(t, "Task", Number(child.id)));
@@ -149,19 +150,19 @@ export class ZentaoClient {
   async upsert(config: ZentaoConfig, input: ZentaoItem): Promise<{ id: number }> {
     const item = zentaoItemSchema.parse(input);
     const collection = item.kind === "Task" ? "tasks" : item.kind === "Test Case" ? "testcases" : "stories";
-    if (item.kind !== "PRD" && !item.parentId) throw new Error("缺少父需求，请先同步产品需求和用户故事。");
-    if (item.kind === "Task" && !config.executionId) throw new Error("同步任务前请在集成设置中选择禅道执行。");
-    if (item.kind === "Test Case" && !item.steps?.length) throw new Error("测试用例至少需要一个操作步骤。");
+    if (item.kind !== "PRD" && !item.parentId) throw new Error(appText("缺少父需求，请先同步产品需求和用户故事。"));
+    if (item.kind === "Task" && !config.executionId) throw new Error(appText("同步任务前请在集成设置中选择禅道执行。"));
+    if (item.kind === "Test Case" && !item.steps?.length) throw new Error(appText("测试用例至少需要一个操作步骤。"));
     if (item.parentId) {
       const { story } = await this.request("GET", `/stories/${item.parentId}`);
-      if (!story || Number(story.deleted) === 1 || Number(story.product) !== config.productId) throw new Error("父需求不属于当前禅道产品，已停止同步。");
+      if (!story || Number(story.deleted) === 1 || Number(story.product) !== config.productId) throw new Error(appText("父需求不属于当前禅道产品，已停止同步。"));
     }
     let existing: any;
     if (item.id) {
       const response = await this.request("GET", `/${collection}/${item.id}`);
       existing = response.story || response.task || response.testcase;
       if (!existing || Number(existing.deleted) === 1 || (collection === "tasks" ? Number(existing.execution) !== config.executionId : Number(existing.product) !== config.productId)) {
-        throw new Error("已关联工作项不在当前同步范围，已停止同步；请勿修改已绑定的产品或执行。");
+        throw new Error(appText("已关联工作项不在当前同步范围，已停止同步；请勿修改已绑定的产品或执行。"));
       }
     }
     let payload: any;
@@ -181,13 +182,13 @@ export class ZentaoClient {
       const steps = item.steps!;
       payload = { productID: config.productId, title: item.title, story: item.parentId, pri: item.priority === "High" ? 1 : item.priority === "Low" ? 4 : 3,
         type: ({ Integration: "interface", Performance: "performance", Security: "security" } as Record<string, string>)[item.type || ""] || "feature",
-        precondition: plainHtml([item.description ? `用例说明：\n${item.description}` : "", item.preConditions?.length ? `前置条件：\n${item.preConditions.join("\n")}` : "",
-          item.postConditions?.length ? `后置条件（验收）：\n${item.postConditions.join("\n")}` : ""].filter(Boolean).join("\n\n")),
+        precondition: plainHtml([item.description ? appText("用例说明：\n{0}", [item.description]) : "", item.preConditions?.length ? appText("前置条件：\n{0}", [item.preConditions.join("\n")]) : "",
+          item.postConditions?.length ? appText("后置条件（验收）：\n{0}", [item.postConditions.join("\n")]) : ""].filter(Boolean).join("\n\n")),
         steps: steps.map(s => plainHtml(s.action)), expects: steps.map(s => plainHtml(s.expectedResult)), stepType: steps.map(() => "step") };
     }
     const response = await this.request(item.id ? "PUT" : "POST", item.id ? `/${collection}/${item.id}` : `/${collection}`, payload);
     const resultId = item.id || Number(response.id || response.story?.id || response.task?.id || response.testcase?.id);
-    if (!Number.isSafeInteger(resultId) || resultId <= 0) throw new Error("禅道未返回工作项编号，请在禅道确认创建结果后重试，避免重复创建。");
+    if (!Number.isSafeInteger(resultId) || resultId <= 0) throw new Error(appText("禅道未返回工作项编号，请在禅道确认创建结果后重试，避免重复创建。"));
     return { id: resultId };
   }
 }

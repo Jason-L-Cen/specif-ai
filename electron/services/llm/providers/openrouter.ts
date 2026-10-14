@@ -1,3 +1,4 @@
+import { t as appText } from "../../language";
 import { OpenAI } from 'openai';
 import LLMHandler from '../llm-handler';
 import { Message, ModelInfo, LLMConfig, LLMError } from '../llm-types';
@@ -29,10 +30,10 @@ export class OpenRouterHandler extends LLMHandler {
 
   getConfig(config: Partial<OpenRouterConfig>): OpenRouterConfig {
     if (!config.apiKey) {
-      throw new LLMError('OpenRouter API 密钥不能为空', 'openrouter');
+      throw new LLMError(appText("OpenRouter API 密钥不能为空"), 'openrouter');
     }
     if (!config.model) {
-      throw new LLMError('OpenRouter 模型不能为空', 'openrouter');
+      throw new LLMError(appText("OpenRouter 模型不能为空"), 'openrouter');
     }
 
     return {
@@ -43,7 +44,7 @@ export class OpenRouterHandler extends LLMHandler {
   }
 
   @withRetry({ retryAllErrors: true })
-  async invoke(
+  protected async invokeModel(
     messages: Message[],
     systemPrompt: string | null = null,
     operation: string = "llm:invoke"
@@ -80,7 +81,7 @@ export class OpenRouterHandler extends LLMHandler {
     
     if (!response.choices?.[0]?.message?.content) {
       throw new LLMError(
-        'OpenRouter API 未返回回答内容',
+        appText("OpenRouter API 未返回回答内容"),
         'openrouter'
       );
     }

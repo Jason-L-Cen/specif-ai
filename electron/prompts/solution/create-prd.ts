@@ -1,5 +1,5 @@
 import { PRD_CONTEXT } from '../context/prd';
-import { MARKDOWN_RULES, OUTPUT_LANGUAGE_INSTRUCTIONS } from '../context/markdown-rules';
+import { MARKDOWN_RULES, getOutputLanguageInstructions } from '../context/markdown-rules';
 
 interface CreatePRDParams {
   name: string;
@@ -14,7 +14,7 @@ interface CreatePRDParams {
 }
 
 export function createPRDPrompt({ name, description, minCount, brds, referenceInformation }: CreatePRDParams): string {
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
 You are an award winning product manager tasked with extracting detailed Product Requirements from the provided information.
 ## App Description:

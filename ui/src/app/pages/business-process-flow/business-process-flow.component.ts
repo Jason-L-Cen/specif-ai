@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import {
   AfterViewInit,
   Component,
@@ -37,7 +39,7 @@ import { NgIf } from '@angular/common';
   templateUrl: './business-process-flow.component.html',
   styleUrls: ['./business-process-flow.component.scss'],
   standalone: true,
-  imports: [ButtonComponent, NgIf],
+  imports: [ButtonComponent, NgIf, I18nPipe],
 })
 export class BusinessProcessFlowComponent
   implements OnInit, AfterViewInit, OnDestroy
@@ -57,7 +59,7 @@ export class BusinessProcessFlowComponent
 
   errorBlockVisible: boolean = false;
   errorMessage: string =
-    '输入的描述缺少必要细节，无法生成有效的业务流程图。请补充相关描述，或选择相关产品需求（PRD）和业务需求（BRD）后重新生成。';
+    uiText("输入的描述缺少必要细节，无法生成有效的业务流程图。请补充相关描述，或选择相关产品需求（PRD）和业务需求（BRD）后重新生成。");
   mode: string | null = 'view';
   projectId: string = '';
   projectName: string = '';
@@ -85,7 +87,7 @@ export class BusinessProcessFlowComponent
     this.selectedRequirement = navigation?.extras?.state?.['req'];
     this.data = navigation?.extras?.state?.['data'];
     this.requirementId = this.fileName.split('-')[0];
-    this.currentLabel = `${this.requirementId ?? ''} - 流程图`;
+    this.currentLabel = uiText("{0} - 流程图", [this.requirementId ?? '']);
     // Setting current config in state.
     this.store.dispatch(
       new SetCurrentConfig({
@@ -118,7 +120,7 @@ export class BusinessProcessFlowComponent
     // Eg: BP1 - Flow chart
     this.store.dispatch(
       new AddBreadcrumb({
-        label: `${this.requirementId ?? ''} - 流程图`,
+        label: uiText("{0} - 流程图", [this.requirementId ?? '']),
         url: this.router.url,
         state: {
           data: this.data,

@@ -1,3 +1,4 @@
+import { t as appText } from "../../../services/language";
 import { updateBusinessProcessSchema, type UpdateBusinessProcessResponse } from '../../../schema/requirement/business-process/update.schema';
 import { LLMUtils } from '../../../services/llm/llm-utils';
 import { buildLLMHandler } from '../../../services/llm';
@@ -19,7 +20,7 @@ export async function updateBusinessProcess(event: IpcMainInvokeEvent, data: any
     const trace = o11y.createTrace('update-business-process');
 
     if (!llmConfig) {
-      throw new Error('未找到大语言模型配置');
+      throw new Error(appText("未找到大语言模型配置"));
     }
 
     console.log('[update-business-process] Using LLM config:', llmConfig);

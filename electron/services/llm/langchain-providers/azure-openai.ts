@@ -1,3 +1,4 @@
+import { t as appText } from "../../language";
 import { AzureChatOpenAI } from "@langchain/openai";
 import { LLMConfig, LLMError } from "../llm-types";
 import { LangChainModelProvider } from "./base";
@@ -31,13 +32,13 @@ export class AzureOpenAILangChainProvider implements LangChainModelProvider {
 
   getConfig(config: Partial<AzureOpenAIConfig>): AzureOpenAIConfig {
     if (!config.apiKey) {
-      throw new LLMError("Azure OpenAI API 密钥不能为空", "openai");
+      throw new LLMError(appText("Azure OpenAI API 密钥不能为空"), "openai");
     }
     if (!config.endpoint) {
-      throw new LLMError("Azure OpenAI 服务端点不能为空", "openai");
+      throw new LLMError(appText("Azure OpenAI 服务端点不能为空"), "openai");
     }
     if (!config.deployment) {
-      throw new LLMError("Azure OpenAI 部署 ID 不能为空", "openai");
+      throw new LLMError(appText("Azure OpenAI 部署 ID 不能为空"), "openai");
     }
 
     return {

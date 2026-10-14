@@ -1,4 +1,4 @@
-import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../../prompts/context/markdown-rules";
+import { getOutputLanguageInstructions } from "../../../prompts/context/markdown-rules";
 import { getTaskPerspectives, TaskResearchPreferences } from "./utils";
 
 export function createSummarizeTaskResearchPrompt({
@@ -11,7 +11,7 @@ export function createSummarizeTaskResearchPrompt({
 }: TaskResearchPreferences): string {
   const perspectives = getTaskPerspectives();
 
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
 You are a lead technical analyst. As part of your role you synthesize information gathered to support the downstream breakdown of user stories into smaller, actionable tasks.
 

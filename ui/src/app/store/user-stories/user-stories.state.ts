@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import { Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
 import {
@@ -406,10 +407,10 @@ export class UserStoriesState {
       const state = ctx.getState();
       const prdId = state.currentConfig?.reqId;
       if(exportOptions.type === 'xlsx'){
-        this.toast.showInfo(`正在导出 ${prdId} 中的用户故事`);
+        this.toast.showInfo(uiText("正在导出 {0} 中的用户故事", [prdId]));
       }
       if(exportOptions.type === 'json'){
-        this.toast.showInfo(`已复制 ${prdId} 中的用户故事`);
+        this.toast.showInfo(uiText("已复制 {0} 中的用户故事", [prdId]));
       }
       this.requirementExportService.exportRequirementData(
         {
@@ -423,9 +424,7 @@ export class UserStoriesState {
         REQUIREMENT_TYPE.US,
       );
     } catch (error) {
-      const message = `导出用户故事失败：${
-        error instanceof Error ? error.message : '未知错误'
-      }`;
+      const message = uiText("导出用户故事失败：{0}", [error instanceof Error ? error.message : uiText("未知错误")]);
       this.logger.error(error);
       this.logger.error(message);
       this.toast.showError(message);

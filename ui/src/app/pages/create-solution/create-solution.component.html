@@ -5,17 +5,17 @@
 <header
   class="flex items-center justify-between py-3 bg-secondary-50 sticky top-0"
 >
-  <h1 class="text-lg font-semibold">创建解决方案</h1>
+  <h1 class="text-lg font-semibold">{{ "创建解决方案" | i18n }}</h1>
   <div class="flex gap-2">
     <app-button
-      buttonContent="取消"
+      [buttonContent]="&quot;取消&quot; | i18n"
       [disabled]="loading"
       size="sm"
       theme="secondary_outline"
       (click)="navigateToDashboard()"
     ></app-button>
     <app-button
-      buttonContent="创建解决方案"
+      [buttonContent]="&quot;创建解决方案&quot; | i18n"
       [disabled]="isCreateSolutionDisabled"
       size="sm"
       (click)="createSolution()"
@@ -27,9 +27,9 @@
   <app-custom-accordion [id]="'basic-info'" [isOpen]="true">
     <ng-container accordion-trigger>
       <div class="flex flex-col text-sm gap-0.5">
-        <span class="font-semibold text-foreground">基本信息</span>
+        <span class="font-semibold text-foreground">{{ "基本信息" | i18n }}</span>
         <span class="font-normal text-muted-foreground"
-          >填写计划开发的应用的基本信息。</span
+          >{{ "填写计划开发的应用的基本信息。" | i18n }}</span
         >
       </div>
     </ng-container>
@@ -37,14 +37,14 @@
       <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-3">
         <label
           class="block text-sm font-medium leading-6 text-secondary-900 sm:pt-1.5"
-          >解决方案名称<span class="text-danger-500 text-xs"> *</span></label
+          >{{ "解决方案名称" | i18n }}<span class="text-danger-500 text-xs"> *</span></label
         >
 
         <app-input-field
           formControlName="name"
           elementId="solution-name"
-          elementName="解决方案名称"
-          elementPlaceHolder="解决方案名称"
+          [elementName]="&quot;解决方案名称&quot; | i18n"
+          [elementPlaceHolder]="&quot;解决方案名称&quot; | i18n"
           [showLabel]="false"
           [required]="true"
           class="sm:col-span-2"
@@ -56,20 +56,20 @@
         <div>
           <label
             class="block text-sm font-medium leading-6 text-secondary-900 sm:pt-1.5"
-            >解决方案描述<span class="text-danger-500 text-xs">
+            >{{ "解决方案描述" | i18n }}<span class="text-danger-500 text-xs">
               *</span
             ></label
           >
           <p class="text-xs leading-6 text-muted-foreground">
-            手动填写，或添加多份文件作为描述，可同时使用
+            {{ "手动填写，或添加多份文件作为描述，可同时使用" | i18n }}
           </p>
         </div>
         <div class="mt-2 sm:col-span-2 sm:mt-0">
           <app-textarea-field
             [formControl]="descriptionText"
             elementId="solution-description"
-            elementName="解决方案描述"
-            elementPlaceHolder="填写解决方案概述，或使用下方文件提供描述"
+            [elementName]="&quot;解决方案描述&quot; | i18n"
+            [elementPlaceHolder]="&quot;填写解决方案概述，或使用下方文件提供描述&quot; | i18n"
             [showLabel]="false"
             [rows]="4"
             [required]="false"
@@ -77,9 +77,9 @@
           <app-error-message [errorControl]="solutionForm.get('description')" />
           <app-multi-upload [documents]="true" (fileContent)="onDescriptionFiles($event)"
             (loadingChange)="descriptionImporting = $event" />
-          <p id="description-size" class="mt-2 text-xs leading-5 text-muted-foreground">用于生成的描述：{{ descriptionCharacterCount }} 字符</p>
+          <p id="description-size" class="mt-2 text-xs leading-5 text-muted-foreground">{{ ("用于生成的描述：{0} 字符" | i18n: [descriptionCharacterCount]) }}</p>
           <p *ngIf="descriptionCharacterCount > 10000" id="description-length-hint" role="status"
-            class="text-xs leading-5 text-amber-700">正文较长，生成可能较慢。Demo 建议使用精简材料，保留核心业务和关键规则。</p>
+            class="text-xs leading-5 text-amber-700">{{ "正文较长，生成可能较慢。Demo 建议使用精简材料，保留核心业务和关键规则。" | i18n }}</p>
         </div>
       </div>
 
@@ -87,29 +87,29 @@
         <div>
           <label
             class="block text-sm font-medium leading-6 text-secondary-900 sm:pt-1.5"
-            >技术细节<span *ngIf="technicalDetailsMode !== 'none'" class="text-danger-500 text-xs">
+            >{{ "技术细节" | i18n }}<span *ngIf="technicalDetailsMode !== 'none'" class="text-danger-500 text-xs">
               *</span
             ></label
           >
           <p class="text-xs leading-6 text-muted-foreground">
-            选择技术栈、自行填写，或暂不设定
+            {{ "选择技术栈、自行填写，或暂不设定" | i18n }}
           </p>
         </div>
         <div class="mt-2 sm:col-span-2 sm:mt-0">
           <fieldset class="space-y-3">
-            <legend class="sr-only">技术细节填写方式</legend>
+            <legend class="sr-only">{{ "技术细节填写方式" | i18n }}</legend>
             <div class="grid grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-3">
               <label class="flex cursor-pointer items-center gap-2 text-sm text-secondary-900">
                 <input type="radio" name="technical-details-mode" value="guided"
                   [checked]="technicalDetailsMode === 'guided'" (change)="setTechnicalDetailsMode('guided')"
                   aria-controls="technical-stack-selector" class="h-4 w-4 accent-primary-600" />
-                选择技术栈
+                {{ "选择技术栈" | i18n }}
               </label>
               <div>
                 <button type="button" id="technical-stack-selector" [matMenuTriggerFor]="architectureMenu"
                   [disabled]="technicalDetailsMode !== 'guided'" [title]="technicalStackLabel"
                   class="flex min-h-[44px] w-full items-center justify-between gap-2 rounded-lg border border-secondary-200 bg-white px-3 py-2.5 text-left text-sm text-secondary-900 disabled:bg-secondary-100 disabled:text-secondary-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-500">
-                  <span class="truncate" [class.text-secondary-400]="!technicalStackLabel">{{ technicalStackLabel || '请选择：架构 → 语言 → 框架 → 前端 → 数据库' }}</span>
+                  <span class="truncate" [class.text-secondary-400]="!technicalStackLabel">{{ technicalStackLabel || ("请选择：架构 → 语言 → 框架 → 前端 → 数据库" | i18n) }}</span>
                   <span aria-hidden="true" class="text-secondary-400">▾</span>
                 </button>
                 <app-error-message *ngIf="technicalDetailsMode === 'guided'" [errorControl]="solutionForm.get('technicalDetails')" />
@@ -120,11 +120,11 @@
                 <input type="radio" name="technical-details-mode" value="custom"
                   [checked]="technicalDetailsMode === 'custom'" (change)="setTechnicalDetailsMode('custom')"
                   aria-controls="technical-details" class="h-4 w-4 accent-primary-600" />
-                自定义输入
+                {{ "自定义输入" | i18n }}
               </label>
               <div>
                 <app-textarea-field [formControl]="customTechnicalDetails" elementId="technical-details"
-                  elementName="技术细节" elementPlaceHolder="自行描述应用的技术栈"
+                  [elementName]="&quot;技术细节&quot; | i18n" [elementPlaceHolder]="&quot;自行描述应用的技术栈&quot; | i18n"
                   [showLabel]="false" [rows]="3" [required]="technicalDetailsMode === 'custom'" />
                 <app-error-message *ngIf="technicalDetailsMode === 'custom'" [errorControl]="customTechnicalDetails" />
               </div>
@@ -133,17 +133,17 @@
               <input type="radio" name="technical-details-mode" value="none"
                 [checked]="technicalDetailsMode === 'none'" (change)="setTechnicalDetailsMode('none')"
                 class="h-4 w-4 accent-primary-600" />
-              None（暂时没有技术栈）
+              {{ "None（暂时没有技术栈）" | i18n }}
             </label>
           </fieldset>
 
-          <mat-menu #architectureMenu="matMenu" aria-label="应用架构">
+          <mat-menu #architectureMenu="matMenu" [attr.aria-label]="&quot;应用架构&quot; | i18n">
             <button type="button" mat-menu-item class="!pl-3 !pr-7" *ngFor="let option of getTechnicalOptions('architecture'); trackBy: trackTechnicalOption"
               [matMenuTriggerFor]="languageMenu" [matMenuTriggerData]="{ stack: nextTechnicalStack('architecture', option.value) }">
               <span class="text-sm">{{ option.label }}</span>
             </button>
           </mat-menu>
-          <mat-menu #languageMenu="matMenu" aria-label="开发语言">
+          <mat-menu #languageMenu="matMenu" [attr.aria-label]="&quot;开发语言&quot; | i18n">
             <ng-template matMenuContent let-stack="stack">
               <button type="button" mat-menu-item class="!pl-3 !pr-7" *ngFor="let option of getTechnicalOptions('language', stack); trackBy: trackTechnicalOption"
                 [matMenuTriggerFor]="frameworkMenu" [matMenuTriggerData]="{ stack: nextTechnicalStack('language', option.value, stack) }">
@@ -151,7 +151,7 @@
               </button>
             </ng-template>
           </mat-menu>
-          <mat-menu #frameworkMenu="matMenu" aria-label="应用框架">
+          <mat-menu #frameworkMenu="matMenu" [attr.aria-label]="&quot;应用框架&quot; | i18n">
             <ng-template matMenuContent let-stack="stack">
               <button type="button" mat-menu-item class="!pl-3 !pr-7" *ngFor="let option of getTechnicalOptions('framework', stack); trackBy: trackTechnicalOption"
                 [matMenuTriggerFor]="frontendMenu" [matMenuTriggerData]="{ stack: nextTechnicalStack('framework', option.value, stack) }">
@@ -159,7 +159,7 @@
               </button>
             </ng-template>
           </mat-menu>
-          <mat-menu #frontendMenu="matMenu" aria-label="前端或界面">
+          <mat-menu #frontendMenu="matMenu" [attr.aria-label]="&quot;前端或界面&quot; | i18n">
             <ng-template matMenuContent let-stack="stack">
               <button type="button" mat-menu-item class="!pl-3 !pr-7" *ngFor="let option of getTechnicalOptions('frontend', stack); trackBy: trackTechnicalOption" [title]="option.label"
                 [matMenuTriggerFor]="databaseMenu" [matMenuTriggerData]="{ stack: nextTechnicalStack('frontend', option.value, stack) }">
@@ -167,7 +167,7 @@
               </button>
             </ng-template>
           </mat-menu>
-          <mat-menu #databaseMenu="matMenu" aria-label="数据库">
+          <mat-menu #databaseMenu="matMenu" [attr.aria-label]="&quot;数据库&quot; | i18n">
             <ng-template matMenuContent let-stack="stack">
               <button type="button" mat-menu-item class="!px-3" *ngFor="let option of getTechnicalOptions('database', stack); trackBy: trackTechnicalOption"
                 (click)="selectTechnicalStack(nextTechnicalStack('database', option.value, stack))">
@@ -181,7 +181,7 @@
       <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4 sm:py-3">
         <div>
           <label class="block text-sm font-medium leading-6 text-secondary-900"
-            >该解决方案是否已实现？<span class="text-danger-500 text-xs">
+            >{{ "该解决方案是否已实现？" | i18n }}<span class="text-danger-500 text-xs">
               *</span
             ></label
           >
@@ -212,9 +212,9 @@
   >
     <ng-container accordion-trigger>
       <div class="flex flex-col text-sm gap-0.5">
-        <span class="font-semibold text-foreground">偏好设置</span>
+        <span class="font-semibold text-foreground">{{ "偏好设置" | i18n }}</span>
         <span class="font-normal text-muted-foreground"
-          >根据需求配置项目设置。</span
+          >{{ "根据需求配置项目设置。" | i18n }}</span
         >
       </div>
     </ng-container>
@@ -225,12 +225,12 @@
       >
         <div>
           <label class="block text-sm font-medium leading-6 text-secondary-900">
-            业务需求（BRD）<span class="text-danger-500 text-xs">
+            {{ "业务需求（BRD）" | i18n }}<span class="text-danger-500 text-xs">
               *</span
             >
           </label>
           <p class="text-xs leading-6 text-muted-foreground">
-            设置业务需求的最少数量
+            {{ "设置业务需求的最少数量" | i18n }}
           </p>
         </div>
         <div class="flex items-center col-span-2 gap-4">
@@ -254,12 +254,12 @@
       >
         <div>
           <label class="block text-sm font-medium leading-6 text-secondary-900">
-            产品需求（PRD）<span class="text-danger-500 text-xs">
+            {{ "产品需求（PRD）" | i18n }}<span class="text-danger-500 text-xs">
               *</span
             >
           </label>
           <p class="text-xs leading-6 text-muted-foreground">
-            设置产品需求的最少数量
+            {{ "设置产品需求的最少数量" | i18n }}
           </p>
         </div>
         <div class="flex items-center col-span-2 gap-4">
@@ -283,10 +283,10 @@
       >
         <div>
           <label class="block text-sm font-medium leading-6 text-secondary-900">
-            界面需求（UIR）<span class="text-danger-500 text-xs"> *</span>
+            {{ "界面需求（UIR）" | i18n }}<span class="text-danger-500 text-xs"> *</span>
           </label>
           <p class="text-xs leading-6 text-muted-foreground">
-            设置界面需求的最少数量
+            {{ "设置界面需求的最少数量" | i18n }}
           </p>
         </div>
         <div class="flex items-center col-span-2 gap-4">
@@ -310,14 +310,14 @@
       >
         <div>
           <label class="block text-sm font-medium leading-6 text-secondary-900">
-            非功能需求（NFR）<span
+            {{ "非功能需求（NFR）" | i18n }}<span
               class="text-danger-500 text-xs"
             >
               *</span
             >
           </label>
           <p class="text-xs leading-6 text-muted-foreground">
-            设置非功能需求的最少数量
+            {{ "设置非功能需求的最少数量" | i18n }}
           </p>
         </div>
         <div class="flex items-center col-span-2 gap-4">
@@ -341,9 +341,9 @@
   <app-custom-accordion [id]="'integrations'">
     <ng-container accordion-trigger>
       <div class="flex flex-col text-sm gap-0.5">
-        <span class="font-semibold text-foreground">MCP 集成</span>
+        <span class="font-semibold text-foreground">{{ "MCP 集成" | i18n }}</span>
         <span class="font-normal text-muted-foreground"
-          >将模型上下文协议（MCP）服务器接入项目。</span
+          >{{ "将模型上下文协议（MCP）服务器接入项目。" | i18n }}</span
         >
       </div>
     </ng-container>

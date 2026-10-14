@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import { Component, inject, OnInit } from '@angular/core';
 import {
   FormControl,
@@ -29,7 +31,7 @@ import { v4 as uuidv4 } from 'uuid';
     ReactiveFormsModule,
     ButtonComponent,
     ErrorMessageComponent,
-  ],
+   I18nPipe,],
 })
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
@@ -77,7 +79,7 @@ export class LoginComponent implements OnInit {
     this.loginForm.markAllAsTouched();
     const username = this.loginForm.get('username')?.value?.trim();
     if (!username) {
-      this.toastService.showError('用户名无效。');
+      this.toastService.showError(uiText("用户名无效。"));
       this.loginForm.get('username')?.setValue('');
       return;
     }

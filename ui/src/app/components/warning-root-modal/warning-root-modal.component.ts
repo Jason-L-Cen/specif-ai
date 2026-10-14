@@ -1,3 +1,4 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { APP_CONSTANTS } from 'src/app/constants/app.constants';
@@ -8,7 +9,7 @@ import { ButtonComponent } from '../core/button/button.component';
   templateUrl: './warning-root-modal.component.html',
   styleUrls: ['./warning-root-modal.component.scss'],
   standalone: true,
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, I18nPipe],
 })
 export class WarningRootModalComponent implements OnInit {
   workingDir: string | null | undefined;

@@ -12,7 +12,7 @@
     >
       <div class="flex items-center justify-center gap-2 text-primary-600">
         <ng-icon name="heroSparklesSolid" class="text-lg"></ng-icon>
-        <span class="text-md font-semibold">与 Ace 对话</span>
+        <span class="text-md font-semibold">{{ "与 Ace 对话" | i18n }}</span>
       </div>
     </div>
 
@@ -25,11 +25,11 @@
           <img
             src="./assets/img/logo/aws_dark_bg_white_logo.svg"
             class="h-6 w-auto"
-            alt="AWS 标志"
+            [alt]="&quot;AWS 标志&quot; | i18n"
           />
           <div class="flex flex-col">
             <span class="text-sm font-semibold text-secondary-800">AWS Bedrock</span>
-            <span class="text-xs text-secondary-600">知识库</span>
+            <span class="text-xs text-secondary-600">{{ "知识库" | i18n }}</span>
           </div>
           <ng-icon
             name="heroInformationCircle"
@@ -127,13 +127,13 @@
                         *ngIf="chat.args"
                         class="text-sm text-secondary-700 flex flex-col gap-2 p-2 rounded-md bg-secondary-100"
                       >
-                        <span class="text-xs">输入</span>
+                        <span class="text-xs">{{ "输入" | i18n }}</span>
                         <span class="text-sm">{{ chat.args | json }}</span>
                       </div>
                       <div
                         class="text-sm text-secondary-700 flex flex-col gap-2 p-2 rounded-md bg-secondary-100"
                       >
-                        <span class="text-xs">响应</span>
+                        <span class="text-xs">{{ "响应" | i18n }}</span>
                         <span class="text-sm">{{ chat.tool }}</span>
                       </div>
                     </div>
@@ -147,7 +147,7 @@
                     <!-- Intent Message -->
                     <div class="text-xs text-secondary-600">
                       <span
-                        >Ace 建议在描述中添加以下内容：</span
+                        >{{ "Ace 建议在描述中添加以下内容：" | i18n }}</span
                       >
                     </div>
 
@@ -182,7 +182,7 @@
                           name="heroDocumentPlus"
                           class="text-lg"
                         ></ng-icon>
-                        更新描述
+                        {{ "更新描述" | i18n }}
                       </button>
                       <div
                         *ngIf="chat.isAdded"
@@ -192,7 +192,7 @@
                           name="heroCheck"
                           class="text-lg text-white"
                         ></ng-icon>
-                        更新成功
+                        {{ "更新成功" | i18n }}
                       </div>
                     </div>
                   </div>
@@ -209,7 +209,7 @@
               >
                 <img
                   src="assets/img/logo/ace.svg"
-                  alt="Ace 助手"
+                  [alt]="&quot;Ace 助手&quot; | i18n"
                   class="w-6 h-6"
                 />
               </div>
@@ -256,7 +256,7 @@
                         openFeedbackModal(chat, 'like');
                         $event.stopPropagation()
                       "
-                      matTooltip="满意"
+                      [matTooltip]="&quot;满意&quot; | i18n"
                     >
                       <ng-icon
                         [name]="
@@ -277,7 +277,7 @@
                         openFeedbackModal(chat, 'dislike');
                         $event.stopPropagation()
                       "
-                      matTooltip="不满意"
+                      [matTooltip]="&quot;不满意&quot; | i18n"
                     >
                       <ng-icon
                         [name]="
@@ -304,7 +304,7 @@
         >
           <img
             src="assets/img/logo/ace.svg"
-            alt="Ace 助手"
+            [alt]="&quot;Ace 助手&quot; | i18n"
             class="w-6 h-6"
           />
         </div>
@@ -328,12 +328,12 @@
     <div class="bg-white rounded-lg p-6 w-96 max-w-md">
       <h3 class="text-base font-medium mb-4">
         {{
-          feedbackType === "like" ? "分享你满意的地方" : "帮助我们改进"
+          feedbackType === "like" ? ("分享你满意的地方" | i18n) : ("帮助我们改进" | i18n)
         }}
       </h3>
       <textarea
         [(ngModel)]="feedbackText"
-        placeholder="你的意见有助于改善使用体验（可选）"
+        [placeholder]="&quot;你的意见有助于改善使用体验（可选）&quot; | i18n"
         class="w-full h-28 p-3 text-sm border border-secondary-200 rounded-lg"
       ></textarea>
       <div class="flex justify-end gap-3 mt-4">
@@ -341,13 +341,13 @@
           class="bg-secondary-200 text-secondary-700 px-4 py-2 text-sm rounded-lg"
           (click)="closeFeedbackModal()"
         >
-          取消
+          {{ "取消" | i18n }}
         </button>
         <button
           class="bg-primary-600 text-white px-4 py-2 text-sm rounded-lg"
           (click)="submitFeedback()"
         >
-          提交
+          {{ "提交" | i18n }}
         </button>
       </div>
     </div>
@@ -365,12 +365,12 @@
       >
         <img
           src="assets/img/logo/ace.svg"
-          alt="Ace 助手"
+          [alt]="&quot;Ace 助手&quot; | i18n"
           class="w-6 h-6"
         />
       </div>
       <div class="text-sm text-secondary-600 mt-2">
-        正在为你生成建议…
+        {{ "正在为你生成建议…" | i18n }}
       </div>
     </div>
 
@@ -381,7 +381,7 @@
           *ngIf="chatHistory.length == 0"
           class="text-sm text-secondary-600 font-medium"
         >
-          改进建议：
+          {{ "改进建议：" | i18n }}
         </div>
         <ul
           class="flex gap-2"
@@ -452,7 +452,7 @@
         <div class="relative flex flex-col h-full">
           <div class="flex-grow h-16">
             <textarea
-              placeholder="通过对话添加或修改需求"
+              [placeholder]="&quot;通过对话添加或修改需求&quot; | i18n"
               [disabled]="generateLoader"
               [(ngModel)]="message"
               name="message"
@@ -492,7 +492,7 @@
               [disabled]="isSendDisabled"
               class="bg-primary-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
             >
-              发送
+              {{ "发送" | i18n }}
             </button>
           </div>
         </div>

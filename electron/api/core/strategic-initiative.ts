@@ -1,3 +1,4 @@
+import { t as appText } from "../../services/language";
 import { IpcMainInvokeEvent } from "electron/main";
 import { createStrategicInitiativeWorkflow } from "../../agentic/usecase-workflow";
 import { createStrategicInitiativeWorkflowTools } from "../../agentic/usecase-workflow/tools";
@@ -38,7 +39,7 @@ export const generateStrategicInitiative = async (_event: IpcMainInvokeEvent, da
     const llmConfig = store.get<LLMConfigModel>('llmConfig');
 
     if (!llmConfig) {
-      throw new Error('未找到大语言模型配置');
+      throw new Error(appText("未找到大语言模型配置"));
     }
 
     const model = buildLangchainModelProvider(
@@ -101,7 +102,7 @@ export const generateStrategicInitiative = async (_event: IpcMainInvokeEvent, da
             "tools_end",
             WorkflowEventType.Mcp,
             {
-              title: `已执行工具：${streamEvent.name}`,
+              title: appText("已执行工具：{0}", [streamEvent.name]),
               input: streamEvent.data?.input,
               output: streamEvent.data?.output?.content,
             }
@@ -118,7 +119,7 @@ export const generateStrategicInitiative = async (_event: IpcMainInvokeEvent, da
     const result = await workflow.getState(config);
 
     if (!result.values.strategicInitiativeDraft || !result.values.strategicInitiativeDraft.requirement) {
-      throw new Error('工作流未返回有效的战略举措草稿');
+      throw new Error(appText("工作流未返回有效的战略举措草稿"));
     }
     
     try {
@@ -152,8 +153,8 @@ export const generateStrategicInitiative = async (_event: IpcMainInvokeEvent, da
     }
   } catch (error) {
     return {
-      title: "生成战略举措时出错",
-      requirement: `生成战略举措时出错：${error}`,
+      title: appText("生成战略举措时出错"),
+      requirement: appText("生成战略举措时出错：{0}", [error]),
       status: "error",
     };
   }

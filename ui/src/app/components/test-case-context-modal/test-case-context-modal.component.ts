@@ -1,3 +1,4 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
 import {
   Component,
   EventEmitter,
@@ -18,7 +19,7 @@ import { NgIf } from '@angular/common';
   templateUrl: './test-case-context-modal.component.html',
   styleUrls: ['./test-case-context-modal.component.scss'],
   standalone: true,
-  imports: [TextareaFieldComponent, ReactiveFormsModule, ButtonComponent, AppSelectComponent, NgIf],
+  imports: [TextareaFieldComponent, ReactiveFormsModule, ButtonComponent, AppSelectComponent, NgIf, I18nPipe],
 })
 export class TestCaseContextModalComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}

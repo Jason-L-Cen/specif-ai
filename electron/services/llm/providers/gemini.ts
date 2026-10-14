@@ -1,3 +1,4 @@
+import { t as appText } from "../../language";
 import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai";
 import LLMHandler from "../llm-handler";
 import { Message, ModelInfo, LLMConfig, LLMError } from "../llm-types";
@@ -34,7 +35,7 @@ export class GeminiHandler extends LLMHandler {
 
   getConfig(config: Partial<GeminiConfig>): GeminiConfig {
     if (!config.apiKey && !process.env.GOOGLE_API_KEY) {
-      throw new LLMError("Google API 密钥不能为空", "gemini");
+      throw new LLMError(appText("Google API 密钥不能为空"), "gemini");
     }
 
     if (!config.model) {
@@ -42,7 +43,7 @@ export class GeminiHandler extends LLMHandler {
         "[GeminiHandler] No model provided, using default:",
         this.defaultModel
       );
-      throw new LLMError("模型 ID 不能为空", "gemini");
+      throw new LLMError(appText("模型 ID 不能为空"), "gemini");
     }
 
     const result = {
@@ -56,7 +57,7 @@ export class GeminiHandler extends LLMHandler {
   @withRetry({
     maxRetries: 5,
   })
-  async invoke(
+  protected async invokeModel(
     messages: Message[],
     systemPrompt: string | null = null,
     operation: string = "llm:invoke"
@@ -97,7 +98,7 @@ export class GeminiHandler extends LLMHandler {
 
     if (!response.text()) {
       throw new LLMError(
-        "Gemini API 未返回回答内容",
+        appText("Gemini API 未返回回答内容"),
         "gemini"
       );
     }

@@ -21,7 +21,7 @@
           "
           class="w-full px-3 py-3 text-sm font-medium text-left focus:outline-none border-l-2"
         >
-          设置
+          {{ "设置" | i18n }}
         </button>
         <button
           id="tab-about"
@@ -37,7 +37,7 @@
           "
           class="w-full px-3 py-3 text-sm font-medium text-left focus:outline-none border-l-2"
         >
-          关于
+          {{ "关于" | i18n }}
         </button>
       </div>
     </div>
@@ -59,6 +59,22 @@
         [attr.aria-labelledby]="'tab-general'"
         *ngIf="activeTab == 'general'"
       >
+        <section class="mb-8 space-y-3 rounded-lg border border-secondary-200 bg-secondary-50 p-4">
+          <label for="applicationLanguage" class="text-base font-medium text-secondary-900">{{ "语言 / Language" | i18n }}</label>
+          <p class="text-sm text-secondary-500">{{ "界面及 AI 输出语言" | i18n }}</p>
+          <div class="max-w-sm">
+            <app-select
+              id="applicationLanguage"
+              [options]="languageOptions"
+              [formControl]="languageControl"
+              [disabled]="languageBusy || languageChanging || hasChanges"
+              (selectionChange)="onLanguageChange($event)"
+            ></app-select>
+          </div>
+          <p class="text-sm text-secondary-500">{{ "切换语言后会刷新界面并返回解决方案列表；已保存、已生成的内容不会重新翻译。" | i18n }}</p>
+          <p *ngIf="languageBusy" role="status" class="text-sm text-warning-700">{{ "任务正在运行，请等待完成后再切换语言。" | i18n }}</p>
+          <p *ngIf="hasChanges" role="status" class="text-sm text-secondary-500">{{ "请先保存或取消当前设置的修改，再切换语言。" | i18n }}</p>
+        </section>
         <form
           [formGroup]="configForm"
           class="space-y-8 divide-y divide-secondary-200"
@@ -67,10 +83,10 @@
           <div class="space-y-4">
             <div>
               <h2 class="text-base font-medium leading-7 text-secondary-900">
-                大语言模型配置
+                {{ "大语言模型配置" | i18n }}
               </h2>
               <p class="text-sm leading-6 text-secondary-500">
-                配置模型服务商及模型连接参数
+                {{ "配置模型服务商及模型连接参数" | i18n }}
               </p>
             </div>
 
@@ -80,7 +96,7 @@
                 for="providerSelect"
                 class="block text-sm font-medium text-secondary-900"
               >
-                模型服务商
+                {{ "模型服务商" | i18n }}
               </label>
               <div class="relative">
                 <app-select
@@ -90,7 +106,7 @@
                   [searchable]="false"
                   [required]="true"
                   [clearable]="true"
-                  placeholder="选择模型服务商"
+                  [placeholder]="&quot;选择模型服务商&quot; | i18n"
                 ></app-select>
               </div>
             </div>
@@ -140,7 +156,7 @@
                         [options]="field.options || []"
                         [searchable]="field.useAutocomplete || false"
                         [required]="field.required || false"
-                        [placeholder]="'选择' + field.label"
+                        [placeholder]="(&quot;选择&quot; | i18n) + field.label"
                       ></app-select>
                     </div>
                   </div>
@@ -172,10 +188,10 @@
           <div class="space-y-4 pt-6">
             <div>
               <h2 class="text-base font-medium leading-7 text-secondary-900">
-                使用分析
+                {{ "使用分析" | i18n }}
               </h2>
               <p class="text-sm leading-6 text-secondary-500">
-                配置使用分析与数据收集偏好
+                {{ "配置使用分析与数据收集偏好" | i18n }}
               </p>
             </div>
 
@@ -184,7 +200,7 @@
             >
               <div class="px-4 py-3 flex items-center justify-between">
                 <span class="text-sm text-secondary-900"
-                  >启用使用分析追踪</span
+                  >{{ "启用使用分析追踪" | i18n }}</span
                 >
                 <label class="relative inline-flex items-center cursor-pointer">
                   <input
@@ -203,7 +219,7 @@
               <div class="px-4 py-3">
                 <div class="flex items-center justify-between">
                   <span class="text-sm text-secondary-900"
-                    >使用自定义 Langfuse 账户</span
+                    >{{ "使用自定义 Langfuse 账户" | i18n }}</span
                   >
                   <label
                     class="relative inline-flex items-center"
@@ -241,14 +257,14 @@
                       for="baseUrl"
                       class="block text-sm font-medium text-secondary-900"
                     >
-                      基础地址 <span class="text-danger-500">*</span>
+                      {{ "基础地址" | i18n }} <span class="text-danger-500">*</span>
                     </label>
                     <input
                       type="text"
                       id="baseUrl"
                       formControlName="baseUrl"
                       class="h-10 block w-full px-3 border border-secondary-300 text-secondary-900 text-sm rounded-lg focus-visible:ring-1 focus-visible:ring-primary-500 focus-visible:border-primary-500 disabled:bg-secondary-100 focus-visible:outline-none"
-                      placeholder="请输入 Langfuse 基础地址"
+                      [placeholder]="&quot;请输入 Langfuse 基础地址&quot; | i18n"
                     />
                   </div>
 
@@ -257,14 +273,14 @@
                       for="publicKey"
                       class="block text-sm font-medium text-secondary-900"
                     >
-                      公开密钥 <span class="text-danger-500">*</span>
+                      {{ "公开密钥" | i18n }} <span class="text-danger-500">*</span>
                     </label>
                     <input
                       type="text"
                       id="publicKey"
                       formControlName="publicKey"
                       class="h-10 block w-full px-3 border border-secondary-300 text-secondary-900 text-sm rounded-lg focus-visible:ring-1 focus-visible:ring-primary-500 focus-visible:border-primary-500 disabled:bg-secondary-100 focus-visible:outline-none"
-                      placeholder="请输入 Langfuse 公开密钥"
+                      [placeholder]="&quot;请输入 Langfuse 公开密钥&quot; | i18n"
                     />
                   </div>
 
@@ -273,14 +289,14 @@
                       for="secretKey"
                       class="block text-sm font-medium text-secondary-900"
                     >
-                      私密密钥 <span class="text-danger-500">*</span>
+                      {{ "私密密钥" | i18n }} <span class="text-danger-500">*</span>
                     </label>
                     <input
                       type="password"
                       id="secretKey"
                       formControlName="secretKey"
                       class="h-10 block w-full px-3 border border-secondary-300 text-secondary-900 text-sm rounded-lg focus-visible:ring-1 focus-visible:ring-primary-500 focus-visible:border-primary-500 disabled:bg-secondary-100 focus-visible:outline-none"
-                      placeholder="请输入 Langfuse 私密密钥"
+                      [placeholder]="&quot;请输入 Langfuse 私密密钥&quot; | i18n"
                     />
                   </div>
 
@@ -296,7 +312,7 @@
                         for="enableDetailedTraces"
                         class="ml-2 block text-sm font-medium text-secondary-900"
                       >
-                        启用详细追踪记录
+                        {{ "启用详细追踪记录" | i18n }}
                       </label>
                     </div>
                   </div>
@@ -309,10 +325,10 @@
           <div class="space-y-4 pt-6">
             <div>
               <h2 class="text-base font-medium leading-7 text-secondary-900">
-                保存位置
+                {{ "保存位置" | i18n }}
               </h2>
               <p class="text-sm leading-6 text-secondary-500">
-                配置生成需求的保存位置
+                {{ "配置生成需求的保存位置" | i18n }}
               </p>
             </div>
 
@@ -321,19 +337,19 @@
                 for="workingDir"
                 class="block text-sm font-medium text-secondary-900"
               >
-                存储目录
+                {{ "存储目录" | i18n }}
               </label>
               <div class="flex w-full">
                 <input
                   type="text"
                   [value]="workingDir"
-                  placeholder="选择保存目录"
+                  [placeholder]="&quot;选择保存目录&quot; | i18n"
                   disabled
                   id="workingDir"
                   class="bg-secondary-100 border border-secondary-300 text-secondary-400 text-sm rounded-l-lg block w-full p-2"
                 />
                 <app-button
-                  [buttonContent]="'浏览'"
+                  [buttonContent]="(&quot;浏览&quot; | i18n)"
                   [theme]="'primary'"
                   [rounded]="'none'"
                   [roundedRight]="'lg'"
@@ -347,10 +363,10 @@
           <div class="space-y-4 pt-6">
             <div>
               <h2 class="text-base font-medium leading-7 text-secondary-900">
-                更新
+                {{ "更新" | i18n }}
               </h2>
               <p class="text-sm leading-6 text-secondary-500">
-                配置自动更新与版本管理
+                {{ "配置自动更新与版本管理" | i18n }}
               </p>
             </div>
 
@@ -359,7 +375,7 @@
             >
               <div class="px-4 py-3 flex items-center justify-between">
                 <span class="text-sm text-secondary-900"
-                  >自动更新</span
+                  >{{ "自动更新" | i18n }}</span
                 >
                 <label class="relative inline-flex items-center cursor-pointer">
                   <input
@@ -381,7 +397,7 @@
                 (keydown.enter)="checkForUpdates()"
                 (keydown.space)="checkForUpdates(); $event.preventDefault()"
               >
-                <span>检查更新</span>
+                <span>{{ "检查更新" | i18n }}</span>
                 <svg
                   width="20"
                   height="20"
@@ -406,7 +422,7 @@
         <!-- Action Buttons -->
         <div class="mt-8 flex items-center justify-between">
           <app-button
-            buttonContent="重置设置"
+            [buttonContent]="&quot;重置设置&quot; | i18n"
             theme="danger_outline"
             size="sm"
             (click)="resetApp()"
@@ -414,14 +430,14 @@
           <div class="flex items-center gap-x-2">
             <app-button
               *ngIf="hasChanges"
-              buttonContent="放弃更改"
+              [buttonContent]="&quot;放弃更改&quot; | i18n"
               theme="secondary_outline"
               size="sm"
               (click)="navigateToHome()"
             />
             <app-button
               *ngIf="hasChanges"
-              buttonContent="保存"
+              [buttonContent]="&quot;保存&quot; | i18n"
               theme="primary"
               size="sm"
               (click)="onSave()"
@@ -455,7 +471,7 @@
             />
           </div>
           <div class="px-4 py-3 flex items-center justify-between">
-            <span class="text-sm text-secondary-900">版本</span>
+            <span class="text-sm text-secondary-900">{{ "版本" | i18n }}</span>
             <span class="text-sm text-secondary-600">{{
               getAboutContent().version
             }}</span>
@@ -466,7 +482,7 @@
             tabindex="0"
             (click)="electronService.openExternalUrl('https://github.com/Jason-L-Cen/specif-ai/blob/dev-JasonCen/README.zh-CN.md')"
           >
-            <span class="text-sm text-secondary-900">Ace PDA 使用指南</span>
+            <span class="text-sm text-secondary-900">{{ "Ace PDA 使用指南" | i18n }}</span>
             <svg
               width="20"
               height="20"
@@ -492,7 +508,7 @@
             (keydown.enter)="logout()"
             (keydown.space)="logout(); $event.preventDefault()"
           >
-            <span>退出登录</span>
+            <span>{{ "退出登录" | i18n }}</span>
             <svg
               width="20"
               height="20"

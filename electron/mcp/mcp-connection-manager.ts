@@ -1,3 +1,4 @@
+import { t as appText } from "../services/language";
 import { MCPConnection } from "./mcp-connection";
 import { MCPServerOptions, MCPServerDetails, MCPSettings } from "./types";
 
@@ -29,7 +30,7 @@ export class MCPConnectionManager {
   async refreshConnection(serverId: string): Promise<void> {
     const connection = this.getConnection(serverId);
     if (!connection) {
-      throw new Error(`未找到 MCP 连接 ${serverId}`);
+      throw new Error(appText("未找到 MCP 连接 {0}", [serverId]));
     }
     await connection.connectClient(true, new AbortController().signal);
   }
@@ -73,9 +74,7 @@ export class MCPConnectionManager {
           id,
           status: "error",
           errors: [
-            `连接失败：${
-              error instanceof Error ? error.message : String(error)
-            }`,
+            appText("连接失败：{0}", [error instanceof Error ? error.message : String(error)]),
           ],
           tools: [],
           resources: [],

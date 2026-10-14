@@ -1,3 +1,4 @@
+import { I18nPipe } from "../../../i18n/i18n.pipe";
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { NgClass, NgIf } from '@angular/common';
 import {
@@ -83,7 +84,7 @@ type OnTouchedCallback = () => void;
       useExisting: RichTextEditorComponent,
     },
   ],
-  imports: [CdkMenuModule, NgClass, NgIf, NgIcon, MatTooltipModule, MatDialogModule],
+  imports: [CdkMenuModule, NgClass, NgIf, NgIcon, MatTooltipModule, MatDialogModule, I18nPipe],
   viewProviders: [provideIcons({ heroChevronDown, heroItalic, heroBold, heroListBullet, heroNumberedList, heroLink, heroLinkSlash, heroPlus, heroMinus, heroTrash, heroDocument, heroDocumentDuplicate, heroRectangleGroup, heroChevronUp, heroChevronLeft, heroChevronRight, heroViewColumns, heroSquares2x2, heroTableCells, heroRectangleStack, heroBars3, heroFunnel })],
 })
 export class RichTextEditorComponent

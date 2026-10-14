@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -12,7 +14,7 @@ import { StartupService } from 'src/app/services/auth/startup.service';
   templateUrl: './user-profile-dialog.component.html',
   styleUrls: ['./user-profile-dialog.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule, I18nPipe],
 })
 export class UserProfileDialogComponent {
   userNameForm = new FormControl('', [
@@ -47,10 +49,10 @@ export class UserProfileDialogComponent {
         this.dialogRef.close(userName);
       } catch (error) {
         console.error('Error storing username:', error);
-        this.errorMessage = '保存用户名失败，请重试。';
+        this.errorMessage = uiText("保存用户名失败，请重试。");
       }
     } else {
-      this.errorMessage = '请输入有效的用户名。';
+      this.errorMessage = uiText("请输入有效的用户名。");
       this.userNameForm.reset();
     }
   }

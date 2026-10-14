@@ -3,14 +3,14 @@
   <p [ngClass]="['text-sm mb-4', data.renderNewLine ? 'whitespace-pre-line': '']" [innerHTML]="data.description"></p>
   <div class="flex justify-end gap-4">
     <app-button
-      [buttonContent]="data.cancelButtonText || '取消'"
+      [buttonContent]="data.cancelButtonText || (&quot;取消&quot; | i18n)"
       theme="secondary"
       size="sm"
       rounded="lg"
       (click)="onCancel()"
     />
     <app-button
-      [buttonContent]="data.confirmButtonText || '确认'"
+      [buttonContent]="data.confirmButtonText || (&quot;确认&quot; | i18n)"
       theme="primary"
       size="sm"
       rounded="lg"

@@ -1,3 +1,5 @@
+import { withOutputLanguage } from "../../services/llm/language-messages";
+import { t as appText } from "../../services/language";
 import { HumanMessage } from "@langchain/core/messages";
 import { BaseCheckpointSaver } from "@langchain/langgraph-checkpoint";
 import { z } from "zod";
@@ -47,7 +49,7 @@ export const buildResearchNode = ({
       await workflowEvents.dispatchAction(
         "research",
         {
-          title: "没有可用工具，已跳过调研阶段",
+          title: appText("没有可用工具，已跳过调研阶段"),
         },
         runnableConfig
       );
@@ -60,7 +62,7 @@ export const buildResearchNode = ({
     await workflowEvents.dispatchThinking(
       "research",
       {
-        title: `正在根据用户故事（US）“${state.name}”的背景进行调研`,
+        title: appText("正在根据用户故事（US）“{0}”的背景进行调研", [state.name]),
       },
       runnableConfig,
       researchCorrelationId
@@ -118,7 +120,7 @@ export const buildResearchNode = ({
     await workflowEvents.dispatchAction(
       "research",
       {
-        title: `用户故事（US）“${state.name}”的调研已完成`,
+        title: appText("用户故事（US）“{0}”的调研已完成", [state.name]),
         output: response.structuredResponse.referenceInformation,
       },
       runnableConfig,
@@ -155,7 +157,7 @@ export const buildGenerateTasksNode = (
       await workflowEvents.dispatchThinking(
         "generate-tasks",
         {
-          title: `正在根据用户故事（US）“${state.name}”生成任务`,
+          title: appText("正在根据用户故事（US）“{0}”生成任务", [state.name]),
         },
         runnableConfig,
         generateCorrelationId
@@ -179,7 +181,7 @@ export const buildGenerateTasksNode = (
 
       // LLM Call
       const model = modelProvider.getChatModel();
-      const response = await model.invoke(prompt);
+      const response = await model.invoke(withOutputLanguage(prompt));
 
       generation?.end({
         usage: {
@@ -203,15 +205,13 @@ export const buildGenerateTasksNode = (
           level: "ERROR",
           statusMessage: `Error parsing LLM response: ${error}`,
         });
-        throw new Error("大语言模型返回的响应格式无效");
+        throw new Error(appText("大语言模型返回的响应格式无效"));
       }
 
       await workflowEvents.dispatchAction(
         "generate-tasks",
         {
-          title: `已根据用户故事（US）“${
-            state.name
-          }”生成 ${parsedTasks.tasks?.length || 0} 个任务`,
+          title: appText("已根据用户故事（US）“{0}”生成 {1} 个任务", [state.name, parsedTasks.tasks?.length || 0]),
           input: prompt,
           output: parsedTasks,
         },
@@ -240,7 +240,7 @@ export const buildGenerateTasksNode = (
       await workflowEvents.dispatchError(
         "generate-tasks",
         {
-          title: `用户故事（US）“${state.name}”的任务生成失败`,
+          title: appText("用户故事（US）“{0}”的任务生成失败", [state.name]),
         },
         runnableConfig,
         generateCorrelationId

@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +27,7 @@ import { heroArrowRight } from '@ng-icons/heroicons/outline';
     InputFieldComponent,
     TextareaFieldComponent,
     NgIconComponent,
-  ],
+   I18nPipe,],
   providers: [
     provideIcons({ 
       heroSparklesSolid, 
@@ -138,12 +140,12 @@ export class InlineEditPromptComponent implements OnInit, OnDestroy {
           this.isEditReady = true;
         } else {
           this.isLoading = false;
-          this.errorMessage = response.error || '生成修改内容失败';
+          this.errorMessage = response.error || uiText("生成修改内容失败");
           this.toasterService.showError(this.errorMessage);
         }
       } catch (error) {
         this.isLoading = false;
-        this.errorMessage = error instanceof Error ? error.message : '发生意外错误';
+        this.errorMessage = error instanceof Error ? error.message : uiText("发生意外错误");
         this.toasterService.showError(this.errorMessage);
       }
     }
@@ -157,7 +159,7 @@ export class InlineEditPromptComponent implements OnInit, OnDestroy {
    * Accept the AI-generated edit
    */
   acceptEdit(): void {
-    this.toasterService.showSuccess('已应用修改');
+    this.toasterService.showSuccess(uiText("已应用修改"));
     this.dialogRef.close({
       accepted: true,
       editedText: this.editedText
@@ -168,7 +170,7 @@ export class InlineEditPromptComponent implements OnInit, OnDestroy {
    * Reject the AI-generated edit - go back to prompt screen instead of closing dialog
    */
   rejectEdit(): void {
-    this.toasterService.showInfo('已拒绝修改');
+    this.toasterService.showInfo(uiText("已拒绝修改"));
     this.goBackToPrompt();
   }
   

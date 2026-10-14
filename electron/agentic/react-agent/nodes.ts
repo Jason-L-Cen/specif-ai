@@ -1,3 +1,4 @@
+import { withOutputLanguage } from "../../services/llm/language-messages";
 import {
   HumanMessage,
   isAIMessage,
@@ -72,7 +73,7 @@ export const buildSummarizeNode = (
       });
 
       // Generate new summary
-      const response = await modelWithTools.invoke(allMessages, {
+      const response = await modelWithTools.invoke(withOutputLanguage(allMessages), {
         signal: runnableConfig?.signal,
       });
       const newSummary =
@@ -208,7 +209,7 @@ export const buildLLMNode = (
         input: sendMessagesInTelemetry ? messages : undefined,
       });
 
-      const response = await modelWithTools.invoke(messages, {
+      const response = await modelWithTools.invoke(withOutputLanguage(messages), {
         signal: runnableConfig?.signal,
       });
 
@@ -293,7 +294,7 @@ export const buildGenerateStructuredResponseNode = (
         model: modelProvider.getModel().provider,
       });
 
-      const response = await modelWithStructuredOutput.invoke(messages, {
+      const response = await modelWithStructuredOutput.invoke(withOutputLanguage(messages), {
         signal: runnableConfig?.signal,
       });
 

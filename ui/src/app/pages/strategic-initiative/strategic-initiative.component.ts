@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import {
   exportMarkdownToDocx,
   WordFileExtension,
@@ -95,7 +97,7 @@ import { ExportDropdownComponent, DropdownOptionGroup } from 'src/app/export-dro
     WorkflowProgressDialogComponent,
     InlineEditModule,
     ExportDropdownComponent,
-],
+ I18nPipe,],
   providers: [
     provideIcons({
       heroSparklesSolid,
@@ -204,12 +206,12 @@ export class StrategicInitiativeComponent implements OnInit {
       this.requirement = this.data?.description;
       this.ucRequirementId = this.fileName.split('-')[0];
 
-      this.editLabel = `编辑 ${this.ucRequirementId}`;
+      this.editLabel = uiText("编辑 {0}", [this.ucRequirementId]);
 
       // Initialize the document action options
       this.initializeDocumentActions();
     } else {
-      this.editLabel = '添加';
+      this.editLabel = uiText("添加");
     }
 
     this.store.dispatch(
@@ -243,29 +245,29 @@ export class StrategicInitiativeComponent implements OnInit {
 
     this.documentActionOptions = [
       {
-        groupName: '文档操作',
+        groupName: uiText("文档操作"),
         options: [
           {
-            label: '导出为 Word 文档',
+            label: uiText("导出为 Word 文档"),
             icon: "heroDocumentArrowDown",
             callback: () => this.exportAsWord()
           }
         ]
       },
       {
-        groupName: '管理',
+        groupName: uiText("管理"),
         options: [
           {
-            label: isDraft ? '标记为完成' : '恢复为草稿',
+            label: isDraft ? uiText("标记为完成") : uiText("恢复为草稿"),
             icon: isDraft ? "heroCheckCircle" : "heroArrowPath",
             callback: () => this.toggleDocumentStatus(),
-            additionalInfo: isDraft ? '标记为完成' : '标记为草稿'
+            additionalInfo: isDraft ? uiText("标记为完成") : uiText("标记为草稿")
           },
           {
-            label: '删除文档',
+            label: uiText("删除文档"),
             icon: "heroTrash",
             callback: () => this.deleteStrategicInitiative(),
-            additionalInfo: '删除此文档'
+            additionalInfo: uiText("删除此文档")
           }
         ]
       }
@@ -535,7 +537,7 @@ export class StrategicInitiativeComponent implements OnInit {
                 this.updateStrategicInitiative();
               }
 
-              this.toastService.showSuccess('文档内容已更新');
+              this.toastService.showSuccess(uiText("文档内容已更新"));
               message.processed = true;
             }
           }
@@ -590,15 +592,15 @@ export class StrategicInitiativeComponent implements OnInit {
       this.updateStrategicInitiative();
 
       const statusMessage = newStatus === 'COMPLETE' ?
-        '文档已标记为完成' :
-        '文档已恢复为草稿';
+        uiText("文档已标记为完成") :
+        uiText("文档已恢复为草稿");
 
       this.toastService.showSuccess(statusMessage);
     }
   }
 
   exportAsWord() {
-    const title = this.strategicInitiativeForm.get('title')?.value || '战略举措';
+    const title = this.strategicInitiativeForm.get('title')?.value || uiText("战略举措");
     const markdownContent = this.strategicInitiativeForm.get('requirement')?.value || '';
 
     exportMarkdownToDocx(markdownContent, title, {
@@ -606,12 +608,12 @@ export class StrategicInitiativeComponent implements OnInit {
     })
       .then(() => {
         this.toastService.showSuccess(
-          '战略举措已导出为 Word 文档',
+          uiText("战略举措已导出为 Word 文档"),
         );
       })
       .catch((error) => {
         this.toastService.showError(
-          `导出文档失败：${error.message}`,
+          uiText("导出文档失败：{0}", [error.message]),
         );
       });
   }
@@ -683,7 +685,7 @@ export class StrategicInitiativeComponent implements OnInit {
             node: 'generate-strategic-initiative',
             type: WorkflowProgressEventType.Action,
             message: {
-              title: '战略举措已生成',
+              title: uiText("战略举措已生成"),
               input: undefined,
               output: { title: result.title },
             },
@@ -699,7 +701,7 @@ export class StrategicInitiativeComponent implements OnInit {
         this.documentTitle = result.title || formValue.title;
 
         this.toastService.showSuccess(
-          '战略举措已生成',
+          uiText("战略举措已生成"),
         );
 
         this.showProgressDialog = false;
@@ -707,12 +709,12 @@ export class StrategicInitiativeComponent implements OnInit {
         this.mode === 'add' ? this.addStrategicInitiative() : this.updateStrategicInitiative();
       } else {
         this.toastService.showError(
-          '生成战略举措失败，请重试。',
+          uiText("生成战略举措失败，请重试。"),
         );
       }
     } catch (error) {
       this.toastService.showError(
-        '生成战略举措时发生错误',
+        uiText("生成战略举措时发生错误"),
       );
 
       await this.workflowProgressService.setFailed(

@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../../i18n/i18n.pipe";
+import { t as uiText } from "../../../i18n/translate";
 import {
   Component,
   OnInit,
@@ -85,7 +87,7 @@ import { TestCaseService } from 'src/app/services/test-case/test-case.service';
     MatIconModule,
     NgIconComponent,
     CommonModule,
-  ],
+   I18nPipe,],
   providers: [provideIcons({ 
     heroPlus, 
     heroTrash, 
@@ -163,7 +165,7 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
     // Extract user story ID from route params
     this.userStoryId = this.route.snapshot.paramMap.get('userStoryId') || '';
     if (!this.userStoryId) {
-      this.toast.showError('未找到用户故事 ID');
+      this.toast.showError(uiText("未找到用户故事 ID"));
       return;
     }
 
@@ -192,7 +194,7 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
     } else {
       const testCaseId = this.route.snapshot.paramMap.get('testCaseId') || '';
       if (!testCaseId) {
-        this.toast.showError('未找到测试用例 ID');
+        this.toast.showError(uiText("未找到测试用例 ID"));
         return;
       }
       this.loadTestCase(testCaseId);
@@ -200,11 +202,11 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
   }
 
   private setupAddMode() {
-    this.breadcrumbLabel = '添加测试用例';
+    this.breadcrumbLabel = uiText("添加测试用例");
     this.store.dispatch(
       new AddBreadcrumb({
         label: this.breadcrumbLabel,
-        tooltipLabel: `为 ${this.userStoryId} 添加测试用例`,
+        tooltipLabel: uiText("为 {0} 添加测试用例", [this.userStoryId]),
       })
     );
     this.addStep();
@@ -233,11 +235,11 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
           next: (testCase) => {
             this.testCase = testCase;
             
-            const userStoryLabel = `${this.userStoryId} - 测试用例`;
+            const userStoryLabel = uiText("{0} - 测试用例", [this.userStoryId]);
             this.store.dispatch(
               new AddBreadcrumb({
                 label: userStoryLabel,
-                tooltipLabel: `${this.userStoryId} 的测试用例`,
+                tooltipLabel: uiText("{0} 的测试用例", [this.userStoryId]),
                 url: `/test-cases/${this.userStoryId}`
               })
             );
@@ -249,7 +251,7 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
             this.populateForm(testCase);
           },
           error: (error) => {
-            this.toast.showError(`加载测试用例 ${testCaseId} 失败`);
+            this.toast.showError(uiText("加载测试用例 {0} 失败", [testCaseId]));
             this.navigateBack();
           }
         })
@@ -312,7 +314,7 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
   saveTestCase() {
     if (this.testCaseForm.invalid) {
       this.markFormGroupTouched(this.testCaseForm);
-      this.toast.showWarning('保存前，请填写所有必填项');
+      this.toast.showWarning(uiText("保存前，请填写所有必填项"));
       return;
     }
 
@@ -352,7 +354,7 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
 
   deleteTestCase() {
     const id = this.testCaseForm.get('id')?.value;
-    if (!id) return this.toast.showError('未找到测试用例 ID');
+    if (!id) return this.toast.showError(uiText("未找到测试用例 ID"));
 
     this.dialogService.confirm({
       title: CONFIRMATION_DIALOG.DELETION.TITLE,
@@ -380,10 +382,10 @@ export class TestCaseDetailPageComponent implements OnInit, OnDestroy {
   cancel() {
     if (this.formModified && this.mode !== TestCaseMode.VIEW) {
       this.dialogService.confirm({
-        title: '放弃更改',
-        description: '有尚未保存的更改，确定要放弃这些更改吗？',
-        confirmButtonText: '放弃更改',
-        cancelButtonText: '继续编辑',
+        title: uiText("放弃更改"),
+        description: uiText("有尚未保存的更改，确定要放弃这些更改吗？"),
+        confirmButtonText: uiText("放弃更改"),
+        cancelButtonText: uiText("继续编辑"),
       }).subscribe((result) => result && this.navigateBack());
     } else {
       this.navigateBack();

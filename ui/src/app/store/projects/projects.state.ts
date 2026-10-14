@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import {
   IProject,
   IProjectMetadata,
@@ -166,7 +167,7 @@ export class ProjectsState {
       const projectExists = await this.appSystemService.fileExists(projectName);
       if (projectExists && !isRetry) {
         throw new Error(
-          '项目已存在，请使用其他不重复的项目名称重试。',
+          uiText("项目已存在，请使用其他不重复的项目名称重试。"),
         );
       }
 
@@ -247,11 +248,11 @@ export class ProjectsState {
       const error =
         e instanceof Error
           ? e
-          : new Error('创建项目时发生未知错误');
+          : new Error(uiText("创建项目时发生未知错误"));
       this.logger.error('Error creating project', error);
 
       const isProjectExistsError = error.message.includes(
-        '项目已存在',
+        uiText("项目已存在"),
       );
 
       if (!isProjectExistsError) {
@@ -777,7 +778,7 @@ export class ProjectsState {
 
     if (failedReqIds.length > 0) {
       this.toast.showError(
-        `更新以下需求失败：${failedReqIds.join('、')}`,
+        uiText("更新以下需求失败：{0}", [failedReqIds.join('、')]),
       );
     }
   }
@@ -791,11 +792,11 @@ export class ProjectsState {
       patchState({ exportingData: true });
       if (options.type === 'json') {
         this.toast.showInfo(
-          `已复制${REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]}数据`,
+          uiText("已复制{0}数据", [REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]]),
         );
       } else {
         this.toast.showInfo(
-          `正在导出${REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]}数据`,
+          uiText("正在导出{0}数据", [REQUIREMENT_DISPLAY_NAME_MAP[requirementType as RequirementType]]),
         );
       }
       const state = getState();
@@ -811,9 +812,9 @@ export class ProjectsState {
       patchState({ exportingData: false });
     } catch (error) {
       const errorMessage =
-        error instanceof Error ? error.message : '未知错误';
+        error instanceof Error ? error.message : uiText("未知错误");
       this.logger.error('Error in export:', { error, errorMessage });
-      this.toast.showError(`导出数据失败：${errorMessage}`);
+      this.toast.showError(uiText("导出数据失败：{0}", [errorMessage]));
       patchState({ exportingData: false });
     }
   }

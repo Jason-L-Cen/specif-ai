@@ -1,3 +1,4 @@
+import { t as appText } from "../../language";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { LLMConfig, LLMError, ModelInfoV1 } from "../llm-types";
 import { LangChainModelProvider } from "./base";
@@ -75,12 +76,12 @@ export class AnthropicLangChainProvider implements LangChainModelProvider {
 
   getConfig(config: Partial<AnthropicConfig>): AnthropicConfig {
     if (!config.apiKey && !process.env.ANTHROPIC_API_KEY) {
-      throw new LLMError("Anthropic API 密钥不能为空", "anthropic");
+      throw new LLMError(appText("Anthropic API 密钥不能为空"), "anthropic");
     }
 
     const model = config.model;
     if (!model || !Object.values(AnthropicModel).includes(model)) {
-      throw new LLMError(`无效的模型 ID：${model}`, "anthropic");
+      throw new LLMError(appText("无效的模型 ID：{0}", [model]), "anthropic");
     }
 
     return {

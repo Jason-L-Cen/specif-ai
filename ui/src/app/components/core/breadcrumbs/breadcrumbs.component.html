@@ -1,6 +1,6 @@
 <nav
   class="flex [app-region:no-drag]"
-  aria-label="面包屑导航"
+  [attr.aria-label]="&quot;面包屑导航&quot; | i18n"
   *ngIf="breadcrumbs$ | async as breadcrumbs"
 >
   <!--Back button-->
@@ -31,7 +31,7 @@
         [class.font-semibold]="breadcrumbs.length == 0"
       >
         <ng-icon class="text-sm mr-1" name="heroHome" strokeWidth="2"></ng-icon>
-        解决方案
+        {{ "解决方案" | i18n }}
       </a>
     </li>
     <li *ngFor="let breadcrumb of breadcrumbs; let last = last">

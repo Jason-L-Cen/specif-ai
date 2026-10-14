@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProjectsState } from '../../store/projects/projects.state';
@@ -77,7 +79,7 @@ import { DialogService } from 'src/app/services/dialog/dialog.service';
     CommonModule,
     PillComponent,
     CheckboxCardComponent
-  ],
+  , I18nPipe],
   providers: [
     provideIcons({
       heroSparklesSolid,
@@ -177,7 +179,7 @@ export class BusinessProcessComponent implements OnInit {
         },
       }),
     );
-    this.editLabel = this.mode == 'edit' ? '编辑' : '添加';
+    this.editLabel = this.mode == 'edit' ? uiText("编辑") : uiText("添加");
     this.store.dispatch(
       new AddBreadcrumb({
         label: this.editLabel,

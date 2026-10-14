@@ -1,3 +1,4 @@
+import { t as uiText } from "../i18n/translate";
 import { Injectable } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
 import { IpcRendererEvent } from 'electron';
@@ -95,7 +96,7 @@ export class ElectronService {
         skipLoading: true,
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async abortSolutionCreation(projectId: string): Promise<boolean> {
@@ -106,7 +107,7 @@ export class ElectronService {
         skipLoading: true,
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   
@@ -166,7 +167,7 @@ export class ElectronService {
       });
       return response.isValid;
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async chatUpdateRequirement(
@@ -179,7 +180,7 @@ export class ElectronService {
         skipLoading: true
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async addRequirement(
@@ -191,7 +192,7 @@ export class ElectronService {
         args: [request],
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async updateRequirement(
@@ -203,7 +204,7 @@ export class ElectronService {
         args: [request],
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async addBusinessProcess(
@@ -215,7 +216,7 @@ export class ElectronService {
         args: [request],
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async updateBusinessProcess(
@@ -227,7 +228,7 @@ export class ElectronService {
         args: [request],
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async createFlowchart(
@@ -239,7 +240,7 @@ export class ElectronService {
         args: [request],
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async createStories(
@@ -252,7 +253,7 @@ export class ElectronService {
         skipLoading: true
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async updateStory(
@@ -264,7 +265,7 @@ export class ElectronService {
         args: [request],
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async createTask(
@@ -277,7 +278,7 @@ export class ElectronService {
         skipLoading: true
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async createTestCases(
@@ -293,7 +294,7 @@ export class ElectronService {
         skipLoading: true
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async addTask(
@@ -305,7 +306,7 @@ export class ElectronService {
         args: [request],
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async updateTask(
@@ -317,7 +318,7 @@ export class ElectronService {
         args: [request],
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async generateStrategicInitiative(
@@ -330,7 +331,7 @@ export class ElectronService {
         skipLoading: true
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async addUserStory(
@@ -342,7 +343,7 @@ export class ElectronService {
         args: [request],
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async chatUserStoryTask(
@@ -355,7 +356,7 @@ export class ElectronService {
         skipLoading: true
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async chatWithAI(request: ChatWithAIPayload): Promise<ChatWithAIResponse> {
@@ -366,7 +367,7 @@ export class ElectronService {
         skipLoading: true
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async inlineEditWithAI(request: InlineEditPayload): Promise<InlineEditResponse> {
@@ -377,7 +378,7 @@ export class ElectronService {
         skipLoading: true
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async verifyLLMConfig(provider: string, config: Record<string, any>) {
@@ -443,7 +444,7 @@ export class ElectronService {
             if (authResponse.accessToken) {
               resolve(authResponse);
             } else {
-              reject('OAuth 授权失败：未收到令牌。');
+              reject(uiText("OAuth 授权失败：未收到令牌。"));
             }
           },
         );
@@ -453,7 +454,7 @@ export class ElectronService {
         });
       });
     } else {
-      throw new Error('Electron 环境不可用');
+      throw new Error(uiText("Electron 环境不可用"));
     }
   }
 
@@ -505,13 +506,13 @@ export class ElectronService {
             if (authResponse.accessToken) {
               resolve(authResponse);
             } else {
-              reject('令牌刷新失败：未收到令牌。');
+              reject(uiText("令牌刷新失败：未收到令牌。"));
             }
           },
         );
       });
     } else {
-      throw new Error('Electron 环境不可用');
+      throw new Error(uiText("Electron 环境不可用"));
     }
   }
 
@@ -527,11 +528,11 @@ export class ElectronService {
         personalAccessToken,
       });
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   async zentao(channel: 'login' | 'disconnect' | 'operation', params: unknown): Promise<any> {
-    if (!this.electronAPI) throw new Error('Electron 环境不可用');
+    if (!this.electronAPI) throw new Error(uiText("Electron 环境不可用"));
     // Credentials go directly to the main process, outside request logging.
     const result = await this.electronAPI.invoke(`zentao:${channel}`, params);
     if (result?.error) throw new Error(result.error);
@@ -561,7 +562,7 @@ export class ElectronService {
   }
 
   async extractDocumentText(name: string, data: Uint8Array): Promise<{ text?: string; error?: string }> {
-    if (!this.electronAPI) throw new Error('Electron 环境不可用');
+    if (!this.electronAPI) throw new Error(uiText("Electron 环境不可用"));
     return this.ipc.request({
       channel: 'document:extractText', args: [{ name, data }],
       skipLoading: true, skipWarning: true,
@@ -596,7 +597,7 @@ export class ElectronService {
   // App auto updater functions
   async checkForUpdates(force: boolean = false) {
     if (!this.electronAPI) {
-      throw new Error('Electron 环境不可用');
+      throw new Error(uiText("Electron 环境不可用"));
     }
 
     // Check whether auto update is turned on
@@ -630,7 +631,7 @@ export class ElectronService {
 
   async downloadUpdates(version: string) {
     if (!this.electronAPI) {
-      throw new Error('Electron 环境不可用');
+      throw new Error(uiText("Electron 环境不可用"));
     }
 
     return this.ipc.request({
@@ -641,7 +642,7 @@ export class ElectronService {
 
   async listMCPServers(filter?: Record<string, any>): Promise<MCPServerDetails[]> {
     if (!this.electronAPI) {
-      throw new Error('Electron 环境不可用');
+      throw new Error(uiText("Electron 环境不可用"));
     }
 
     return this.ipc.request({
@@ -653,7 +654,7 @@ export class ElectronService {
 
   async validateMCPSettings(mcpSettings: MCPSettings): Promise<MCPServerDetails[]> {
     if (!this.electronAPI) {
-      throw new Error('Electron 环境不可用');
+      throw new Error(uiText("Electron 环境不可用"));
     }
 
     return this.ipc.request({
@@ -665,7 +666,7 @@ export class ElectronService {
 
   async updateProjectMCPSettings(projectId: string, settings: MCPSettings): Promise<{ success: boolean; error?: string }> {
     if (!this.electronAPI) {
-      throw new Error('Electron 环境不可用');
+      throw new Error(uiText("Electron 环境不可用"));
     }
     return this.ipc.request({
       channel: 'mcp:updateProjectSettings',
@@ -676,7 +677,7 @@ export class ElectronService {
 
   async getProjectMCPSettings(projectId: string): Promise<{ success: boolean; settings?: MCPSettings; error?: string }> {
     if (!this.electronAPI) {
-      throw new Error('Electron 环境不可用');
+      throw new Error(uiText("Electron 环境不可用"));
     }
     return this.ipc.request({
       channel: 'mcp:getProjectSettings',
@@ -687,7 +688,7 @@ export class ElectronService {
 
   async setMCPProjectId(projectId: string): Promise<void> {
     if (!this.electronAPI) {
-      throw new Error('Electron 环境不可用');
+      throw new Error(uiText("Electron 环境不可用"));
     }
 
     console.log("setting project id", projectId)
@@ -733,7 +734,7 @@ export class ElectronService {
         callback,
       );
     }
-    throw new Error('Electron 环境不可用');
+    throw new Error(uiText("Electron 环境不可用"));
   }
 
   removeWorkflowProgressListener(
@@ -751,7 +752,7 @@ export class ElectronService {
 
   async openExternalUrl(url: string): Promise<boolean> {
     if (!this.electronAPI) {
-      throw new Error('Electron 环境不可用');
+      throw new Error(uiText("Electron 环境不可用"));
     }
     return this.electronAPI.invoke('open-external-url', url);
   }

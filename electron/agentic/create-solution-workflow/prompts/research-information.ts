@@ -1,4 +1,4 @@
-import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../../prompts/context/markdown-rules";
+import { getOutputLanguageInstructions } from "../../../prompts/context/markdown-rules";
 import {
   REQUIREMENT_DISPLAY_NAME_PLURAL_MAP,
   REQUIREMENT_TYPE,
@@ -31,7 +31,7 @@ export function createResearchInformationPrompt({
   const formattedTypes = formatRequirementTypes(enabledTypes);
   const perspectives = getRequirementPerspectives(enabledTypes);
 
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
 
   You are a lead technical analyst. As part of your role you gather comprehensive and relevant information to support the downstream generation of ${formattedTypes}.

@@ -1,3 +1,4 @@
+import { t as appText } from "../services/language";
 interface RetryOptions {
   maxRetries?: number;
   baseDelay?: number;
@@ -68,7 +69,7 @@ export function withRetry(options: RetryOptions = {}) {
       }
 
       // This should never happen as the last attempt will either return or throw
-      throw new Error("已达到最大重试次数");
+      throw new Error(appText("已达到最大重试次数"));
     };
 
     return descriptor;

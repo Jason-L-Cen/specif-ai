@@ -1,3 +1,5 @@
+import { withOutputLanguage } from "../../services/llm/language-messages";
+import { t as appText } from "../../services/language";
 import { HumanMessage } from "@langchain/core/messages";
 import { BaseCheckpointSaver } from "@langchain/langgraph-checkpoint";
 import { z } from "zod";
@@ -49,7 +51,7 @@ export const buildResearchNode = ({
       await workflowEvents.dispatchAction(
         "research",
         {
-          title: "没有可用工具，已跳过调研阶段",
+          title: appText("没有可用工具，已跳过调研阶段"),
         },
         runnableConfig
       );
@@ -62,7 +64,7 @@ export const buildResearchNode = ({
     await workflowEvents.dispatchThinking(
       "research",
       {
-        title: "正在调研测试用例生成所需的背景信息",
+        title: appText("正在调研测试用例生成所需的背景信息"),
         input: JSON.stringify({
           userStoryTitle: state.userStoryTitle,
           availableTools: tools.length,
@@ -129,7 +131,7 @@ export const buildResearchNode = ({
     await workflowEvents.dispatchAction(
       "research",
       {
-        title: "调研已完成，已收集测试用例生成所需的背景信息",
+        title: appText("调研已完成，已收集测试用例生成所需的背景信息"),
         output: response.structuredResponse.referenceInformation,
       },
       runnableConfig,
@@ -169,8 +171,8 @@ export const buildGenerateTestCasesNode = (
         "generate-test-cases",
         {
           title: isRefinement 
-            ? `正在完善用户故事“${state.userStoryTitle}”的测试用例`
-            : `正在生成用户故事“${state.userStoryTitle}”的测试用例`,
+            ? appText("正在完善用户故事“{0}”的测试用例", [state.userStoryTitle])
+            : appText("正在生成用户故事“{0}”的测试用例", [state.userStoryTitle]),
           input: JSON.stringify({
             userStoryTitle: state.userStoryTitle,
             iteration: state.feedbackLoops + 1,
@@ -219,7 +221,7 @@ export const buildGenerateTestCasesNode = (
       });
 
       const model = modelProvider.getChatModel();
-      const response = await model.invoke(prompt);
+      const response = await model.invoke(withOutputLanguage(prompt));
 
       generation?.end({
         usage: {
@@ -266,7 +268,7 @@ export const buildGenerateTestCasesNode = (
         await workflowEvents.dispatchAction(
           "generate-test-cases",
           {
-            title: "错误：响应中未找到测试用例",
+            title: appText("错误：响应中未找到测试用例"),
             input: prompt,
           },
           runnableConfig,
@@ -274,7 +276,7 @@ export const buildGenerateTestCasesNode = (
         );
         
         if (state.feedbackLoops >= 2) {
-          throw new Error("多次尝试后仍无法生成有效的测试用例");
+          throw new Error(appText("多次尝试后仍无法生成有效的测试用例"));
         }
         
         return {
@@ -293,8 +295,8 @@ export const buildGenerateTestCasesNode = (
         "generate-test-cases",
         {
           title: isRefinement
-            ? `已成功完善 ${testCaseCount} 个测试用例（第 ${state.feedbackLoops + 1} 轮）`
-            : `已成功生成 ${testCaseCount} 个测试用例`,
+            ? appText("已成功完善 {0} 个测试用例（第 {1} 轮）", [testCaseCount, state.feedbackLoops + 1])
+            : appText("已成功生成 {0} 个测试用例", [testCaseCount]),
           input: prompt,
           output: parsedTestCases.testCases,
         },
@@ -322,7 +324,7 @@ export const buildGenerateTestCasesNode = (
 
       await workflowEvents.dispatchAction(
         "generate-test-cases",
-        { title: "生成测试用例时出错" },
+        { title: appText("生成测试用例时出错") },
         runnableConfig,
         generateCorrelationId
       );
@@ -373,7 +375,7 @@ export const buildEvaluateTestCasesNode = (
         await workflowEvents.dispatchAction(
           "evaluate-test-cases",
           {
-            title: "没有可供评估的测试用例",
+            title: appText("没有可供评估的测试用例"),
           },
           runnableConfig,
           evaluateCorrelationId
@@ -388,7 +390,7 @@ export const buildEvaluateTestCasesNode = (
       await workflowEvents.dispatchThinking(
         "evaluate-test-cases",
         {
-          title: `正在评估用户故事的 ${state.testCases.length} 个测试用例（第 ${state.feedbackLoops} 轮）`,
+          title: appText("正在评估用户故事的 {0} 个测试用例（第 {1} 轮）", [state.testCases.length, state.feedbackLoops]),
           input: JSON.stringify({
             testCaseCount: state.testCases.length,
             userStoryTitle: state.userStoryTitle,
@@ -428,7 +430,7 @@ export const buildEvaluateTestCasesNode = (
       });
 
       const model = modelProvider.getChatModel();
-      const response = await model.invoke(prompt);
+      const response = await model.invoke(withOutputLanguage(prompt));
 
       generation?.end({
         usage: {
@@ -451,10 +453,10 @@ export const buildEvaluateTestCasesNode = (
         "evaluate-test-cases",
         {
           title: isApproved
-            ? `用户故事的 ${state.testCases.length} 个测试用例已通过评估`
+            ? appText("用户故事的 {0} 个测试用例已通过评估", [state.testCases.length])
             : isComplete
-            ? `已完成用户故事测试用例的评估，共进行了 ${state.feedbackLoops} 轮`
-            : `用户故事的测试用例需要完善（第 ${state.feedbackLoops} 轮，共 3 轮）`,
+            ? appText("已完成用户故事测试用例的评估，共进行了 {0} 轮", [state.feedbackLoops])
+            : appText("用户故事的测试用例需要完善（第 {0} 轮，共 3 轮）", [state.feedbackLoops]),
           output: isApproved 
             ? "All test cases meet quality standards and cover the user story requirements adequately."
             : isComplete
@@ -487,7 +489,7 @@ export const buildEvaluateTestCasesNode = (
       await workflowEvents.dispatchAction(
         "evaluate-test-cases",
         {
-          title: "评估测试用例时出错",
+          title: appText("评估测试用例时出错"),
         },
         runnableConfig,
         evaluateCorrelationId

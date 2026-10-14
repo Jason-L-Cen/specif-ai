@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { ToasterService } from '../toaster/toaster.service';
@@ -73,7 +74,7 @@ export abstract class BasePmoService {
           reqId: prdId,
           specifaiType: 'PRD',
           specifaiParentId: null,
-          title: prdContent.title || '未命名产品需求',
+          title: prdContent.title || uiText("未命名产品需求"),
           description: prdContent.requirement || '',
           isUpdate: !!(prdContent as any).pmoId,
           child: [],
@@ -133,7 +134,7 @@ export abstract class BasePmoService {
           reqId: feature.id,
           specifaiType: 'User Story',
           specifaiParentId: prdId,
-          title: feature.name || '未命名用户故事',
+          title: feature.name || uiText("未命名用户故事"),
           description: feature.description || '',
           isUpdate: !!feature.pmoId,
           child: [],
@@ -156,7 +157,7 @@ export abstract class BasePmoService {
               reqId: task.id,
               specifaiType: 'Task',
               specifaiParentId: userStoryTicket.specifaiId,
-              title: task.list || '未命名任务',
+              title: task.list || uiText("未命名任务"),
               description: task.acceptance || '',
               isUpdate: !!task.pmoId,
               child: [],

@@ -6,13 +6,13 @@
     <!-- User Screens Involved Field -->
     <div class="mb-4">
       <label class="block text-secondary-700 text-sm font-medium mb-2">
-        涉及的用户界面 <span class="text-secondary-400">（可选）</span>
+        {{ "涉及的用户界面" | i18n }} <span class="text-secondary-400">{{ "（可选）" | i18n }}</span>
       </label>
       <p class="text-secondary-500 text-xs mb-2">
-        列出用户将操作的界面和界面组件。
+        {{ "列出用户将操作的界面和界面组件。" | i18n }}
       </p>
       <app-textarea-field
-        [elementPlaceHolder]="'例如：登录界面、仪表盘、支付表单'"
+        [elementPlaceHolder]="(&quot;例如：登录界面、仪表盘、支付表单&quot; | i18n)"
         elementId="userScreensInvolved"
         formControlName="userScreensInvolved"
         [rows]="5"
@@ -22,13 +22,13 @@
     <!-- Extra Context Field -->
     <div>
       <label class="block text-secondary-700 text-sm font-medium mb-2">
-        补充上下文 <span class="text-secondary-400">（可选）</span>
+        {{ "补充上下文" | i18n }} <span class="text-secondary-400">{{ "（可选）" | i18n }}</span>
       </label>
       <p class="text-secondary-500 text-xs mb-2">
-        补充有助于生成测试用例的信息。
+        {{ "补充有助于生成测试用例的信息。" | i18n }}
       </p>
       <app-textarea-field
-        [elementPlaceHolder]="'例如：边界情况、无障碍要求、用户角色'"
+        [elementPlaceHolder]="(&quot;例如：边界情况、无障碍要求、用户角色&quot; | i18n)"
         elementId="extraContext"
         formControlName="extraContext"
         [rows]="5"
@@ -37,14 +37,14 @@
   </div>
   <div class="flex justify-between mt-6">
     <app-button
-      buttonContent="取消"
+      [buttonContent]="&quot;取消&quot; | i18n"
       theme="secondary"
       size="sm"
       rounded="lg"
       (click)="onClose()"
     />
     <app-button
-      buttonContent="生成"
+      [buttonContent]="&quot;生成&quot; | i18n"
       theme="primary"
       size="sm"
       rounded="lg"

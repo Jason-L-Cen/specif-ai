@@ -53,6 +53,7 @@ import { AnalyticsTracker } from './services/analytics/analytics.interface';
 import { EmptyStateComponent } from './components/empty-state/empty-state.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
+import { getUILanguage } from './i18n/translate';
 
 @NgModule({
   declarations: [AppComponent],
@@ -111,7 +112,7 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
     MainLayoutComponent,
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'zh-CN' },
+    { provide: LOCALE_ID, useFactory: getUILanguage },
     {
       provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
       useValue: {

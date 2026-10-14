@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../../i18n/i18n.pipe";
+import { t as uiText } from "../../../i18n/translate";
 import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
@@ -25,7 +27,7 @@ import { McpServersListItemComponent } from '../../mcp/mcp-servers-list-item/mcp
     InputFieldComponent,
     TextareaFieldComponent,
     McpServersListItemComponent,
-  ],
+   I18nPipe,],
   templateUrl: './predefined-mcp-server.component.html',
   styleUrls: ['./predefined-mcp-server.component.scss'],
 })
@@ -76,7 +78,7 @@ export class PredefinedMcpServerComponent implements OnInit {
 
   async onValidate() {
     if (this.form.invalid) {
-      this.toasterService.showError('验证前，请填写所有必填项。');
+      this.toasterService.showError(uiText("验证前，请填写所有必填项。"));
       return;
     }
 
@@ -90,12 +92,12 @@ export class PredefinedMcpServerComponent implements OnInit {
       this.showServerInformation = true;
       
       if (this.validatedServerStatus.status === 'connected') {
-        this.toasterService.showSuccess('MCP 服务器验证成功。');
+        this.toasterService.showSuccess(uiText("MCP 服务器验证成功。"));
       } else {
-        this.toasterService.showWarning('连接 MCP 服务器时出现问题，请查看详情。');
+        this.toasterService.showWarning(uiText("连接 MCP 服务器时出现问题，请查看详情。"));
       }
     } catch (error) {
-      this.toasterService.showError('验证 MCP 服务器失败：' + (error instanceof Error ? error.message : '未知错误'));
+      this.toasterService.showError(uiText("验证 MCP 服务器失败：") + (error instanceof Error ? error.message : uiText("未知错误")));
     } finally {
       this.isValidating = false;
     }
@@ -110,7 +112,7 @@ export class PredefinedMcpServerComponent implements OnInit {
         ...config
       })
     } else if (!this.isValidated) {
-      this.toasterService.showError('提交前，请先验证 MCP 服务器。');
+      this.toasterService.showError(uiText("提交前，请先验证 MCP 服务器。"));
     }
   }
 
@@ -122,14 +124,14 @@ export class PredefinedMcpServerComponent implements OnInit {
     try {
       await this.electronService.openExternalUrl(url);
     } catch (error) {
-      this.toasterService.showError('打开外部链接失败');
+      this.toasterService.showError(uiText("打开外部链接失败"));
     }
   }
 
   getFieldErrorMessage(fieldName: string): string {
     const field = this.form.get(fieldName);
     if (field?.hasError('required')) {
-      return '此项为必填项。';
+      return uiText("此项为必填项。");
     }
     return '';
   }

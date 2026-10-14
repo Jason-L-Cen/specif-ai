@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../../i18n/i18n.pipe";
+import { t as uiText } from "../../../i18n/translate";
 import { Component, Input } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { RichTextEditorComponent } from '../rich-text-editor/rich-text-editor.component';
@@ -14,7 +16,7 @@ import { provideIcons } from '@ng-icons/core';
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.scss'],
   standalone: true,
-  imports: [NgIf, RichTextEditorComponent, ButtonComponent],
+  imports: [NgIf, RichTextEditorComponent, ButtonComponent, I18nPipe],
   providers: [
     provideIcons({
       heroArrowTopRightOnSquare,
@@ -69,7 +71,7 @@ export class ListItemComponent {
       );
     } catch (error) {
       this.toast.showError(
-        `无法打开 ${selectedPmoTool === 'ado' ? 'Azure DevOps' : selectedPmoTool === 'zentao' ? '禅道' : 'Jira'} 工作项：${pmoId}`,
+        uiText("无法打开 {0} 工作项：{1}", [selectedPmoTool === 'ado' ? 'Azure DevOps' : selectedPmoTool === 'zentao' ? uiText("禅道") : 'Jira', pmoId]),
       );
     }
   }

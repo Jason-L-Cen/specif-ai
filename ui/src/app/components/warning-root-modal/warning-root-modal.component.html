@@ -1,18 +1,18 @@
 <div class="modal-wrapper">
   <div class="modal-header flex items-center justify-between p-4 border-b">
-    <h4 class="text-lg font-medium">选择有效的根目录</h4>
+    <h4 class="text-lg font-medium">{{ "选择有效的根目录" | i18n }}</h4>
   </div>
   <div class="modal-body p-6">
     <div class="flex w-full">
       <input
         type="text"
         [value]="workingDir"
-        placeholder="选择有效的根目录"
+        [placeholder]="&quot;选择有效的根目录&quot; | i18n"
         disabled
         class="bg-secondary-100 border border-secondary-300 text-secondary-400 text-sm rounded-l-lg block w-full p-2"
       />
       <app-button
-        [buttonContent]="'浏览'"
+        [buttonContent]="(&quot;浏览&quot; | i18n)"
         [theme]="'primary'"
         [rounded]="'none'"
         [roundedRight]="'md'"
@@ -20,7 +20,7 @@
       ></app-button>
     </div>
     <p class="mt-4 text-sm text-secondary-500">
-      请选择有效的需求保存目录，以保存生成的需求。
+      {{ "请选择有效的需求保存目录，以保存生成的需求。" | i18n }}
     </p>
   </div>
 </div>

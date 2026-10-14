@@ -7,10 +7,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgIconsModule } from '@ng-icons/core';
 import { APP_ICONS } from '../../constants/icons.constants';
+import { I18nPipe } from '../../i18n/i18n.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
+    I18nPipe,
     LoggerModule.forRoot({
       level: NgxLoggerLevel.DEBUG,
       serverLogLevel: NgxLoggerLevel.ERROR,
@@ -23,6 +25,6 @@ import { APP_ICONS } from '../../constants/icons.constants';
 
     NgIconsModule.withIcons({ ...APP_ICONS }),
   ],
-  exports: [NgIconsModule],
+  exports: [NgIconsModule, I18nPipe],
 })
 export class SharedModule {}

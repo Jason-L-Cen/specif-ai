@@ -1,3 +1,4 @@
+import { t as appText } from "../services/language";
 import { BrowserWindow, ipcMain, shell } from 'electron';
 import axios from "axios";
 import { IncomingMessage, ServerResponse } from "http";
@@ -103,20 +104,20 @@ export function setupJiraHandlers(mainWindow: BrowserWindow) {
           .then((authResponse) => {
             mainWindow?.webContents.send("oauth-reply", authResponse);
             res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
-            res.end("身份验证成功，可以关闭此标签页。");
+            res.end(appText("身份验证成功，可以关闭此标签页。"));
           })
           .catch((error) => {
             console.error("Error exchanging authorization code for access token.");
             res.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" });
-            res.end("身份验证失败。");
+            res.end(appText("身份验证失败。"));
           });
       } else {
         res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
-        res.end("缺少授权码。");
+        res.end(appText("缺少授权码。"));
       }
     } else {
       res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
-      res.end("未找到请求的资源。");
+      res.end(appText("未找到请求的资源。"));
     }
   });
   
@@ -126,12 +127,12 @@ export function setupJiraHandlers(mainWindow: BrowserWindow) {
       if (err.code === "EADDRINUSE") {
         mainWindow?.webContents.send(
           "port-error",
-          `端口 ${port} 已被其他应用占用。`
+          appText("端口 {0} 已被其他应用占用。", [port])
         );
       } else {
         mainWindow?.webContents.send(
           "port-error",
-          `无法启动服务器：${err.message}`
+          appText("无法启动服务器：{0}", [err.message])
         );
       }
     });
@@ -154,7 +155,7 @@ export function setupJiraHandlers(mainWindow: BrowserWindow) {
         } else {
           mainWindow?.webContents.send(
             "port-error",
-            `服务器错误：${err.message}`
+            appText("服务器错误：{0}", [err.message])
           );
         }
       });
@@ -179,7 +180,7 @@ export function setupJiraHandlers(mainWindow: BrowserWindow) {
   
           if (pids.length === 0) {
             console.log(`No valid process found using port ${port}`);
-            return { success: false, message: "未找到有效的进程" };
+            return { success: false, message: appText("未找到有效的进程") };
           }
           
           for (const pid of pids) {

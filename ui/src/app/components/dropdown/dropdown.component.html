@@ -3,7 +3,7 @@
     class="w-full bg-white border border-secondary-300 text-secondary-700 py-2 px-4 rounded-md flex items-center justify-between focus:outline-none"
     (click)="toggleDropdown()"
   >
-    <span>{{ selectedOption || "请选择一项" }}</span>
+    <span>{{ selectedOption || ("请选择一项" | i18n) }}</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="h-5 w-5"

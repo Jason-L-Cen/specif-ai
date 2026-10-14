@@ -1,3 +1,4 @@
+import { t as appText } from "../../language";
 import { ChatOpenAI } from '@langchain/openai';
 import { LLMConfig, LLMError, ModelInfoV1 } from '../llm-types';
 import { LangChainModelProvider } from './base';
@@ -109,10 +110,10 @@ export class OpenAILangChainProvider implements LangChainModelProvider {
 
   getConfig(config: Partial<OpenAIConfig>): OpenAIConfig {
     if (!config.apiKey?.trim()) {
-      throw new LLMError(`${this.provider === 'deepseek' ? 'DeepSeek' : 'OpenAI'} API 密钥不能为空`, this.provider);
+      throw new LLMError(appText("{0} API 密钥不能为空", [this.provider === 'deepseek' ? 'DeepSeek' : 'OpenAI']), this.provider);
     }
     if (!config.model?.trim()) {
-      throw new LLMError('模型 ID 不能为空', this.provider);
+      throw new LLMError(appText("模型 ID 不能为空"), this.provider);
     }
 
     return {

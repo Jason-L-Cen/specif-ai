@@ -1,3 +1,4 @@
+import { I18nPipe } from "../../../i18n/i18n.pipe";
 import {
   NgClass,
   NgForOf,
@@ -24,7 +25,7 @@ import { CustomAccordionComponent } from '../../custom-accordion/custom-accordio
     NgSwitch,
     NgSwitchCase,
     CustomAccordionComponent,
-  ],
+   I18nPipe,],
   viewProviders: [provideIcons({ heroChevronDown })],
 })
 export class McpServersListItemComponent {

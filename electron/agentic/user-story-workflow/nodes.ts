@@ -1,3 +1,5 @@
+import { withOutputLanguage } from "../../services/llm/language-messages";
+import { t as appText } from "../../services/language";
 import { HumanMessage } from "@langchain/core/messages";
 import { BaseCheckpointSaver } from "@langchain/langgraph-checkpoint";
 import { z } from "zod";
@@ -48,7 +50,7 @@ export const buildResearchNode = ({
       await workflowEvents.dispatchAction(
         "research",
         {
-          title: "没有可用工具，已跳过调研阶段",
+          title: appText("没有可用工具，已跳过调研阶段"),
         },
         runnableConfig
       );
@@ -61,7 +63,7 @@ export const buildResearchNode = ({
     await workflowEvents.dispatchThinking(
       "research",
       {
-        title: `正在根据产品需求文档（PRD）“${state.reqName}”的背景进行调研`,
+        title: appText("正在根据产品需求文档（PRD）“{0}”的背景进行调研", [state.reqName]),
       },
       runnableConfig,
       researchCorrelationId
@@ -119,7 +121,7 @@ export const buildResearchNode = ({
     await workflowEvents.dispatchAction(
       "research",
       {
-        title: `产品需求文档（PRD）“${state.reqName}”的调研已完成`,
+        title: appText("产品需求文档（PRD）“{0}”的调研已完成", [state.reqName]),
         output: response.structuredResponse.referenceInformation,
       },
       runnableConfig,
@@ -159,8 +161,8 @@ export const buildGenerateStoriesNode = (
         {
           title:
             state.feedbackLoops === 0
-              ? `正在根据产品需求文档（PRD）“${state.reqName}”生成用户故事`
-              : `正在完善产品需求文档（PRD）“${state.reqName}”的用户故事`,
+              ? appText("正在根据产品需求文档（PRD）“{0}”生成用户故事", [state.reqName])
+              : appText("正在完善产品需求文档（PRD）“{0}”的用户故事", [state.reqName]),
         },
         runnableConfig,
         generateCorrelationId
@@ -193,7 +195,7 @@ export const buildGenerateStoriesNode = (
 
       // LLM Call
       const model = modelProvider.getChatModel();
-      const response = await model.invoke(prompt);
+      const response = await model.invoke(withOutputLanguage(prompt));
       console.log(response);
 
       generation?.end({
@@ -218,7 +220,7 @@ export const buildGenerateStoriesNode = (
           level: "ERROR",
           statusMessage: `Error parsing LLM response: ${error}`,
         });
-        throw new Error("大语言模型返回的响应格式无效");
+        throw new Error(appText("大语言模型返回的响应格式无效"));
       }
 
       console.log("[user-story-node] Successfully parsed stories:", {
@@ -230,12 +232,8 @@ export const buildGenerateStoriesNode = (
         {
           title:
             state.feedbackLoops === 0
-              ? `已根据产品需求文档（PRD）“${state.reqName}”生成 ${
-                  parsedStories.features?.length || 0
-                } 个用户故事`
-              : `已完善产品需求文档（PRD）“${state.reqName}”的 ${
-                  parsedStories.features?.length || 0
-                } 个用户故事`,
+              ? appText("已根据产品需求文档（PRD）“{0}”生成 {1} 个用户故事", [state.reqName, parsedStories.features?.length || 0])
+              : appText("已完善产品需求文档（PRD）“{0}”的 {1} 个用户故事", [state.reqName, parsedStories.features?.length || 0]),
           input: prompt,
           output: JSON.stringify(parsedStories.features || []),
         },
@@ -261,7 +259,7 @@ export const buildGenerateStoriesNode = (
 
       await workflowEvents.dispatchError(
         "generate-stories",
-        { title: `产品需求文档（PRD）“${state.reqName}”的用户故事生成失败` },
+        { title: appText("产品需求文档（PRD）“{0}”的用户故事生成失败", [state.reqName]) },
         runnableConfig,
         generateCorrelationId
       );
@@ -301,7 +299,7 @@ export const buildEvaluateStoriesNode = (
         await workflowEvents.dispatchAction(
           "evaluate-stories",
           {
-            title: "没有可供评估的用户故事",
+            title: appText("没有可供评估的用户故事"),
           },
           runnableConfig,
           evaluateCorrelationId
@@ -317,7 +315,7 @@ export const buildEvaluateStoriesNode = (
         "evaluate-stories",
         {
           title:
-            "正在评估已生成用户故事的质量和完整性",
+            appText("正在评估已生成用户故事的质量和完整性"),
         },
         runnableConfig,
         evaluateCorrelationId
@@ -341,7 +339,7 @@ export const buildEvaluateStoriesNode = (
       });
 
       const model = modelProvider.getChatModel();
-      const response = await model.invoke(prompt);
+      const response = await model.invoke(withOutputLanguage(prompt));
 
       generation?.end({
         usage: {
@@ -365,10 +363,10 @@ export const buildEvaluateStoriesNode = (
         "evaluate-stories",
         {
           title: isApproved
-            ? "用户故事已成功生成"
+            ? appText("用户故事已成功生成")
             : isComplete
-            ? "已达到最大评估次数，正在结束评估"
-            : "用户故事需要完善，正在继续迭代",
+            ? appText("已达到最大评估次数，正在结束评估")
+            : appText("用户故事需要完善，正在继续迭代"),
         },
         runnableConfig,
         evaluateCorrelationId
@@ -396,7 +394,7 @@ export const buildEvaluateStoriesNode = (
       await workflowEvents.dispatchError(
         "evaluate-stories",
         {
-          title: `产品需求文档（PRD）“${state.reqName}”的用户故事评估失败`,
+          title: appText("产品需求文档（PRD）“{0}”的用户故事评估失败", [state.reqName]),
         },
         runnableConfig,
         evaluateCorrelationId

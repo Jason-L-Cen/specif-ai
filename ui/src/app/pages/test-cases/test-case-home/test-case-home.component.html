@@ -7,7 +7,7 @@
         <div class="flex items-center justify-between w-full">
           <div class="flex items-center flex-grow">
             <h1 class="text-lg font-bold text-secondary-800 truncate max-w-full pr-8">
-              测试用例
+              {{ "测试用例" | i18n }}
               <ng-icon
                 name="heroInformationCircle"
                 (click)="electronService.openExternalUrl(docUrl)"
@@ -24,14 +24,14 @@
         </div>
 
         <div class="flex items-center">
-          <h2 class="text-md font-semibold text-secondary-600">用户故事</h2>
+          <h2 class="text-md font-semibold text-secondary-600">{{ "用户故事" | i18n }}</h2>
           <app-badge
             *ngIf="filteredUserStories$ | async as userStories"
             [badgeText]="userStories.length"
           ></app-badge>
         </div>
         <div class="text-xs text-secondary-500 mb-2">
-          每个用户故事都有对应的测试用例。选择用户故事以查看或创建测试用例。
+          {{ "每个用户故事都有对应的测试用例。选择用户故事以查看或创建测试用例。" | i18n }}
         </div>
         <div *ngIf="selectedPrdTitle" class="text-sm text-secondary-500">
           {{ selectedPrdTitle }}
@@ -48,9 +48,9 @@
         >
           <app-search-input
             class="w-full"
-            placeholder="搜索用户故事…"
+            [placeholder]="&quot;搜索用户故事…&quot; | i18n"
             (searchChange)="onSearch($event)"
-            label="搜索"
+            [attr.aria-label]="&quot;搜索&quot; | i18n"
           ></app-search-input>
         </div>
         <div [class]="(filteredUserStories$ | async)?.length ? 'w-2/3' : 'w-full'" class="relative z-50">
@@ -71,14 +71,14 @@
       >
         <img
           src="assets/img/empty-states/no-data.svg"
-          alt="暂无产品需求文档"
+          [alt]="&quot;暂无产品需求文档&quot; | i18n"
           class="w-80 h-80 mx-auto"
         />
         <h1 class="font-semibold text-secondary-700 text-xl mb-2">
-          暂无产品需求文档（PRD）。
+          {{ "暂无产品需求文档（PRD）。" | i18n }}
         </h1>
         <p class="text-secondary-500 text-sm">
-          请检查此项目是否已有产品需求文档（PRD）。
+          {{ "请检查此项目是否已有产品需求文档（PRD）。" | i18n }}
         </p>
       </div>
     </ng-template>
@@ -109,8 +109,8 @@
               [description]="userStory.description"
               [borderClass]="getUserStoryBorderClass(userStory.id)"
               [statusIndicator]="getUserStoryStatusIndicator(userStory.id)"
-              [actionButtonText]="'查看测试用例'"
-              [copyTooltip]="'复制用户故事内容'"
+              [actionButtonText]="(&quot;查看测试用例&quot; | i18n)"
+              [copyTooltip]="(&quot;复制用户故事内容&quot; | i18n)"
               (viewItem)="navigateToTestCases(userStory)"
               (copyContent)="copyUserStoryContent($event, userStory)"
             ></app-unified-card>
@@ -124,15 +124,15 @@
             <div class="">
               <img
                 src="assets/img/empty-states/no-data.svg"
-                alt="暂无用户故事"
+                [alt]="&quot;暂无用户故事&quot; | i18n"
                 class="w-80 h-80 mx-auto"
               />
             </div>
             <h1 class="font-semibold text-secondary-700 text-xl mb-2">
-              所选产品需求文档（PRD）暂无用户故事。
+              {{ "所选产品需求文档（PRD）暂无用户故事。" | i18n }}
             </h1>
             <p class="text-secondary-500 text-sm">
-              请尝试选择其他产品需求文档（PRD），或为当前文档创建用户故事。
+              {{ "请尝试选择其他产品需求文档（PRD），或为当前文档创建用户故事。" | i18n }}
             </p>
           </div>
         </ng-template>

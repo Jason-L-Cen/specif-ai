@@ -1,19 +1,18 @@
+import { t as appText } from "../services/language";
 export const APP_MESSAGES = {
-  BLOCKED_REASON:
-    "提示词包含违反安全策略的恶意内容。",
-  RESPONSE_NOT_PROCESSES:
-    "处理响应时出错，请重试。如果问题持续存在，请联系支持人员。",
+  get BLOCKED_REASON() { return appText("提示词包含违反安全策略的恶意内容。"); },
+  get RESPONSE_NOT_PROCESSES() { return appText("处理响应时出错，请重试。如果问题持续存在，请联系支持人员。"); },
 
   QUIT_DIALOG: {
     TITLE: (processCount: number, _isPlural: boolean) =>
-      `${processCount} 个任务正在运行`,
+      appText("{0} 个任务正在运行", [processCount]),
     MESSAGE: (_isPlural: boolean) =>
-      "当前仍有尚未完成的任务。",
+      appText("当前仍有尚未完成的任务。"),
     DETAIL: (processListText: string) =>
-      `正在运行的任务：\n${processListText}\n\n现在退出可能会停止这些任务，并丢失尚未保存的进度。`,
+      appText("正在运行的任务：\n{0}\n\n现在退出可能会停止这些任务，并丢失尚未保存的进度。", [processListText]),
     BUTTONS: {
-      CANCEL: "取消",
-      QUIT_ANYWAY: "仍然退出",
+      get CANCEL() { return appText("取消"); },
+      get QUIT_ANYWAY() { return appText("仍然退出"); },
     },
   },
 };

@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
@@ -23,7 +25,7 @@ import { WorkflowProgressService } from 'src/app/services/workflow-progress/work
   selector: 'app-project-failure-message',
   templateUrl: './project-failure-message.component.html',
   standalone: true,
-  imports: [NgIf, NgIconComponent, ButtonComponent, WorkflowProgressComponent],
+  imports: [NgIf, NgIconComponent, ButtonComponent, WorkflowProgressComponent, I18nPipe],
   providers: [
     provideIcons({
       heroExclamationTriangle,
@@ -52,9 +54,9 @@ export class ProjectFailureMessageComponent {
   ) {}
 
   get failureReason(): string {
-    if (!this.failureInfo) return '失败原因未知';
+    if (!this.failureInfo) return uiText("失败原因未知");
     return (
-      this.failureInfo.reason || '创建解决方案时发生错误'
+      this.failureInfo.reason || uiText("创建解决方案时发生错误")
     );
   }
 
@@ -95,7 +97,7 @@ export class ProjectFailureMessageComponent {
   }
 
   get logsButtonText(): string {
-    return this.showLogs ? '隐藏日志' : '查看日志';
+    return this.showLogs ? uiText("隐藏日志") : uiText("查看日志");
   }
 
   get logsButtonIcon(): string {

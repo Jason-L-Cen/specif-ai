@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../../i18n/i18n.pipe";
+import { t as uiText } from "../../../i18n/translate";
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
@@ -64,7 +66,7 @@ import { ElectronService } from 'src/app/electron-bridge/electron.service';
     MatTooltipModule,
     RichTextEditorComponent,
     WorkflowProgressDialogComponent,
-  ],
+   I18nPipe,],
   providers: [
     provideIcons({
       heroArrowRight,
@@ -148,14 +150,14 @@ export class TaskListComponent implements OnInit, OnDestroy {
       featureName: string;
       reqId: string;
     };
-    this.currentLabel = `${this.config.featureId} - 任务`;
+    this.currentLabel = uiText("{0} - 任务", [this.config.featureId]);
     if (this.userStoryId) {
       this.store.dispatch(new SetSelectedUserStory(this.userStoryId));
     }
     this.store.dispatch(
       new AddBreadcrumb({
         label: this.currentLabel,
-        tooltipLabel: `${this.config.featureId} 的任务：${this.config.featureName}`,
+        tooltipLabel: uiText("{0} 的任务：{1}", [this.config.featureId, this.config.featureName]),
       }),
     );
     this.store.select(ProjectsState.getMetadata).subscribe((metadata) => {
@@ -192,10 +194,10 @@ export class TaskListComponent implements OnInit, OnDestroy {
       .createBuilder()
       .forComponent(ModalDialogCustomComponent)
       .withData({
-        title: '生成用户故事任务',
+        title: uiText("生成用户故事任务"),
         description:
-          '补充上下文，以生成符合需求的用户故事任务',
-        placeholder: '为用户故事任务补充上下文',
+          uiText("补充上下文，以生成符合需求的用户故事任务"),
+        placeholder: uiText("为用户故事任务补充上下文"),
       })
       .withWidth('600px')
       .open()
@@ -251,7 +253,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
           WorkflowType.Task,
           {
             timestamp: new Date().toISOString(),
-            reason: error?.message || '生成任务失败',
+            reason: error?.message || uiText("生成任务失败"),
           },
         );
         this.toastService.showError(

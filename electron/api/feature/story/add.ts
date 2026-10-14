@@ -1,3 +1,4 @@
+import { t as appText } from "../../../services/language";
 import { IpcMainInvokeEvent } from 'electron';
 import { addUserStorySchema, AddUserStoryRequest, AddUserStoryResponse } from '../../../schema/feature/story/add.schema';
 import { addUserStoryPrompt } from '../../../prompts/feature/story/add';
@@ -19,7 +20,7 @@ export async function addUserStory(event: IpcMainInvokeEvent, data: unknown): Pr
     const trace = o11y.createTrace('add-user-story');
 
     if (!llmConfig) {
-      throw new Error('未找到大语言模型配置');
+      throw new Error(appText("未找到大语言模型配置"));
     }
 
     console.log('[add-user-story] Using LLM config:', llmConfig);
@@ -92,7 +93,7 @@ export async function addUserStory(event: IpcMainInvokeEvent, data: unknown): Pr
       const cleanedResponse = repairJSON(response); 
       const parsed = JSON.parse(cleanedResponse);
       if (!parsed.features || !Array.isArray(parsed.features)) {
-        throw new Error('响应结构无效');
+        throw new Error(appText("响应结构无效"));
       }
       result = parsed;
     } catch (error) {
@@ -101,7 +102,7 @@ export async function addUserStory(event: IpcMainInvokeEvent, data: unknown): Pr
         level: "ERROR",
         statusMessage: `Error parsing LLM response: ${error}`
       });
-      throw new Error('无法将大语言模型的响应解析为 JSON');
+      throw new Error(appText("无法将大语言模型的响应解析为 JSON"));
     }
 
     return {

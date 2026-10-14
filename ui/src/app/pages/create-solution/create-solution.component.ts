@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import { Component, inject, OnInit } from '@angular/core';
 import {
   FormControl,
@@ -61,7 +63,7 @@ import {
     CustomAccordionComponent,
     McpIntegrationConfiguratorComponent,
     MultiUploadComponent,
-  ],
+   I18nPipe,],
   viewProviders: [provideIcons({ heroChevronDown })],
 })
 export class CreateSolutionComponent implements OnInit {
@@ -108,7 +110,7 @@ export class CreateSolutionComponent implements OnInit {
     this.store.dispatch(
       new AddBreadcrumbs([
         {
-          label: '创建',
+          label: uiText("创建"),
           url: '/create',
         },
       ]),
@@ -129,7 +131,7 @@ export class CreateSolutionComponent implements OnInit {
   }
 
   private syncDescription(): void {
-    const files = this.descriptionFilesContent ? `参考文件正文：\n\n${this.descriptionFilesContent}` : '';
+    const files = this.descriptionFilesContent ? uiText("参考文件正文：\n\n{0}", [this.descriptionFilesContent]) : '';
     const description = this.solutionForm.get('description')!;
     description.setValue([this.descriptionText.value, files].filter(value => !!value.trim()).join('\n\n'));
     description.markAsDirty();
@@ -172,7 +174,7 @@ export class CreateSolutionComponent implements OnInit {
       this.customTechnicalDetails.enable({ emitEvent: false });
       details.setValue(this.customTechnicalDetails.value);
     } else this.customTechnicalDetails.disable({ emitEvent: false });
-    if (mode === 'none') details.setValue('暂时没有技术栈。技术选型尚未确定，请先聚焦业务需求，不要假定具体开发语言、框架、前端或数据库。');
+    if (mode === 'none') details.setValue(uiText("暂时没有技术栈。技术选型尚未确定，请先聚焦业务需求，不要假定具体开发语言、框架、前端或数据库。"));
     else this.syncTechnicalDetails();
     details.markAsDirty();
     details.markAsUntouched();
@@ -266,7 +268,7 @@ export class CreateSolutionComponent implements OnInit {
 
     let isPathValid = await this.appSystemService.fileExists('');
     if (!isPathValid) {
-      this.toast.showError('请选择有效的根目录。');
+      this.toast.showError(uiText("请选择有效的根目录。"));
       return;
     }
 

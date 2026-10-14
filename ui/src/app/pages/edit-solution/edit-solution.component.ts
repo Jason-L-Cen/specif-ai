@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProjectsState } from '../../store/projects/projects.state';
@@ -77,7 +79,7 @@ import { Editor } from '@tiptap/core';
     PillComponent,
     NgIconComponent,
     InlineEditDirective
-],
+, I18nPipe],
   providers: [
     provideIcons({
       heroSparklesSolid,
@@ -152,7 +154,7 @@ export class EditSolutionComponent {
     );
     this.store.dispatch(
       new AddBreadcrumb({
-        label: this.mode === 'edit' ? '编辑' : '添加',
+        label: this.mode === 'edit' ? uiText("编辑") : uiText("添加"),
       }),
     );
     if (this.mode === 'edit') {
@@ -426,7 +428,7 @@ export class EditSolutionComponent {
   }
 
   navigateToUserStories() {
-    this.store.dispatch(new DeleteBreadcrumb('编辑'));
+    this.store.dispatch(new DeleteBreadcrumb(uiText("编辑")));
 
     this.router.navigate(['/user-stories', this.projectId], {
       state: {

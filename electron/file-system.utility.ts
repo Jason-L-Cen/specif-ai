@@ -1,3 +1,4 @@
+import { t as appText } from "./services/language";
 import * as fs from "fs";
 import * as pathModule from "path";
 import { promises as fsPromise } from "fs";
@@ -277,7 +278,7 @@ function readFileChunk(
       return resolve({
         requirement: null,
         title: null,
-        message: "文件名不符合指定的命名格式。",
+        message: appText("文件名不符合指定的命名格式。"),
       });
     }
 
@@ -328,7 +329,7 @@ function readFileChunk(
               if (!dataExtracted.title) {
                 reject(
                   new Error(
-                    "无法在已有数据中找到 requirement 或 title 字段。"
+                    appText("无法在已有数据中找到 requirement 或 title 字段。")
                   )
                 );
               }

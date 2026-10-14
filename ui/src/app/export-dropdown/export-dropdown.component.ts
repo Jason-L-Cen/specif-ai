@@ -1,3 +1,5 @@
+import { I18nPipe } from "../i18n/i18n.pipe";
+import { t as uiText } from "../i18n/translate";
 import { Component, Input, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { ButtonComponent } from "../components/core/button/button.component";
 import { CommonModule } from '@angular/common';
@@ -32,7 +34,7 @@ export interface DropdownOptionGroup {
   templateUrl: './export-dropdown.component.html',
   styleUrls: ['./export-dropdown.component.scss'],
   standalone: true,
-  imports: [ButtonComponent, CommonModule, NgIconComponent, TimeZonePipe],
+  imports: [ButtonComponent, CommonModule, NgIconComponent, TimeZonePipe, I18nPipe],
   providers: [
     provideIcons({
       heroPaperClip,
@@ -50,7 +52,7 @@ export class ExportDropdownComponent {
   @Input() disabled: boolean = false;
   @Input() options: DropdownOption[] = [];
   @Input() groupedOptions: DropdownOptionGroup[] = [];
-  @Input() buttonLabel: string = '更多操作';
+  @Input() buttonLabel: string = uiText("更多操作");
 
   isOpen = false;
 

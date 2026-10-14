@@ -8,7 +8,7 @@
     class="hidden"
   />
   <app-button
-    [buttonContent]="isReading ? '正在读取文件…' : documents ? '添加描述文件' : '上传代码文件'"
+    [buttonContent]="isReading ? (&quot;正在读取文件…&quot; | i18n) : documents ? (&quot;添加描述文件&quot; | i18n) : (&quot;上传代码文件&quot; | i18n)"
     [disabled]="isReading"
     theme="secondary_outline"
     size="sm"
@@ -16,22 +16,22 @@
     icon="heroDocument"
     (click)="triggerFileInput()"
   />
-  <p *ngIf="documents" class="text-xs leading-5 text-muted-foreground">支持 DOCX、PDF、TXT、Markdown，可多选或继续添加，最多 10 份。每份不超过 10 MB，合计正文不超过 20 万字符。</p>
-  <p *ngIf="documents" class="text-xs leading-5 text-muted-foreground">文件正文与输入内容合并使用；仅提取文字，扫描 PDF 请先识别文字。</p>
-  <p *ngIf="isReading" role="status" aria-live="polite" class="text-xs text-muted-foreground">正在提取正文，请稍候。</p>
+  <p *ngIf="documents" class="text-xs leading-5 text-muted-foreground">{{ "支持 DOCX、PDF、TXT、Markdown，可多选或继续添加，最多 10 份。每份不超过 10 MB，合计正文不超过 20 万字符。" | i18n }}</p>
+  <p *ngIf="documents" class="text-xs leading-5 text-muted-foreground">{{ "文件正文与输入内容合并使用；仅提取文字，扫描 PDF 请先识别文字。" | i18n }}</p>
+  <p *ngIf="isReading" role="status" aria-live="polite" class="text-xs text-muted-foreground">{{ "正在提取正文，请稍候。" | i18n }}</p>
   <div
     *ngIf="files.length > 0"
     class="mt-2 w-full divide-y divide-secondary-200 border border-secondary-200 rounded-md text-xs font-medium"
   >
     <div class="p-2">
-      <span *ngIf="files.length === 1">已选文件</span>
-      <span *ngIf="files.length > 1">已选文件</span>
+      <span *ngIf="files.length === 1">{{ "已选文件" | i18n }}</span>
+      <span *ngIf="files.length > 1">{{ "已选文件" | i18n }}</span>
     </div>
     <div *ngFor="let file of files; let index = index" class="p-2 flex items-center gap-2">
       <ng-icon name="heroDocument" strokeWidth="2" class="w-4 h-4" />
       <span class="min-w-0 flex-1 break-all">{{ file }}</span>
       <button *ngIf="documents" type="button" (click)="removeFile(index)" [disabled]="isReading"
-        [attr.aria-label]="'移除 ' + file" class="shrink-0 rounded px-2 py-1 text-secondary-600 hover:bg-secondary-100 focus-visible:ring-2 focus-visible:ring-primary-500 disabled:opacity-50">移除</button>
+        [attr.aria-label]="(&quot;移除 &quot; | i18n) + file" class="shrink-0 rounded px-2 py-1 text-secondary-600 hover:bg-secondary-100 focus-visible:ring-2 focus-visible:ring-primary-500 disabled:opacity-50">{{ "移除" | i18n }}</button>
     </div>
   </div>
 </div>

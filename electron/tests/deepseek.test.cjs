@@ -98,8 +98,8 @@ test('Chinese output instructions preserve the user prompt and existing chat his
   assert.deepEqual(messages[0], { role: 'assistant', content: '旧记录' });
   assert.match(messages[1].content, /^生成用户故事/);
   assert.match(messages[1].content, /简体中文/);
-  assert.match(messages[1].content, /JSON 属性名/);
-  assert.match(messages[1].content, /明确要求其他语言/);
+  assert.match(messages[1].content, /JSON property names/);
+  assert.match(messages[1].content, /takes precedence over any conflicting language request/);
   assert.deepEqual(history, [{ assistant: '旧记录' }]);
 });
 
@@ -111,7 +111,9 @@ test('DeepSeek is discoverable and configurable in the actual UI constants', asy
     const source = fs.readFileSync(path.join(root, file), 'utf8');
     const code = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
     const exports = {};
-    vm.runInNewContext(code, { exports, require: name => dependencies[name], fetch, console });
+    vm.runInNewContext(code, { exports, require: name => name.endsWith('i18n/translate')
+      ? { t: (source, values) => require('../build/i18n/translate').translate(source, 'zh-CN', values) }
+      : dependencies[name], fetch, console });
     return exports;
   }
   const models = load('llm.models.constants.ts');

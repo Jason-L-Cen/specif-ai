@@ -1,3 +1,4 @@
+import { t as uiText } from "../../../i18n/translate";
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { distinctUntilChanged } from 'rxjs/operators';
@@ -13,7 +14,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
   viewProviders: [provideIcons({ heroMagnifyingGlass })]
 })
 export class SearchInputComponent {
-  @Input() placeholder: string = '搜索…';
+  @Input() placeholder: string = uiText("搜索…");
   @Output() searchChange = new EventEmitter<string>();
 
   searchControl = new FormControl('');

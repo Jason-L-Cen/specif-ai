@@ -1,3 +1,4 @@
+import { t as uiText } from "../app/i18n/translate";
 export const environment = {
   SENTRY_ENVIRONMENT: 'production',
   SENTRY_DSN: '',
@@ -5,17 +6,17 @@ export const environment = {
   ENABLE_SENTRY: false,
   DEBUG_MODE: true,
   JIRA_RATE_LIMIT_CONFIG: 9,
-  APP_VERSION: '2.8.2-zh.8',
+  APP_VERSION: '2.8.2-zh.9',
   ENABLE_POSTHOG: false,
   POSTHOG_KEY: '',
   POSTHOG_HOST: '',
   ThemeConfiguration: {
     appLogo: 'assets/img/logo/ace_white.svg',
     appLogoDark: 'assets/img/logo/ace.svg',
-    appName: '爱思 产品研发助手',
+    get appName() { return uiText("爱思 产品研发助手"); },
     appEnglishName: 'Ace Product Development Assistant',
-    appWelcomeTitle: '欢迎使用 爱思 产品研发助手',
-    appDescription: '开始使用，加速软件开发生命周期（SDLC）',
+    get appWelcomeTitle() { return uiText("欢迎使用 爱思 产品研发助手"); },
+    get appDescription() { return uiText("开始使用，加速软件开发生命周期（SDLC）"); },
     companyName: 'Ace',
     companyLogo: 'assets/img/logo/aceText.svg',
     companyLogoColor: 'assets/img/logo/ace.svg',

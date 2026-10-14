@@ -1,3 +1,4 @@
+import { t as appText } from "../../language";
 import LLMHandler from "../llm-handler";
 import { Message, ModelInfo, LLMConfig, LLMError } from "../llm-types";
 import { withRetry } from "../../../utils/retry";
@@ -21,7 +22,7 @@ export class OllamaHandler extends LLMHandler {
 
   getConfig(config: Partial<OllamaConfig>): OllamaConfig {
     if (!config.model) {
-      throw new LLMError('模型 ID 不能为空', 'ollama');
+      throw new LLMError(appText("模型 ID 不能为空"), 'ollama');
     }
 
     return {
@@ -31,7 +32,7 @@ export class OllamaHandler extends LLMHandler {
   }
 
   @withRetry({ retryAllErrors: true })
-  async invoke(
+  protected async invokeModel(
     messages: Message[],
     systemPrompt: string | null = null,
     operation: string = "llm:invoke"
@@ -86,7 +87,7 @@ export class OllamaHandler extends LLMHandler {
     }
 
     if (!data.message?.content) {
-      throw new LLMError("Ollama API 未返回回答内容", "ollama");
+      throw new LLMError(appText("Ollama API 未返回回答内容"), "ollama");
     }
 
     return data.message.content;

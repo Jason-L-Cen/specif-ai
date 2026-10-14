@@ -1,6 +1,7 @@
+import { t as uiText } from "../i18n/translate";
 export const AvailableProviders = [
   { displayName: 'Azure OpenAI', key: 'openai' },
-  { displayName: 'OpenAI（官方 API）', key: 'openai-native' },
+  { displayName: uiText("OpenAI（官方 API）"), key: 'openai-native' },
   { displayName: 'DeepSeek', key: 'deepseek' },
   { displayName: 'AWS Bedrock', key: 'bedrock' },
   { displayName: 'Gemini', key: 'gemini' },

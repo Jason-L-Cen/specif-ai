@@ -1,3 +1,4 @@
+import { t as appText } from "../../language";
 import { ChatOllama } from "@langchain/ollama";
 import { LLMConfig, LLMError } from "../llm-types";
 import { LangChainModelProvider } from "./base";
@@ -28,7 +29,7 @@ export class OllamaLangChainProvider implements LangChainModelProvider {
 
   getConfig(config: Partial<OllamaConfig>): OllamaConfig {
     if (!config.model) {
-      throw new LLMError("模型 ID 不能为空", "ollama");
+      throw new LLMError(appText("模型 ID 不能为空"), "ollama");
     }
 
     return {

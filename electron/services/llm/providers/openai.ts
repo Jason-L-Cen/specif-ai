@@ -1,3 +1,4 @@
+import { t as appText } from "../../language";
 import OpenAI, { AzureOpenAI } from "openai";
 import LLMHandler from "../llm-handler";
 import { Message, ModelInfo, LLMConfig, LLMError } from "../llm-types";
@@ -27,7 +28,7 @@ export class OpenAIHandler extends LLMHandler {
     if (this.configData.baseUrl?.toLowerCase().includes("azure.com")) {
       if (!this.configData.azureApiKey) {
         throw new LLMError(
-          "Azure 服务端点必须提供 Azure OpenAI API 密钥",
+          appText("Azure 服务端点必须提供 Azure OpenAI API 密钥"),
           "openai"
         );
       }
@@ -43,7 +44,7 @@ export class OpenAIHandler extends LLMHandler {
       });
     } else {
       if (!this.configData.apiKey) {
-        throw new LLMError(`${this.provider === 'deepseek' ? 'DeepSeek' : 'OpenAI'} API 密钥不能为空`, this.provider);
+        throw new LLMError(appText("{0} API 密钥不能为空", [this.provider === 'deepseek' ? 'DeepSeek' : 'OpenAI']), this.provider);
       }
       this.client = new OpenAI({
         apiKey: this.configData.apiKey,
@@ -55,7 +56,7 @@ export class OpenAIHandler extends LLMHandler {
 
   getConfig(config: Partial<OpenAIConfig>): OpenAIConfig {
     if (!config.model?.trim()) {
-      throw new LLMError("模型 ID 不能为空", this.provider);
+      throw new LLMError(appText("模型 ID 不能为空"), this.provider);
     }
 
     return {
@@ -69,7 +70,7 @@ export class OpenAIHandler extends LLMHandler {
   }
 
   @withRetry({ retryAllErrors: true })
-  async invoke(
+  protected async invokeModel(
     messages: Message[],
     systemPrompt: string | null = null,
     operation: string = "llm:invoke"
@@ -108,7 +109,7 @@ export class OpenAIHandler extends LLMHandler {
 
     if (!response.choices?.[0]?.message?.content) {
       throw new LLMError(
-        "模型服务未返回回答内容",
+        appText("模型服务未返回回答内容"),
         this.provider
       );
     }

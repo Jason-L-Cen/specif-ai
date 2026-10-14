@@ -1,3 +1,4 @@
+import { t as appText } from "../../../services/language";
 import { chatUserStoryTaskSchema, type ChatUserStoryTaskResponse } from '../../../schema/feature/story/chat.schema';
 import { LLMUtils } from '../../../services/llm/llm-utils';
 import { buildLLMHandler } from '../../../services/llm';
@@ -12,7 +13,7 @@ export async function chatUserStoryTask(event: IpcMainInvokeEvent, data: unknown
   try {
     const llmConfig = store.get<LLMConfigModel>('llmConfig');
     if (!llmConfig) {
-      throw new Error('未找到大语言模型配置');
+      throw new Error(appText("未找到大语言模型配置"));
     }
 
     console.log('[chat-user-story-task] Using LLM config:', llmConfig);
@@ -31,7 +32,7 @@ export async function chatUserStoryTask(event: IpcMainInvokeEvent, data: unknown
     let basePrompt = prompt;
     if (validatedData.knowledgeBase?.trim()) {
       if (!validatedData.bedrockConfig) {
-        throw new Error('使用知识库时需要配置 Bedrock');
+        throw new Error(appText("使用知识库时需要配置 Bedrock"));
       }
       basePrompt = await LLMUtils.generateKnowledgeBasePromptConstraint(
         validatedData.knowledgeBase,

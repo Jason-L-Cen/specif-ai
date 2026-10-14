@@ -1,9 +1,10 @@
+import { handleLanguageTask } from "./language-handler";
 import { ipcMain } from "electron";
 import { createSolution, abortSolutionCreation } from "../api/solution/create";
 import { validateBedrock } from "../api/solution/validate-bedrock";
 
 export function setupSolutionHandlers() {
-  ipcMain.handle('solution:createSolution', async (_event, data: any) => {
+  handleLanguageTask('solution:createSolution', async (_event, data: any) => {
     try {
       const result = await createSolution(_event, data);
       return result;

@@ -1,18 +1,17 @@
 <div class="flex flex-col gap-5 bg-white rounded-lg p-6 w-full">
     <h4 class="flex items-center font-medium text-xl">
       <ng-icon name="heroArrowDownTray" class="mr-2 text-primary-800"></ng-icon>
-      有可用更新
+      {{ "有可用更新" | i18n }}
     </h4>
 
     <div class="flex flex-1 items-center justify-between p-4 truncate rounded-lg border border-secondary-200 bg-white transition-colors">
       <div class="version-details">
-        <div class="font-medium text-base">版本 {{ data.version }}</div>
+        <div class="font-medium text-base">{{ ("版本 {0}" | i18n: [data.version]) }}</div>
         <div class="text-secondary-500">
-          发布日期：{{ data.releaseDate | timezone }}
-        </div>
+          {{ ("发布日期：{0}" | i18n: [data.releaseDate | timezone]) }}</div>
       </div>
       <app-button
-        [buttonContent]="'当前版本：' + data.currentVersion"
+        [buttonContent]="(&quot;当前版本：&quot; | i18n) + data.currentVersion"
         theme="primary"
         size="sm"
         rounded="md"
@@ -27,12 +26,12 @@
     <div class="flex justify-between space-x-4">
       <app-button
         (click)="onCancel()"
-        buttonContent="暂不更新"
+        [buttonContent]="&quot;暂不更新&quot; | i18n"
         theme="secondary_outline"
       />
       <app-button
         (click)="onUpdate()"
-        buttonContent="立即更新"
+        [buttonContent]="&quot;立即更新&quot; | i18n"
       />
     </div>
 </div>

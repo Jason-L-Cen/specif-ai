@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -68,10 +69,10 @@ export class UnifiedCardComponent {
   @Input() badges: CardBadge[] = [];
   
   // Action button (right side of footer)
-  @Input() actionButtonText: string = '查看详情';
+  @Input() actionButtonText: string = uiText("查看详情");
   
   // Copy button tooltip
-  @Input() copyTooltip: string = '复制内容';
+  @Input() copyTooltip: string = uiText("复制内容");
   
   // Events
   @Output() viewItem = new EventEmitter<void>();

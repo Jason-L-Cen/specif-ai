@@ -15,7 +15,7 @@
         <div class="flex items-center">
           <app-button
             *ngIf="mode === 'edit'"
-            buttonContent="查看业务流程图"
+            [buttonContent]="&quot;查看业务流程图&quot; | i18n"
             theme="secondary"
             size="sm"
             rounded="md"
@@ -43,9 +43,9 @@
         <div class="p-4 flex flex-col gap-1.5 flex-1 overflow-y-auto">
           <div class="flex flex-col">
             <app-input-field
-              elementPlaceHolder="标题"
+              [elementPlaceHolder]="&quot;标题&quot; | i18n"
               elementId="title"
-              elementName="标题"
+              [elementName]="&quot;标题&quot; | i18n"
               formControlName="title"
               [required]="true"
             />
@@ -56,13 +56,13 @@
               "
               class="text-danger-500 text-sm"
             >
-              请输入标题
+              {{ "请输入标题" | i18n }}
             </div>
           </div>
 
           <div class="flex flex-col gap-1.5">
             <label class="block text-sm font-medium text-secondary-500">
-              描述
+              {{ "描述" | i18n }}
               <span class="text-red-500 text-xs">*</span>
             </label>
             <div class="flex flex-col gap-1.5">
@@ -81,7 +81,7 @@
                   "
                   class="text-red-500 text-sm"
                 >
-                  请输入描述
+                  {{ "请输入描述" | i18n }}
                 </span>
               </ng-container>
             </div>
@@ -89,7 +89,7 @@
 
           <div class="flex flex-col gap-3 mt-4">
             <div>
-              <h2 class="text-sm font-medium text-secondary-900">已纳入的业务需求文档（BRD）</h2>
+              <h2 class="text-sm font-medium text-secondary-900">{{ "已纳入的业务需求文档（BRD）" | i18n }}</h2>
               <div class="mt-2 flex flex-wrap gap-1.5">
                 <div *ngFor="let brd of selectedBRDs">
                   <app-pill
@@ -106,13 +106,13 @@
                   "
                 >
                   <app-pill variant="primary" contentContainerClass="select-none">
-                    添加 →
+                    {{ "添加 →" | i18n }}
                   </app-pill>
                 </button>
               </div>
             </div>
             <div>
-              <h2 class="text-sm font-medium text-secondary-900">已纳入的产品需求文档（PRD）</h2>
+              <h2 class="text-sm font-medium text-secondary-900">{{ "已纳入的产品需求文档（PRD）" | i18n }}</h2>
               <div class="mt-2 flex flex-wrap gap-1.5">
                 <div *ngFor="let prd of selectedPRDs">
                   <app-pill
@@ -129,7 +129,7 @@
                   "
                 >
                   <app-pill variant="primary" contentContainerClass="select-none">
-                    添加 →
+                    {{ "添加 →" | i18n }}
                   </app-pill>
                 </button>
               </div>
@@ -145,14 +145,14 @@
               *ngIf="businessProcessForm.errors?.['noPrdOrBrd']"
               class="text-danger-500 text-center text-xs mt-1"
             >
-              请至少选择一份产品需求文档（PRD）或业务需求文档（BRD）。
+              {{ "请至少选择一份产品需求文档（PRD）或业务需求文档（BRD）。" | i18n }}
             </div>
           </div>
         </div>
 
         <div class="flex justify-end gap-2 p-4 border-t border-secondary-200">
           <app-button
-            buttonContent="使用 AI 优化"
+            [buttonContent]="&quot;使用 AI 优化&quot; | i18n"
             icon="heroSparklesSolid"
             theme="secondary_outline"
             size="sm"
@@ -165,7 +165,7 @@
             [disabled]="checkFormValidity()"
           ></app-button>
           <app-button
-            buttonContent="更新"
+            [buttonContent]="&quot;更新&quot; | i18n"
             theme="primary"
             size="sm"
             rounded="md"
@@ -174,7 +174,7 @@
             [disabled]="checkFormValidity()"
           />
           <app-button
-            buttonContent="添加"
+            [buttonContent]="&quot;添加&quot; | i18n"
             theme="primary"
             size="sm"
             rounded="md"
@@ -198,11 +198,11 @@
             <ng-container
               [ngTemplateOutlet]="TabTrigger"
               [ngTemplateOutletContext]="{
-                label: '与 Ace 对话',
-                isTabActive: activeTab === 'chat',
-                tabId: 'chat',
+                label: (&quot;与 Ace 对话&quot; | i18n),
+                isTabActive: activeTab === &#39;chat&#39;,
+                tabId: &#39;chat&#39;,
                 onClick: switchTab,
-                icon: 'heroSparklesSolid'
+                icon: &#39;heroSparklesSolid&#39;
               }"
             >
             </ng-container>
@@ -211,9 +211,9 @@
           <ng-container
             [ngTemplateOutlet]="TabTrigger"
             [ngTemplateOutletContext]="{
-              label: '纳入业务需求与产品需求文档',
-              isTabActive: activeTab === 'includeFiles',
-              tabId: 'includeFiles',
+              label: (&quot;纳入业务需求与产品需求文档&quot; | i18n),
+              isTabActive: activeTab === &#39;includeFiles&#39;,
+              tabId: &#39;includeFiles&#39;,
               onClick: switchTab,
             }"
           >
@@ -253,7 +253,7 @@
           <ng-container
             [ngTemplateOutlet]="TabTrigger"
             [ngTemplateOutletContext]="{
-              label: '产品需求文档（' + selectedPRDs.length + '）',
+              label: (&quot;产品需求文档（{0}）&quot; | i18n: [selectedPRDs.length]),
               isTabActive: selectedTab === requirementTypes.PRD,
               tabId: requirementTypes.PRD,
               onClick: selectTab,
@@ -263,7 +263,7 @@
           <ng-container
             [ngTemplateOutlet]="TabTrigger"
             [ngTemplateOutletContext]="{
-              label: '业务需求文档（' + selectedBRDs.length + '）',
+              label: (&quot;业务需求文档（{0}）&quot; | i18n: [selectedBRDs.length]),
               isTabActive: selectedTab === requirementTypes.BRD,
               tabId: requirementTypes.BRD,
               onClick: selectTab,
@@ -344,7 +344,7 @@
           <ng-template #noDocuments>
             <div class="flex items-center justify-center h-full">
               <h2 class="text-center text-secondary-500">
-                暂无文档
+                {{ "暂无文档" | i18n }}
               </h2>
             </div>
           </ng-template>

@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../../i18n/i18n.pipe";
+import { t as uiText } from "../../../i18n/translate";
 import { Component, Input, Output, EventEmitter, OnInit, signal } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -14,7 +16,7 @@ import { IProjectMetadata, ZentaoIntegrationConfig } from '../../../model/interf
 
 @Component({
   selector: 'app-zentao-integration', standalone: true,
-  imports: [NgIf, NgFor, ReactiveFormsModule, InputFieldComponent, ButtonComponent],
+  imports: [NgIf, NgFor, ReactiveFormsModule, InputFieldComponent, ButtonComponent, I18nPipe],
   templateUrl: './zentao-integration.component.html',
 })
 export class ZentaoIntegrationComponent implements OnInit {
@@ -51,7 +53,7 @@ export class ZentaoIntegrationComponent implements OnInit {
       this.loggedIn.set(true);
       this.setConnected(true);
       this.form.disable();
-    } catch (error) { this.error.set(error instanceof Error ? error.message : '请重新登录禅道。'); }
+    } catch (error) { this.error.set(error instanceof Error ? error.message : uiText("请重新登录禅道。")); }
     finally { this.isProcessing.set(false); }
   }
 
@@ -69,7 +71,7 @@ export class ZentaoIntegrationComponent implements OnInit {
   async onLogin(): Promise<void> {
     if (this.isProcessing()) return;
     const { baseUrl, account, password } = this.form.getRawValue();
-    if (!baseUrl.trim() || !account.trim() || !password) { this.error.set('请填写服务器地址、账号和密码。'); return; }
+    if (!baseUrl.trim() || !account.trim() || !password) { this.error.set(uiText("请填写服务器地址、账号和密码。")); return; }
     this.isProcessing.set(true); this.error.set('');
     try {
       const resources = await this.electron.zentao('login', { projectId: this.projectId, baseUrl, account, password });
@@ -77,9 +79,9 @@ export class ZentaoIntegrationComponent implements OnInit {
       this.form.patchValue({ baseUrl: resources.baseUrl, password: '', reviewer: this.form.controls.reviewer.value || account.trim() });
       this.loggedIn.set(true);
       this.form.controls.baseUrl.disable();
-      if (!resources.remembered) this.toast.showInfo('系统加密存储不可用，本次登录仅在 App 运行期间有效。');
+      if (!resources.remembered) this.toast.showInfo(uiText("系统加密存储不可用，本次登录仅在 App 运行期间有效。"));
       if (this.saved) await this.onConnect();
-    } catch (error) { this.error.set(error instanceof Error ? error.message : '禅道登录失败。'); this.form.controls.password.setValue(''); }
+    } catch (error) { this.error.set(error instanceof Error ? error.message : uiText("禅道登录失败。")); this.form.controls.password.setValue(''); }
     finally { this.isProcessing.set(false); }
   }
 
@@ -96,11 +98,11 @@ export class ZentaoIntegrationComponent implements OnInit {
       await firstValueFrom(this.store.dispatch(new UpdateMetadata(this.projectId, { integration })));
       const project = this.store.selectSnapshot(ProjectsState.getProjects).find(p => p.metadata.id === this.projectId);
       const saved = project && JSON.parse(await this.files.readFile(`${project.project}/.metadata.json`));
-      if (!saved || JSON.stringify(saved.integration?.zentao) !== JSON.stringify(config)) throw new Error('保存连接失败，请检查项目目录权限。');
+      if (!saved || JSON.stringify(saved.integration?.zentao) !== JSON.stringify(config)) throw new Error(uiText("保存连接失败，请检查项目目录权限。"));
       this.projectMetadata = saved;
       this.setConnected(true); this.form.disable();
-      this.toast.showSuccess('禅道连接已保存。可在产品需求列表选择拉取或推送。');
-    } catch (error) { this.error.set(error instanceof Error ? error.message : '保存禅道连接失败。'); }
+      this.toast.showSuccess(uiText("禅道连接已保存。可在产品需求列表选择拉取或推送。"));
+    } catch (error) { this.error.set(error instanceof Error ? error.message : uiText("保存禅道连接失败。")); }
     finally { this.isProcessing.set(false); }
   }
 
@@ -110,8 +112,8 @@ export class ZentaoIntegrationComponent implements OnInit {
     try {
       await this.electron.zentao('disconnect', this.projectId);
       this.setConnected(false); this.loggedIn.set(false); this.form.enable(); this.lockTarget();
-      this.toast.showSuccess('已断开禅道连接，工作项关联仍保留。');
-    } catch { this.error.set('断开禅道连接失败。'); }
+      this.toast.showSuccess(uiText("已断开禅道连接，工作项关联仍保留。"));
+    } catch { this.error.set(uiText("断开禅道连接失败。")); }
     finally { this.isProcessing.set(false); }
   }
 }

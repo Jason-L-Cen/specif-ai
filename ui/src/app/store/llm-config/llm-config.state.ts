@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { LLMConfigModel } from "../../model/interfaces/ILLMConfig";
@@ -64,7 +65,7 @@ export class LLMConfigState {
     
     // Only switch if we have a configuration for this provider
     if (!state.providerConfigs[provider]) {
-      this.toasterService.showError(`未找到模型服务商 ${provider} 的配置。`);
+      this.toasterService.showError(uiText("未找到模型服务商 {0} 的配置。", [provider]));
       return;
     }
 
@@ -99,7 +100,7 @@ export class LLMConfigState {
           if (response.status === 'failed') {
             const providerDisplayName = AvailableProviders.find(p => p.key === state.activeProvider)?.displayName || state.activeProvider;
             this.toasterService.showError(
-              `${providerDisplayName} 配置验证失败，请检查凭据后重试。`,
+              uiText("{0} 配置验证失败，请检查凭据后重试。", [providerDisplayName]),
               DEFAULT_TOAST_DURATION
             );
           }
@@ -110,7 +111,7 @@ export class LLMConfigState {
           console.error('Error verifying LLM config');
           const providerDisplayName = AvailableProviders.find(p => p.key === state.activeProvider)?.displayName || state.activeProvider;
           this.toasterService.showError(
-            `${providerDisplayName} 配置验证失败，请检查凭据后重试。`,
+            uiText("{0} 配置验证失败，请检查凭据后重试。", [providerDisplayName]),
             DEFAULT_TOAST_DURATION
           );
           // Keep existing config, just sync it

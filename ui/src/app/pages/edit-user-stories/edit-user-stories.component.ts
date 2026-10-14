@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
 import {
   IUpdateUserStoryRequest,
@@ -67,7 +69,7 @@ import { Editor } from '@tiptap/core';
     MatTooltipModule,
     RichTextEditorComponent,
     InlineEditDirective
-  ],
+  , I18nPipe],
   providers: [
     provideIcons({
       heroSparklesSolid
@@ -153,7 +155,7 @@ export class EditUserStoriesComponent implements OnDestroy {
         }
       });
     this.createUserStoryForm();
-    this.editLabel = this.mode == 'edit' ? '编辑' : '添加';
+    this.editLabel = this.mode == 'edit' ? uiText("编辑") : uiText("添加");
     this.store.dispatch(
       new AddBreadcrumb({
         label: this.editLabel,
@@ -416,7 +418,7 @@ export class EditUserStoriesComponent implements OnDestroy {
       };
       
       if (hasLinkedTestCases) {
-        dialogConfig.description = `${this.existingUserForm.id} 关联的测试用例也将被删除。确定要继续吗？`;
+        dialogConfig.description = uiText("{0} 关联的测试用例也将被删除。确定要继续吗？", [this.existingUserForm.id]);
       }
       
       const confirmed = await firstValueFrom(this.dialogService.confirm(dialogConfig));
@@ -485,7 +487,7 @@ export class EditUserStoriesComponent implements OnDestroy {
   }
 
   getContentContext(): string {
-    return `${this.projectMetadata?.name || ''} - ${this.projectMetadata?.description || ''} - 用户故事：${this.name || ''}`;
+    return uiText("{0} - {1} - 用户故事：{2}", [this.projectMetadata?.name || '', this.projectMetadata?.description || '', this.name || '']);
   }
 
   handleInlineEditUpdate(newContent: string): void {

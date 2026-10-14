@@ -1,14 +1,16 @@
+import { t as appText } from "../services/language";
+import { handleLanguageTask } from './language-handler';
 import { ipcMain, dialog } from "electron";
 import { utilityFunctionMap } from "../file-system.utility";
 import fs from "fs";
 import { extractDocumentText } from "../document-text";
 
 export function setupFileSystemHandlers() {
-  ipcMain.handle('document:extractText', async (_event, input: unknown) => extractDocumentText(input));
+  handleLanguageTask('document:extractText', async (_event, input: unknown) => extractDocumentText(input));
   ipcMain.handle("dialog:openFile", async () => {
     const { canceled, filePaths } = await dialog.showOpenDialog({
-      title: "打开文件",
-      buttonLabel: "打开",
+      title: appText("打开文件"),
+      buttonLabel: appText("打开"),
     });
     if (canceled) {
       return null;
@@ -28,8 +30,8 @@ export function setupFileSystemHandlers() {
 
       if (!filePath) {
         const response = await dialog.showSaveDialog({
-          title: "保存文件",
-          buttonLabel: "保存",
+          title: appText("保存文件"),
+          buttonLabel: appText("保存"),
         });
         filePath = response.filePath || '';
         if (response.canceled) {
@@ -48,8 +50,8 @@ export function setupFileSystemHandlers() {
 
   ipcMain.handle("dialog:openDirectory", async () => {
     const { canceled, filePaths } = await dialog.showOpenDialog({
-      title: "选择工作目录",
-      buttonLabel: "选择目录",
+      title: appText("选择工作目录"),
+      buttonLabel: appText("选择目录"),
       properties: ["openDirectory"],
     });
     if (canceled) {

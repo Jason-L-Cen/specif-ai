@@ -1,11 +1,11 @@
-import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../context/markdown-rules";
+import { getOutputLanguageInstructions } from "../context/markdown-rules";
 import { SIParams } from "../../schema/core/chat-with-ai.schema";
 /**
  * Prompt for the response format schema of the strategic initiative generation agent
  * @returns A formatted prompt string for the agent response format
  */
 export const getStrategicInitiativeResponseFormatPrompt = (): string => {
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
 You are a Business Development Consultant. Generate a comprehensive business proposal based on the project information and research findings.
           
@@ -54,7 +54,7 @@ export const getStrategicInitiativePrompt = (
   researchInformation: string, 
   solutionInfo: { name: string; description: string; techDetails: string }
 ): string => {
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
 Here is additional research information that may be helpful:
 ${researchInformation}
@@ -136,7 +136,7 @@ ${requirement?.description ? `Requirement: ${requirement.description}` : ""}`;
 
   prompt += `\n\nDO NOT ask for more information or URLs. Simply use the fetch_url_content tool on each URL provided and summarize what you find.`;
   
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}\n\n${prompt}`;
+  return `${getOutputLanguageInstructions()}\n\n${prompt}`;
 };
 
 /**
@@ -144,7 +144,7 @@ ${requirement?.description ? `Requirement: ${requirement.description}` : ""}`;
  * @returns A formatted prompt string for summarizing research findings
  */
 export const getResearchSummaryPrompt = (): string => {
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
 Summarize your research findings about the business proposal. Focus on industry trends, competitor strategies, and market opportunities that could inform the business proposal.`;
 };
@@ -158,7 +158,7 @@ Summarize your research findings about the business proposal. Focus on industry 
 export const getSIPrompt = (params: SIParams): string => {
   const { project, requirement } = params;
 
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
 You are a Business Development Consultant with deep expertise in analyzing companies, identifying strategic opportunities, and crafting actionable business case proposals.
 

@@ -17,7 +17,7 @@
       </div>
       <div class="flex gap-2">
         <app-button
-          buttonContent="添加"
+          [buttonContent]="&quot;添加&quot; | i18n"
           icon="heroPlus"
           theme="secondary"
           size="sm"
@@ -45,7 +45,7 @@
     </div>
     <app-search-input
       *ngIf="projectList.length > 0"
-      placeholder="搜索…"
+      [placeholder]="&quot;搜索…&quot; | i18n"
       (searchChange)="onSearch($event)"
     ></app-search-input>
   </div>
@@ -82,16 +82,16 @@
                   icon="heroArrowTopRightOnSquare"
                   iconPosition="right"
                   [tooltip]="
-                    '在 ' +
-                    (appInfo?.integration?.selectedPmoTool === 'ado'
-                      ? 'Azure DevOps'
-                      : appInfo?.integration?.selectedPmoTool === 'zentao' ? '禅道' : 'Jira') + ' 中打开'
+
+                    &#39;在 {0} 中打开&#39; | i18n: [(appInfo?.integration?.selectedPmoTool === &#39;ado&#39;
+                      ? &#39;Azure DevOps&#39;
+                      : appInfo?.integration?.selectedPmoTool === &#39;zentao&#39; ? (&#39;禅道&#39; | i18n) : &#39;Jira&#39;)]
                   "
                 >
                   <img
                     *ngIf="getPmoLogo()"
                     [src]="getPmoLogo()"
-                    alt="项目管理工具标志"
+                    [alt]="&quot;项目管理工具标志&quot; | i18n"
                     class="w-3 h-3 mr-1"
                     slot="icon-left"
                   />
@@ -118,7 +118,7 @@
               <app-button
                 *ngIf="item.folderName === requirementTypes.PRD"
                 (click)="navigateToUserStories(item)"
-                buttonContent="用户故事"
+                [buttonContent]="&quot;用户故事&quot; | i18n"
                 theme="secondary_outline"
                 size="sm"
                 rounded="lg"
@@ -145,13 +145,13 @@
 </div>
 
 <ng-template #noProjectList>
-  <p class="text-center text-secondary-500">暂无项目列表。</p>
+  <p class="text-center text-secondary-500">{{ "暂无项目列表。" | i18n }}</p>
 </ng-template>
 
 <ng-template #noDocuments>
-  <p class="text-center text-secondary-500">暂无文档。</p>
+  <p class="text-center text-secondary-500">{{ "暂无文档。" | i18n }}</p>
 </ng-template>
 
 <ng-template #noSearchResults>
-  <p class="text-center text-secondary-500">未找到搜索结果。</p>
+  <p class="text-center text-secondary-500">{{ "未找到搜索结果。" | i18n }}</p>
 </ng-template>

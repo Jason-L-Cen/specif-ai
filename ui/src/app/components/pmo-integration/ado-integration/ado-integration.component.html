@@ -8,22 +8,20 @@
     >
       <div class="mb-4 pb-3 border-b border-gray-300">
         <p class="text-sm text-gray-600 leading-relaxed">
-          根据 Azure DevOps 项目的工作项类型，配置它们与
-          {{ environment.ThemeConfiguration.appName }} 需求的对应关系
-        </p>
+          {{ ("根据 Azure DevOps 项目的工作项类型，配置它们与 {0} 需求的对应关系" | i18n: [environment.ThemeConfiguration.appName]) }}</p>
       </div>
       <div class="space-y-3">
         <div class="flex items-center justify-between">
           <div class="flex items-center flex-1">
             <span class="w-32 font-medium text-gray-700 flex-shrink-0"
-              >产品需求 <span class="text-red-500">*</span></span
+              >{{ "产品需求" | i18n }} <span class="text-red-500">*</span></span
             >
             <span class="mx-3 text-gray-400">→</span>
             <div class="flex-1 max-w-xs">
               <app-input-field
                 formControlName="prdWorkItemType"
                 elementId="prdWorkItemType"
-                elementPlaceHolder="工作项类型的实际名称"
+                [elementPlaceHolder]="&quot;工作项类型的实际名称&quot; | i18n"
                 [showLabel]="false"
                 [required]="true"
                 customClass="!p-2 !py-1.5 !text-sm !w-full !my-0 !border-gray-300"
@@ -35,14 +33,14 @@
         <div class="flex items-center justify-between">
           <div class="flex items-center flex-1">
             <span class="w-32 font-medium text-gray-700 flex-shrink-0"
-              >用户故事 <span class="text-red-500">*</span></span
+              >{{ "用户故事" | i18n }} <span class="text-red-500">*</span></span
             >
             <span class="mx-3 text-gray-400">→</span>
             <div class="flex-1 max-w-xs">
               <app-input-field
                 formControlName="userStoryWorkItemType"
                 elementId="userStoryWorkItemType"
-                elementPlaceHolder="工作项类型的实际名称"
+                [elementPlaceHolder]="&quot;工作项类型的实际名称&quot; | i18n"
                 [showLabel]="false"
                 [required]="true"
                 customClass="!p-2 !py-1.5 !text-sm !w-full !my-0 !border-gray-300"
@@ -54,14 +52,14 @@
         <div class="flex items-center justify-between">
           <div class="flex items-center flex-1">
             <span class="w-32 font-medium text-gray-700 flex-shrink-0"
-              >任务 <span class="text-red-500">*</span></span
+              >{{ "任务" | i18n }} <span class="text-red-500">*</span></span
             >
             <span class="mx-3 text-gray-400">→</span>
             <div class="flex-1 max-w-xs">
               <app-input-field
                 formControlName="taskWorkItemType"
                 elementId="taskWorkItemType"
-                elementPlaceHolder="工作项类型的实际名称"
+                [elementPlaceHolder]="&quot;工作项类型的实际名称&quot; | i18n"
                 [showLabel]="false"
                 [required]="true"
                 customClass="!p-2 !py-1.5 !text-sm !w-full !my-0 !border-gray-300"
@@ -78,13 +76,13 @@
       <app-input-field
         formControlName="organization"
         elementId="adoOrganization"
-        elementName="组织名称"
-        elementPlaceHolder="请输入 Azure DevOps 组织名称"
+        [elementName]="&quot;组织名称&quot; | i18n"
+        [elementPlaceHolder]="&quot;请输入 Azure DevOps 组织名称&quot; | i18n"
         [required]="true"
         aria-describedby="org-help"
       />
       <small id="org-help" class="sr-only">
-        请输入 Azure DevOps 组织名称
+        {{ "请输入 Azure DevOps 组织名称" | i18n }}
       </small>
     </div>
 
@@ -92,13 +90,13 @@
       <app-input-field
         formControlName="projectName"
         elementId="adoProjectName"
-        elementName="项目名称"
-        elementPlaceHolder="请输入项目名称"
+        [elementName]="&quot;项目名称&quot; | i18n"
+        [elementPlaceHolder]="&quot;请输入项目名称&quot; | i18n"
         [required]="true"
         aria-describedby="project-help"
       />
       <small id="project-help" class="sr-only">
-        请输入 Azure DevOps 项目名称
+        {{ "请输入 Azure DevOps 项目名称" | i18n }}
       </small>
     </div>
   </div>
@@ -107,14 +105,14 @@
     <app-input-field
       formControlName="personalAccessToken"
       elementId="adoPersonalAccessToken"
-      elementName="个人访问令牌"
-      elementPlaceHolder="请输入个人访问令牌"
+      [elementName]="&quot;个人访问令牌&quot; | i18n"
+      [elementPlaceHolder]="&quot;请输入个人访问令牌&quot; | i18n"
       elementType="password"
       [required]="true"
       aria-describedby="token-help"
     />
     <small id="token-help" class="sr-only">
-      请输入具有所需权限的 Azure DevOps 个人访问令牌
+      {{ "请输入具有所需权限的 Azure DevOps 个人访问令牌" | i18n }}
     </small>
   </div>
 
@@ -126,9 +124,12 @@
       (click)="isConnected() ? onDisconnect() : onConnect()"
       [disabled]="buttonDisabled()"
       [attr.aria-label]="
+
+
+
         isConnected()
-          ? '断开与 Azure DevOps 的连接'
-          : '连接 Azure DevOps'
+          ? (&quot;断开与 Azure DevOps 的连接&quot; | i18n)
+          : (&quot;连接 Azure DevOps&quot; | i18n)
       "
     >
     </app-button>

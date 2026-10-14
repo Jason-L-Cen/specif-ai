@@ -1,3 +1,4 @@
+import { t as uiText } from "../i18n/translate";
 import { getProviderModels } from './llm.models.constants';
 export interface ProviderField {
   name: string;
@@ -36,14 +37,14 @@ export async function getLLMProviderConfig(provider: string) {
         {
           name: 'apiKey',
           type: 'password',
-          label: 'API 密钥',
+          label: uiText("API 密钥"),
           required: true,
-          placeholder: '请输入 DeepSeek API 密钥',
+          placeholder: uiText("请输入 DeepSeek API 密钥"),
         },
         {
           name: 'model',
           type: 'select',
-          label: '模型',
+          label: uiText("模型"),
           required: true,
           defaultValue: 'deepseek-flash',
           options,
@@ -56,7 +57,7 @@ export async function getLLMProviderConfig(provider: string) {
         {
           name: 'baseUrl',
           type: 'text',
-          label: '服务地址',
+          label: uiText("服务地址"),
           required: true,
           placeholder: 'http://localhost:11434',
           defaultValue: 'http://localhost:11434'
@@ -64,9 +65,9 @@ export async function getLLMProviderConfig(provider: string) {
         {
           name: 'model',
           type: 'text',
-          label: '模型',
+          label: uiText("模型"),
           required: true,
-          placeholder: '请输入模型名称（例如 llama2、codellama）'
+          placeholder: uiText("请输入模型名称（例如 llama2、codellama）")
         }
       ]
     },
@@ -75,14 +76,14 @@ export async function getLLMProviderConfig(provider: string) {
         {
           name: 'apiKey',
           type: 'password',
-          label: 'API 密钥',
+          label: uiText("API 密钥"),
           required: true,
-          placeholder: '请输入 OpenRouter API 密钥',
+          placeholder: uiText("请输入 OpenRouter API 密钥"),
         },
         {
           name: 'model',
           type: 'select',
-          label: '模型',
+          label: uiText("模型"),
           required: true,
           options: options,
           useAutocomplete: false,
@@ -90,8 +91,8 @@ export async function getLLMProviderConfig(provider: string) {
         {
           name: 'baseUrl',
           type: 'text',
-          label: '服务地址（可选）',
-          placeholder: '服务地址',
+          label: uiText("服务地址（可选）"),
+          placeholder: uiText("服务地址"),
           defaultValue: 'https://openrouter.ai/api/v1',
         },
       ],
@@ -101,30 +102,30 @@ export async function getLLMProviderConfig(provider: string) {
         {
           name: 'endpoint',
           type: 'text',
-          label: '服务地址',
+          label: uiText("服务地址"),
           required: true,
           placeholder: 'https://your-resource.openai.azure.com/',
         },
         {
           name: 'apiKey',
           type: 'password',
-          label: 'API 密钥',
+          label: uiText("API 密钥"),
           required: true,
-          placeholder: '请输入 Azure OpenAI API 密钥',
+          placeholder: uiText("请输入 Azure OpenAI API 密钥"),
         },
         {
           name: 'deployment',
           type: 'text',
-          label: '部署 ID',
+          label: uiText("部署 ID"),
           required: true,
-          placeholder: '请输入模型部署名称',
+          placeholder: uiText("请输入模型部署名称"),
         },
         {
           name: 'apiVersion',
           type: 'text',
-          label: 'API 版本',
+          label: uiText("API 版本"),
           required: true,
-          placeholder: '例如 2023-05-15',
+          placeholder: uiText("例如 2023-05-15"),
           defaultValue: '2024-09-01-preview',
         },
       ],
@@ -134,14 +135,14 @@ export async function getLLMProviderConfig(provider: string) {
         {
           name: 'apiKey',
           type: 'password',
-          label: 'API 密钥',
+          label: uiText("API 密钥"),
           required: true,
-          placeholder: '请输入 OpenAI API 密钥',
+          placeholder: uiText("请输入 OpenAI API 密钥"),
         },
         {
           name: 'model',
           type: 'select',
-          label: '模型',
+          label: uiText("模型"),
           required: true,
           options: options,
           useAutocomplete: false,
@@ -153,7 +154,7 @@ export async function getLLMProviderConfig(provider: string) {
         {
           name: 'model',
           type: 'select',
-          label: '模型',
+          label: uiText("模型"),
           required: true,
           options: options,
           useAutocomplete: false,
@@ -161,27 +162,27 @@ export async function getLLMProviderConfig(provider: string) {
         {
           name: 'accessKeyId',
           type: 'text',
-          label: '访问密钥 ID',
+          label: uiText("访问密钥 ID"),
           required: true,
-          placeholder: '请输入 AWS 访问密钥 ID',
+          placeholder: uiText("请输入 AWS 访问密钥 ID"),
         },
         {
           name: 'secretAccessKey',
           type: 'password',
-          label: '秘密访问密钥',
+          label: uiText("秘密访问密钥"),
           required: true,
-          placeholder: '请输入 AWS 秘密访问密钥',
+          placeholder: uiText("请输入 AWS 秘密访问密钥"),
         },
         {
           name: 'sessionToken',
           type: 'password',
-          label: '会话令牌',
-          placeholder: '请输入 AWS 会话令牌（可选）',
+          label: uiText("会话令牌"),
+          placeholder: uiText("请输入 AWS 会话令牌（可选）"),
         },
         {
           name: 'region',
           type: 'select',
-          label: '区域',
+          label: uiText("区域"),
           required: true,
           options: BEDROCK_REGIONS,
           useAutocomplete: false,
@@ -189,7 +190,7 @@ export async function getLLMProviderConfig(provider: string) {
         {
           name: 'useCrossRegionInference',
           type: 'checkbox',
-          label: '启用跨区域推理',
+          label: uiText("启用跨区域推理"),
           defaultValue: false,
         },
       ],
@@ -199,14 +200,14 @@ export async function getLLMProviderConfig(provider: string) {
         {
           name: 'apiKey',
           type: 'password',
-          label: 'API 密钥',
+          label: uiText("API 密钥"),
           required: true,
-          placeholder: '请输入 Google API 密钥',
+          placeholder: uiText("请输入 Google API 密钥"),
         },
         {
           name: 'model',
           type: 'select',
-          label: '模型',
+          label: uiText("模型"),
           required: true,
           options: options,
           useAutocomplete: false,
@@ -218,27 +219,27 @@ export async function getLLMProviderConfig(provider: string) {
         {
           name: 'apiKey',
           type: 'password',
-          label: 'API 密钥',
+          label: uiText("API 密钥"),
           required: true,
-          placeholder: '请输入 Anthropic API 密钥',
+          placeholder: uiText("请输入 Anthropic API 密钥"),
         },
         {
           name: 'baseUrl',
           type: 'text',
-          label: '服务地址（可选）',
+          label: uiText("服务地址（可选）"),
           placeholder: 'https://api.anthropic.com',
           defaultValue: 'https://api.anthropic.com',
         },
         {
           name: 'maxRetries',
           type: 'number',
-          label: '最大重试次数',
+          label: uiText("最大重试次数"),
           defaultValue: 3,
         },
         {
           name: 'model',
           type: 'select',
-          label: '模型',
+          label: uiText("模型"),
           required: true,
           options: options,
           useAutocomplete: false,

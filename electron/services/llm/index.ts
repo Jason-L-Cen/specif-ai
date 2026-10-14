@@ -1,3 +1,4 @@
+import { t as appText } from "../language";
 import AzureOpenAIHandler from './providers/azure-openai';
 import LLMHandler from './llm-handler';
 import { DEEPSEEK_BASE_URL, LLMError, LLMProvider } from './llm-types';
@@ -57,7 +58,7 @@ export function buildLLMHandler(provider: LLMProvider | string, config: Record<s
       return new OpenRouterHandler(config);
     default:
       throw new LLMError(
-        `无效的模型服务商：${provider}。可用服务商： ${Object.values(LLMProvider).join(', ')}`,
+        appText("无效的模型服务商：{0}。可用服务商： {1}", [provider, Object.values(LLMProvider).join(', ')]),
         'builder'
       );
   }

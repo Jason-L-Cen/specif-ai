@@ -17,7 +17,8 @@ export function setupContentGenerationHandlers() {
       contentGenerationManager.setContentGenerationStatus(
         solutionId,
         type,
-        isInProgress
+        isInProgress,
+        `renderer:${_event.sender.id}`
       );
       return { success: true };
     }

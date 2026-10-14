@@ -1,3 +1,4 @@
+import { t as uiText } from "../i18n/translate";
 import { Injectable } from '@angular/core';
 import { LoadingService } from '../services/loading.service';
 import { IpcRequest } from '../interfaces/ipc.interface';
@@ -27,11 +28,11 @@ export class IpcInterceptor {
         && !exemptedChannels.includes(request.channel)
     ) {
       this.toasterService.showError(
-        '请先配置大语言模型后再继续',
+        uiText("请先配置大语言模型后再继续"),
         undefined,
         true,
       );
-      return Promise.reject(new Error('请配置大语言模型'));
+      return Promise.reject(new Error(uiText("请配置大语言模型")));
     }
 
     if (!request.skipLoading) {

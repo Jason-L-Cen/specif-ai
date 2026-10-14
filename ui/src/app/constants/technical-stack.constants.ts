@@ -1,3 +1,4 @@
+import { t as uiText } from "../i18n/translate";
 import type { SelectOption } from '../components/core/app-select/app-select.component';
 
 export interface TechnicalStack {
@@ -13,7 +14,7 @@ export const TECHNICAL_STACK_FIELDS: (keyof TechnicalStack)[] = [
 ];
 
 const LABELS: Record<string, string> = {
-  bs: 'B/S Web 应用', cs: 'C/S 桌面应用', mobile: '移动 App', api: '后端 / API 服务',
+  bs: uiText("B/S Web 应用"), cs: uiText("C/S 桌面应用"), mobile: uiText("移动 App"), api: uiText("后端 / API 服务"),
   java: 'Java', python: 'Python', typescript: 'TypeScript', javascript: 'JavaScript',
   csharp: 'C#', go: 'Go', php: 'PHP', rust: 'Rust', cpp: 'C++',
   dart: 'Dart', kotlin: 'Kotlin', swift: 'Swift',
@@ -27,10 +28,10 @@ const LABELS: Record<string, string> = {
   reactnative: 'React Native', android: 'Android SDK', maui: '.NET MAUI',
   vue: 'Vue 3（TypeScript / JavaScript）', react: 'React（TypeScript / JavaScript）',
   angular: 'Angular（TypeScript）', svelte: 'Svelte（TypeScript / JavaScript）',
-  html: 'HTML / CSS / JavaScript', native: '框架界面（由选定框架提供）',
-  'no-frontend': '无前端（API / 后台服务）',
+  html: 'HTML / CSS / JavaScript', native: uiText("框架界面（由选定框架提供）"),
+  'no-frontend': uiText("无前端（API / 后台服务）"),
   postgresql: 'PostgreSQL', mysql: 'MySQL', mariadb: 'MariaDB', sqlserver: 'SQL Server',
-  oracle: 'Oracle', mongodb: 'MongoDB', sqlite: 'SQLite', none: '不使用数据库',
+  oracle: 'Oracle', mongodb: 'MongoDB', sqlite: 'SQLite', none: uiText("不使用数据库"),
 };
 
 const WEB_FRAMEWORKS: Record<string, string[]> = {
@@ -89,6 +90,6 @@ export function getTechnicalStackOptions(field: keyof TechnicalStack, stack: Tec
 }
 
 export function describeTechnicalStack(stack: TechnicalStack): string {
-  const names = ['应用架构', '开发语言', '应用框架', '前端 / 界面', stack.architecture === 'mobile' ? '本地数据库' : '数据库'];
+  const names = [uiText("应用架构"), uiText("开发语言"), uiText("应用框架"), uiText("前端 / 界面"), stack.architecture === 'mobile' ? uiText("本地数据库") : uiText("数据库")];
   return TECHNICAL_STACK_FIELDS.map((field, index) => `${names[index]}：${LABELS[stack[field]]}`).join('\n');
 }

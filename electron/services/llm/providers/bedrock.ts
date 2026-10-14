@@ -1,3 +1,4 @@
+import { t as appText } from "../../language";
 import {
   BedrockRuntimeClient,
   InvokeModelCommand,
@@ -47,16 +48,16 @@ export class BedrockHandler extends LLMHandler {
 
   getConfig(config: Partial<BedrockConfig>): BedrockConfig {
     if (!config.region) {
-      throw new LLMError("AWS 区域不能为空", "bedrock");
+      throw new LLMError(appText("AWS 区域不能为空"), "bedrock");
     }
     if (!config.accessKeyId) {
-      throw new LLMError("AWS 访问密钥 ID 不能为空", "bedrock");
+      throw new LLMError(appText("AWS 访问密钥 ID 不能为空"), "bedrock");
     }
     if (!config.secretAccessKey) {
-      throw new LLMError("AWS 秘密访问密钥不能为空", "bedrock");
+      throw new LLMError(appText("AWS 秘密访问密钥不能为空"), "bedrock");
     }
     if (!config.model) {
-      throw new LLMError("模型 ID 不能为空", "bedrock");
+      throw new LLMError(appText("模型 ID 不能为空"), "bedrock");
     }
 
     return {
@@ -70,7 +71,7 @@ export class BedrockHandler extends LLMHandler {
   }
 
   @withRetry({ retryAllErrors: true })
-  async invoke(
+  protected async invokeModel(
     messages: Message[],
     systemPrompt: string | null = null,
     operation: string = "llm:invoke"

@@ -1,3 +1,4 @@
+import { t as appText } from "../../../services/language";
 import { IpcMainInvokeEvent } from 'electron';
 import { createTaskSchema, CreateTaskRequest, CreateTaskResponse } from '../../../schema/feature/task/create.schema';
 import { store } from '../../../services/store';
@@ -20,7 +21,7 @@ export async function createTask(event: IpcMainInvokeEvent, data: any): Promise<
     const trace = o11y.createTrace('create-task');
 
     if (!llmConfig) {
-      throw new Error('未找到大语言模型配置');
+      throw new Error(appText("未找到大语言模型配置"));
     }
 
     console.log('[create-task] Using LLM config:', llmConfig);
@@ -79,7 +80,7 @@ export async function createTask(event: IpcMainInvokeEvent, data: any): Promise<
             "tools_end",
             WorkflowEventType.Mcp,
             {
-              title: `已执行 MCP 工具：${streamEvent.name}`,
+              title: appText("已执行 MCP 工具：{0}", [streamEvent.name]),
               input: streamEvent.data?.input,
               output: streamEvent.data?.output?.content,
             }
@@ -102,7 +103,7 @@ export async function createTask(event: IpcMainInvokeEvent, data: any): Promise<
     try {
       const transformedTasks = tasks.map((task: any) => {
         if (!task.id || !task.name || !task.acceptance) {
-          throw new Error(`任务结构无效，缺少必填字段：${JSON.stringify(task)}`);
+          throw new Error(appText("任务结构无效，缺少必填字段：{0}", [JSON.stringify(task)]));
         }
         
         const transformedTask: { id: string; [key: string]: string } = {
@@ -120,7 +121,7 @@ export async function createTask(event: IpcMainInvokeEvent, data: any): Promise<
       };
     } catch (error) {
       console.error('[create-task] Error processing response:', error);
-      throw new Error('无法处理工作流响应');
+      throw new Error(appText("无法处理工作流响应"));
     }
   } catch (error) {
     console.error('Error in createTask:', error);

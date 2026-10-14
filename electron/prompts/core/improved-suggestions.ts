@@ -1,4 +1,4 @@
-import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../context/markdown-rules";
+import { getOutputLanguageInstructions } from "../context/markdown-rules";
 type ImprovedSuggestionsParams = {
   name: string;
   description?: string;
@@ -54,7 +54,7 @@ Your new suggestions should build upon this direction but offer improved alterna
   prompt += `\n\nOutput format: Return only a valid JSON array of strings without any code blocks or additional text:
 ["Suggestion 1", "Suggestion 2", "Suggestion 3"]`;
   
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}\n\n${prompt}`;
+  return `${getOutputLanguageInstructions()}\n\n${prompt}`;
 }
 
 const buildContextForRequirementType = (params: ImprovedSuggestionsParams) => {

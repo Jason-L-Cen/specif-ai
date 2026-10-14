@@ -1,4 +1,4 @@
-import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../../prompts/context/markdown-rules";
+import { getOutputLanguageInstructions } from "../../../prompts/context/markdown-rules";
 import { toolUseContext } from "../../../agentic/create-solution-workflow/prompts/tool-use.context";
 import { getTaskPerspectives, TaskResearchPreferences } from "./utils";
 
@@ -13,7 +13,7 @@ export const createTaskResearchInformationPrompt = ({
 }: TaskResearchPreferences & { recursionLimit: number }): string => {
   const perspectives = getTaskPerspectives();
 
-  return `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+  return `${getOutputLanguageInstructions()}
 
 
   You are a lead technical analyst. As part of your role, you gather comprehensive and relevant information to support the downstream breakdown of user stories into smaller, actionable tasks.

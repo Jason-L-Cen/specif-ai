@@ -9,7 +9,7 @@
         <div class="flex justify-end space-x-4 mt-4 w-full">
           <div *ngIf="selectedBusinessProcess.regenerate" class="ml-auto">
             <app-button
-              buttonContent="重新生成"
+              [buttonContent]="&quot;重新生成&quot; | i18n"
               theme="primary"
               size="sm"
               rounded="lg"
@@ -32,14 +32,14 @@
           class="w-full flex space-x-4 ml-auto justify-end"
         >
           <app-button
-            buttonContent="重置缩放"
+            [buttonContent]="&quot;重置缩放&quot; | i18n"
             theme="secondary"
             size="sm"
             rounded="lg"
             (click)="resetZoom()"
           />
           <app-button
-            buttonContent="下载"
+            [buttonContent]="&quot;下载&quot; | i18n"
             theme="primary"
             size="sm"
             rounded="lg"

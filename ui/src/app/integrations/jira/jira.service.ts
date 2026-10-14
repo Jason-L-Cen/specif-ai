@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError, from, lastValueFrom } from 'rxjs';
@@ -84,7 +85,7 @@ export class JiraService extends BasePmoService implements PmoService {
       !jiraCredentials?.redirectUrl
     ) {
       throw new Error(
-        '尚未配置 Jira 凭据，请先完成集成设置。',
+        uiText("尚未配置 Jira 凭据，请先完成集成设置。"),
       );
     }
 
@@ -101,7 +102,7 @@ export class JiraService extends BasePmoService implements PmoService {
     this.baseUrl = tokenInfo.jiraURL;
 
     if (!this.baseUrl) {
-      throw new Error('未找到 Jira URL，请重新连接 Jira。');
+      throw new Error(uiText("未找到 Jira URL，请重新连接 Jira。"));
     }
   }
 
@@ -114,7 +115,7 @@ export class JiraService extends BasePmoService implements PmoService {
   }> {
     try {
       if (!this.config) {
-        throw new Error('Jira 服务尚未配置，请先完成集成设置。');
+        throw new Error(uiText("Jira 服务尚未配置，请先完成集成设置。"));
       }
 
       const metadata = await lastValueFrom(
@@ -131,13 +132,13 @@ export class JiraService extends BasePmoService implements PmoService {
         isValid,
         errorMessage: isValid
           ? undefined
-          : 'Jira 令牌无效或已过期，请重新连接。',
+          : uiText("Jira 令牌无效或已过期，请重新连接。"),
       };
     } catch (error) {
       return {
         isValid: false,
         errorMessage:
-          '连接 Jira 失败，请检查凭据后重试。',
+          uiText("连接 Jira 失败，请检查凭据后重试。"),
       };
     }
   }
@@ -160,7 +161,7 @@ export class JiraService extends BasePmoService implements PmoService {
       const tokenInfo = getJiraTokenInfo(metadata.id);
 
       if (!tokenInfo.token || !this.isTokenValid(tokenInfo)) {
-        throw new Error('Jira 令牌无效或已过期');
+        throw new Error(uiText("Jira 令牌无效或已过期"));
       }
 
       // 1. Get current document hierarchy from SpecifAI to determine existing mappings
@@ -360,7 +361,7 @@ export class JiraService extends BasePmoService implements PmoService {
     pageToken?: string | null,
   ): Promise<{ epics: any[]; totalCount: number; nextPageToken: string | null; isLast: boolean }> {
     if (!this.baseUrl) {
-      throw new Error('尚未配置 Jira 基础 URL');
+      throw new Error(uiText("尚未配置 Jira 基础 URL"));
     }
 
     const epicIssueType = this.getJiraIssueType('PRD');
@@ -411,7 +412,7 @@ export class JiraService extends BasePmoService implements PmoService {
     token: string,
   ): Promise<any[]> {
     if (!this.baseUrl) {
-      throw new Error('尚未配置 Jira 基础 URL');
+      throw new Error(uiText("尚未配置 Jira 基础 URL"));
     }
 
     const storyIssueType = this.getJiraIssueType('User Story');
@@ -428,7 +429,7 @@ export class JiraService extends BasePmoService implements PmoService {
     token: string,
   ): Promise<any[]> {
     if (!this.baseUrl) {
-      throw new Error('尚未配置 Jira 基础 URL');
+      throw new Error(uiText("尚未配置 Jira 基础 URL"));
     }
 
     const taskIssueType = this.getJiraIssueType('Task');
@@ -448,7 +449,7 @@ export class JiraService extends BasePmoService implements PmoService {
     token: string,
   ): Promise<any[]> {
     if (!this.baseUrl) {
-      throw new Error('尚未配置 Jira 基础 URL');
+      throw new Error(uiText("尚未配置 Jira 基础 URL"));
     }
 
     const searchUrl = `${this.baseUrl}/rest/api/3/search/jql`;
@@ -909,11 +910,11 @@ export class JiraService extends BasePmoService implements PmoService {
   }
 
   private handleError(error: any): Observable<never> {
-    return throwError(() => new Error(error.message || '服务器错误'));
+    return throwError(() => new Error(error.message || uiText("服务器错误")));
   }
 
   syncFromJira(payload: any): Observable<any> {
-    this.toast.showInfo('正在从 Jira 同步…');
+    this.toast.showInfo(uiText("正在从 Jira 同步…"));
 
     const syncRequests: Observable<any>[] = [];
 
@@ -1091,21 +1092,21 @@ export class JiraService extends BasePmoService implements PmoService {
     appInfo: any,
   ): void {
     if (action === 'pull') {
-      this.toast.showInfo('正在从 Jira 拉取工作项…');
+      this.toast.showInfo(uiText("正在从 Jira 拉取工作项…"));
       try {
         // Implementation similar to ADO pull logic
         this.pullFromJira(selectedItems, appInfo);
       } catch (error) {
-        this.toast.showError('从 Jira 导入工作项失败');
+        this.toast.showError(uiText("从 Jira 导入工作项失败"));
       }
     } else {
-      this.toast.showInfo('正在向 Jira 推送工作项…');
+      this.toast.showInfo(uiText("正在向 Jira 推送工作项…"));
       (async () => {
         try {
           // Implementation similar to ADO push logic
           await this.pushToJira(selectedItems, appInfo);
         } catch (error) {
-          this.toast.showError('向 Jira 推送工作项失败');
+          this.toast.showError(uiText("向 Jira 推送工作项失败"));
         }
       })();
     }
@@ -1405,7 +1406,7 @@ export class JiraService extends BasePmoService implements PmoService {
 
               this.store.dispatch(new BulkUpdateFiles(updates));
               this.toast.showSuccess(
-                `已从 Jira 导入 ${ticketGroups.length} 条产品需求（PRD）及其用户故事和任务`,
+                uiText("已从 Jira 导入 {0} 条产品需求（PRD）及其用户故事和任务", [ticketGroups.length]),
               );
 
               // Refresh the file list
@@ -1423,20 +1424,20 @@ export class JiraService extends BasePmoService implements PmoService {
                 );
               }, 100);
             } else {
-              this.toast.showInfo('Jira 中没有可导入的工作项');
+              this.toast.showInfo(uiText("Jira 中没有可导入的工作项"));
             }
           };
 
           // Execute the async processing
           processGroups().catch((error) => {
-            this.toast.showError('处理 Jira 工作项失败');
+            this.toast.showError(uiText("处理 Jira 工作项失败"));
           });
         })
         .catch((error) => {
-          this.toast.showError('处理 Jira 工作项失败');
+          this.toast.showError(uiText("处理 Jira 工作项失败"));
         });
     } catch (error) {
-      this.toast.showError('从 Jira 导入工作项失败');
+      this.toast.showError(uiText("从 Jira 导入工作项失败"));
     }
   }
 
@@ -1458,7 +1459,7 @@ export class JiraService extends BasePmoService implements PmoService {
       const tokenInfo = getJiraTokenInfo(metadata.id);
 
       if (!tokenInfo.token || !this.isTokenValid(tokenInfo)) {
-        throw new Error('Jira 令牌无效或已过期');
+        throw new Error(uiText("Jira 令牌无效或已过期"));
       }
 
       // Map to keep track of PRD/UserStory/Task pmoId <-> Jira ID
@@ -1512,10 +1513,10 @@ export class JiraService extends BasePmoService implements PmoService {
       await this.updateLocalFilesWithPmoIds(
         selectedItems,
         appInfo,
-        '已将所选工作项推送到 Jira',
+        uiText("已将所选工作项推送到 Jira"),
       );
     } catch (error) {
-      this.toast.showError('向 Jira 推送工作项失败');
+      this.toast.showError(uiText("向 Jira 推送工作项失败"));
     }
   }
 
@@ -1528,7 +1529,7 @@ export class JiraService extends BasePmoService implements PmoService {
     token?: string,
   ): Promise<string> {
     if (!this.baseUrl || !this.config) {
-      throw new Error('Jira 服务尚未配置');
+      throw new Error(uiText("Jira 服务尚未配置"));
     }
 
     const issueType = this.getJiraIssueType(ticket.specifaiType);

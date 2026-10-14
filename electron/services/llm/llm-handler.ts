@@ -1,4 +1,5 @@
 import { Message, ModelInfo } from './llm-types';
+import { getOutputLanguageInstructions, getOutputLanguageReminder } from '../../prompts/context/markdown-rules';
 
 export abstract class LLMHandler {
   protected config: Record<string, any> = {};
@@ -11,7 +12,12 @@ export abstract class LLMHandler {
    * @param systemPrompt - An optional system-level prompt to guide the response.
    * @returns The generated response from the LLM.
    */
-  abstract invoke(messages: Message[], systemPrompt?: string | null, operation?: string): Promise<string>;
+  invoke(messages: Message[], systemPrompt: string | null = null, operation = 'llm:invoke'): Promise<string> {
+    return this.invokeModel([...messages, { role: 'user', content: getOutputLanguageReminder() }],
+      `${systemPrompt || ''}\n\n${getOutputLanguageInstructions()}`, operation);
+  }
+
+  protected abstract invokeModel(messages: Message[], systemPrompt?: string | null, operation?: string): Promise<string>;
 
   /**
    * Parses the LLM configuration from the provided dictionary.

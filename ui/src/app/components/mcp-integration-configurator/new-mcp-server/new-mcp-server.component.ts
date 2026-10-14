@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../../i18n/i18n.pipe";
+import { t as uiText } from "../../../i18n/translate";
 import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
@@ -33,7 +35,7 @@ import { ZodError } from 'zod';
     TextareaFieldComponent,
     InputFieldComponent,
     McpServersListItemComponent,
-  ],
+   I18nPipe,],
   templateUrl: './new-mcp-server.component.html',
   styleUrls: ['./new-mcp-server.component.scss'],
 })
@@ -65,12 +67,12 @@ export class NewMcpServerComponent implements OnInit {
       KB_INCLUSION_TAG_KEY: "optional-tag-key-to-filter-kbs"
     },
     disabled: false,
-    name: "AWS Bedrock 知识库",
+    name: uiText("AWS Bedrock 知识库"),
     transportType: "stdio"
   };
 
   sampleSseServerConfig = {
-    name: "SSE 示例服务器",
+    name: uiText("SSE 示例服务器"),
     disabled: false,
     url: "https://sample-domain.com/sse",
     transportType: "sse"
@@ -159,7 +161,7 @@ export class NewMcpServerComponent implements OnInit {
   async onValidate() {
     if (this.form.invalid) {
       this.toasterService.showError(
-        '验证前，请输入有效的服务器 ID 和 MCP 服务器 JSON 配置。',
+        uiText("验证前，请输入有效的服务器 ID 和 MCP 服务器 JSON 配置。"),
       );
       return;
     }
@@ -178,16 +180,16 @@ export class NewMcpServerComponent implements OnInit {
       this.showServerInformation = true;
 
       if (this.validatedServerStatus.status === 'connected') {
-        this.toasterService.showSuccess('MCP 服务器验证成功。');
+        this.toasterService.showSuccess(uiText("MCP 服务器验证成功。"));
       } else {
         this.toasterService.showWarning(
-          '连接 MCP 服务器时出现问题，请查看详情。',
+          uiText("连接 MCP 服务器时出现问题，请查看详情。"),
         );
       }
     } catch (error) {
       this.toasterService.showError(
-        '验证 MCP 服务器失败：' +
-          (error instanceof Error ? error.message : '未知错误'),
+        uiText("验证 MCP 服务器失败：") +
+          (error instanceof Error ? error.message : uiText("未知错误")),
       );
     } finally {
       this.isValidating = false;
@@ -204,7 +206,7 @@ export class NewMcpServerComponent implements OnInit {
       });
     } else if (!this.isValidated) {
       this.toasterService.showError(
-        '提交前，请先验证 MCP 服务器。',
+        uiText("提交前，请先验证 MCP 服务器。"),
       );
     }
   }

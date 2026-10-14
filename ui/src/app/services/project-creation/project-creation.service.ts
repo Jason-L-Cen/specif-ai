@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { CreateProject } from '../../store/projects/projects.actions';
@@ -36,12 +37,12 @@ export class ProjectCreationService {
 
     const isRootDirectorySet = localStorage.getItem(APP_CONSTANTS.WORKING_DIR);
     if (!isRootDirectorySet) {
-      throw new Error('请选择有效的根目录。');
+      throw new Error(uiText("请选择有效的根目录。"));
     }
 
     const isPathValid = await this.appSystemService.fileExists('');
     if (!isPathValid) {
-      throw new Error('请选择有效的根目录。');
+      throw new Error(uiText("请选择有效的根目录。"));
     }
 
     await this.initializeWorkflowProgress(projectData);
@@ -51,8 +52,8 @@ export class ProjectCreationService {
       .subscribe({
         next: async () => {
           const successMessage = isRetry
-            ? `解决方案 ${projectName} 已重新创建。`
-            : `解决方案 ${projectName} 已就绪。`;
+            ? uiText("解决方案 {0} 已重新创建。", [projectName])
+            : uiText("解决方案 {0} 已就绪。", [projectName]);
 
           this.toast.showSuccess(successMessage);
           await this.handleWorkflowSuccess(projectData);
@@ -64,7 +65,7 @@ export class ProjectCreationService {
           const cleanedMessage = match ? match[0] : rawMessage;
 
           const errorMessage = isRetry
-            ? `重试创建解决方案失败：${cleanedMessage}`
+            ? uiText("重试创建解决方案失败：{0}", [cleanedMessage])
             : cleanedMessage;
 
           this.toast.showError(errorMessage);

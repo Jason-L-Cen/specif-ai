@@ -1,3 +1,4 @@
+import { t as uiText } from "../../../i18n/translate";
 import { NGXLogger } from 'ngx-logger';
 import {
   REQUIREMENT_DISPLAY_NAME_MAP,
@@ -100,7 +101,7 @@ export class UserStoriesExportStrategy implements ExportStrategy {
         break;
       }
       default: {
-        throw new Error(`不支持 ${exportFormat} 格式`);
+        throw new Error(uiText("不支持 {0} 格式", [exportFormat]));
       }
     }
 

@@ -116,7 +116,7 @@ STRICT:
 The response should be a mermaid flowchart diagram code syntax by CLEARLY MARKING the RELATIONSHIPS between different ENTITIES, ADDING DECISION PATH with success and failure path wherever required and comply with PEP8 standards. 
 The response diagram should be strictly based on provided business process description and should be comprehensive with complete design.
 
-在保持 Mermaid 语法、节点 ID 和指令关键字不变的前提下，默认用简体中文编写图示标题、节点标签和连接线标签；用户明确要求其他语言时遵从其要求。
+Keep Mermaid syntax, node IDs and keywords unchanged. Use the application output language for the diagram title, node labels and edge labels.
 
 Output only valid mermaid diagram code syntax. Do not include \`\`\`mermaid\`\`\` on start and end of the response.`;
 }

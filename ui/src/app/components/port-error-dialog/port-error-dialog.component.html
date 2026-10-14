@@ -1,6 +1,6 @@
 <div class="bg-white rounded-lg shadow-md max-w-lg">
   <div class="flex items-center justify-between p-4 border-b border-gray-300">
-    <h4 class="text-lg font-medium">端口错误</h4>
+    <h4 class="text-lg font-medium">{{ "端口错误" | i18n }}</h4>
     <button
       (click)="closeDialog()"
       class="close-icon absolute top-4 right-4 text-gray-500 hover:text-gray-700"
@@ -10,8 +10,7 @@
   </div>
   <div class="p-4">
     <p class="text-sm text-gray-500">
-      主机端口正被其他应用占用。请关闭占用此端口的应用后继续。
-      在解决此问题之前，Jira 集成可能无法正常工作。
+      {{ "主机端口正被其他应用占用。请关闭占用此端口的应用后继续。 在解决此问题之前，Jira 集成可能无法正常工作。" | i18n }}
     </p>
   </div>
   <div class="flex justify-end gap-4 pb-4 px-4">
@@ -20,14 +19,14 @@
       (click)="closeDialog()"
       class="bg-gray-100 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-200"
     >
-      关闭
+      {{ "关闭" | i18n }}
     </button>
     <button
       mat-button
       (click)="killPort()"
       class="bg-danger-100 text-danger-600 hover:bg-danger-200 px-4 py-2 rounded-md"
     >
-      停止占用进程
+      {{ "停止占用进程" | i18n }}
     </button>
   </div>
 </div>

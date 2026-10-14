@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { ProjectsState } from '../../store/projects/projects.state';
@@ -36,7 +38,7 @@ import {
     TimeZonePipe,
     EmptyStateComponent,
     NgIconComponent,
-  ],
+   I18nPipe,],
   providers: [provideIcons({ heroSparkles, heroXMark, heroCheckCircle })],
 })
 export class AppsComponent implements OnInit, OnDestroy {
@@ -95,7 +97,7 @@ export class AppsComponent implements OnInit, OnDestroy {
 
     if (status.isCreating) {
       return {
-        text: '正在创建…',
+        text: uiText("正在创建…"),
         classes: 'text-blue-700 bg-blue-50 ring-blue-600/20',
         icon: 'heroSparkles',
       };
@@ -103,7 +105,7 @@ export class AppsComponent implements OnInit, OnDestroy {
 
     if (status.isFailed) {
       return {
-        text: '失败',
+        text: uiText("失败"),
         classes: 'text-red-700 bg-red-50 ring-red-600/20',
         icon: 'heroXMark',
       };
@@ -111,7 +113,7 @@ export class AppsComponent implements OnInit, OnDestroy {
 
     if (status.isComplete) {
       return {
-        text: '已就绪',
+        text: uiText("已就绪"),
         classes: 'text-success-700 bg-success-50 ring-success-600/20',
         icon: 'heroCheckCircle',
       };

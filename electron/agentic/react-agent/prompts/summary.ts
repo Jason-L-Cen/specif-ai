@@ -1,10 +1,10 @@
-import { OUTPUT_LANGUAGE_INSTRUCTIONS } from "../../../prompts/context/markdown-rules";
+import { getOutputLanguageInstructions } from "../../../prompts/context/markdown-rules";
 import { BaseMessage } from "@langchain/core/messages";
 
 const summarizeConversation = (
   previousSummary?: string,
   // messages: BaseMessage[]
-) => `${OUTPUT_LANGUAGE_INSTRUCTIONS}
+) => `${getOutputLanguageInstructions()}
 
 You are an excellent assistant. Your task is to summarize the above conversation between you boss and a user.
 

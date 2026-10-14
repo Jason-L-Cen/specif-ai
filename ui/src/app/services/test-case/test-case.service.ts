@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import { Injectable, inject } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
 import { ElectronService } from '../../electron-bridge/electron.service';
@@ -31,45 +32,45 @@ export class TestCaseService {
   private readonly SELECTED_PRD_KEY = 'selectedPrdId';
 
   readonly priorityOptions: SelectOption[] = [
-    { value: TEST_CASE_PRIORITY.HIGH, label: '高' },
-    { value: TEST_CASE_PRIORITY.MEDIUM, label: '中' },
-    { value: TEST_CASE_PRIORITY.LOW, label: '低' },
+    { value: TEST_CASE_PRIORITY.HIGH, label: uiText("高") },
+    { value: TEST_CASE_PRIORITY.MEDIUM, label: uiText("中") },
+    { value: TEST_CASE_PRIORITY.LOW, label: uiText("低") },
   ];
   readonly typeOptions: SelectOption[] = [
-    { value: TEST_CASE_TYPE.FUNCTIONAL, label: '功能' },
-    { value: TEST_CASE_TYPE.INTEGRATION, label: '集成' },
-    { value: TEST_CASE_TYPE.UI_UX, label: '界面与体验' },
-    { value: TEST_CASE_TYPE.PERFORMANCE, label: '性能' },
-    { value: TEST_CASE_TYPE.SECURITY, label: '安全' },
+    { value: TEST_CASE_TYPE.FUNCTIONAL, label: uiText("功能") },
+    { value: TEST_CASE_TYPE.INTEGRATION, label: uiText("集成") },
+    { value: TEST_CASE_TYPE.UI_UX, label: uiText("界面与体验") },
+    { value: TEST_CASE_TYPE.PERFORMANCE, label: uiText("性能") },
+    { value: TEST_CASE_TYPE.SECURITY, label: uiText("安全") },
   ];
   readonly statusOptions: SelectOption[] = [
-    { value: TestCaseStatus.ACTIVE, label: '启用' },
-    { value: TestCaseStatus.DRAFT, label: '草稿' },
-    { value: TestCaseStatus.DEPRECATED, label: '已弃用' },
-    { value: TestCaseStatus.ARCHIVED, label: '已归档' },
+    { value: TestCaseStatus.ACTIVE, label: uiText("启用") },
+    { value: TestCaseStatus.DRAFT, label: uiText("草稿") },
+    { value: TestCaseStatus.DEPRECATED, label: uiText("已弃用") },
+    { value: TestCaseStatus.ARCHIVED, label: uiText("已归档") },
   ];
   
   readonly priorityFilterOptions: SelectOption[] = [
-    { value: 'all', label: '全部优先级' },
-    { value: 'High', label: '高优先级' },
-    { value: 'Medium', label: '中优先级' },
-    { value: 'Low', label: '低优先级' }
+    { value: 'all', label: uiText("全部优先级") },
+    { value: 'High', label: uiText("高优先级") },
+    { value: 'Medium', label: uiText("中优先级") },
+    { value: 'Low', label: uiText("低优先级") }
   ];
   
   readonly typeFilterOptions: SelectOption[] = [
-    { value: 'all', label: '全部类型' },
-    { value: 'Functional', label: '功能' },
-    { value: 'Integration', label: '集成' },
-    { value: 'UI/UX', label: '界面与体验' },
-    { value: 'Performance', label: '性能' },
-    { value: 'Security', label: '安全' }
+    { value: 'all', label: uiText("全部类型") },
+    { value: 'Functional', label: uiText("功能") },
+    { value: 'Integration', label: uiText("集成") },
+    { value: 'UI/UX', label: uiText("界面与体验") },
+    { value: 'Performance', label: uiText("性能") },
+    { value: 'Security', label: uiText("安全") }
   ];
   
   readonly stepsCountFilterOptions: SelectOption[] = [
-    { value: 'all', label: '全部步骤数' },
-    { value: '1-3', label: '1–3 步' },
-    { value: '4-6', label: '4–6 步' },
-    { value: '7+', label: '7 步及以上' }
+    { value: 'all', label: uiText("全部步骤数") },
+    { value: '1-3', label: uiText("1–3 步") },
+    { value: '4-6', label: uiText("4–6 步") },
+    { value: '7+', label: uiText("7 步及以上") }
   ];
 
   /**
@@ -151,12 +152,12 @@ export class TestCaseService {
           return JSON.parse(content) as ITestCase;
         } catch (error) {
           this.logger.error(`Error parsing test case ${testCaseId}:`, error);
-          throw new Error(`解析测试用例 ${testCaseId} 失败`);
+          throw new Error(uiText("解析测试用例 {0} 失败", [testCaseId]));
         }
       }),
       catchError(error => {
         this.logger.error(`Error reading test case ${testCaseId}:`, error);
-        return throwError(() => new Error(`加载测试用例 ${testCaseId} 失败`));
+        return throwError(() => new Error(uiText("加载测试用例 {0} 失败", [testCaseId])));
       })
     );
   }
@@ -248,7 +249,7 @@ export class TestCaseService {
       }),
       catchError(error => {
         this.logger.error(`Error creating test case file:`, error);
-        return throwError(() => new Error('创建测试用例失败'));
+        return throwError(() => new Error(uiText("创建测试用例失败")));
       })
     );
   }
@@ -267,7 +268,7 @@ export class TestCaseService {
       map(() => {}),
       catchError(error => {
         this.logger.error(`Error updating test case ${testCase.id}:`, error);
-        return throwError(() => new Error(`更新测试用例 ${testCase.id} 失败`));
+        return throwError(() => new Error(uiText("更新测试用例 {0} 失败", [testCase.id])));
       })
     );
   }
@@ -285,7 +286,7 @@ export class TestCaseService {
       map(() => {}),
       catchError(error => {
         this.logger.error(`Error deleting test case ${testCaseId}:`, error);
-        return throwError(() => new Error(`删除测试用例 ${testCaseId} 失败`));
+        return throwError(() => new Error(uiText("删除测试用例 {0} 失败", [testCaseId])));
       })
     );
   }
@@ -325,7 +326,7 @@ export class TestCaseService {
       map(() => {}),
       catchError(error => {
         this.logger.error(`Error updating test cases:`, error);
-        return throwError(() => new Error('更新测试用例失败'));
+        return throwError(() => new Error(uiText("更新测试用例失败")));
       })
     );
   }
@@ -474,19 +475,19 @@ export class TestCaseService {
       icon = 'heroExclamationCircle';
       iconBgClass = 'bg-red-100';
       iconColorClass = 'text-red-600';
-      tooltip = '尚未创建测试用例';
+      tooltip = uiText("尚未创建测试用例");
     } else {
       icon = 'heroClipboardDocumentCheck';
       iconBgClass = 'bg-green-100';
       iconColorClass = 'text-green-600';
-      tooltip = `已创建 ${testCaseCount} 个测试用例`;
+      tooltip = uiText("已创建 {0} 个测试用例", [testCaseCount]);
     }
     
     return {
       icon,
       iconBgClass,
       iconColorClass,
-      text: `${testCaseCount} 个测试用例`,
+      text: uiText("{0} 个测试用例", [testCaseCount]),
       tooltip
     };
   }
@@ -520,7 +521,7 @@ export class TestCaseService {
     let icon = 'heroArrowRight';
     let iconBgClass = 'bg-blue-100';
     let iconColorClass = 'text-blue-600';
-    let text = this.priorityOptions.find((option) => option.value === testCase.priority)?.label || testCase.priority || '普通';
+    let text = this.priorityOptions.find((option) => option.value === testCase.priority)?.label || testCase.priority || uiText("普通");
     
     if (testCase.priority) {
       switch (testCase.priority.toLowerCase()) {
@@ -569,7 +570,7 @@ export class TestCaseService {
     
     if (testCase.steps?.length) {
       badges.push({
-        text: `${testCase.steps.length} 步`,
+        text: uiText("{0} 步", [testCase.steps.length]),
         bgClass: 'bg-gray-50',
         textClass: 'text-gray-700'
       });

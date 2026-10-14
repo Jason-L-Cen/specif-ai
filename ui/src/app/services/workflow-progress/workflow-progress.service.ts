@@ -1,3 +1,4 @@
+import { t as uiText } from "../../i18n/translate";
 import { Injectable, NgZone, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 import { map, distinctUntilChanged, shareReplay } from 'rxjs/operators';
@@ -606,7 +607,7 @@ export class WorkflowProgressService implements OnDestroy {
       isFailed: true,
       failureInfo: {
         timestamp: failureInfo?.timestamp || new Date().toISOString(),
-        reason: failureInfo?.reason || '发生未知错误',
+        reason: failureInfo?.reason || uiText("发生未知错误"),
       },
     });
 

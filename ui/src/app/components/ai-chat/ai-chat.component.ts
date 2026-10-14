@@ -1,3 +1,5 @@
+import { I18nPipe } from "../../i18n/i18n.pipe";
+import { t as uiText } from "../../i18n/translate";
 import {
   Component,
   EventEmitter,
@@ -65,7 +67,7 @@ import { ThreeBounceLoaderComponent } from "../three-bounce-loader/three-bounce-
     RichTextEditorComponent,
     JsonPipe,
     ThreeBounceLoaderComponent
-],
+, I18nPipe],
   providers: [
     provideIcons({
       heroDocumentPlus,
@@ -206,10 +208,10 @@ export class AiChatComponent implements OnInit {
       );
       this.type = REQUIREMENT_DISPLAY_NAME_MAP[this.requirementAbbrivation as keyof typeof REQUIREMENT_DISPLAY_NAME_MAP] || this.fileName;
     } else if (this.chatType == CHAT_TYPES.USERSTORY) {
-      this.type = '用户故事';
+      this.type = uiText("用户故事");
       this.requirementAbbrivation = REQUIREMENT_TYPE.US;
     } else if (this.chatType == CHAT_TYPES.TASK) {
-      this.type = '用户故事任务';
+      this.type = uiText("用户故事任务");
       this.requirementAbbrivation = REQUIREMENT_TYPE.TASK;
     }
     this.smoothScroll();
@@ -409,7 +411,7 @@ export class AiChatComponent implements OnInit {
             // Add visual indicator for blocked message
             this.chatHistory[this.chatHistory.length - 1].blocked = true;
             this.chatHistory[this.chatHistory.length - 1].blockReason = chunk.blockedReason;
-          this.toastService.showWarning('消息已被拦截：' + chunk.blockedReason);
+          this.toastService.showWarning(uiText("消息已被拦截：") + chunk.blockedReason);
 
             // Ensure loader is hidden for blocked messages
             this.generateLoader = false;
@@ -473,7 +475,7 @@ export class AiChatComponent implements OnInit {
     this.electronService.chatWithAI(payload)
       .catch((error) => {
         console.error('Chat error:', error);
-        this.toastService.showError('对话失败，请重试。');
+        this.toastService.showError(uiText("对话失败，请重试。"));
       })
       .finally(()=>{
         this.generateLoader = false;
@@ -585,10 +587,10 @@ export class AiChatComponent implements OnInit {
 
       // Show appropriate error messages
       if (errorFiles.length > 0) {
-      this.toastService.showError(`文件内容为空：${errorFiles.join('、')}`);
+      this.toastService.showError(uiText("文件内容为空：{0}", [errorFiles.join('、')]));
       }
       if (duplicateFiles.length > 0) {
-      this.toastService.showError(`文件重复：${duplicateFiles.join('、')}`);
+      this.toastService.showError(uiText("文件重复：{0}", [duplicateFiles.join('、')]));
       }
     }
 

@@ -1,3 +1,4 @@
+import { t as appText } from "../../language";
 import { ChatBedrockConverse } from "@langchain/aws";
 import { LLMConfig, LLMError, ModelInfoV1 } from "../llm-types";
 import { LangChainModelProvider } from "./base";
@@ -130,16 +131,16 @@ export class BedrockLangChainProvider implements LangChainModelProvider {
 
   getConfig(config: Partial<BedrockConfig>): BedrockConfig {
     if (!config.region) {
-      throw new LLMError("AWS 区域不能为空", "bedrock");
+      throw new LLMError(appText("AWS 区域不能为空"), "bedrock");
     }
     if (!config.accessKeyId) {
-      throw new LLMError("AWS 访问密钥 ID 不能为空", "bedrock");
+      throw new LLMError(appText("AWS 访问密钥 ID 不能为空"), "bedrock");
     }
     if (!config.secretAccessKey) {
-      throw new LLMError("AWS 秘密访问密钥不能为空", "bedrock");
+      throw new LLMError(appText("AWS 秘密访问密钥不能为空"), "bedrock");
     }
     if (!config.model) {
-      throw new LLMError("模型 ID 不能为空", "bedrock");
+      throw new LLMError(appText("模型 ID 不能为空"), "bedrock");
     }
 
     return {
