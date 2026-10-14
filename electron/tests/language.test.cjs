@@ -98,3 +98,23 @@ test('catalog preserves placeholders and literal identifiers; formatting handles
   assert.equal(translate('中打开', 'en'), '');
   assert.equal(translate('US-1: 学生接受录取', 'en'), 'US-1: 学生接受录取');
 });
+
+test('story and task generation examples follow the current language on every call', () => {
+  const factories = [
+    require('../build/prompts/feature/evaluation/refine').refinePrompt,
+    require('../build/prompts/feature/story/add').addUserStoryPrompt,
+    require('../build/prompts/feature/story/update').updateStoryPrompt,
+    require('../build/prompts/feature/task/create').createTaskPrompt,
+    require('../build/prompts/feature/task/add').addTaskPrompt,
+    require('../build/prompts/feature/task/update').updateTaskPrompt,
+  ];
+  const params = { name: 'Application', description: 'Business context', reqName: 'Requirement', reqDesc: 'Requirement context' };
+  for (const [language, heading] of [['en', 'Acceptance Criteria:'], ['zh-CN', '验收标准：'], ['en', 'Acceptance Criteria:']]) {
+    setApplicationLanguage(language);
+    for (const factory of factories) {
+      const prompt = factory(params);
+      assert.ok(prompt.includes(`#### ${heading}`), factory.name);
+      if (language === 'en') assert.doesNotMatch(prompt, /[\u4e00-\u9fff]/, factory.name);
+    }
+  }
+});

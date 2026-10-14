@@ -1,4 +1,5 @@
 import { MARKDOWN_RULES } from '../../context/markdown-rules';
+import { t as appText } from '../../../services/language';
 
 export interface AddTaskPromptParams {
   name: string;
@@ -43,7 +44,7 @@ STRICT:
     "tasks": [
         {
             "id": "<taskId>"
-            "<task name>": "[description of the task]  \\n#### 验收标准：  \\n[acceptance criteria for the task as sentences]"
+            "<task name>": "[description of the task]  \\n#### ${appText('验收标准：')}  \\n[acceptance criteria for the task as sentences]"
         }
     ]
 }

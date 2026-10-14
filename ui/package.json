@@ -1,6 +1,6 @@
 {
   "name": "ui",
-  "version": "2.8.2-zh.9",
+  "version": "2.8.2-zh.10",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

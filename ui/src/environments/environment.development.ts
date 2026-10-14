@@ -6,7 +6,7 @@ export const environment = {
   JIRA_RATE_LIMIT_CONFIG: 9,
   ENABLE_SENTRY: false,
   DEBUG_MODE: false,
-  APP_VERSION: '2.8.2-zh.9',
+  APP_VERSION: '2.8.2-zh.10',
   ENABLE_POSTHOG: false,
   POSTHOG_KEY: '',
   POSTHOG_HOST: '',

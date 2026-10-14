@@ -1209,5 +1209,6 @@
   "分享你满意的地方": "Tell us what you liked",
   "编辑测试用例": "Edit Test Case",
   "添加任务": "Add Task",
-  "切换语言后会刷新界面并返回解决方案列表；已保存、已生成的内容不会重新翻译。": "Switching language refreshes the interface and returns to the solution list. Saved and generated content is not retranslated."
+  "切换语言后会刷新界面并返回解决方案列表；已保存、已生成的内容不会重新翻译。": "Switching language refreshes the interface and returns to the solution list. Saved and generated content is not retranslated.",
+  "验收标准：": "Acceptance Criteria:"
 }

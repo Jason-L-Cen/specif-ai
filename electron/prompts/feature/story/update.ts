@@ -1,6 +1,8 @@
 import { CRITICAL_EDITOR_TABLES_AND_LINKS_INSTRUCTIONS } from '../../context/editor-instructions';
 import { MARKDOWN_RULES } from '../../context/markdown-rules';
 import { SPECIAL_EDITOR_TABLES_AND_LINKS_INSTRUCTIONS } from '../../context/editor-instructions';
+import { USER_STORY_DEFINITION_CONTEXT } from '../../context/user-story';
+import { t as appText } from '../../../services/language';
 
 export interface UpdateStoryPromptParams {
   name: string;
@@ -59,16 +61,12 @@ STRICT:
     "features": [
         {
             "id": "<featureId>"
-            "<feature name>": "[description of feature]  \\n#### 验收标准：  \\n[acceptance criteria for the feature as sentences]"
+            "<feature name>": "[description of feature]  \\n#### ${appText('验收标准：')}  \\n[acceptance criteria for the feature as sentences]"
         }
     ]
 }
 
-Use the following format to generate the user story:
-- 能够通过<用户操作>使用<功能>
-- 以满足<用户需求>
-- 作为<用户角色或用户>
-- 我希望实现<功能的最终目标>
+${USER_STORY_DEFINITION_CONTEXT}
 
 Special Instructions:
 1. The "id" in the response must match the User Story ID provided (${params.featureId}).

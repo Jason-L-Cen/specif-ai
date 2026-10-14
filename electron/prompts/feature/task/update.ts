@@ -1,6 +1,7 @@
 import { CRITICAL_EDITOR_TABLES_AND_LINKS_INSTRUCTIONS } from '../../context/editor-instructions';
 import { MARKDOWN_RULES } from '../../context/markdown-rules';
 import { SPECIAL_EDITOR_TABLES_AND_LINKS_INSTRUCTIONS } from '../../context/editor-instructions';
+import { t as appText } from '../../../services/language';
 
 export interface UpdateTaskPromptParams {
   name: string;
@@ -54,7 +55,7 @@ STRICT:
     "tasks": [
         {
             "id": "<taskId>"
-            "<task name>": "[description of the task]  \\n#### 验收标准：  \\n[acceptance criteria for the task as sentences]"
+            "<task name>": "[description of the task]  \\n#### ${appText('验收标准：')}  \\n[acceptance criteria for the task as sentences]"
         }
     ]
 }

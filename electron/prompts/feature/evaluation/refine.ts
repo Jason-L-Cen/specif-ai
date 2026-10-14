@@ -1,4 +1,6 @@
 import { getOutputLanguageInstructions } from "../../context/markdown-rules";
+import { USER_STORY_DEFINITION_CONTEXT } from '../../context/user-story';
+import { t as appText } from '../../../services/language';
 interface RefinePromptParams {
   reqName: string;
   reqDesc: string;
@@ -56,13 +58,7 @@ Remember, a feature is not a small task; it is a business functionality.
 Make sure that the list of feature names FULLY addresses every aspect of the requirements and is enhanced by the extraContext provided.
 Think step-by-step before providing a response.
 
-Strictly consider this format to generate user story - 
-
-能够通过<用户操作>使用<功能>
-以满足<用户需求>
-作为<用户角色或用户>
-
-我希望实现<功能的最终目标>
+${USER_STORY_DEFINITION_CONTEXT}
 
 # RESPONSE FORMAT EXAMPLE
 { 
@@ -70,27 +66,27 @@ Strictly consider this format to generate user story -
     {
       "id": "US1",
       "title": "<title of feature 1>",
-      "description": "[description of feature 1]  \\n#### 验收标准：  \\n[acceptance criteria for the feature 1 as sentences]"
+      "description": "[description of feature 1]  \\n#### ${appText('验收标准：')}  \\n[acceptance criteria for the feature 1 as sentences]"
     },
     {
       "id": "US2",
       "title": "<title of feature 2>",
-      "description": "[description of feature 2]  \\n#### 验收标准：  \\n[acceptance criteria for the feature 2 as sentences]"
+      "description": "[description of feature 2]  \\n#### ${appText('验收标准：')}  \\n[acceptance criteria for the feature 2 as sentences]"
     },
     {
       "id": "US3",
       "title": "<title of feature 3>",
-      "description": "[description of feature 3]  \\n#### 验收标准：  \\n[acceptance criteria for the feature 3 as sentences]"
+      "description": "[description of feature 3]  \\n#### ${appText('验收标准：')}  \\n[acceptance criteria for the feature 3 as sentences]"
     },
     {
       "id": "US4",
       "title": "<title of feature 4>",
-      "description": "[description of feature 4]  \\n#### 验收标准：  \\n[acceptance criteria for the feature 4 as sentences]"
+      "description": "[description of feature 4]  \\n#### ${appText('验收标准：')}  \\n[acceptance criteria for the feature 4 as sentences]"
     },
     {
       "id": "US5",
       "title": "<title of feature 5>",
-      "description": "[description of feature 5]  \\n#### 验收标准：  \\n[acceptance criteria for the feature 5 as sentences]"
+      "description": "[description of feature 5]  \\n#### ${appText('验收标准：')}  \\n[acceptance criteria for the feature 5 as sentences]"
     }
   ]
 }
