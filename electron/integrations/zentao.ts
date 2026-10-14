@@ -171,7 +171,8 @@ export class ZentaoClient {
       if (existing) {
         // ZenTao requires the change action to version a requirement's description.
         if ((existing.spec || "") !== payload.spec) await this.request("PUT", `/stories/${item.id}/change`, { title: item.title, spec: payload.spec, verify: existing.verify || "", reviewer: [config.reviewer] });
-        await this.request("PUT", `/stories/${item.id}`, { title: item.title, parent: payload.parent, reviewer: [config.reviewer] });
+        // API v2's metadata edit can reset an omitted versioned description.
+        await this.request("PUT", `/stories/${item.id}`, { title: item.title, parent: payload.parent, reviewer: [config.reviewer], spec: payload.spec, verify: existing.verify || "" });
         return { id: item.id! };
       }
     } else if (collection === "tasks") {

@@ -1,5 +1,6 @@
 import { PRD_CONTEXT } from '../context/prd';
 import { MARKDOWN_RULES, getOutputLanguageInstructions } from '../context/markdown-rules';
+import { getApplicationLanguage } from '../../services/language';
 
 interface CreatePRDParams {
   name: string;
@@ -14,6 +15,9 @@ interface CreatePRDParams {
 }
 
 export function createPRDPrompt({ name, description, minCount, brds, referenceInformation }: CreatePRDParams): string {
+  const english = getApplicationLanguage() === 'en';
+  const screens = english ? 'Screens:' : '界面：';
+  const personas = english ? 'Personas:' : '用户画像：';
   return `${getOutputLanguageInstructions()}
 
 You are an award winning product manager tasked with extracting detailed Product Requirements from the provided information.
@@ -33,10 +37,10 @@ Output Structure should be a valid JSON: Here is the sample Structure:
 {
   "prd": [
     {
-      "id": "PRD1", "title": <title> ,"requirement": "[Product Requirement in one to two lines]  \\n#### 界面：  \\n[Screen Description]  \\n#### 用户画像：  \\n[Persona Description], "linkedBRDIds": [Linked BRD Ids]"
+      "id": "PRD1", "title": <title> ,"requirement": "[Product Requirement in one to two lines]  \\n#### ${screens}  \\n[Screen Description]  \\n#### ${personas}  \\n[Persona Description], "linkedBRDIds": [Linked BRD Ids]"
     },
     {
-      "id": "PRD2", "title": <title> ,"requirement": "[Product Requirement in one to two lines]  \\n#### 界面：  \\n[Screen Description]  \\n#### 用户画像：  \\n[Persona Description], "linkedBRDIds": [Linked BRD Ids]"
+      "id": "PRD2", "title": <title> ,"requirement": "[Product Requirement in one to two lines]  \\n#### ${screens}  \\n[Screen Description]  \\n#### ${personas}  \\n[Persona Description], "linkedBRDIds": [Linked BRD Ids]"
     }...
   ]
 }

@@ -74,10 +74,13 @@ test('Requirements, tasks and cases preserve native parent/story references and 
 
 test('Updates existing IDs and stops before writing items outside the selected scope', async t => {
   const { url, requests } = await server(t, input => input.url.endsWith('/stories/5') && input.method === 'GET'
-    ? { story: { id: 5, product: 1, spec: '旧描述' } } : input.method === 'GET' ? { story: { id: 9, product: 99 } } : { status: 'success' });
+    ? { story: { id: 5, product: 1, spec: '旧描述', verify: '保留验收条件' } } : input.method === 'GET' ? { story: { id: 9, product: 99 } } : { status: 'success' });
   const client = new ZentaoClient(url, 'token'), config = { baseUrl: url, productId: 1, executionId: 2, reviewer: 'user' };
   assert.deepEqual(await client.upsert(config, { kind: 'PRD', id: 5, title: '新标题', description: '新描述' }), { id: 5 });
   assert.ok(requests.some(r => r.url.endsWith('/stories/5/change') && r.method === 'PUT'));
+  const metadataEdit = requests.find(r => r.url.endsWith('/stories/5') && r.method === 'PUT');
+  assert.equal(metadataEdit.data.spec, '新描述');
+  assert.equal(metadataEdit.data.verify, '保留验收条件');
   assert.ok(!requests.some(r => r.method === 'POST'));
   await assert.rejects(client.upsert(config, { kind: 'User Story', parentId: 9, title: '不可跨产品' }), /不属于/);
   await assert.rejects(client.upsert({ ...config, executionId: 0 }, { kind: 'Task', parentId: 5, title: '缺少执行' }), /选择禅道执行/);

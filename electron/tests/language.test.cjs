@@ -118,3 +118,15 @@ test('story and task generation examples follow the current language on every ca
     }
   }
 });
+
+test('product requirement section names follow the chosen language without changing JSON keys', () => {
+  const { createPRDPrompt } = require('../build/prompts/solution/create-prd');
+  for (const [language, screens, personas] of [['en', 'Screens:', 'Personas:'], ['zh-CN', '界面：', '用户画像：'], ['en', 'Screens:', 'Personas:']]) {
+    setApplicationLanguage(language);
+    const prompt = createPRDPrompt({ name: 'Application', description: 'Business context', minCount: 1 });
+    assert.ok(prompt.includes(`#### ${screens}`));
+    assert.ok(prompt.includes(`#### ${personas}`));
+    assert.match(prompt, /"linkedBRDIds"/);
+    if (language === 'en') assert.doesNotMatch(prompt, /[\u4e00-\u9fff]/);
+  }
+});
